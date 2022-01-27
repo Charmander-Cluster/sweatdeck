@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Montserrat: ["Montserrat", "sans-serif"],
+        sans: ["Montserrat", "sans-serif"],
       },
     },
   },

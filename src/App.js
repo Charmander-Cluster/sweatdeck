@@ -17,6 +17,9 @@ function App() {
         >
           Learn React
         </a>
+        <button className="bg-teal-500 shadow-lg font-bold py-2 px-4 rounded">
+          Hello
+        </button>
       </header>
     </div>
   );
