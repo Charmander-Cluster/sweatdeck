@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "sweatdeck-5c4d3"
-  }
+    "default": "sweatdeck-5c4d3",
+    "staging": "sweatdeck-5c4d3"
+  },
+  "targets": {}
 }
