@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { fetchSingleUserThunk } from "../store/users";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const UserProfile = () => {
   const { user } = useSelector((state) => {
@@ -17,10 +17,8 @@ const UserProfile = () => {
     dispatch(fetchSingleUserThunk(id));
   }, [dispatch, id]);
 
-  console.log("User State", user);
-
   return (
-    <div className="flex items-center justify-center py-8">
+    <div className="flex flex-col items-center justify-center py-2">
       <div className="rounded overflow-hidden pt-20">
         <div className="-mt-20 w-full flex justify-center pt-4">
           <div className="h-32 w-32">
@@ -39,38 +37,40 @@ const UserProfile = () => {
             Birthday: {user.birthday}
           </p>
           <p className="text-center text-base pt-2">State: {user.state}</p>
-          <button className="flex flex-row text-1xl mx-2 my-2 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
-            <svg
-              className="w-6 h-6 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-              ></path>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-            </svg>
-            Edit Settings
-          </button>
+          <Link to="/edituser">
+            <button className="flex flex-row w-full text-1xl my-3 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
+              <svg
+                className="w-6 h-6 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                ></path>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              Edit Settings
+            </button>
+          </Link>
         </div>
 
-        <div className="flex items-center justify-center py-8 px-4">
+        <div className="flex items-center justify-center py-6 px-4">
           <div className="max-w-sm w-full shadow-lg">
             <div className="md:p-8 p-5 dark:bg-gray-800 bg-white rounded-t">
               <div className="px-4 flex items-center justify-center">
                 <span
                   tabIndex="0"
-                  className="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800"
+                  className="focus:outline-none text-base font-bold dark:text-gray-100 text-gray-800"
                 >
                   October 2020
                 </span>
@@ -81,7 +81,7 @@ const UserProfile = () => {
                   ></button>
                 </div>
               </div>
-              <div className="flex items-center justify-between pt-12 overflow-x-auto">
+              <div className="flex items-center justify-between pt-4 overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr>
