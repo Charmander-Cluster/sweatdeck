@@ -7,8 +7,10 @@ import db from "../firebase";
 import workouts from "./workouts";
 import users from "./users";
 import singleWorkout from "./singleWorkout";
+import auth from "./auth";
 
 const reducer = combineReducers({
+  auth,
   workouts,
   users,
   singleWorkout,
@@ -23,3 +25,5 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
+export * from "./auth";
+
