@@ -14,8 +14,8 @@ const CreateWorkout = () => {
 
   return (
     <div>
-      <div className="flex justify-center">
-        <h1 className="my-5 text-2xl text-teal-500">Create a New Workout</h1>
+      <div className="flex items-center justify-center">
+        <h1 className="my-5 text-2xl text-teal-500 align-center">Create a New Workout</h1>
       </div>
       <div className="container flex items-center justify-center h-20 py-8">
         <div className="inline-block relative w-64">
@@ -43,9 +43,11 @@ const CreateWorkout = () => {
         <div></div>
       ) : (
         <div className="container flex justify-center">
+          {/* <div className="justify-center"> */}
           {selectedWorkout === "run" && <CreateRun />}
           {selectedWorkout === "walk" && <CreateWalk />}
           {selectedWorkout === "lift" && <CreateLift />}
+          {/* </div> */}
         </div>
       )}
     </div>

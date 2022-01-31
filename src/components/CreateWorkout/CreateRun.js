@@ -18,12 +18,12 @@ const CreateRun = () => {
   }
 
   return(
-    <div className="container p-8">
+    <div className="container items-center justify-center p-8 ">
       <div className="flex justify-center">
-      <img className="h-20" src="https://icon-library.com/images/run_38139.png" alt="running-icon"></img>
+      <img className="max-h-20 object-cover" src="https://icon-library.com/images/run_38139.png" alt="running-icon"></img>
       </div>
       {/* <h1>Details</h1> */}
-      <div className="border border-teal-500 bg-neutral-700 rounded-md my-5">
+      <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto">
         <form className="w-full max-w-lg justify-center p-3">
 
           <div className="flex flex-wrap -mx-3">

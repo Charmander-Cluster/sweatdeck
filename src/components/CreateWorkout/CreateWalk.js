@@ -21,13 +21,13 @@ const CreateWalk = () => {
     <div className="container p-8">
       <div className="flex justify-center">
         <img
-          className="h-20"
+          className="max-h-20 h-20"
           src="https://allenparkdowntown.org/wp-content/uploads/ES-safe-sidewalk.png"
           alt="walking"
         ></img>
       </div>
       {/* <h1>Details</h1> */}
-      <div className="border border-teal-500 bg-neutral-700 rounded-md my-5">
+      <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto">
         <form className="w-full max-w-lg justify-center p-3">
           <div className="flex flex-wrap -mx-3">
             <div className="container flex ml-6">
