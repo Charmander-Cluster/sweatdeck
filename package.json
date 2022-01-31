@@ -38,7 +38,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "npm run build & npm run start -- --watch --mode=development",
-    "build": "webpack",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
