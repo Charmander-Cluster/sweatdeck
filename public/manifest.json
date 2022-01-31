@@ -2,6 +2,14 @@
   "short_name": "Sweatdeck",
   "name": "Sweatdeck",
   "start_url": "/signup",
+  "icons": [
+    {
+      "src": "./sweatdeck.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
