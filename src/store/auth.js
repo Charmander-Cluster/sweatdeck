@@ -41,12 +41,16 @@ export const authSignUp = (user) => async (dispatch) => {
     const users = collection(db, "users");
 
     await setDoc(doc(users, response.user.uid), {
-      firstName: user.firstName,
-      lastName: user.lastName,
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
       email: user.email,
       username: user.username,
       state: user.state,
-      birthday: user.birthday
+      birthday: user.birthday,
+      gender: user.gender || "",
+      favoriteWorkoutType: user.favoriteWorkoutType ||"",
+      frequency: user.frequency || "",
+      goal: user.goal || "",
     });
     dispatch(setAuth(user));
   } catch (error) {
