@@ -23,7 +23,7 @@ const CreateWorkout = () => {
             htmlFor="workout-type"
             className="flex justify-center mb-2 text-lg "
           >
-            Workout Type
+            {/* Workout Type */}
           </label>
           <select
             id="workout-type"
@@ -31,7 +31,7 @@ const CreateWorkout = () => {
             onChange={handleSelect}
           >
             Select your workout:
-            <option>Workout Type:</option>
+            <option selected disabled> -Select- </option>
             <option value="run">Run</option>
             <option value="walk">Walk</option>
             <option value="lift">Lift</option>
@@ -42,7 +42,7 @@ const CreateWorkout = () => {
       {!selectedWorkout ? (
         <div></div>
       ) : (
-        <div>
+        <div className="container flex justify-center">
           {selectedWorkout === "run" && <CreateRun />}
           {selectedWorkout === "walk" && <CreateWalk />}
           {selectedWorkout === "lift" && <CreateLift />}

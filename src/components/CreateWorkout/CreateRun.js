@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 const CreateRun = () => {
-  const workout = "run";
+  //const workout = "run";
 
-  const [runWorkout, setRunWorkout] = useState({
+  const [workout, setWorkout] = useState({
     hours: '',
     minutes: '',
     distance: '',
     units: ''
   })
 
-  console.log(runWorkout)
+  console.log(workout)
 
   const handleChange = event => {
     console.log(event.target.value)
-    setRunWorkout({...runWorkout, [event.target.name]: event.target.value})
+    setWorkout({...workout, [event.target.name]: event.target.value})
   }
 
   return(
@@ -44,7 +44,7 @@ const CreateRun = () => {
                 onChange={handleChange}
                 type="text"
                 placeholder="1"
-                value={runWorkout.hours}
+                value={workout.hours}
               />
             </div>
 
@@ -64,7 +64,7 @@ const CreateRun = () => {
                 onChange={handleChange}
                 type="text"
                 placeholder="30"
-                value={runWorkout.minutes}
+                value={workout.minutes}
               />
             </div>
           </div>
@@ -89,8 +89,8 @@ const CreateRun = () => {
                 name="distance"
                 onChange={handleChange}
                 type="text"
-                placeholder="1"
-                value={runWorkout.distance}
+                placeholder="2.1"
+                value={workout.distance}
               />
             </div>
 
@@ -107,11 +107,11 @@ const CreateRun = () => {
                 id="units"
                 name="units"
                 onChange={handleChange}
-                value={runWorkout.units}
+                value={workout.units}
               >
-                <option disabled>  </option>
-                <option>mi</option>
-                <option>km</option>
+                <option selected disabled> unit </option>
+                <option value="mi">mi</option>
+                <option value="km">km</option>
 
               </select>
 
