@@ -6,6 +6,8 @@ import { CreateWorkout, SpotifyLogin, SpotifyHome } from "./components"
 
 const Routes = (props) => {
   const code = props.code
+import EditUser from "./components/EditUser";
+import SignUp from "./components/SignUp";
 
   return (
     <div>
@@ -14,6 +16,7 @@ const Routes = (props) => {
         <Route path='/signup' component={SignUp} />
         <Route path='/users/:id/spotify-login' component={SpotifyLogin}/>
         <Route path='/spotify-home' render={(props) => <SpotifyHome {...props} code={code} />}/>
+        <Route path="/users/:id/edit" component={EditUser} />
       </Switch>
     </div>
   );
