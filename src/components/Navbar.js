@@ -1,8 +1,15 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
-  const { id } = useParams();
+  const auth = getAuth();
+
+  const [userAuth, setUser] = useState(getAuth().currentUser);
+
+  onAuthStateChanged(auth, (u) => {
+    setUser(u);
+  });
 
   return (
     <div className="w-full h-screen fixed">
@@ -32,6 +39,26 @@ const Navbar = () => {
             <span className="tab tab-home block text-xs">Home</span>
           </Link>
           <Link
+            to="/createworkout"
+            className="w-full justify-center inline-block text-center pt-2 pb-1"
+          >
+            <svg
+              className="w-6 h-6 inline-block mb-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span className="tab tab-home block text-xs">Create</span>
+          </Link>
+          <Link
             to="/workouts"
             className="w-full justify-center inline-block text-center pt-2 pb-1"
           >
@@ -52,26 +79,28 @@ const Navbar = () => {
 
             <span className="tab tab-whishlist block text-xs">Workouts</span>
           </Link>
-          <Link
-            to={`/users/${id}`}
-            className="w-full  justify-center inline-block text-center pt-2 pb-1"
-          >
-            <svg
-              className="inline-block mb-1 w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+          {userAuth && (
+            <Link
+              to={`/users/${userAuth.uid}`}
+              className="w-full justify-center inline-block text-center pt-2 pb-1"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              ></path>
-            </svg>
-            <span className="tab tab-account block text-xs">Me</span>
-          </Link>
+              <svg
+                className="inline-block mb-1 w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                ></path>
+              </svg>
+              <span className="tab tab-account block text-xs">Me</span>
+            </Link>
+          )}
         </div>
       </section>
     </div>

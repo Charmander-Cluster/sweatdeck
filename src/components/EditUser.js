@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { fetchSingleUserThunk } from "../store/users";
+import { fetchSingleUserThunk, editUserThunk } from "../store/users";
+// import { updateProfile, updateEmail } from "firebase/auth";
 
 const EditUser = () => {
-  const { user } = useSelector((state) => {
+  const { fullUser } = useSelector((state) => {
     return {
-      user: state.users.user,
+      fullUser: state.users.user,
     };
   });
+  const [userState, setUserState] = useState(fullUser);
 
   let history = useHistory();
   const dispatch = useDispatch();
-
   const { id } = useParams();
 
-  const [userState, setUser] = useState(user);
-
   useEffect(() => {
-    dispatch(fetchSingleUserThunk("QnERhBoL96ucViKjt3KO"));
+    dispatch(fetchSingleUserThunk(id));
   }, [dispatch, id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setUser((state) => ({ ...state, [name]: value }));
+    setUserState((state) => ({ ...state, [name]: value }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // updateProfile(props.user, userAuthState);
+    dispatch(editUserThunk(id, userState));
+    history.push(`/users/${id}`);
   };
-
-  console.log(user);
 
   return (
     <form
@@ -48,31 +48,32 @@ const EditUser = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col px-6 mt-4">
+        <div className="flex flex-col mt-4">
           <h1 className="font-bold text-3xl text-center mb-1">
-            {user.firstName} {user.lastName}
+            {userState.firstName} {userState.lastName}
           </h1>
           <div className="pt-4">
+            <h1 className="font-extrabold">Username</h1>
             <label htmlFor="username"></label>
             <input
               onChange={handleChange}
-              name="firstName"
+              name="username"
               value={userState.username}
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
               placeholder="Username"
             />
           </div>
-          <div>
-            <label htmlFor="password"></label>
+          {/* <div>
+            <label htmlFor="email"></label>
             <input
               onChange={handleChange}
-              name="password"
-              value={userState.password}
-              className="appearance-none relative block w-full px-3 py-2 mt-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
+              name="email"
+              value={userState.email}
+              className="appearance-none relative block px-10 py-2 mt-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+              placeholder="Email"
             />
-          </div>
-          <button className="flex flex-row text-1xl mx-2 my-4 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
+          </div> */}
+          <button className="flex flex-row text-1xl my-4 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
             <svg
               className="w-6 h-6 mr-2 pb-0.5"
               fill="none"
