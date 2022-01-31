@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 //import { useHistory } from "react-router";
 // import { Redirect } from "react-router-dom";
 import { authSignUp, authenticate } from "../store/auth";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
+  let history = useHistory();
   const dispatch = useDispatch();
   //const history = useHistory();
   const [userInput, setUserInput] = useState({
@@ -35,6 +37,7 @@ const SignUp = () => {
 
     await dispatch(authSignUp(user, formName));
     await dispatch(authenticate(user.email, user.password));
+    history.push("/");
   };
 
   const handleChange = (evt) => {
