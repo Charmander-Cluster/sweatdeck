@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
+const port = process.env.PORT || "http://localhost:3001"
+
 const useAuth = (code) =>  {
   let axiosConfig = {
     headers: {
@@ -15,7 +17,7 @@ const useAuth = (code) =>  {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/spotify/login", {code}, axiosConfig)
+      .post(`${port}/login`, {code}, axiosConfig)
       .then(res => {
         console.log(res.data)
         console.log(res.status)
@@ -33,7 +35,7 @@ const useAuth = (code) =>  {
     if (!refreshToken || !expiresIn) return
     const interval = setInterval(() => {
       axios
-        .post("http://localhost:3001/spotify/refresh", {
+        .post(`${port}/refresh`, {
           refreshToken,
         })
         .then(res => {

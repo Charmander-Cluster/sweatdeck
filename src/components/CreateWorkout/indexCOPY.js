@@ -4,10 +4,6 @@ import CreateRun from "./CreateRun";
 import CreateWalk from "./CreateWalk";
 import CreateLift from "./CreateLift";
 
-const redirectUri = process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/spotifyhome"
-
-const AUTH_URL=`https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`
-
 const CreateWorkout = () => {
   const [selectedWorkout, setSelectedWorkout] = useState("");
 
@@ -17,7 +13,7 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div className="container justify-center">
+    <div>
       <div className="flex items-center justify-center">
         <h1 className="my-5 text-2xl text-teal-500 align-center">Create a New Workout</h1>
       </div>
@@ -46,28 +42,12 @@ const CreateWorkout = () => {
       {!selectedWorkout ? (
         <div></div>
       ) : (
-        <div className="container flex-col justify-center">
-          <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto m-2">
-        <form className="max-w-lg justify-center p-3">
-          <div className="flex flex-wrap -mx-3 ">
-            <div className="container flex">
+        <div className="container flex justify-center">
           {/* <div className="justify-center"> */}
           {selectedWorkout === "run" && <CreateRun />}
           {selectedWorkout === "walk" && <CreateWalk />}
           {selectedWorkout === "lift" && <CreateLift />}
           {/* </div> */}
-          </div>
-          </div>
-          <div className="flex justify-center">
-          <a className="flex bg-teal-500 text-white p-3 mb-3 text-sm rounded-md" href={AUTH_URL}>Connect Your Spotify Playlist</a>
-          </div>
-          </form>
-
-
-          </div>
-          <div className="flex justify-center">
-          <button>Save Workout</button>
-          </div>
         </div>
       )}
     </div>

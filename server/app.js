@@ -35,7 +35,7 @@ const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
 const SPOTIFY_REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI
 
-app.post('spotify/login', (req, res) => {
+app.post('/login', (req, res) => {
   const code = req.body.code
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI,
@@ -56,7 +56,7 @@ app.post('spotify/login', (req, res) => {
 })
 })
 
-app.post("spotify/refresh", (req, res) => {
+app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI,

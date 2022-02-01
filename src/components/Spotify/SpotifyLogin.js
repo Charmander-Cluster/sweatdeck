@@ -2,7 +2,9 @@ import React from "react";
 
 //scopes: https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 //Authentication URL
-const AUTH_URL="https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=http://localhost:3000/spotify-home&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private"
+const redirectUri = process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/spotifyhome"
+
+const AUTH_URL=`https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`
 
 const SpotifyLogin = () => {
   return (
