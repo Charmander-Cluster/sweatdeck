@@ -4,7 +4,6 @@ import UserProfile from "./components/UserProfile";
 import SignUp from './components/SignUp'
 import CreateWorkout from "./components/CreateWorkout"
 import EditUser from "./components/EditUser";
-import SignUp from "./components/SignUp";
 import SingleWorkout from "./components/SingleWorkout";
 
 const Routes = () => {
