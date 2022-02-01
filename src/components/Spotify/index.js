@@ -9,8 +9,11 @@ const spotifyApi = new SpotifyWebApi({
 
 
 const SpotifyHome = (props) => {
-  const accessToken = useAuth(props.code)
-  //const accessToken = props.code
+  const token = props.code
+  console.log(token)
+  //spotifyApi.setAccessToken(token)
+  const accessToken = useAuth(token)
+
   console.log("This is the home component!")
 
   //const [token, setToken] = useState("");
@@ -31,29 +34,29 @@ const SpotifyHome = (props) => {
   // });
   // }, [accessToken]);
 
-   useEffect(() => {
-    if (!accessToken) return;
-    console.log(accessToken)
-    axios
-    //return a promise
-    .get(
-        'https://api.spotify.com/v1/me/playlists', {
-            params: { limit: 20, offset: 0 },
-            headers: {
-                Accept: 'application/json',
-                Authorization: 'Bearer ' + accessToken,
-                'Content-Type': 'application/json',
-            },
-        })
-    .then (response => {
+  //  useEffect(() => {
+  //   if (!accessToken) return;
+  //   console.log(accessToken)
+  //   axios
+  //   //return a promise
+  //   .get(
+  //       'https://api.spotify.com/v1/me/playlists', {
+  //           params: { limit: 20, offset: 0 },
+  //           headers: {
+  //               Accept: 'application/json',
+  //               Authorization: 'Bearer ' + accessToken,
+  //               'Content-Type': 'application/json',
+  //           },
+  //       })
+  //   .then (response => {
 
-      console.log(response.data)
-      response.json()
-      // setPlaylists({
+  //     console.log(response.data)
+  //     response.json()
+  //     // setPlaylists({
 
-      // }, [])
-    });
-  }, [accessToken]);
+  //     // }, [])
+  //   });
+  // }, [accessToken]);
 
   // useEffect(()=>{
   //   if (!accessToken) return;

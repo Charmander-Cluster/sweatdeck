@@ -2,17 +2,23 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 const useAuth = (code) =>  {
+  let axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+    }
+  };
+
   const [accessToken, setAccessToken] = useState()
   const [refreshToken, setRefreshToken] = useState()
   const [expiresIn, setExpiresIn] = useState()
 
   useEffect(() => {
     axios
-      .post("http://localhost:3000/login", {
-        code,
-      })
+      .post("http://localhost:3001/login", {code}, axiosConfig)
       .then(res => {
-        console.log(res.data)
+        console.log(res)
+        console.log(res.status)
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
         setExpiresIn(res.data.expiresIn)
