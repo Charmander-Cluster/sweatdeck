@@ -5,6 +5,7 @@ import SignUp from './components/SignUp'
 import CreateWorkout from "./components/CreateWorkout"
 import EditUser from "./components/EditUser";
 import SignUp from "./components/SignUp";
+import SingleWorkout from "./components/SingleWorkout";
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
         <Route path='/signup' component={SignUp} />
         <Route path="/users/:id/edit" component={EditUser} />
         <Route path="/users/:id" component={UserProfile} />
+        <Route path="/home" component={SingleWorkout} />
       </Switch>
       <Switch>
         <Route path="/signup" component={SignUp} />

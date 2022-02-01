@@ -1,16 +1,34 @@
 {
   "short_name": "Sweatdeck",
   "name": "Sweatdeck",
-  "start_url": "/signup",
+  "start_url": ".",
   "icons": [
     {
-      "src": "./sweatdeck.png",
+      "src": "./sweatdeck-180x180.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "./sweatdeck-180x180_maskable.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./sweatdeck-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./sweatdeck-512x512_maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#4bcece",
+  "background_color": "#4bcece"
 }
