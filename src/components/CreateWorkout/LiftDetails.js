@@ -3,8 +3,8 @@ import React from "react";
 const LiftDetails = () => {
   return (
     <div>
-      <div className="flex justify-center">
-        <form className="flex w-full max-w-lg p-3">
+      {/* <div className="flex justify-center"> */}
+        {/* <form className="flex w-full max-w-lg p-3"> */}
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="container flex justify-center">
 
@@ -28,7 +28,7 @@ const LiftDetails = () => {
                 >
                   Area
                 </label>
-                <select className="rounded-md block w-30 bg-gray-200 text-gray-700 border border-teal-500 py-3 px-2 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500">
+                <select className="rounded-md block w-30 bg-gray-200 text-gray-700 border border-teal-500 py-3 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500 text-sm">
                   <option>Legs</option>
                   <option>Arms</option>
                   <option>Back</option>
@@ -37,7 +37,7 @@ const LiftDetails = () => {
 
               {/* <p className="my-10">:</p> */}
 
-              <div className="w-20 md:w-1/2 px-3">
+              <div className="w-20 md:w-1/2 px-1">
                 <label
                   className="block uppercase tracking-wide text-xs font-bold mb-2"
                   htmlFor="minutes"
@@ -52,23 +52,35 @@ const LiftDetails = () => {
                 />
               </div>
 
-              <div className="w-20 md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="w-20 md:w-1/2 mb-6 md:mb-0 px-1">
                 <label
                   className="block uppercase tracking-wide text-xs font-bold mb-2"
                   htmlFor="hours"
                 >
-                  Reps
+                  Unit
                 </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-teal-500 rounded py-3 px-4 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500"
-                  id="hours"
-                  type="text"
-                  placeholder="1"
-                />
+                <select className="rounded-md block w-30 bg-gray-200 text-gray-700 border border-teal-500 py-3 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500 text-sm">
+                  <option>lb</option>
+                  <option>kg</option>
+                </select>
               </div>
 
               {/* <p className="my-10">:</p> */}
-              <div className="w-20 md:w-1/2 px-3">
+              <div className="w-20 md:w-1/2 px-1">
+                <label
+                  className="block uppercase tracking-wide text-xs font-bold mb-2"
+                  htmlFor="minutes"
+                >
+                  Sets
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-teal-500 rounded py-3 px-4 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500"
+                  id="minutes"
+                  type="text"
+                  placeholder="30"
+                />
+              </div>
+              <div className="w-20 md:w-1/2 px-1">
                 <label
                   className="block uppercase tracking-wide text-xs font-bold mb-2"
                   htmlFor="minutes"
@@ -84,8 +96,8 @@ const LiftDetails = () => {
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        {/* </form> */}
+      {/* </div> */}
     </div>
   );
 };
