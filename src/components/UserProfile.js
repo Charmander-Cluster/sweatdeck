@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { fetchSingleUserThunk } from "../store/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import Calendar from "./Calendar";
-// import Calendar from "react-calendar";
+import Calendar from "react-calendar";
 
 const UserProfile = () => {
   const { fullUser } = useSelector((state) => {
