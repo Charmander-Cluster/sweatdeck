@@ -6,30 +6,23 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
     "axios": "^0.25.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-=======
     "chart.js": "^3.7.0",
     "css-loader": "^6.5.1",
->>>>>>> main
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "firebase": "^9.6.4",
     "firebase-admin": "^10.0.2",
     "history": "^5.2.0",
-<<<<<<< HEAD
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-spotify": "^2.0.0",
     "path": "^0.12.7",
-=======
-    "path": "^0.12.7",
     "postcss-loader": "^6.2.1",
->>>>>>> main
     "react": "^17.0.2",
     "react-calendar": "^3.6.0",
     "react-dom": "^17.0.2",
@@ -41,12 +34,9 @@
     "redux-firestore": "^0.15.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.1",
-<<<<<<< HEAD
     "spotify-web-api-node": "^5.0.2",
-=======
     "style-loader": "^3.3.1",
     "watch": "^1.0.2",
->>>>>>> main
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
@@ -65,7 +55,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon server",
+    "start:dev": "npm run start & npm run server"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {

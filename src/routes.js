@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import SignUp from './components/SignUp'
 import EditUser from "./components/EditUser";
+import SingleWorkout from "./components/SingleWorkout"
 import { CreateWorkout, SpotifyLogin, SpotifyHome } from "./components"
 
 const Routes = (props) => {
