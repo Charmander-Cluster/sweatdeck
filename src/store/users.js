@@ -6,7 +6,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import db from "../firebase";
-import history from "../history";
 
 const GET_SINGLE_USER = "GET_SINGLE_USER";
 const GET_ALL_USERS = "GET_ALL_USERS";
