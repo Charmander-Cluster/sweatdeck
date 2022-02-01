@@ -1,7 +1,7 @@
 {
   "short_name": "Sweatdeck",
   "name": "Sweatdeck",
-  "start_url": "./signup",
+  "start_url": ".",
   "icons": [
     {
       "src": "./sweatdeck-180x180.png",
