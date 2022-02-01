@@ -12,8 +12,8 @@ const Routes = (props) => {
     <div>
       <Switch>
         <Route exact path="/users/:id" component={UserProfile} />
-        <Route exact path="/users/:id/create-workout" component={CreateWorkout} />
-        <Route path='/users/:id/spotify-login' component={SpotifyLogin}/>
+        <Route exact path="/createworkout" component={CreateWorkout} />
+        <Route path='/users/:id/spotifylogin' component={SpotifyLogin}/>
         <Route path='/spotify-home' render={(props) => <SpotifyHome {...props} code={code} />}/>
         <Route path="/users/:id/edit" component={EditUser} />
         <Route path="/home" component={SingleWorkout} />
