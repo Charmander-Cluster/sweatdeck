@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
 import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 const Routes = () => {
   return (
@@ -13,6 +14,7 @@ const Routes = () => {
       </Switch>
       <Switch>
         <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
       </Switch>
     </div>
   );
