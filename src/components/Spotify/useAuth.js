@@ -17,7 +17,7 @@ const useAuth = (code) =>  {
     axios
       .post("http://localhost:3001/login", {code}, axiosConfig)
       .then(res => {
-        console.log(res)
+        console.log(res.data)
         console.log(res.status)
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)

@@ -10,7 +10,6 @@ const spotifyApi = new SpotifyWebApi({
 
 const SpotifyHome = (props) => {
   const token = props.code
-  console.log(token)
   //spotifyApi.setAccessToken(token)
   const accessToken = useAuth(token)
 
@@ -18,6 +17,8 @@ const SpotifyHome = (props) => {
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState({});
+
+  console.log(playlists)
 
   useEffect(() => {
     if (!accessToken) return;
@@ -34,39 +35,25 @@ const SpotifyHome = (props) => {
   // });
   // }, [accessToken]);
 
-  //  useEffect(() => {
-  //   if (!accessToken) return;
-  //   console.log(accessToken)
-  //   axios
-  //   //return a promise
-  //   .get(
-  //       'https://api.spotify.com/v1/me/playlists', {
-  //           params: { limit: 20, offset: 0 },
-  //           headers: {
-  //               Accept: 'application/json',
-  //               Authorization: 'Bearer ' + accessToken,
-  //               'Content-Type': 'application/json',
-  //           },
-  //       })
-  //   .then (response => {
-
-  //     console.log(response.data)
-  //     response.json()
-  //     // setPlaylists({
-
-  //     // }, [])
-  //   });
-  // }, [accessToken]);
-
-  // useEffect(()=>{
-  //   if (!accessToken) return;
-  //   fetch("https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg", {
-  //     headers: {"Authorization": "Bearer "+ accessToken}
-  //   })
-  //   .then(response => response.json())
-  //   .then(data=> console.log(data))
-  // }, [accessToken])
-
+   useEffect(() => {
+    if (!accessToken) return;
+    console.log(accessToken)
+    axios
+    //return a promise
+    .get(
+        'https://api.spotify.com/v1/me/playlists', {
+            params: { limit: 20, offset: 0 },
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
+            },
+        })
+    .then (response => {
+      console.log(response.data.items)
+      setPlaylists(response.data.items)
+    });
+  }, [accessToken]);
 
   return (
     <div>this is the home component</div>
