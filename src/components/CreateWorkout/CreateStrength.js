@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import LiftDetails from "./LiftDetails";
+import StrengthDetails from "./StrengthDetails";
 
-const CreateLift = (props) => {
+const CreateStrength = (props) => {
 
   const workout = props.strengthWorkout
   const handleChange = props.handleStrengthChange
@@ -9,7 +9,7 @@ const CreateLift = (props) => {
   console.log(workout)
 
   return (
-    <div className="container p-8">
+    <div className="container p-4">
       <div className="flex justify-center">
         <img
           className="max-h-20 h-20 mb-5"
@@ -21,9 +21,9 @@ const CreateLift = (props) => {
       {/* <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto"> */}
 
 
-      <LiftDetails />
+      <StrengthDetails />
     </div>
   );
 };
 
-export default CreateLift;
+export default CreateStrength;

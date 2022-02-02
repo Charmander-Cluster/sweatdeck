@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import CreateRun from "./CreateRun";
 import CreateCardio from "./CreateCardio";
-import CreateLift from "./CreateLift";
+import CreateStrength from "./CreateStrength";
 
 const redirectUri =
   process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/spotifyhome";
@@ -77,7 +77,7 @@ const CreateWorkout = () => {
                   {workout.category === "cardio" && (
                     <CreateCardio workout={workout} handleChange={handleChange} />
                   )}
-                  {workout.category === "strength" && <CreateLift />}
+                  {workout.category === "strength" && <CreateStrength />}
                   {/* </div> */}
                 </div>
               </div>
