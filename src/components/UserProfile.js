@@ -24,13 +24,15 @@ const UserProfile = () => {
     };
   });
 
+  const [workoutDates, setWorkoutDates] = useState(userWorkout);
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(fetchLoginUser());
-  }, [dispatch, user]);
+    setWorkoutDates(userWorkout);
+  }, [dispatch, user, userWorkout]);
 
   useEffect(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
@@ -39,21 +41,27 @@ const UserProfile = () => {
     }
   }, [dispatch, authUser.uid]);
 
-  const workoutDatesArr = [];
-  if (authUser.uid) {
-    userWorkout.forEach((doc) => {
-      workoutDatesArr.push(doc.date.toDate());
-    });
-  }
+  const dateConverter = () => {
+    const workoutDatesArr = [];
+    if (workoutDates.length > 0 && workoutDates[0].date) {
+      workoutDates.forEach((doc) => {
+        const convertedDate = doc.date.toDate();
+        workoutDatesArr.push(convertedDate);
+      });
+      return workoutDatesArr;
+    }
+  };
 
-  const dates = workoutDatesArr;
+  const dates = dateConverter();
 
   function tileClassName({ date, view }) {
     // Add class to tiles in month view only
     if (view === "month") {
       // Check if a date React-Calendar wants to check is on the list of dates to add class to
-      if (dates.find((dDate) => isSameDay(dDate, date))) {
-        return "highlight";
+      if (workoutDates.length > 0 && workoutDates[0].date) {
+        if (dates.find((dDate) => isSameDay(dDate, date))) {
+          return "highlight";
+        }
       }
     }
   }
