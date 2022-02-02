@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CreateWalk = (props) => {
+const CreateCardio = (props) => {
   const workout = props.workout;
   const handleChange = props.handleChange;
 
@@ -70,7 +70,11 @@ const CreateWalk = (props) => {
                     </label>
                     <input
                       name="distance"
-                      className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="w-28 @error bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required
+                      type="number"
+                      onChange={handleChange}
+                      value={workout.distance}
                     />
                   </div>
 
@@ -83,11 +87,12 @@ const CreateWalk = (props) => {
                     </label>
                   <select
                     className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    name="unit"
+                    name="units"
+                    required
                     onChange={handleChange}
-                    value={workout.type}
+                    value={workout.units}
                   >
-                    <option selected disabled> Select Unit</option>
+                    <option selected={true} disabled> Select Unit</option>
                     <option value="miles">miles</option>
                     <option value="kilometers">kilometers</option>
                     <option value="meters">meters</option>
@@ -95,6 +100,7 @@ const CreateWalk = (props) => {
                   </select>
                 </div>
                 </div>
+
 
               <div className="container flex justify-center">
                 <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -106,10 +112,16 @@ const CreateWalk = (props) => {
                   </label>
                   <input
                     name="hours"
-                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                    type="number"
+                    onChange={handleChange}
+                    value={workout.hours}
                   />
                 </div>
-
+                <div className="mt-10">
+                :
+                </div>
                 <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                   <label
                     htmlFor="minutes"
@@ -119,7 +131,11 @@ const CreateWalk = (props) => {
                   </label>
                   <input
                     name="minutes"
-                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                    type="number"
+                    onChange={handleChange}
+                    value={workout.minutes}
                   />
                 </div>
                 </div>
@@ -134,4 +150,4 @@ const CreateWalk = (props) => {
   );
 };
 
-export default CreateWalk;
+export default CreateCardio;
