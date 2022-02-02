@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 const CreateCardio = (props) => {
-  const workout = props.workout;
-  const handleChange = props.handleChange;
+
+    const [workout, setWorkout] = useState({
+    category: "cardio",
+    type: "",
+    name: "",
+    distance: "",
+    units: "",
+    hours: "",
+    minutes: "",
+  });
+
+    const handleChange = (event) => {
+    setWorkout({ ...workout, [event.target.name]: event.target.value });
+  };
 
   console.log(workout);
 

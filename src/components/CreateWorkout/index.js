@@ -10,28 +10,34 @@ const redirectUri =
 const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
 const CreateWorkout = () => {
-  // const [selectedWorkout, setSelectedWorkout] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState({
+    category: ""
+  });
 
   // const handleSelect = (e) => {
   //   setSelectedWorkout(e.target.value);
   //   console.log("Selected:", selectedWorkout);
   // };
 
-  const [workout, setWorkout] = useState({
-    category: "",
-    type: "",
-    name: "",
-    distance: "",
-    units: "",
-    hours: "",
-    minutes: "",
-  });
+  // const [workout, setWorkout] = useState({
+  //   category: "",
+  //   type: "",
+  //   name: "",
+  //   distance: "",
+  //   units: "",
+  //   hours: "",
+  //   minutes: "",
+  // });
 
   // console.log(workout);
 
+  // const handleChange = (event) => {
+  //   setWorkout({ ...workout, [event.target.name]: event.target.value });
+  // };
+
   const handleChange = (event) => {
-    setWorkout({ ...workout, [event.target.name]: event.target.value });
-  };
+    setSelectedCategory({ ...selectedCategory, [event.target.name]: event.target.value })
+  }
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -63,7 +69,7 @@ const CreateWorkout = () => {
         </div>
       </div>
 
-      {!workout.category ? (
+      {!selectedCategory.category ? (
         <div></div>
       ) : (
         // <div className="container flex-col justify-center mb-20">
@@ -74,15 +80,15 @@ const CreateWorkout = () => {
                 <div className="container flex justify-center">
                   {/* <div className="justify-center"> */}
                   {/* {selectedWorkout === "run" && <CreateRun />} */}
-                  {workout.category === "cardio" && (
-                    <CreateCardio workout={workout} handleChange={handleChange} />
+                  {selectedCategory.category === "cardio" && (
+                    <CreateCardio/>
                   )}
-                  {workout.category === "strength" && <CreateStrength />}
+                  {selectedCategory.category === "strength" && <CreateStrength />}
                   {/* </div> */}
                 </div>
               </div>
 
-              {workout.type !== "" && (
+              {/* {workout.type !== "" && (
                 <div className="grid place-items-center">
                   <a
                     className="flex bg-teal-500 text-white p-3 mb-3 text-lg rounded-md"
@@ -94,7 +100,9 @@ const CreateWorkout = () => {
                     Save Without Playlist
                   </button>
                 </div>
-              )}
+              )} */}
+
+
             </form>
           </div>
         </div>

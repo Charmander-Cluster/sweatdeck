@@ -1,9 +1,10 @@
 import React from "react";
 
-const StrengthDetails = () => {
+const StrengthDetails = (props) => {
+
   return (
     <div>
-      <div className="border border-teal-500 bg-neutral-500 rounded-md p-4">
+      <div className="border border-teal-500 bg-neutral-500 rounded-md m-2 p-4">
         <div className="flex justify-center text-teal-400">
         <p>EXERCISE</p>
         </div>
