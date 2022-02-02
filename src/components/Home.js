@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WorkoutChart from "./WorkoutChart";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserWorkoutThunk } from "../store/workouts";
+import { fetchLatestUserWorkoutThunk } from "../store/workouts";
 import { fetchLoginUser } from "../store";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -24,7 +24,7 @@ const Home = () => {
   }, [dispatch, user]);
 
   useEffect(() => {
-    dispatch(fetchUserWorkoutThunk(fullUser.uid));
+    dispatch(fetchLatestUserWorkoutThunk(fullUser.uid));
   }, [dispatch, fullUser.uid]);
 
   return (
