@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 // import { Redirect } from "react-router-dom";
 import { authSignUp, authenticate } from "../store/auth";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   let history = useHistory();
@@ -30,6 +31,7 @@ const SignUp = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+
     const formName = evt.target.name;
     const user = {
       firstName: evt.target.firstName.value,
@@ -87,7 +89,7 @@ const SignUp = () => {
           {/* <label>Password: </label> */}
           <input
             className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
+            type="password"
             placeholder="Password"
             name="password"
             onChange={handleChange}
@@ -131,7 +133,6 @@ const SignUp = () => {
         </div>
         <div>
           <h1 className="font-extrabold text-sm">First Name:</h1>
-          {/* <label className="mb-2">First Name: </label> */}
           <input
             className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
             type="text"
@@ -143,7 +144,6 @@ const SignUp = () => {
         </div>
         <div>
           <h1 className="font-extrabold text-sm">Last Name:</h1>
-          {/* <label>Last Name: </label> */}
           <input
             className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
             type="text"
@@ -181,22 +181,30 @@ const SignUp = () => {
             default=""
           >
             <option value = ""></option>
-            <option value="Running">Running</option>
-            <option value="Walking">Walking</option>
-            <option value="Lifting">Lifting</option>
-            <option value="Other">Other</option>
+            <option value="cardio">Cardio</option>
+            <option value="strength">Strength</option>
           </select>
         </div>
         <div>
-          <h1 className="font-extrabold text-sm">Frequency (# of workouts/week):</h1>
+          <h1 className="font-extrabold text-sm">Frequency (# of days worked out/week):</h1>
           {/* <label>Birthday: </label> */}
-          <input
+          <select
             className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
             placeholder="Frequency"
             name="frequency"
             onChange={handleChange}
-          />
+            default=""
+          >
+            <option value = ""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
         </div>
         <div>
           <h1 className="font-extrabold text-sm">Goal:</h1>
@@ -209,7 +217,7 @@ const SignUp = () => {
             default=""
           >
             <option value = ""></option>
-            <option value="Get started">New to working out and want to get started</option>
+            <option value="Get started">Just getting started</option>
             <option value="Maintenance">Maintenance</option>
             <option value="Competition">Competition</option>
             <option value="Weight Loss">Weight Loss</option>
@@ -223,6 +231,9 @@ const SignUp = () => {
           </button>
         </div>
       </form>
+      <div>
+        <h2>Already have an account? <Link to ='/signin'>Sign in</Link></h2> 
+      </div>
       {/* <div>
         {userInput.errors.email !== "" && (
           <span className="error">{userInput.errors.email}</span>
