@@ -27,7 +27,9 @@ const StrengthDetails = (props) => {
     // for (let key in exercise) {
     //   if (!exercise[key]) {
     //     alert("All fields are required.")
+
     //   }
+    // }
     console.log("clicked !")
     setIsCompleted(true)
     setCompletedExercise(exercise)
