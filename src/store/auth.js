@@ -29,6 +29,16 @@ export const authenticate = (username, password) => async (dispatch) => {
   }
 };
 
+export const fetchLoginUser = () => async (dispatch) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user) {
+    const response = await getDoc(doc(db, "Users", user.uid));
+    const fullDetail = { ...user, ...response.data() };
+    dispatch(setAuth(fullDetail));
+  }
+};
+
 export const authSignUp = (user) => async (dispatch) => {
   try {
     const auth = getAuth();

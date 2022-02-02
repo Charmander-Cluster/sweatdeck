@@ -1,49 +1,106 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchSingleUserThunk } from "../store/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import Calendar from "./Calendar";
-// import Calendar from "react-calendar";
+import Calendar from "react-calendar";
+import maleImage from "../assets/male-useravatar.png";
+import femaleImage from "../assets/female-useravatar.png";
+import defaultImage from "../assets/default-useravatar.png";
+import { isSameDay } from "date-fns";
+import { fetchLatestUserWorkoutThunk } from "../store/workouts";
+import { fetchLoginUser } from "../store";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UserProfile = () => {
-  const { fullUser } = useSelector((state) => {
+  const [user, setUser] = useState(getAuth().currentUser);
+  const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
+
+  const { fullUser, userWorkout } = useSelector((state) => {
     return {
       fullUser: state.users.user,
+      userWorkout: state.workouts.userWorkout,
     };
   });
 
+  const [workoutDates, setWorkoutDates] = useState(userWorkout);
+  const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    let mounted = true;
-    function fetchData() {
-      dispatch(fetchSingleUserThunk(id));
+    dispatch(fetchLoginUser());
+    setWorkoutDates(userWorkout);
+  }, [dispatch, user, userWorkout]);
+
+  useEffect(() => {
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+    if (authUser.uid) {
+      dispatch(fetchSingleUserThunk(authUser.uid));
     }
-    if (mounted) {
-      fetchData();
+  }, [dispatch, authUser.uid]);
+
+  const dateConverter = () => {
+    const workoutDatesArr = [];
+    if (workoutDates.length > 0 && workoutDates[0].date) {
+      workoutDates.forEach((doc) => {
+        const convertedDate = doc.date.toDate();
+        workoutDatesArr.push(convertedDate);
+      });
+      return workoutDatesArr;
     }
-    return () => {
-      mounted = false;
-    };
-  }, [dispatch, id]);
+  };
+
+  const dates = dateConverter();
+
+  function tileWorkoutDates({ date, view }) {
+    // Add class to tiles in month view only
+    if (view === "month") {
+      // Check if a date React-Calendar wants to check is on the list of dates to add class to
+      if (workoutDates.length > 0 && workoutDates[0].date) {
+        if (dates.find((dDate) => isSameDay(dDate, date))) {
+          return "highlight";
+        }
+      }
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <div className="rounded overflow-hidden pt-20">
         <div className="-mt-20 w-full flex justify-center pt-4">
-          <div className="h-32 w-32">
-            <img
-              src="https://foundrmeet.com/wp-content/themes/cera/assets/images/avatars/user-avatar.png"
-              alt="User Profile"
-              className="rounded-full object-cover h-full w-full shadow-md"
-            />
-          </div>
+          {fullUser.gender === "Male" ? (
+            <div className="h-32 w-32">
+              <img
+                src={maleImage}
+                alt="User Profile"
+                className="rounded-full object-cover h-full w-full shadow-md"
+              />
+            </div>
+          ) : fullUser.gender === "Female" ? (
+            <div className="h-32 w-32">
+              <img
+                src={femaleImage}
+                alt="User Profile"
+                className="rounded-full object-cover h-full w-full shadow-md"
+              />
+            </div>
+          ) : (
+            <div className="h-32 w-32">
+              <img
+                src={defaultImage}
+                alt="User Profile"
+                className="rounded-full object-cover h-full w-full shadow-md"
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col px-6 mt-4">
           <h1 className="font-bold text-3xl text-center mb-1">
-            {fullUser.firstName} {fullUser.lastName}
+            {fullUser.username}
           </h1>
           <p className="text-base pt-2 text-center">
             Birthday: {fullUser.birthday}
@@ -75,7 +132,17 @@ const UserProfile = () => {
             </button>
           </Link>
         </div>
-        <Calendar />
+        <div>
+          <Calendar
+            prevLabel={null}
+            prev2Label={null}
+            nextLabel={null}
+            next2Label={null}
+            onChange={setDate}
+            value={date}
+            tileClassName={tileWorkoutDates}
+          />
+        </div>
       </div>
     </div>
   );

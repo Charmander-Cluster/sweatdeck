@@ -1,28 +1,28 @@
 {
   "short_name": "Sweatdeck",
   "name": "Sweatdeck",
-  "start_url": "./signup",
+  "start_url": ".",
   "icons": [
     {
-      "src": "./sweatdeck-180x180.png",
-      "sizes": "180x180",
+      "src": "./manifest-icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./sweatdeck-180x180_maskable.png",
-      "sizes": "180x180",
+      "src": "./manifest-icon-192.maskable.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "./sweatdeck-180x180.png",
-      "sizes": "180x180",
+      "src": "./manifest-icon-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./sweatdeck-512x512_maskable.png",
+      "src": "./manifest-icon-512.maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

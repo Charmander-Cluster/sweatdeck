@@ -3,9 +3,13 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
 import SignUp from "./components/SignUp";
+<<<<<<< HEAD:src/routes.js
 import SignIn from "./components/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import TestHome from "./components/TestHome";
+=======
+import Dashboard from "./components/Dashboard";
+>>>>>>> main:src/Routes.js
 
 const Routes = () => {
 
@@ -36,7 +40,11 @@ const Routes = () => {
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
       </Switch>
+<<<<<<< HEAD:src/routes.js
        )} 
+=======
+      <Route exact path="/" component={Dashboard} />
+>>>>>>> main:src/Routes.js
     </div>
   );
   

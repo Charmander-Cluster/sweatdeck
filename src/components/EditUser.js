@@ -63,16 +63,17 @@ const EditUser = () => {
               placeholder="Username"
             />
           </div>
-          {/* <div>
-            <label htmlFor="email"></label>
+          <div>
+            <h1 className="font-extrabold pt-2">State</h1>
+            <label htmlFor="state"></label>
             <input
               onChange={handleChange}
-              name="email"
-              value={userState.email}
-              className="appearance-none relative block px-10 py-2 mt-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-              placeholder="Email"
+              name="state"
+              value={userState.state}
+              className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+              placeholder="State"
             />
-          </div> */}
+          </div>
           <button className="flex flex-row text-1xl my-4 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
             <svg
               className="w-6 h-6 mr-2 pb-0.5"
