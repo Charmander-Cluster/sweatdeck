@@ -20,6 +20,7 @@ const CreateWorkout = () => {
   const [workout, setWorkout] = useState({
     category: "",
     type: "",
+    name: "",
     distance: "",
     units: "",
     hours: "",
