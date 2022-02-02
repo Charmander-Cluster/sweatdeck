@@ -28,6 +28,16 @@ export const authenticate = (username, password) => async (dispatch) => {
   }
 };
 
+export const fetchLoginUser = () => async (dispatch) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user !== null) {
+    const response = await getDoc(doc(db, "Users", user.uid));
+    const fullDetail = { ...user, ...response.data() };
+    dispatch(setAuth(fullDetail));
+  }
+};
+
 export const authSignUp = (user) => async (dispatch) => {
   try {
     const auth = getAuth();
@@ -46,7 +56,7 @@ export const authSignUp = (user) => async (dispatch) => {
       email: user.email,
       username: user.username,
       state: user.state,
-      birthday: user.birthday
+      birthday: user.birthday,
     });
     dispatch(setAuth(user));
   } catch (error) {

@@ -42,7 +42,7 @@ const UserProfile = () => {
 
         <div className="flex flex-col px-6 mt-4">
           <h1 className="font-bold text-3xl text-center mb-1">
-            {fullUser.firstName} {fullUser.lastName}
+            {fullUser.username}
           </h1>
           <p className="text-base pt-2 text-center">
             Birthday: {fullUser.birthday}
