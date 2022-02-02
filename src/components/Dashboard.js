@@ -4,18 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLatestUserWorkoutThunk } from "../store/workouts";
 import { fetchLoginUser } from "../store";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { fetchSingleUserThunk } from "../store/users";
 
-const Home = () => {
+const Dashboard = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useState(getAuth().currentUser);
-  const fullUser = useSelector((state) => state.auth);
+  const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
 
-  const { userWorkout } = useSelector((state) => {
+  const { userWorkout, fullUser } = useSelector((state) => {
     return {
       userWorkout: state.workouts.userWorkout,
+      fullUser: state.users.user,
     };
   });
 
@@ -24,17 +26,20 @@ const Home = () => {
   }, [dispatch, user]);
 
   useEffect(() => {
-    dispatch(fetchLatestUserWorkoutThunk(fullUser.uid));
-  }, [dispatch, fullUser.uid]);
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+    if (authUser.uid) {
+      dispatch(fetchSingleUserThunk(authUser.uid));
+    }
+  }, [dispatch, authUser.uid]);
 
   return (
     <>
-      {userWorkout[0] && (
+      {userWorkout[0] && fullUser && (
         <div className="px-4 rounded-lg sm:px-6 md:px-8 pt-5 pb-11 md:w-1/2 w-full sm:border-r">
           <div className="sm:flex items-center justify-between">
             <div>
               <p className="text-base font-bold leading-none text-white">
-                Dashboard
+                {fullUser.username}'s Dashboard
               </p>
             </div>
           </div>
@@ -106,7 +111,10 @@ const Home = () => {
             <WorkoutChart userWorkout={userWorkout} />
           </div>
           {userWorkout[0].isComplete ? (
-            <button className="mt-2 sm:mt-0 w-full h-20 focus:outline-none px-5 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded text-sm leading-none">
+            <button
+              className="mt-2 sm:mt-0 w-full h-20 focus:outline-none px-5 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded text-sm leading-none"
+              disabled
+            >
               Completed
             </button>
           ) : (
@@ -120,4 +128,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

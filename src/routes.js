@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
 import SignUp from "./components/SignUp";
-import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
 
 const Routes = () => {
   return (
@@ -15,7 +15,7 @@ const Routes = () => {
       <Switch>
         <Route path="/signup" component={SignUp} />
       </Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={Dashboard} />
     </div>
   );
 };

@@ -25,6 +25,19 @@ const WorkoutChart = (props) => {
             fill: "start",
             tension: 0.4,
           },
+          {
+            label: false,
+            data: [
+              props.userWorkout[1].reps,
+              props.userWorkout[1].sets,
+              props.userWorkout[1].weight,
+            ],
+            backgroundColor: "rgba(255, 255, 255, 0.1)",
+            borderColor: "#FDBA74",
+            pointBackgroundColor: "#0f766e",
+            fill: "start",
+            tension: 0.4,
+          },
         ],
       },
       options: {

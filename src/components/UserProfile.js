@@ -3,6 +3,8 @@ import { fetchSingleUserThunk } from "../store/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import Calendar from "react-calendar";
+import maleImage from "../assets/male-useravatar.png";
+import femaleImage from "../assets/female-useravatar.png";
 
 const UserProfile = () => {
   const { fullUser } = useSelector((state) => {
@@ -31,13 +33,23 @@ const UserProfile = () => {
     <div className="flex flex-col items-center justify-center py-2">
       <div className="rounded overflow-hidden pt-20">
         <div className="-mt-20 w-full flex justify-center pt-4">
-          <div className="h-32 w-32">
-            <img
-              src="https://foundrmeet.com/wp-content/themes/cera/assets/images/avatars/user-avatar.png"
-              alt="User Profile"
-              className="rounded-full object-cover h-full w-full shadow-md"
-            />
-          </div>
+          {fullUser.gender === "Male" ? (
+            <div className="h-32 w-32">
+              <img
+                src={maleImage}
+                alt="User Profile"
+                className="rounded-full object-cover h-full w-full shadow-md"
+              />
+            </div>
+          ) : (
+            <div className="h-32 w-32">
+              <img
+                src={femaleImage}
+                alt="User Profile"
+                className="rounded-full object-cover h-full w-full shadow-md"
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col px-6 mt-4">
