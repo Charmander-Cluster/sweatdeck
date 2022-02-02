@@ -1,125 +1,135 @@
 import React, { useState, useEffect } from "react";
 
-const CreateWalk = () => {
-  //const workout = "run";
-
-  const [workout, setWorkout] = useState({
-    hours: "",
-    minutes: "",
-    distance: "",
-    units: "",
-  });
+const CreateWalk = (props) => {
+  const workout = props.workout;
+  const handleChange = props.handleChange;
 
   console.log(workout);
 
-  const handleChange = (event) => {
-    console.log(event.target.value);
-    setWorkout({ ...workout, [event.target.name]: event.target.value });
-  };
-
   return (
-    <div className="container p-3 w-screen">
-      <div className="flex justify-center">
-        <img
-          className="max-h-20 h-20 mb-5"
-          src="https://allenparkdowntown.org/wp-content/uploads/ES-safe-sidewalk.png"
-          alt="walking"
-        ></img>
-      </div>
-      {/* <h1>Details</h1> */}
-      {/* <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto"> */}
-        {/* <form className="w-full max-w-lg justify-center p-3"> */}
-          <div className="flex flex-wrap -mx-3">
-            <div className="container flex ml-6">
-              <p className="mt-8 w-20">Time</p>
-              <div className="w-20 md:w-1/2 px-3 mb-6 md:mb-0">
-                <label
-                  className="block uppercase tracking-wide text-xs font-bold mb-2"
-                  htmlFor="hours"
-                >
-                  Hours
-                </label>
-
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-teal-500 rounded py-3 px-4 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500"
-                  id="hours"
-                  name="hours"
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="1"
-                  value={workout.hours}
-                />
-              </div>
-
-              <p className="my-10">:</p>
-
-              <div className="w-20 md:w-1/2 px-3">
-                <label
-                  className="block uppercase tracking-wide text-xs font-bold mb-2"
-                  htmlFor="minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-teal-500 rounded py-3 px-4 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500"
-                  id="minutes"
-                  name="minutes"
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="30"
-                  value={workout.minutes}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="container flex ml-6">
-              <p className="mt-3 w-20">Distance</p>
-              <div className="w-20 md:w-1/2 px-3 mb-6 md:mb-0">
-                {/* <label
-                className="block uppercase tracking-wide text-xs font-bold mb-2"
-                htmlFor="hours"
-              >
-                Hours
-              </label> */}
-
-                <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-teal-500 rounded py-3 px-4 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500"
-                  id="distance"
-                  name="distance"
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="2.1"
-                  value={workout.distance}
-                />
-              </div>
-
-              <div className="w-20 md:w-1/2 px-3">
-                {/* <label
+    <div>
+      <div className="container p-3 w-screen">
+        <div className="flex justify-center">
+          <img
+            className="max-h-20 h-20 mb-5"
+            alt="weight-icon"
+            src="https://allenparkdowntown.org/wp-content/uploads/ES-safe-sidewalk.png"
+          ></img>
+        </div>
+        <div className="flex justify-center">
+          <div className="flex-col justify-center align-center">
+            <div className="container flex justify-center">
+              <div className="flex justify-center">
+                {/* <div className="w-20 md:w-1/2 px-3"> */}
+                <div className="">
+                  {/* <label
                 className="block uppercase tracking-wide text-xs font-bold mb-2"
                 htmlFor="minutes"
               >
                 Minutes
               </label> */}
-                <select
-                  className="block w-20 text-sm bg-gray-200 text-gray-700 border border-teal-500 rounded py-3 px-4 leading-tight focus:outline-solid focus:bg-teal focus:border-gray-500"
-                  id="units"
-                  name="units"
-                  onChange={handleChange}
-                  value={workout.units}
-                >
-                  <option disabled> </option>
-                  <option>mi</option>
-                  <option>km</option>
-                </select>
+                  <select
+                    className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="type"
+                    onChange={handleChange}
+                    value={workout.type}
+                  >
+                    <option selected disabled>
+                      {" "}
+                      Select Workout Type{" "}
+                    </option>
+                    <option value="run">Run</option>
+                    <option value="walk">Walk</option>
+                    <option value="swim">Swim</option>
+                    <option value="row">Row</option>
+                    <option value="bike">Bike</option>
+                    <option value="elliptical">Elliptical</option>
+                    <option value="stairs/stair-stepper">
+                      Stairs/Stair-stepper
+                    </option>
+                    <option value="rollerskate/rollerblade">
+                      Rollerskate/Rollerblade
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
+
+            {workout.type !== "" && (
+              <div className="flex align-center m-5">
+                <div className="flex-col">
+
+                <div className="flex align-center m-5">
+
+                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label
+                      htmlFor="distance"
+                      className="block text-sm font-medium"
+                    >
+                      Distance
+                    </label>
+                    <input
+                      name="distance"
+                      className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                  <label
+                      htmlFor="units"
+                      className="block text-sm font-medium"
+                    >
+                      Units
+                    </label>
+                  <select
+                    className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="unit"
+                    onChange={handleChange}
+                    value={workout.type}
+                  >
+                    <option selected disabled> Select Unit</option>
+                    <option value="miles">miles</option>
+                    <option value="kilometers">kilometers</option>
+                    <option value="meters">meters</option>
+                    <option value="yards">yards</option>
+                  </select>
+                </div>
+                </div>
+
+              <div className="container flex justify-center">
+                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                  <label
+                    htmlFor="hours"
+                    className="block text-sm font-medium"
+                  >
+                    Hours
+                  </label>
+                  <input
+                    name="hours"
+                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+
+                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                  <label
+                    htmlFor="minutes"
+                    className="block text-sm font-medium "
+                  >
+                    Minutes
+                  </label>
+                  <input
+                    name="minutes"
+                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+                </div>
+
+                </div>
+              </div>
+            )}
           </div>
-        {/* </form> */}
-      {/* </div> */}
-
-
+        </div>
+      </div>
     </div>
   );
 };

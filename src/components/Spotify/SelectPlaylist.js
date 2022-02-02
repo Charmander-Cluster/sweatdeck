@@ -68,7 +68,7 @@ const SelectPlaylist = (props) => {
         );
         console.log(publicPlaylists);
 
-        publicPlaylists.map((playlist) => ({
+        const myPlaylists = publicPlaylists.map((playlist) => ({
           name: playlist.name,
           owner: playlist.display_name,
           tracks: playlist.tracks,
@@ -76,7 +76,7 @@ const SelectPlaylist = (props) => {
           id: playlist.id,
           imageUrl: playlist.images[0].url,
         }));
-        setPlaylists([publicPlaylists]);
+        setPlaylists(myPlaylists);
       });
   }, [accessToken]);
 
@@ -84,9 +84,9 @@ const SelectPlaylist = (props) => {
     <div>Loading...</div>
   ) : (
     <div>
-      <div className="container flex-col justify-center align-cener">
-        <h1 className="text-2xl text-teal-500">Select Your Spotify Playlist</h1>
-        <p className="text-sm">
+      <div className="grid place-items-center">
+        <h1 className="grid text-2xl text-teal-500">Select Your Spotify Playlist</h1>
+        {/* <p className="text-sm">
           Only "public" playlists may be linked to your workout.
         </p>
         <p className="text-sm">
@@ -95,25 +95,32 @@ const SelectPlaylist = (props) => {
             Playlist Privacy
           </a>
           " from Spotify.
-        </p>
+        </p> */}
       </div>
+
+    {(!playlists.length) ? (<div>Getting Playlists</div>) :
+    (
       <table className="table-fixed rounded-sm border-collapse bg-neutral-800 w-full">
         <tbody className=" items-center justify-between overflow-y-scroll">
           <thead>
-            <tr></tr>
+            <tr className="w-12"></tr>
             <tr>Name</tr>
-            <tr></tr>
           </thead>
           {playlists.map((playlist) => (
             <tr key={playlist.id}>
-              <td>{playlist.imageUrl}</td>
+              <td className="w-12"><img className="h-10" src={playlist.imageUrl}/></td>
               <td>{playlist.name}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
+      )}
+
+      <div className="flex-col">
       <button className="bg-teal-500 p-3 rounded-md">Select Playlist</button>
+      <button className="text-teal-500 border border-teak-500 p-3 rounded-md">Cancel</button>
+      </div>
     </div>
   );
 };
