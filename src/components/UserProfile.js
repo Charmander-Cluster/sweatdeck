@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import maleImage from "../assets/male-useravatar.png";
 import femaleImage from "../assets/female-useravatar.png";
+import defaultImage from "../assets/default-useravatar.png";
 import { isSameDay } from "date-fns";
 import { fetchLatestUserWorkoutThunk } from "../store/workouts";
 import { fetchLoginUser } from "../store";
@@ -78,10 +79,18 @@ const UserProfile = () => {
                 className="rounded-full object-cover h-full w-full shadow-md"
               />
             </div>
-          ) : (
+          ) : fullUser.gender === "Female" ? (
             <div className="h-32 w-32">
               <img
                 src={femaleImage}
+                alt="User Profile"
+                className="rounded-full object-cover h-full w-full shadow-md"
+              />
+            </div>
+          ) : (
+            <div className="h-32 w-32">
+              <img
+                src={defaultImage}
                 alt="User Profile"
                 className="rounded-full object-cover h-full w-full shadow-md"
               />
