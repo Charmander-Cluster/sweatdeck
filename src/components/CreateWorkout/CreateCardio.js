@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 
+const redirectUri =
+  process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/spotifyhome";
+
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
+
 const CreateCardio = (props) => {
 
     const [workout, setWorkout] = useState({
@@ -41,7 +46,7 @@ const CreateCardio = (props) => {
                     Workout Type
                   </label>
                   <select
-                    className="w-64 bg-teal-100 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="type"
                     defaultValue="select"
                     onChange={handleChange}
@@ -176,10 +181,37 @@ const CreateCardio = (props) => {
                       />
                     </div>
                   </div>
+
+
+
+                  <div className="grid place-items-center mt-5">
+                  <a
+                    className="flex bg-teal-500 text-white p-3 mb-3 text-lg rounded-md"
+                    href={AUTH_URL}
+                  >
+                    Save & Connect Playlist
+                  </a>
+                  <button className="flex text-teal-500 border border-teal-500 p-3 mb-3 text-lg rounded-md">
+                    Save Without Playlist
+                  </button>
+                </div>
+
+
+
+
                 </div>
               </div>
             )}
+
+
+
+
+
           </div>
+
+
+
+
         </div>
       </div>
     </div>
