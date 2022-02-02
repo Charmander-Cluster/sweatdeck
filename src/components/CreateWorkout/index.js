@@ -48,21 +48,14 @@ const CreateWorkout = () => {
       </div>
       <div className="container flex items-center justify-center h-20 py-8">
         <div className="inline-block relative w-64">
-          <label
-            htmlFor="workout-type"
-            className="flex justify-center mb-2 text-lg "
-          >
-            {/* Workout Type */}
-          </label>
           <select
             name="category"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            defaultValue="select"
             onChange={handleChange}
           >
             Select your workout:
-            <option selected disabled>
-              -Select-
-            </option>
+            <option value="select" disabled>Select</option>
             <option value="cardio">Cardio</option>
             <option value="strength">Strength</option>
           </select>

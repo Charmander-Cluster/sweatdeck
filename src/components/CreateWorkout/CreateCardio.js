@@ -4,8 +4,8 @@ const CreateCardio = (props) => {
 
     const [workout, setWorkout] = useState({
     category: "cardio",
-    type: "",
     name: "",
+    type: "",
     distance: "",
     units: "",
     hours: "",
@@ -34,21 +34,20 @@ const CreateCardio = (props) => {
               <div className="flex justify-center">
                 {/* <div className="w-20 md:w-1/2 px-3"> */}
                 <div className="">
-                  {/* <label
-                className="block uppercase tracking-wide text-xs font-bold mb-2"
-                htmlFor="minutes"
-              >
-                Minutes
-              </label> */}
+                <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mt-3"
+                  >
+                    Workout Type
+                  </label>
                   <select
                     className="w-64 bg-teal-100 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="type"
+                    defaultValue="select"
                     onChange={handleChange}
-                    value={workout.type}
                   >
-                    <option selected disabled>
-                      {" "}
-                      Select Workout Type{" "}
+                    <option value="select" disabled>
+                      Select
                     </option>
                     <option value="run">Run</option>
                     <option value="walk">Walk</option>
@@ -128,12 +127,11 @@ const CreateCardio = (props) => {
                         className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         name="units"
                         required
+                        defaultValue="select"
                         onChange={handleChange}
-                        value={workout.units}
                       >
-                        <option selected={true} disabled>
-                          {" "}
-                          Select Unit
+                        <option value='select' disabled>
+                          Select
                         </option>
                         <option value="miles">miles</option>
                         <option value="kilometers">kilometers</option>

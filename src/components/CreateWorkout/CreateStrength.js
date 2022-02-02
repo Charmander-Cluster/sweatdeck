@@ -6,13 +6,7 @@ const CreateStrength = (props) => {
   const [workout, setWorkout] = useState({
     category: "strength",
     name: "",
-
-    bodyPart: "",
-    type: "",
-    weight: "",
-    units: "",
-    reps: "",
-    sets: ""
+    exercises: []
   });
 
   const handleChange = (event) => {
@@ -55,7 +49,7 @@ const CreateStrength = (props) => {
       </div>
 
     <div className="flex justify-end">
-    <button className="bg-teal-500 p-1 rounded-md" onClick={() => setCounter(counter + 1)}>Add Workout</button>
+    <button className="bg-teal-500 p-1 rounded-md" onClick={() => setCounter(counter + 1)}>Add Exercise</button>
     </div>
 
     </div>
