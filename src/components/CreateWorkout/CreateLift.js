@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import LiftDetails from "./LiftDetails";
 
-const CreateLift = () => {
+const CreateLift = (props) => {
+
+  const workout = props.strengthWorkout
+  const handleChange = props.handleStrengthChange
+
+  console.log(workout)
+
   return (
     <div className="container p-8">
       <div className="flex justify-center">

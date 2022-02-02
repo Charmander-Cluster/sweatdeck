@@ -30,7 +30,6 @@ const CreateWorkout = () => {
   // console.log(workout);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
 
