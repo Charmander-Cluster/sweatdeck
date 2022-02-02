@@ -47,63 +47,119 @@ const Dashboard = () => {
             <p className="text-sm font-medium tracking-wide leading-none text-white">
               Latest Workout
             </p>
-            <div className="w-full bg-teal-700 rounded-full h-1 mt-4"></div>
+            <div className="w-full bg-teal-600 rounded-full h-1 mt-4"></div>
           </div>
           <div className="mt-8">
             <div className="sm:flex justify-between items-end">
               <div>
                 <div className="flex items-start justify-between pb-2">
                   <div className="flex items-start">
-                    <div className="w-1 h-9 bg-teal-700 rounded-sm" />
+                    <div className="w-1 h-9 bg-teal-600 rounded-sm" />
                     <div className="flex flex-col pl-3 pt-2">
                       <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
                         Type
                       </p>
                     </div>
                   </div>
+
                   <p className="text-xl font-semibold leading-5 pt-2 text-right text-gray-800 dark:text-gray-100">
                     {userWorkout[0].type}
                   </p>
                 </div>
-                <div className="flex items-start justify-between pt-4 pb-2">
-                  <div className="flex items-start">
-                    <div className="w-1 h-9 bg-teal-700 rounded-sm" />
-                    <div className="flex flex-col pl-3 pt-2">
-                      <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                        Reps
-                      </p>
+                {userWorkout[0].reps ? (
+                  <div className="flex items-start justify-between pt-4 pb-2">
+                    <div className="flex items-start">
+                      <div className="w-1 h-9 bg-teal-600 rounded-sm" />
+                      <div className="flex flex-col pl-3 pt-2">
+                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
+                          Reps
+                        </p>
+                      </div>
                     </div>
+
+                    <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
+                      {userWorkout[0].reps}
+                    </p>
                   </div>
-                  <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
-                    {userWorkout[0].reps}
-                  </p>
-                </div>
-                <div className="flex items-start justify-between pt-4 pb-2">
-                  <div className="flex items-start">
-                    <div className="w-1 h-9 bg-teal-700 rounded-sm" />
-                    <div className="flex flex-col pl-3 pt-2">
-                      <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                        Sets
-                      </p>
+                ) : (
+                  <div className="flex items-start justify-between pt-4 pb-2">
+                    <div className="flex items-start">
+                      <div className="w-1 h-9 bg-teal-600 rounded-sm" />
+                      <div className="flex flex-col pl-3 pt-2">
+                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
+                          Distance
+                        </p>
+                      </div>
                     </div>
+
+                    <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
+                      {userWorkout[0].distance}
+                    </p>
                   </div>
-                  <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
-                    {userWorkout[0].sets}
-                  </p>
-                </div>
-                <div className="flex items-start justify-between pt-4 pb-2">
-                  <div className="flex items-start">
-                    <div className="w-1 h-9 bg-teal-700 rounded-sm" />
-                    <div className="flex flex-col pl-3 pt-2">
-                      <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                        Weight
-                      </p>
+                )}
+                {userWorkout[0].reps ? (
+                  <div className="flex items-start justify-between pt-4 pb-2">
+                    <div className="flex items-start">
+                      <div className="w-1 h-9 bg-teal-600 rounded-sm" />
+                      <div className="flex flex-col pl-3 pt-2">
+                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
+                          Sets
+                        </p>
+                      </div>
                     </div>
+
+                    <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
+                      {userWorkout[0].sets}
+                    </p>
                   </div>
-                  <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
-                    {userWorkout[0].weight}
-                  </p>
-                </div>
+                ) : (
+                  <div className="flex items-start justify-between pt-4 pb-2">
+                    <div className="flex items-start">
+                      <div className="w-1 h-9 bg-teal-600 rounded-sm" />
+                      <div className="flex flex-col pl-3 pt-2">
+                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
+                          Time
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
+                      {userWorkout[0].time}
+                    </p>
+                  </div>
+                )}
+
+                {userWorkout[0].reps ? (
+                  <div className="flex items-start justify-between pt-4 pb-2">
+                    <div className="flex items-start">
+                      <div className="w-1 h-9 bg-teal-600 rounded-sm" />
+                      <div className="flex flex-col pl-3 pt-2">
+                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
+                          Weight
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
+                      {userWorkout[0].weight}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex items-start justify-between pt-4 pb-2">
+                    <div className="flex items-start">
+                      <div className="w-1 h-9 bg-teal-600 rounded-sm" />
+                      <div className="flex flex-col pl-3 pt-2">
+                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
+                          Laps
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="text-xl font-semibold pt-2 leading-5 text-right text-gray-800 dark:text-gray-100">
+                      {userWorkout[0].laps}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -112,7 +168,7 @@ const Dashboard = () => {
           </div>
           {userWorkout[0].isComplete ? (
             <button
-              className="mt-2 sm:mt-0 w-full h-20 focus:outline-none px-5 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded text-sm leading-none"
+              className="mt-2 sm:mt-0 w-full h-20 focus:outline-none px-5 py-2 bg-teal-600 text-white rounded text-sm leading-none"
               disabled
             >
               Completed

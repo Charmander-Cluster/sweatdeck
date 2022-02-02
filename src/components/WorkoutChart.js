@@ -7,81 +7,160 @@ const WorkoutChart = (props) => {
       window.myChart.destroy();
     }
     const ctx = document.getElementById("myChart").getContext("2d");
-    window.myChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: ["reps", "sets", "weight"],
-        datasets: [
-          {
-            label: false,
-            data: [
-              props.userWorkout[0].reps,
-              props.userWorkout[0].sets,
-              props.userWorkout[0].weight,
-            ],
-            backgroundColor: "rgba(255, 255, 255, 0.1)",
-            borderColor: "#0f766e",
-            pointBackgroundColor: "#0f766e",
-            fill: "start",
-            tension: 0.4,
+    console.log(props.userWorkout);
+    if (props.userWorkout[0].reps) {
+      window.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Reps", "Sets", "Weight"],
+          datasets: [
+            {
+              label: false,
+              data: [
+                props.userWorkout[0].reps,
+                props.userWorkout[0].sets,
+                props.userWorkout[0].weight,
+              ],
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              borderColor: "#0f766e",
+              pointBackgroundColor: "#0f766e",
+              fill: "start",
+              tension: 0.4,
+            },
+            {
+              label: false,
+              data: [
+                props.userWorkout[1].reps,
+                props.userWorkout[1].sets,
+                props.userWorkout[1].weight,
+              ],
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              borderColor: "#FDBA74",
+              pointBackgroundColor: "#0f766e",
+              fill: "start",
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
           },
-          {
-            label: false,
-            data: [
-              props.userWorkout[1].reps,
-              props.userWorkout[1].sets,
-              props.userWorkout[1].weight,
-            ],
-            backgroundColor: "rgba(255, 255, 255, 0.1)",
-            borderColor: "#FDBA74",
-            pointBackgroundColor: "#0f766e",
-            fill: "start",
-            tension: 0.4,
+          tooltips: {
+            enable: false,
           },
-        ],
-      },
-      options: {
-        plugins: {
-          legend: {
-            display: false,
+          generateLabels: {
+            hidden: true,
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
           },
         },
-        tooltips: {
-          enable: false,
-        },
-        generateLabels: {
-          hidden: true,
-        },
-        elements: {
-          point: {
-            radius: 0,
+        scales: {
+          yAxes: {
+            ticks: {
+              color: "rgba(255, 255, 255, 1)",
+            },
+            grid: {
+              display: false,
+              drawBorder: false,
+            },
           },
-        },
-      },
-      scales: {
-        yAxes: {
-          ticks: {
-            color: "rgba(255, 255, 255, 1)",
-          },
-          grid: {
-            display: false,
-            drawBorder: false,
-          },
-        },
 
-        xAxes: {
-          ticks: {
-            color: "rgba(255, 255, 255, 1)",
-          },
-          grid: {
-            circular: true,
-            borderColor: "rgba(255, 255, 255, .2)",
-            color: "rgba(255, 255, 255, .2)",
-            borderDash: [5, 5],
+          xAxes: {
+            ticks: {
+              color: "rgba(255, 255, 255, 1)",
+            },
+            grid: {
+              circular: true,
+              borderColor: "rgba(255, 255, 255, .2)",
+              color: "rgba(255, 255, 255, .2)",
+              borderDash: [5, 5],
+            },
           },
         },
-      },
-    });
+      });
+    } else {
+      window.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Distance", "Time", "Laps"],
+          datasets: [
+            {
+              label: false,
+              data: [
+                props.userWorkout[0].distance,
+                props.userWorkout[0].time,
+                props.userWorkout[0].laps,
+              ],
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              borderColor: "#0f766e",
+              pointBackgroundColor: "#0f766e",
+              fill: "start",
+              tension: 0.4,
+            },
+            {
+              label: false,
+              data: [
+                props.userWorkout[1].distance,
+                props.userWorkout[1].time,
+                props.userWorkout[1].laps,
+              ],
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              borderColor: "#FDBA74",
+              pointBackgroundColor: "#0f766e",
+              fill: "start",
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          tooltips: {
+            enable: false,
+          },
+          generateLabels: {
+            hidden: true,
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
+          },
+        },
+        scales: {
+          yAxes: {
+            ticks: {
+              color: "rgba(255, 255, 255, 1)",
+            },
+            grid: {
+              display: false,
+              drawBorder: false,
+            },
+          },
+
+          xAxes: {
+            ticks: {
+              color: "rgba(255, 255, 255, 1)",
+            },
+            grid: {
+              circular: true,
+              borderColor: "rgba(255, 255, 255, .2)",
+              color: "rgba(255, 255, 255, .2)",
+              borderDash: [5, 5],
+            },
+          },
+        },
+      });
+    }
   });
   return (
     <>

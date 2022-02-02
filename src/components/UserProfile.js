@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchSingleUserThunk } from "../store/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
@@ -13,6 +13,10 @@ const UserProfile = () => {
     };
   });
 
+  const [date, setDate] = useState([
+    new Date(2022, 1, 30),
+    new Date(2022, 2, 15),
+  ]);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -86,7 +90,16 @@ const UserProfile = () => {
             </button>
           </Link>
         </div>
-        <Calendar />
+        <div>
+          <Calendar
+            prevLabel={null}
+            prev2Label={null}
+            nextLabel={null}
+            next2Label={null}
+            onChange={setDate}
+            defaultValue={date}
+          />
+        </div>
       </div>
     </div>
   );
