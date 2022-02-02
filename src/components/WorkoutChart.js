@@ -7,7 +7,6 @@ const WorkoutChart = (props) => {
       window.myChart.destroy();
     }
     const ctx = document.getElementById("myChart").getContext("2d");
-    console.log(props.userWorkout);
     if (props.userWorkout[0].reps) {
       window.myChart = new Chart(ctx, {
         type: "line",

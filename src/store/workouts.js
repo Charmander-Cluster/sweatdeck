@@ -10,7 +10,7 @@ const getLatestUserWorkout = (userWorkout) => {
   };
 };
 
-export const fetchLatestUserWorkoutThunk = (userId) => {
+export const fetchLatestUserExercisesThunk = (userId) => {
   return async (dispatch) => {
     try {
       const workoutRef = collection(db, `users/${userId}/workouts`);
@@ -24,11 +24,27 @@ export const fetchLatestUserWorkoutThunk = (userId) => {
         workoutsArr.push(doc.id);
       });
       const workoutId = workoutsArr[0];
-      const allUserWorkouts = await getDocs(
+      const allUserExercises = await getDocs(
         collection(db, `users/${userId}/workouts/${workoutId}/exercises`)
       );
-      const exercises = allUserWorkouts.docs.map((doc) => doc.data());
+      const exercises = allUserExercises.docs.map((doc) => doc.data());
+
       dispatch(getLatestUserWorkout(exercises));
+    } catch (err) {
+      console.log("Error at Fetch User Exercises Thunk", err);
+    }
+  };
+};
+
+export const fetchLatestUserWorkoutThunk = (userId) => {
+  return async (dispatch) => {
+    try {
+      const workoutRef = collection(db, `users/${userId}/workouts`);
+      const workouts = await getDocs(workoutRef);
+
+      const allUserWorkouts = workouts.docs.map((doc) => doc.data());
+
+      dispatch(getLatestUserWorkout(allUserWorkouts));
     } catch (err) {
       console.log("Error at Fetch User Workout Thunk", err);
     }

@@ -5,33 +5,58 @@ import { useParams, Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import maleImage from "../assets/male-useravatar.png";
 import femaleImage from "../assets/female-useravatar.png";
+import { isSameDay } from "date-fns";
+import { fetchLatestUserWorkoutThunk } from "../store/workouts";
+import { fetchLoginUser } from "../store";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UserProfile = () => {
-  const { fullUser } = useSelector((state) => {
+  const [user, setUser] = useState(getAuth().currentUser);
+  const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
+
+  const { fullUser, userWorkout } = useSelector((state) => {
     return {
       fullUser: state.users.user,
+      userWorkout: state.workouts.userWorkout,
     };
   });
 
-  const [date, setDate] = useState([
-    new Date(2022, 1, 30),
-    new Date(2022, 2, 15),
-  ]);
+  const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    let mounted = true;
-    function fetchData() {
-      dispatch(fetchSingleUserThunk(id));
+    dispatch(fetchLoginUser());
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+    if (authUser.uid) {
+      dispatch(fetchSingleUserThunk(authUser.uid));
     }
-    if (mounted) {
-      fetchData();
+  }, [dispatch, authUser.uid]);
+
+  const workoutDatesArr = [];
+  if (authUser.uid) {
+    userWorkout.forEach((doc) => {
+      workoutDatesArr.push(doc.date.toDate());
+    });
+  }
+
+  const dates = workoutDatesArr;
+
+  function tileClassName({ date, view }) {
+    // Add class to tiles in month view only
+    if (view === "month") {
+      // Check if a date React-Calendar wants to check is on the list of dates to add class to
+      if (dates.find((dDate) => isSameDay(dDate, date))) {
+        return "highlight";
+      }
     }
-    return () => {
-      mounted = false;
-    };
-  }, [dispatch, id]);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -97,7 +122,8 @@ const UserProfile = () => {
             nextLabel={null}
             next2Label={null}
             onChange={setDate}
-            defaultValue={date}
+            value={date}
+            tileClassName={tileClassName}
           />
         </div>
       </div>
