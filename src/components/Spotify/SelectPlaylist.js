@@ -19,8 +19,10 @@ const SelectPlaylist = (props) => {
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [spotifyUser, setSpotifyUser] = useState({});
+  const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   console.log("Playlists:", playlists);
+  console.log("selected playlist", selectedPlaylist);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -85,7 +87,22 @@ const SelectPlaylist = (props) => {
   ) : (
     <div>
       <div className="grid place-items-center">
-        <h1 className="grid text-2xl text-teal-500">Select Your Spotify Playlist</h1>
+        <div className="flex-col justify-center bg-zinc-800 w-full fixed top-0">
+          <div className="flex-col justify-center">
+            <h1 className="grid text-2xl text-teal-500 mt-12 mb-5">
+              Select Your Spotify Playlist
+            </h1>
+          </div>
+
+          <div className="flex mb-5">
+            <button className="bg-teal-500 p-3 m-2 rounded-md">
+              Confirm Playlist
+            </button>
+            <button className="text-teal-500 border border-teak-500 p-3 m-2 rounded-md">
+              Cancel
+            </button>
+          </div>
+        </div>
         {/* <p className="text-sm">
           Only "public" playlists may be linked to your workout.
         </p>
@@ -98,28 +115,64 @@ const SelectPlaylist = (props) => {
         </p> */}
       </div>
 
-    {(!playlists.length) ? (<div>Getting Playlists</div>) :
-    (
-      <table className="table-fixed rounded-sm border-collapse bg-neutral-800 w-full">
-        <tbody className=" items-center justify-between overflow-y-scroll">
-          <thead>
-            <tr className="w-12"></tr>
-            <tr>Name</tr>
-          </thead>
-          {playlists.map((playlist) => (
-            <tr key={playlist.id}>
-              <td className="w-12"><img className="h-10" src={playlist.imageUrl}/></td>
-              <td>{playlist.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {!playlists.length ? (
+        <div>Getting Playlists</div>
+      ) : (
 
+        <div className="flex flex-col mt-48 mb-14 justify-center">
+          <div className="overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden ">
+                <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                      >
+                      Playlist
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                      >
+
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className=" divide-y divide-gray-200  dark:divide-gray-700 overflow:scroll">
+                    {playlists.map((playlist) => (
+                      <tr
+                        key={playlist.id}
+                        playlist={playlist}
+                        onClick={() => setSelectedPlaylist(playlist)}
+                        className="hover:bg-gray-100 dark:hover:bg-teal-500"
+                      >
+                        <td className="px-8 py-2 border-t border-gray-600 p-8">
+                          <img
+                            className="h-10"
+                            alt="playlist-art"
+                            src={playlist.imageUrl}
+                          />
+                        </td>
+                        <td className="px-8 py-2 border-t border-gray-600 p-8">
+                          {playlist.name}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       <div className="flex-col">
-      <button className="bg-teal-500 p-3 rounded-md">Select Playlist</button>
-      <button className="text-teal-500 border border-teak-500 p-3 rounded-md">Cancel</button>
+        <button className="bg-teal-500 p-3 rounded-md">Select Playlist</button>
+        <button className="text-teal-500 border border-teak-500 p-3 rounded-md">
+          Cancel
+        </button>
       </div>
     </div>
   );
