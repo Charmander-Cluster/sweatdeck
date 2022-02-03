@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux'
-import {localEditWorkout} from "../../store/localCreateWorkout"
+import { localEditWorkout } from "../../store/localCreateWorkout"
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./useAuth";
+import history from "../../history"
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "1a13f745b9ab49caa6559702a79211e6",
@@ -21,7 +22,6 @@ const SelectPlaylist = (props) => {
   let localWorkout = useSelector(state => state.localWorkout);
 
   console.log("local workout store:", localWorkout)
-
   console.log("This is the home component!");
 
   //const [token, setToken] = useState("");
@@ -30,6 +30,11 @@ const SelectPlaylist = (props) => {
 
   console.log("Playlists:", playlists);
   console.log("selected playlist", selectedPlaylist);
+
+  const handleConfirm = (event) => {
+    event.preventDefault()
+    dispatch(localEditWorkout({...localWorkout, playlist:{name: selectedPlaylist.name, url: selectedPlaylist.url}}))
+  }
 
   useEffect(() => {
     if (!accessToken) return;
@@ -109,7 +114,7 @@ const SelectPlaylist = (props) => {
           <div className="mx-5 mb-2">
             <span>SELECTED: </span> <span className="text-teal-500 text-lg">{selectedPlaylist.name}</span>
             <div className="flex ">
-            <button className="bg-teal-500 p-2 m-2 rounded-md text-sm">
+            <button onClick={handleConfirm} className="bg-teal-500 p-2 m-2 rounded-md text-sm">
               Confirm & Connect
             </button>
             </div>
@@ -117,7 +122,7 @@ const SelectPlaylist = (props) => {
           </div>
           ))}
             <div className="flex justify-end">
-              <button className="text-teal-500 border border-teak-500 p-3 mx-5 rounded-md mb-3">
+              <button className="text-teal-500 border border-teak-500 p-2 mx-5 rounded-md mb-3">
               Cancel
             </button>
             </div>

@@ -33,7 +33,6 @@ const StrengthDetails = (props) => {
     console.log("clicked !")
     setIsCompleted(true)
     setCompletedExercise(exercise)
-
   }
 
   const handleAdd = (event) => {
@@ -43,6 +42,7 @@ const StrengthDetails = (props) => {
     //setCompletedExercise({})
   }
   console.log(exercise);
+
 
   return (
     <div>
