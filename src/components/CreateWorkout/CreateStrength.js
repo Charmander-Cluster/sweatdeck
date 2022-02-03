@@ -33,7 +33,7 @@ const CreateStrength = (props) => {
     <div className="container p-4">
       <div className="flex justify-center">
         <img
-          className="max-h-20 h-20 mb-5"
+          className="max-h-20 h-20 mb-1 -mt-2"
           alt="weight-icon"
           src="https://icons-for-free.com/iconfiles/png/512/fitness+gym+gymnasium+icon-1320168052118785594.png"
         ></img>

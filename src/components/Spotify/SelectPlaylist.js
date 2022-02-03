@@ -17,11 +17,8 @@ const SelectPlaylist = (props) => {
   const accessToken = useAuth(token);
 
   const dispatch = useDispatch()
-  // const localWorkout = useSelector(state => state.localWorkout)
-  let localWorkout = useSelector(state => {
-    console.log('State: ', state);
-    return state.localWorkout;
-  });
+
+  let localWorkout = useSelector(state => state.localWorkout);
 
   console.log("local workout store:", localWorkout)
 

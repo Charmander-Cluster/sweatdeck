@@ -18,13 +18,13 @@ const CreateCardio = (props) => {
 
 
   const [workout, setWorkout] = useState({
-    category: "cardio",
-    name: "",
-    type: "",
-    distance: "",
-    units: "",
-    hours: "",
-    minutes: "",
+    category: localWorkout.category,
+    name: localWorkout.name,
+    type: localWorkout.type,
+    distance: localWorkout.distance,
+    units: localWorkout.units,
+    hours: localWorkout.hours,
+    minutes: localWorkout.minutes,
     playlist: {},
   });
 
@@ -66,11 +66,10 @@ const CreateCardio = (props) => {
                   <select
                     className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="type"
-                    defaultValue="select"
+                    // defaultValue="select"
                     onChange={handleChange}
                   >
-                    <option value="select" disabled>
-                      Select
+                    <option value="" disabled>
                     </option>
                     <option value="run">Run</option>
                     <option value="walk">Walk</option>

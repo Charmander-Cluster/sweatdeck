@@ -46,7 +46,7 @@ const StrengthDetails = (props) => {
 
   return (
     <div>
-      <div className="border border-teal-500 bg-neutral-500 rounded-md m-2 p-4">
+      <div className="border border-teal-500 bg-neutral-500 rounded-md m-1 p-4">
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
@@ -63,7 +63,7 @@ const StrengthDetails = (props) => {
                     Muscle Focus
                   </label>
                   <select
-                    className="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="bodyPart"
                     defaultValue="select"
                     onChange={handleChange}
@@ -88,7 +88,7 @@ const StrengthDetails = (props) => {
                     Exercise
                   </label>
                   <select
-                    className="w-48 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="type"
                     defaultValue="select"
                     onChange={handleChange}
@@ -123,7 +123,7 @@ const StrengthDetails = (props) => {
               Weight
             </label>
             <input
-              className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-16 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="weight"
               required
               type="number"
@@ -137,7 +137,7 @@ const StrengthDetails = (props) => {
               Units
             </label>
             <select
-              className="w-20 mr-4 m-0.5 h-12 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-16 mr-4 m-0.5 h-12 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="units"
               defaultValue="select"
               onChange={handleChange}
@@ -156,7 +156,7 @@ const StrengthDetails = (props) => {
               Reps
             </label>
             <input
-              className="w-16 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="reps"
               required
               type="number"
@@ -171,7 +171,7 @@ const StrengthDetails = (props) => {
               Sets
             </label>
             <input
-              className="w-16 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="sets"
               onChange={handleChange}
               value={exercise.sets}
@@ -193,7 +193,7 @@ const StrengthDetails = (props) => {
         {/* </div> */}
 
       {(!isCompleted && !isSaved) && (<div className="flex justify-end">
-        <button type="add" onClick={handleConfirm} className="mt-2 mr-1 border border-teal-500 rounded-md p-1">
+        <button type="add" onClick={handleConfirm} className="mt-2 mr-1 border border-teal-500 rounded-md p-1 text-sm">
           Confirm Details
         </button>
         </div>

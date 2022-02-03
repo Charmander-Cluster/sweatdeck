@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux"
 // import { Link } from "react-router-dom";
 import CreateRun from "./CreateRun";
 import CreateCardio from "./CreateCardio";
@@ -13,6 +14,8 @@ const CreateWorkout = () => {
   const [selectedCategory, setSelectedCategory] = useState({
     category: ""
   });
+
+  let localWorkout = useSelector(state => state.localWorkout);
 
   // const handleSelect = (e) => {
   //   setSelectedWorkout(e.target.value);
@@ -51,11 +54,11 @@ const CreateWorkout = () => {
           <select
             name="category"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            // defaultValue="select"
             onChange={handleChange}
           >
             Select your workout:
-            <option value="select" disabled>Select</option>
+            <option value="" disabled>Select</option>
             <option value="cardio">Cardio</option>
             <option value="strength">Strength</option>
           </select>
