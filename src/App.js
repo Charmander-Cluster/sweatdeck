@@ -4,9 +4,10 @@ import Routes from "./Routes";
 import Navbar from "./components/Navbar";
 
 function App() {
+
   return (
     <div>
-      <Routes />
+      <Routes/>
       <Navbar />
     </div>
   );
