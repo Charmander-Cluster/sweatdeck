@@ -13,6 +13,7 @@ const _createDBWorkout = (workout) => {
 export const createDBWorkout = (workout, userId) => async (dispatch) => {
   try {
     const userRef = collection(db, `users/${userId}/workouts`)
+    const workoutRef = collection(db, `workouts`)
     console.log("**THUNK USERID**", userId)
     const response = await addDoc(userRef, {
       timestamp: serverTimestamp(),
@@ -21,6 +22,26 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
       exercises: workout.exercises,
       playlist: workout.playlist
     })
+    .then(
+      function(docRef) {
+      const userWorkoutId = docRef.id
+      setDoc(doc(db, "workouts", userWorkoutId), {
+        timestamp: serverTimestamp(),
+        name: workout.name,
+        category: workout.category,
+        exercises: workout.exercises,
+        playlist: workout.playlist
+      })
+      }
+      )
+    //   // const response2 = await addDoc(workoutRef, {
+    //   //   timestamp: serverTimestamp(),
+    //   //   name: workout.name,
+    //   //   category: workout.category,
+    //   //   exercises: workout.exercises,
+    //   //   playlist: workout.playlist
+    //   // })
+    // )
     //console.log("**THUNK RES**", response.data())
     // .then(function(docRef) {
     //   const exerciseRef = docRef.id
@@ -31,7 +52,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
     // })
 
 
-    dispatch(_createDBWorkout(response));
+    // dispatch(_createDBWorkout(response));
   } catch (error) {
     return error;
   }
