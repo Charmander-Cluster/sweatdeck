@@ -22,11 +22,7 @@ export const fetchLatestUserExercisesThunk = (userId) => {
   return async (dispatch) => {
     try {
       const workoutRef = collection(db, `users/${userId}/workouts`);
-      const workoutQuery = query(
-        workoutRef,
-        where("category", "in", ["strength", "cardio"])
-      );
-      const user = await getDocs(workoutQuery);
+      const user = await getDocs(workoutRef);
       const workouts = user.docs.map((doc) => doc.data());
 
       const workoutsArr = [];
@@ -54,9 +50,16 @@ export const fetchLatestUserWorkoutThunk = (userId) => {
       const workoutRef = collection(db, `users/${userId}/workouts`);
       const workouts = await getDocs(workoutRef);
 
+      const workoutsArr = [];
+      workouts.forEach((doc) => {
+        workoutsArr.push(doc.id);
+      });
+
       const allUserWorkouts = workouts.docs.map((doc) => doc.data());
 
-      dispatch(getLatestUserWorkout(allUserWorkouts));
+      const workoutsAndIds = [allUserWorkouts, workoutsArr];
+
+      dispatch(getLatestUserWorkout(workoutsAndIds));
     } catch (err) {
       console.log("Error at Fetch User Workout Thunk", err);
     }

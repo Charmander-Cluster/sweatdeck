@@ -8,26 +8,29 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Dashboard from "./components/Dashboard";
 
 const Routes = () => {
-  // const auth = getAuth();
-  // const user = auth.currentUser;
+  const auth = getAuth();
 
-  //   const [user, setUser] = useState(getAuth().currentUser);
-  //   const login = getAuth();
-  //   onAuthStateChanged(login, (u) => {
-  //     setUser(u);
-  //   });
+  const [user, setUser] = useState(getAuth().currentUser);
+  const login = getAuth();
+  onAuthStateChanged(login, (u) => {
+    setUser(u);
+  });
 
   return (
     <div>
-      <Switch>
-        <Route path="/users/:id/edit" component={EditUser} />
-        <Route exact path="/users/:id" component={UserProfile} />
-        <Route exact path="/" component={Dashboard} />
-      </Switch>
-      <Switch>
-        <Route path="/signup" component={SignUp} />
-        <Route path="/signin" component={SignIn} />
-      </Switch>
+      {user ? (
+        <Switch>
+          <Route path="/users/:id/edit" component={EditUser} />
+          <Route exact path="/users/:id" component={UserProfile} />
+          <Route exact path="/" component={Dashboard} />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/" component={SignIn} />
+        </Switch>
+      )}
     </div>
   );
 };

@@ -28,7 +28,7 @@ const UserProfile = () => {
 
   const [isLoading, setLoading] = useState(true);
 
-  const [workoutDates, setWorkoutDates] = useState(userWorkout);
+  const [workoutDates, setWorkoutDates] = useState([]);
   const [date, setDate] = useState(new Date());
   let history = useHistory();
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const UserProfile = () => {
   useEffect(() => {
     if (isLoading) {
       dispatch(fetchLoginUser());
-      setWorkoutDates(userWorkout);
+      setWorkoutDates(userWorkout[0]);
     }
 
     return () => {
@@ -54,12 +54,14 @@ const UserProfile = () => {
 
   const dateConverter = () => {
     const workoutDatesArr = [];
-    if (workoutDates.length > 0 && workoutDates[0].date) {
-      workoutDates.forEach((doc) => {
-        const convertedDate = doc.date.toDate();
-        workoutDatesArr.push(convertedDate);
-      });
-      return workoutDatesArr;
+    if (workoutDates) {
+      if (workoutDates.length > 0 && workoutDates[0].date) {
+        workoutDates.forEach((doc) => {
+          const convertedDate = doc.date.toDate();
+          workoutDatesArr.push(convertedDate);
+        });
+        return workoutDatesArr;
+      }
     }
   };
 
@@ -67,7 +69,7 @@ const UserProfile = () => {
 
   function tileWorkoutDates({ date, view }) {
     // Add class to tiles in month view only
-    if (view === "month") {
+    if (view === "month" && workoutDates) {
       // Check if a date React-Calendar wants to check is on the list of dates to add class to
       if (workoutDates.length > 0 && workoutDates[0].date) {
         if (dates.find((dDate) => isSameDay(dDate, date))) {

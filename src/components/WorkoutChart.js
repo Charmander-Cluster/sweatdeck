@@ -85,31 +85,17 @@ const WorkoutChart = (props) => {
       });
     } else if (props.userExercises[1][0].distance) {
       window.myChart = new Chart(ctx, {
-        type: "line",
+        type: "bar",
         data: {
-          labels: ["Distance", "Time", "Laps"],
+          labels: ["Distance", "Time"],
           datasets: [
             {
               label: false,
               data: [
                 props.userExercises[1][0].distance,
                 props.userExercises[1][0].time,
-                props.userExercises[1][0].laps,
               ],
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              borderColor: "#0f766e",
-              pointBackgroundColor: "#0f766e",
-              fill: "start",
-              tension: 0.4,
-            },
-            {
-              label: false,
-              data: [3, 130, 25],
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              borderColor: "#FDBA74",
-              pointBackgroundColor: "#0f766e",
-              fill: "start",
-              tension: 0.4,
+              backgroundColor: "#FDBA74",
             },
           ],
         },

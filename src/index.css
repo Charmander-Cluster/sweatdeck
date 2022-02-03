@@ -139,5 +139,5 @@
 } */
 
 .highlight {
-  @apply bg-teal-600 rounded-full outline outline-offset-2 outline-2;
+  @apply bg-teal-600 rounded-full;
 }

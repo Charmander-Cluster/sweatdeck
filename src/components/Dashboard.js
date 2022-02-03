@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import WorkoutChart from "./WorkoutChart";
 import EmptyDashboard from "./EmptyDashboard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLatestUserExercisesThunk } from "../store/workouts";
+import {
+  fetchLatestUserExercisesThunk,
+  fetchLatestUserWorkoutThunk,
+} from "../store/workouts";
 import { fetchLoginUser } from "../store";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchSingleUserThunk } from "../store/users";
@@ -17,21 +20,23 @@ const Dashboard = () => {
 
   const [isLoading, setLoading] = useState(true);
 
-  const { userExercises, fullUser } = useSelector((state) => {
+  const { userWorkout, userExercises, fullUser } = useSelector((state) => {
     return {
       userExercises: state.workouts.userExercises,
       fullUser: state.users.user,
+      userWorkout: state.workouts.userWorkout,
     };
   });
 
   useEffect(() => {
     dispatch(fetchLoginUser());
+    dispatch(fetchLatestUserWorkoutThunk(user.uid));
   }, [dispatch, user]);
 
   useEffect(() => {
     if (isLoading) {
-      dispatch(fetchLatestUserExercisesThunk(authUser.uid));
       if (authUser.uid) {
+        dispatch(fetchLatestUserExercisesThunk(authUser.uid));
         dispatch(fetchSingleUserThunk(authUser.uid));
       }
     }
@@ -39,7 +44,7 @@ const Dashboard = () => {
     return () => {
       setLoading(false);
     };
-  }, [dispatch, authUser.uid, isLoading]);
+  }, [dispatch, authUser.uid, isLoading, userWorkout]);
 
   return (
     <>
@@ -54,7 +59,7 @@ const Dashboard = () => {
           </div>
           <div className="mt-9">
             <p className="text-sm font-medium tracking-wide leading-none text-white">
-              Latest Workout
+              Latest Workout - {userWorkout[0][0].category}
             </p>
             <div className="w-full bg-teal-600 rounded-full h-1 mt-4"></div>
           </div>
@@ -183,7 +188,7 @@ const Dashboard = () => {
               Completed
             </button>
           ) : (
-            <button className="mt-2 sm:mt-0 w-full h-20 focus:outline-none px-5 py-2 bg-sky-700 shadow-md shadow-black text-white rounded text-sm leading-none">
+            <button className="mt-2 sm:mt-0 w-full h-20 focus:outline-none px-5 py-2 bg-red-700 shadow-md shadow-black text-white rounded text-sm leading-none">
               In Progress
             </button>
           )}
