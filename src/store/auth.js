@@ -35,7 +35,7 @@ export const fetchLoginUser = () => async (dispatch) => {
   if (user) {
     const response = await getDoc(doc(db, "Users", user.uid));
     const fullDetail = { ...user, ...response.data() };
-    dispatch(setAuth(fullDetail));
+    await dispatch(setAuth(fullDetail));
   }
 };
 

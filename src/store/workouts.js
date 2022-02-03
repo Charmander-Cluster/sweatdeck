@@ -37,7 +37,7 @@ export const fetchLatestUserExercisesThunk = (userId) => {
 
       const workoutsAndExercises = [workouts[0], exercises];
 
-      dispatch(getLatestUserExercises(workoutsAndExercises));
+      await dispatch(getLatestUserExercises(workoutsAndExercises));
     } catch (err) {
       console.log("Error at Fetch User Exercises Thunk", err);
     }
@@ -59,7 +59,7 @@ export const fetchLatestUserWorkoutThunk = (userId) => {
 
       const workoutsAndIds = [allUserWorkouts, workoutsArr];
 
-      dispatch(getLatestUserWorkout(workoutsAndIds));
+      await dispatch(getLatestUserWorkout(workoutsAndIds));
     } catch (err) {
       console.log("Error at Fetch User Workout Thunk", err);
     }

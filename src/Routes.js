@@ -1,18 +1,16 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Dashboard from "./components/Dashboard";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Routes = () => {
-  const auth = getAuth();
-
   const [user, setUser] = useState(getAuth().currentUser);
-  const login = getAuth();
-  onAuthStateChanged(login, (u) => {
+  onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
 

@@ -7,16 +7,11 @@ import {
   fetchLatestUserWorkoutThunk,
 } from "../store/workouts";
 import { fetchLoginUser } from "../store";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchSingleUserThunk } from "../store/users";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(getAuth().currentUser);
   const authUser = useSelector((state) => state.auth);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
 
   const [isLoading, setLoading] = useState(true);
 
@@ -30,14 +25,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(fetchLoginUser());
-    dispatch(fetchLatestUserWorkoutThunk(user.uid));
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isLoading) {
       if (authUser.uid) {
         dispatch(fetchLatestUserExercisesThunk(authUser.uid));
         dispatch(fetchSingleUserThunk(authUser.uid));
+        dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
       }
     }
 

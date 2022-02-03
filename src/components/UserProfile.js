@@ -13,18 +13,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { logout } from "../store/auth";
 
 const UserProfile = () => {
-  const [user, setUser] = useState(getAuth().currentUser);
-  const authUser = useSelector((state) => state.auth);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
-
   const { fullUser, userWorkout } = useSelector((state) => {
     return {
       fullUser: state.users.user,
       userWorkout: state.workouts.userWorkout,
     };
   });
+
+  const authUser = useSelector((state) => state.auth);
 
   const [isLoading, setLoading] = useState(true);
 
@@ -35,7 +31,7 @@ const UserProfile = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading && authUser) {
       dispatch(fetchLoginUser());
       setWorkoutDates(userWorkout[0]);
     }
@@ -43,14 +39,14 @@ const UserProfile = () => {
     return () => {
       setLoading(false);
     };
-  }, [dispatch, user, userWorkout, isLoading]);
+  }, [dispatch, userWorkout, isLoading, authUser]);
 
   useEffect(() => {
-    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
     if (authUser.uid) {
+      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
       dispatch(fetchSingleUserThunk(authUser.uid));
     }
-  }, [dispatch, authUser.uid]);
+  }, [dispatch, authUser]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
@@ -88,7 +84,7 @@ const UserProfile = () => {
     <div className="flex flex-col items-center justify-center py-2">
       <div className="rounded overflow-hidden pt-20">
         <div className="-mt-20 w-full flex justify-center pt-4">
-          {fullUser.gender === "Male" ? (
+          {fullUser && fullUser.gender === "Male" ? (
             <div className="h-32 w-32">
               <img
                 src={maleImage}

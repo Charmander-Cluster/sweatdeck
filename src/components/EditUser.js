@@ -70,6 +70,36 @@ const EditUser = () => {
                 placeholder="State"
               />
             </div>
+            <div>
+              <h1 className="font-extrabold pt-2">Favorite Workout Type</h1>
+              <select
+                className="appearance-none relative block w-full pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                placeholder="Favorite Workout Type"
+                name="favoriteWorkoutType"
+                onChange={handleChange}
+                defaultValue={userState.favoriteWorkoutType}
+              >
+                <option value="Cardio">Cardio</option>
+                <option value="Strength">Strength</option>
+              </select>
+            </div>
+            <div>
+              <h1 className="font-extrabold pt-2">Goal:</h1>
+              <select
+                className="appearance-none relative w-full block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                placeholder="Goal"
+                name="goal"
+                onChange={handleChange}
+                defaultValue={userState.goal}
+              >
+                <option value="Get started">Just getting started</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Competition">Competition</option>
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Hobby">Hobby</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
             <button className="flex flex-row text-1xl my-4 justify-center bg-teal-700 shadow-md shadow-black transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
               <svg
                 className="w-6 h-6 mr-2 pb-0.5"

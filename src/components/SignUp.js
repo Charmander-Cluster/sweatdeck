@@ -71,7 +71,6 @@ const SignUp = () => {
       <h1 className="mb-2 uppercase font-bold text-lg">Sign Up Here</h1>
       <h4 className="mb-2 font-bold text-sm">*Required fields</h4>
       <form className="flex flex-col mb-4" onSubmit={handleSubmit}>
-
         <div>
           <h1 className="font-extrabold text-sm">Username:*</h1>
           {/* <label>Username: </label> */}
@@ -163,7 +162,7 @@ const SignUp = () => {
             onChange={handleChange}
             default=""
           >
-            <option value = ""></option>
+            <option value=""></option>
             <option value="Prefer not to say">Prefer not to say</option>
             <option value="Female Identifying">Female Identifying</option>
             <option value="Male Identifying">Male Identifying</option>
@@ -180,13 +179,15 @@ const SignUp = () => {
             onChange={handleChange}
             default=""
           >
-            <option value = ""></option>
+            <option value=""></option>
             <option value="cardio">Cardio</option>
             <option value="strength">Strength</option>
           </select>
         </div>
         <div>
-          <h1 className="font-extrabold text-sm">Frequency (# of days worked out/week):</h1>
+          <h1 className="font-extrabold text-sm">
+            Frequency (# of days worked out/week):
+          </h1>
           {/* <label>Birthday: </label> */}
           <select
             className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
@@ -195,7 +196,7 @@ const SignUp = () => {
             onChange={handleChange}
             default=""
           >
-            <option value = ""></option>
+            <option value=""></option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -216,7 +217,7 @@ const SignUp = () => {
             onChange={handleChange}
             default=""
           >
-            <option value = ""></option>
+            <option value=""></option>
             <option value="Get started">Just getting started</option>
             <option value="Maintenance">Maintenance</option>
             <option value="Competition">Competition</option>
@@ -226,13 +227,15 @@ const SignUp = () => {
           </select>
         </div>
         <div>
-          <button className="flex flex-row text-1xl mx-2 my-2 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
+          <button className="flex flex-row text-1xl mx-2 my-2 justify-center shadow-md shadow-black bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
             Sign Up
           </button>
         </div>
       </form>
       <div>
-        <h2>Already have an account? <Link to ='/signin'>Sign in</Link></h2> 
+        <h2>
+          Already have an account? <Link to="/signin">Sign in</Link>
+        </h2>
       </div>
       {/* <div>
         {userInput.errors.email !== "" && (
