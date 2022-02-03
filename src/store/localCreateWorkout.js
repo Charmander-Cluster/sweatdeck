@@ -20,7 +20,7 @@ const initialState = {};
 export default function localCreateWorkoutReducer(state = initialState, action) {
   switch (action.type) {
     case LOCAL_CREATE_WORKOUT:
-      return { ...state, localWorkout: action.localWorkout };
+      return action.localWorkout;
     case LOCAL_EDIT_WORKOUT:
       return action.localWorkout;
     default:

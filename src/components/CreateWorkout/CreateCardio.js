@@ -10,7 +10,12 @@ const CreateCardio = (props) => {
 
   const dispatch = useDispatch()
 
-  const localWorkout = useSelector(state => state.localWorkout)
+  // const localWorkout = useSelector(state => state.localWorkout)
+  let localWorkout = useSelector(state => {
+    console.log('State: ', state);
+    return state.localWorkout;
+  });
+
 
   const [workout, setWorkout] = useState({
     category: "cardio",
@@ -30,7 +35,8 @@ const CreateCardio = (props) => {
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault()
     dispatch(localCreateWorkout(workout))
-    //history.push(AUTH_URL)
+    console.log("local workout:", localWorkout)
+    history.push(AUTH_URL)
   }
 
   console.log(workout);
