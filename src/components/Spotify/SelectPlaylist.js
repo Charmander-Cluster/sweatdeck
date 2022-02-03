@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import {useSelector, useDispatch} from 'react-redux'
+import {localEditWorkout} from "../../store/localCreateWorkout"
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from "./useAuth";
@@ -14,11 +16,13 @@ const SelectPlaylist = (props) => {
   //spotifyApi.setAccessToken(token)
   const accessToken = useAuth(token);
 
+  const dispatch = useDispatch()
+  const localWorkout = useSelector(state => state.localWorkout)
+
   console.log("This is the home component!");
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
-  const [spotifyUser, setSpotifyUser] = useState({});
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   console.log("Playlists:", playlists);
@@ -29,25 +33,26 @@ const SelectPlaylist = (props) => {
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
-  useEffect(() => {
-    if (!accessToken) return;
-    axios
-      .get("https://api.spotify.com/v1/me", {
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setSpotifyUser({
-          id: response.data.id,
-          name: response.data.display_name,
-          url: response.data.external_urls.spotify,
-        });
-      });
-  }, [accessToken]);
+  // const [spotifyUser, setSpotifyUser] = useState({});
+  // useEffect(() => {
+  //   if (!accessToken) return;
+  //   axios
+  //     .get("https://api.spotify.com/v1/me", {
+  //       headers: {
+  //         Accept: "application/json",
+  //         Authorization: "Bearer " + accessToken,
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setSpotifyUser({
+  //         id: response.data.id,
+  //         name: response.data.display_name,
+  //         url: response.data.external_urls.spotify,
+  //       });
+  //     });
+  // }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -89,19 +94,38 @@ const SelectPlaylist = (props) => {
       <div className="grid place-items-center">
         <div className="flex-col justify-center bg-zinc-800 w-full fixed top-0">
           <div className="flex-col justify-center">
+            <div className="grid justify-center">
             <h1 className="grid text-2xl text-teal-500 mt-12 mb-5">
               Select Your Spotify Playlist
             </h1>
+            </div>
           </div>
 
-          <div className="flex mb-5">
+          {(selectedPlaylist.name && (
+          <div className="flex-row">
+          <div className="mx-5 mb-2">
+            <span>SELECTED: </span> <span className="text-teal-500 text-lg">{selectedPlaylist.name}</span>
+            <div className="flex ">
+            <button className="bg-teal-500 p-2 m-2 rounded-md text-sm">
+              Confirm & Connect
+            </button>
+            </div>
+            </div>
+          </div>
+          ))}
+            <div className="flex justify-end">
+              <button className="text-teal-500 border border-teak-500 p-3 mx-5 rounded-md mb-3">
+              Cancel
+            </button>
+            </div>
+          {/* <div className="flex mb-5">
             <button className="bg-teal-500 p-3 m-2 rounded-md">
-              Confirm Playlist
+              Confirm & Connect
             </button>
             <button className="text-teal-500 border border-teak-500 p-3 m-2 rounded-md">
               Cancel
             </button>
-          </div>
+          </div> */}
         </div>
         {/* <p className="text-sm">
           Only "public" playlists may be linked to your workout.
@@ -167,13 +191,6 @@ const SelectPlaylist = (props) => {
           </div>
         </div>
       )}
-
-      <div className="flex-col">
-        <button className="bg-teal-500 p-3 rounded-md">Select Playlist</button>
-        <button className="text-teal-500 border border-teak-500 p-3 rounded-md">
-          Cancel
-        </button>
-      </div>
     </div>
   );
 };

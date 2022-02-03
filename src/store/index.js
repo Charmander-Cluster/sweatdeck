@@ -8,13 +8,16 @@ import workouts from "./workouts";
 import users from "./users";
 import singleWorkout from "./singleWorkout";
 import auth from "./auth";
+import localCreateWorkoutReducer from "./localCreateWorkout";
 
 const reducer = combineReducers({
   auth,
   workouts,
   users,
   singleWorkout,
+  localWorkout: localCreateWorkoutReducer
 });
+
 const middleware = composeWithDevTools(
   applyMiddleware(
     thunkMiddleware.withExtraArgument({ getFirestore }),
@@ -26,4 +29,5 @@ const store = createStore(reducer, middleware);
 
 export default store;
 export * from "./auth";
+export * from "./localCreateWorkout";
 

@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
+import {useSelector, useDispatch} from 'react-redux'
+import {localCreateWorkout} from "../../store/localCreateWorkout"
+import history from "../../history"
 
 const CreateCardio = (props) => {
-
   const redirectUri = props.redirectUri
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
-    const [workout, setWorkout] = useState({
+  const dispatch = useDispatch()
+
+  const localWorkout = useSelector(state => state.localWorkout)
+
+  const [workout, setWorkout] = useState({
     category: "cardio",
     name: "",
     type: "",
@@ -14,11 +20,18 @@ const CreateCardio = (props) => {
     units: "",
     hours: "",
     minutes: "",
+    playlist: {},
   });
 
-    const handleChange = (event) => {
+  const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
+
+  const handleSubmitWithSpotify = (event) => {
+    event.preventDefault()
+    dispatch(localCreateWorkout(workout))
+    //history.push(AUTH_URL)
+  }
 
   console.log(workout);
 
@@ -184,12 +197,13 @@ const CreateCardio = (props) => {
 
 
                   <div className="grid place-items-center mt-5">
-                  <a
+                  <button
                     className="flex bg-teal-500 text-white p-3 mb-3 text-lg rounded-md"
-                    href={AUTH_URL}
+                    onClick={handleSubmitWithSpotify}
+                    // href={AUTH_URL}
                   >
                     Save & Connect Playlist
-                  </a>
+                  </button>
                   <button className="flex text-teal-500 border border-teal-500 p-3 mb-3 text-lg rounded-md">
                     Save Without Playlist
                   </button>
