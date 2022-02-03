@@ -4,7 +4,7 @@ import UserProfile from "./components/UserProfile";
 import SignUp from './components/SignUp'
 import EditUser from "./components/EditUser";
 //import SingleWorkout from "./components/SingleWorkout"
-import { CreateWorkout, SpotifyLogin, SelectPlaylist } from "./components"
+import { CreateWorkout, CreateCardio, CreateStrength, SpotifyLogin, SelectPlaylist } from "./components"
 import Dashboard from "./components/Dashboard";
 import SignIn from "./components/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -24,6 +24,8 @@ const Routes = () => {
       <Switch>
         <Route exact path="/users/:id" component={UserProfile} />
         <Route exact path="/createworkout" component={CreateWorkout} />
+        <Route exact path="/createworkout/cardio" component={CreateCardio} />
+        <Route exact path="/createworkout/strength" component={CreateStrength} />
         <Route path='/spotifylogin' component={SpotifyLogin}/>
         <Route path='/spotifyhome' component={SelectPlaylist}/>
         <Route path="/users/:id/edit" component={EditUser} />
