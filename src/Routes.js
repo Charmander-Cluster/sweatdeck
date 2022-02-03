@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import SignUp from './components/SignUp'
@@ -6,8 +6,19 @@ import EditUser from "./components/EditUser";
 //import SingleWorkout from "./components/SingleWorkout"
 import { CreateWorkout, SpotifyLogin, SelectPlaylist } from "./components"
 import Dashboard from "./components/Dashboard";
+import SignIn from "./components/SignIn";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const Routes = (props) => {
+const Routes = () => {
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+
+  //   const [user, setUser] = useState(getAuth().currentUser);
+  //   const login = getAuth();
+  //   onAuthStateChanged(login, (u) => {
+  //     setUser(u);
+  //   });
+
   return (
     <div>
       <Switch>
@@ -17,11 +28,12 @@ const Routes = (props) => {
         <Route path='/spotifyhome' component={SelectPlaylist}/>
         <Route path="/users/:id/edit" component={EditUser} />
         {/* <Route path="/home" component={SingleWorkout} /> */}
+        <Route exact path="/" component={Dashboard} />
       </Switch>
       <Switch>
         <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
       </Switch>
-      <Route exact path="/" component={Dashboard} />
     </div>
   );
 };
