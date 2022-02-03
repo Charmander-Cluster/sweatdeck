@@ -24,7 +24,7 @@ const SignIn = () => {
     history.push("/");
   };
 
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -41,8 +41,8 @@ const SignIn = () => {
             type="text"
             placeholder="Email"
             name="email"
-            value = {email}
-            onChange = {(e)=>setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
@@ -57,22 +57,32 @@ const SignIn = () => {
         </div>
         <div>
           <button
-            className="flex flex-row text-1xl mx-2 my-2 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3"
+            className="flex flex-row text-1xl mx-2 my-3 justify-center bg-teal-700 shadow-md shadow-black transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3"
             type="submit"
           >
             Sign In
           </button>
         </div>
       </form>
-      <div>
-        <h2>
-          Forgot your password? <button className ="underline" onClick = {() => sendPasswordReset(email)}>Send password reset email</button>
-        </h2>
-      </div>
-      <div>
-        <h2>
-          Don't have an account? <Link to="/signup" className ="underline" >Sign up!</Link>
-        </h2>
+      <div className="flex flex-col justify-center items-center text-center">
+        <div className="flex flex-row">
+          <h2>Forgot your password? </h2>
+
+          <button
+            className="underline ml-1"
+            onClick={() => sendPasswordReset(email)}
+          >
+            Password Reset
+          </button>
+        </div>
+        <div>
+          <h2>
+            Don't have an account?{" "}
+            <Link to="/signup" className="underline">
+              Sign up!
+            </Link>
+          </h2>
+        </div>
       </div>
     </div>
   );

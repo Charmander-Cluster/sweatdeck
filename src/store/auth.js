@@ -97,7 +97,7 @@ export const sendPasswordReset = async (email) => {
 export const logout = () => (dispatch) => {
   const auth = getAuth();
   signOut(auth);
-  //return dispatch(setAuth({}));
+  return dispatch(setAuth({}));
 };
 
 export default function auth(state = {}, action) {

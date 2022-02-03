@@ -15,7 +15,7 @@ const Navbar = () => {
     <div className="w-full h-screen fixed">
       <section
         id="bottom-navigation"
-        className="md:hidden navbar block fixed inset-x-0 bottom-0 z-10 bg-teal-700 shadow"
+        className="md:hidden navbar block fixed inset-x-0 bottom-0 z-10 bg-teal-700"
       >
         <div id="tabs" className="flex justify-between">
           <Link

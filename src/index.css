@@ -103,7 +103,7 @@
   @apply bg-emerald-800 rounded-md;
 } */
 .react-calendar__tile--now {
-  @apply rounded-full bg-gradient-to-r from-fuchsia-500 to-teal-600 shadow-sm shadow-fuchsia-500/50;
+  @apply rounded-full bg-gradient-to-r from-fuchsia-500 to-teal-600 shadow-sm shadow-fuchsia-500/50 border-4;
 }
 /* .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
