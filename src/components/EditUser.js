@@ -70,10 +70,29 @@ const EditUser = () => {
                 placeholder="State"
               />
             </div>
-            <div>
+            <div className="lg:hidden w-full relative md:mt-4">
               <h1 className="font-extrabold pt-2">Favorite Workout Type</h1>
+              <div className="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-selector mt-4"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="#a0aec0"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <polyline points="8 9 12 5 16 9" />
+                  <polyline points="16 15 12 19 8 15" />
+                </svg>
+              </div>
               <select
-                className="appearance-none relative block w-full pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                aria-label="Selected tab"
+                className="focus:outline-none form-select block w-full pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 appearance-none rounded-md focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Favorite Workout Type"
                 name="favoriteWorkoutType"
                 onChange={handleChange}
@@ -83,10 +102,29 @@ const EditUser = () => {
                 <option value="Strength">Strength</option>
               </select>
             </div>
-            <div>
+            <div className="lg:hidden w-full relative md:mt-4">
               <h1 className="font-extrabold pt-2">Goal:</h1>
+              <div className="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-selector mt-4"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="#a0aec0"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <polyline points="8 9 12 5 16 9" />
+                  <polyline points="16 15 12 19 8 15" />
+                </svg>
+              </div>
               <select
-                className="appearance-none relative w-full block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                aria-label="Selected tab"
+                className="focus:outline-none form-select block w-full pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 appearance-none rounded-md focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Goal"
                 name="goal"
                 onChange={handleChange}

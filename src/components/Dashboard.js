@@ -14,6 +14,7 @@ const Dashboard = () => {
   const authUser = useSelector((state) => state.auth);
 
   const [isLoading, setLoading] = useState(true);
+  const [userState, setUserState] = useState({});
 
   const { userWorkout, userExercises, fullUser } = useSelector((state) => {
     return {
@@ -47,13 +48,13 @@ const Dashboard = () => {
         <div className="px-4 rounded-lg sm:px-6 md:px-8 pt-5 pb-11 md:w-1/2 w-full sm:border-r">
           <div className="sm:flex items-center justify-between">
             <div>
-              <p className="text-base font-bold leading-none text-white">
+              <p className="text-lg font-bold leading-none text-white">
                 {fullUser.username}'s Dashboard
               </p>
             </div>
           </div>
           <div className="mt-9">
-            <p className="text-sm font-medium tracking-wide leading-none text-white">
+            <p className="text-md font-medium tracking-wide leading-none text-white">
               Latest Workout - {userWorkout[0][0].category}
             </p>
             <div className="w-full bg-teal-600 rounded-full h-1 mt-4"></div>

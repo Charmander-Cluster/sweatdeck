@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
 
 const GET_LATEST_USER_WORKOUT = "GET_LATEST_USER_WORKOUT";

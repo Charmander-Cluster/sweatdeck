@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
