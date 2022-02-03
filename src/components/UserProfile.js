@@ -115,10 +115,15 @@ const UserProfile = () => {
           <h1 className="font-bold text-3xl text-center mb-1">
             {fullUser.username}
           </h1>
+          <p className="text-center text-base pt-2">State: {fullUser.state}</p>
           <p className="text-base pt-2 text-center">
             Birthday: {fullUser.birthday}
           </p>
-          <p className="text-center text-base pt-2">State: {fullUser.state}</p>
+          {userWorkout[0] && (
+            <p className="text-base pt-2 text-center">
+              Total Workouts: {userWorkout[0].length}
+            </p>
+          )}
           <div className="flex flex-row">
             <Link to={`${id}/edit`}>
               <div className="ml-1">
