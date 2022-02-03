@@ -7,11 +7,23 @@ import db from "../firebase";
 import workouts from "./workouts";
 import users from "./users";
 import auth from "./auth";
+import localCreateWorkoutReducer from "./localCreateWorkout";
+import createDBWorkoutReducer from "./createDBWorkout";
+
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
 const reducer = combineReducers({
   auth,
   workouts,
   users,
+  localWorkout: localCreateWorkoutReducer,
+  DBWorkout: createDBWorkoutReducer,
 });
 
 const middleware = composeWithDevTools(
@@ -21,7 +33,15 @@ const middleware = composeWithDevTools(
   ),
   reduxFirestore(db)
 );
-const store = createStore(reducer, middleware);
+//const store = createStore(reducer, middleware);
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const store = createStore(persistedReducer, middleware);
+
+let persistor = persistStore(store);
 
 export default store;
 export * from "./auth";
+export * from "./localCreateWorkout";
+export * from "./createDBWorkout";
