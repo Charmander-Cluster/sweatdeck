@@ -1,51 +1,83 @@
-import React from "react"
+import React from "react";
 
-const BicepExercises = () => {
-  return(
-    <select>
-    <option>Curls</option>
-    <option>Hammer Curl</option>
-    <option></option>
-    </select>
-  )
-}
+export const Biceps = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option>Barbell/Dumbell Curl</option>
+      <option>Hammer Curl</option>
+    </>
+  );
+};
 
+export const Triceps = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option>Tricep Extension</option>
+      <option>Triceps Extension</option>
+      <option>Bench Dips</option>
+      <option>Reverse grip bench press</option>
+      <option>Skull Crushers</option>
 
-const TricepExercises = () => {
-  return(
-    <select>
-    <option></option>
-    </select>
-  )
-}
+    </>
+  );
+};
 
-const BackExercises = () => {
-  return(
-    <option>Arnold Press</option>
-  )
-}
+export const Back = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option >Pullup</option>
+      <option>Row</option>
+      <option>Lat Pulldown</option>
+    </>
+  );
+};
 
-const QuadExercises = () => {
-  return(
-    <select>
-    <option></option>
-    </select>
-  )
-}
+export const Shoulders = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option>Arnold Press</option>
+      <option>Lateral Raise</option>
+      <option>Barbell / Kettlebell Overhead Press</option>
+    </>
+  );
+};
 
+export const Quads = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option>Squat</option>
+      <option>Forward Lunge</option>
+      <option>Backward Lunge</option>
+      <option>Leg Press</option>
+    </>
+  );
+};
 
-const ChestExercises = () => {
-  return(
-    <select>
-    <option>Bench Press</option>
-    </select>
-  )
-}
+export const Chest = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option>Bench Press</option>
+      <option>Chest Fly</option>
+      <option>Dip</option>
+    </>
+  );
+};
 
-const AbExercises = () => {
-  return(
-    <select>
-    <option></option>
-    </select>
-  )
-}
+export const Abs = () => {
+  return (
+    <>
+      <option value="select" disabled>--</option>
+      <option>Crunch</option>
+      <option>Sit up</option>
+      <option>Russian Twist</option>
+      <option>Plank</option>
+      <option>Side Plank</option>
+    </>
+  );
+};

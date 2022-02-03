@@ -54,7 +54,7 @@ const CreateWorkout = () => {
           <select
             name="category"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            // defaultValue="select"
+            defaultValue=""
             onChange={handleChange}
           >
             Select your workout:
@@ -69,7 +69,7 @@ const CreateWorkout = () => {
         <div></div>
       ) : (
         // <div className="container flex-col justify-center mb-20">
-        <div className="flex flex-row w-full text-1xl mb-3 justify-center">
+        <div className="flex flex-row w-full text-1xl -mt-4 mb-3 justify-center">
           <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto m-3 mb-14">
             <form className="max-w-4xl justify-center p-3 ">
               <div className="flex flex-wrap -mx-3 ">

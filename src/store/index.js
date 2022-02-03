@@ -9,6 +9,7 @@ import users from "./users";
 import singleWorkout from "./singleWorkout";
 import auth from "./auth";
 import localCreateWorkoutReducer from "./localCreateWorkout";
+import createDBWorkoutReducer from "./createDBWorkout";
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   workouts,
   users,
   singleWorkout,
-  localWorkout: localCreateWorkoutReducer
+  localWorkout: localCreateWorkoutReducer,
+  DBWorkout: createDBWorkoutReducer
 });
 
 const middleware = composeWithDevTools(
@@ -44,4 +46,5 @@ let persistor = persistStore(store)
 export default store;
 export * from "./auth";
 export * from "./localCreateWorkout";
+export * from "./createDBWorkout"
 

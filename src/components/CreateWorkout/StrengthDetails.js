@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthExercises"
 
 const StrengthDetails = (props) => {
   const workout = props.workout;
@@ -46,7 +47,7 @@ const StrengthDetails = (props) => {
 
   return (
     <div>
-      <div className="border border-teal-500 bg-neutral-500 rounded-md m-1 p-4">
+      <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
@@ -63,7 +64,7 @@ const StrengthDetails = (props) => {
                     Muscle Focus
                   </label>
                   <select
-                    className="w-30 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="bodyPart"
                     defaultValue="select"
                     onChange={handleChange}
@@ -73,6 +74,7 @@ const StrengthDetails = (props) => {
                     </option>
                     <option value="biceps">Biceps</option>
                     <option value="triceps">Triceps</option>
+                    <option value="shoulders">Shoulders</option>
                     <option value="back">Back</option>
                     <option value="quads">Quads</option>
                     <option value="chest">Chest</option>
@@ -93,22 +95,13 @@ const StrengthDetails = (props) => {
                     defaultValue="select"
                     onChange={handleChange}
                   >
-                    <option value="select" disabled>
-                      {" "}
-                      --
-                    </option>
-                    <option value="run">Run</option>
-                    <option value="walk">Walk</option>
-                    <option value="swim">Swim</option>
-                    <option value="row">Row</option>
-                    <option value="bike">Bike</option>
-                    <option value="elliptical">Elliptical</option>
-                    <option value="stairs/stair-stepper">
-                      Stairs/Stair-stepper
-                    </option>
-                    <option value="rollerskate/rollerblade">
-                      Rollerskate/Rollerblade
-                    </option>
+                    {exercise.bodyPart === "biceps" && <Biceps/>}
+                    {exercise.bodyPart === "triceps" && <Triceps/>}
+                    {exercise.bodyPart === "shoulders" && <Shoulders/>}
+                    {exercise.bodyPart === "back" && <Back/>}
+                    {exercise.bodyPart === "quads" && <Quads/>}
+                    {exercise.bodyPart === "chest" && <Chest/>}
+                    {exercise.bodyPart === "abs" && <Abs/>}
                   </select>
                 </div>
               </div>
@@ -179,21 +172,13 @@ const StrengthDetails = (props) => {
           </div>
         </div>
 
-        {/* <div className="flex justify-center"> */}
-        {/* <form className="flex w-full max-w-lg p-3"> */}
-        {/* <div className="flex flex-wrap -mx-3 mb-6"> */}
 
         <div className="flex justify-center">
-          {/* <div className="w-20 md:w-1/2 px-3"> */}
         </div>
 
-        {/* </div> */}
-
-        {/* </form> */}
-        {/* </div> */}
 
       {(!isCompleted && !isSaved) && (<div className="flex justify-end">
-        <button type="add" onClick={handleConfirm} className="mt-2 mr-1 border border-teal-500 rounded-md p-1 text-sm">
+        <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
           Confirm Details
         </button>
         </div>
@@ -202,9 +187,9 @@ const StrengthDetails = (props) => {
       {(isCompleted && !isSaved) && ((
       <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
-        Updated
+        Confirmed
       </div>
-      <button type="add" onClick={handleAdd} className="mt-2 border border-teal-500 rounded-md p-1">
+      <button type="add" onClick={handleAdd} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
         Add to Workout
       </button>
       </div>)

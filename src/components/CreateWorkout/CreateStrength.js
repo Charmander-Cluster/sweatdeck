@@ -16,7 +16,7 @@ const CreateStrength = (props) => {
   const [workout, setWorkout] = useState({
     category: "strength",
     name: "",
-    exercises: [],
+    exercises: []
   });
 
   const [exercise, setExercise] = useState({});
@@ -41,10 +41,10 @@ const CreateStrength = (props) => {
   }
 
   return (
-    <div className="container p-4">
+    <div className="container p-4 w-screen">
       <div className="flex justify-center">
         <img
-          className="max-h-20 h-20 mb-1 -mt-2"
+          className="max-h-16 h-16 mb-1 -mt-2"
           alt="weight-icon"
           src="https://icons-for-free.com/iconfiles/png/512/fitness+gym+gymnasium+icon-1320168052118785594.png"
         ></img>
@@ -84,25 +84,31 @@ const CreateStrength = (props) => {
       </div>
 
       <div className="flex justify-end">
-        <button
+        {/* <button
           className="bg-teal-500 p-1 rounded-md"
           onClick={() => setCounter(counter + 1)}
         >
           Add Exercise
-        </button>
+        </button> */}
+
+        <input type="image" alt="add-workout" src="https://cdn-icons-png.flaticon.com/512/189/189689.png"
+          className="bg-teal-500 mr-3 h-8 rounded-2xl"
+          onClick={() => setCounter(counter + 1)}
+        />
       </div>
 
       <div className="grid place-items-center mt-8">
         <button
-          className="flex bg-teal-500 text-white p-3 mb-3 text-lg rounded-md"
+          className="flex bg-teal-500 text-white p-2 mb-3 text-lg rounded-md"
           onClick={handleSubmitWithSpotify}
           href={AUTH_URL}
         >
           Save & Connect Playlist
         </button>
-        <button className="flex text-teal-500 border border-teal-500 p-3 mb-3 text-lg rounded-md">
+        <button className="flex text-teal-500 border rounded- border-teal-500 p-2 mb-3 text-lg rounded-md">
           Save Without Playlist
         </button>
+
       </div>
     </div>
   );

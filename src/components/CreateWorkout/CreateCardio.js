@@ -18,14 +18,15 @@ const CreateCardio = (props) => {
 
 
   const [workout, setWorkout] = useState({
-    category: localWorkout.category,
+    category: "",
     name: localWorkout.name,
-    type: localWorkout.type,
-    distance: localWorkout.distance,
-    units: localWorkout.units,
-    hours: localWorkout.hours,
-    minutes: localWorkout.minutes,
-    playlist: {},
+
+    //exercises [create an array to store object of properties below]
+    type: "",
+    distance: "",
+    units: "",
+    hours: "",
+    minutes: "",
   });
 
   const handleChange = (event) => {
@@ -46,7 +47,7 @@ const CreateCardio = (props) => {
       <div className="container p-3 w-screen">
         <div className="flex justify-center">
           <img
-            className="max-h-20 h-20 mb-5"
+            className="max-h-16 h-16 mb-2"
             alt="weight-icon"
             src="https://allenparkdowntown.org/wp-content/uploads/ES-safe-sidewalk.png"
           ></img>
@@ -66,7 +67,7 @@ const CreateCardio = (props) => {
                   <select
                     className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="type"
-                    // defaultValue="select"
+                    defaultValue=""
                     onChange={handleChange}
                   >
                     <option value="" disabled>
@@ -103,7 +104,7 @@ const CreateCardio = (props) => {
               </div>
             </div>
 
-            {workout.type !== "" && (
+            {/* {workout.type !== "" && ( */}
 
               <div className="flex align-center">
                 <div className="flex-col">
@@ -219,7 +220,7 @@ const CreateCardio = (props) => {
 
                 </div>
               </div>
-            )}
+            {/* )} */}
 
 
 
