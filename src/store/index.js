@@ -10,6 +10,14 @@ import singleWorkout from "./singleWorkout";
 import auth from "./auth";
 import localCreateWorkoutReducer from "./localCreateWorkout";
 
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistConfig = {
+  key: 'root',
+  storage
+}
+
 const reducer = combineReducers({
   auth,
   workouts,
@@ -25,7 +33,13 @@ const middleware = composeWithDevTools(
   ),
   reduxFirestore(db)
 );
-const store = createStore(reducer, middleware);
+//const store = createStore(reducer, middleware);
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
+const store = createStore(persistedReducer, middleware)
+
+let persistor = persistStore(store)
 
 export default store;
 export * from "./auth";
