@@ -189,7 +189,7 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        <EmptyDashboard />
+        <EmptyDashboard fullUser={fullUser} authUser={authUser} />
       )}
     </>
   );
