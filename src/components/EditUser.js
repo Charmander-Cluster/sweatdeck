@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { fetchSingleUserThunk, editUserThunk } from "../store/users";
+import { editUserThunk } from "../store/users";
+import { sendPasswordReset } from "../store";
 
 const EditUser = () => {
-  const { fullUser } = useSelector((state) => {
-    return {
-      fullUser: state.users.user,
-    };
-  });
-  const [userState, setUserState] = useState(fullUser);
+  const authUser = useSelector((state) => state.auth);
+  const [userState, setUserState] = useState(authUser);
 
   let history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(fetchSingleUserThunk(id));
-  }, [dispatch, id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,6 +23,21 @@ const EditUser = () => {
     dispatch(editUserThunk(id, userState));
     history.push(`/users/${id}`);
   };
+
+  // const actionCodeSettings = {
+  //   url: "https://www.example.com/?email=user@example.com",
+  //   iOS: {
+  //     bundleId: "com.example.ios",
+  //   },
+  //   android: {
+  //     packageName: "com.example.android",
+  //     installApp: true,
+  //     minimumVersion: "12",
+  //   },
+  //   handleCodeInApp: true,
+  // };
+
+  // console.log(authUser.email);
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -46,8 +54,14 @@ const EditUser = () => {
           </div>
           <div className="flex flex-col mt-4">
             <h1 className="mb-1 text-3xl font-bold text-center">
-              {userState.firstName} {userState.lastName}
+              {authUser.firstName} {authUser.lastName}
             </h1>
+            <button
+              className="ml-1 underline"
+              onClick={() => sendPasswordReset("asdd@123.com")}
+            >
+              Password Reset
+            </button>
             <div className="pt-4">
               <h1 className="font-extrabold">Username</h1>
               <label htmlFor="username"></label>

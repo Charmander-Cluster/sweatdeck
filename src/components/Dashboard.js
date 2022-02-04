@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import WorkoutChart from "./WorkoutChart";
 import EmptyDashboard from "./EmptyDashboard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLatestUserWorkoutThunk } from "../store/workouts";
+// import { fetchLatestUserWorkoutThunk } from "../store/workouts";
 import { fetchLoginUser } from "../store";
-import { fetchSingleUserThunk } from "../store/users";
+// import { fetchSingleUserThunk } from "../store/users";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const authUser = useSelector((state) => state.auth);
 
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setLoading] = useState(true);
 
   const { userWorkout } = useSelector((state) => {
     return {
@@ -19,20 +19,22 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchLoginUser());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isLoading) {
-      if (authUser.uid) {
-        dispatch(fetchSingleUserThunk(authUser.uid));
-      }
+    if (!authUser) {
+      dispatch(fetchLoginUser());
     }
+  }, [dispatch, authUser]);
 
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser.uid, isLoading, userWorkout]);
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     if (authUser.uid) {
+  //       dispatch(fetchSingleUserThunk(authUser.uid));
+  //     }
+  //   }
+
+  //   return () => {
+  //     setLoading(false);
+  //   };
+  // }, [dispatch, authUser.uid, isLoading, userWorkout]);
 
   return (
     <>
@@ -182,7 +184,7 @@ const Dashboard = () => {
           )}
         </div>
       ) : (
-        <EmptyDashboard fullUser={authUser} authUser={authUser} />
+        <EmptyDashboard authUser={authUser} />
       )}
     </>
   );

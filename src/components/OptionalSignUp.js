@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authSignUp, authenticate } from "../store/auth";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "../store/auth";
 
@@ -10,7 +9,6 @@ const OptionalSignUp = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   //const history = useHistory();
-  const [userEmails] = useState({});
   const [userInput, setUserInput] = useState({
     user: {
       firstName: "",
@@ -25,23 +23,21 @@ const OptionalSignUp = () => {
 
   const authUser = useSelector((state) => state.auth);
 
-  const [newUser, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!authUser) {
+    if (!authUser.uid || isLoading) {
       dispatch(fetchLoginUser());
     }
-  }, [dispatch, authUser]);
 
-  //   console.log(user.uid);
+    return () => {
+      setLoading(false);
+    };
+  }, [dispatch, authUser.uid, isLoading]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formName = evt.target.name;
     const user = {
       firstName: evt.target.firstName.value,
       lastName: evt.target.lastName.value,
@@ -51,7 +47,7 @@ const OptionalSignUp = () => {
       goal: evt.target.goal.value,
     };
 
-    dispatch(authSignUp(user, newUser.uid));
+    dispatch(authSignUp(user, authUser.uid));
     history.push("/");
   };
 
@@ -66,6 +62,9 @@ const OptionalSignUp = () => {
       <form onSubmit={handleSubmit}>
         <div className="w-full p-10 ">
           <div className="items-center pb-6 border-b border-teal-700 md:flex">
+            <h1 className="mb-2 text-lg font-bold text-center uppercase">
+              Sign Up
+            </h1>
             <div className="flex items-center mt-4 md:mt-0">
               <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded">
                 <p className="text-base font-medium leading-none text-teal-500">
@@ -262,7 +261,7 @@ const OptionalSignUp = () => {
 
           <button
             aria-label="Submit"
-            className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+            className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-700 rounded shadow-md shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
           >
             <span className="text-sm font-medium text-center text-white capitalize">
               Submit

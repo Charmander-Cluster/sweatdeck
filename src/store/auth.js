@@ -13,11 +13,11 @@ const SET_AUTH = "SET_AUTH";
 
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
 
-export const authenticate = (username, password) => async (dispatch) => {
+export const authenticate = (email, password) => async (dispatch) => {
   const auth = getAuth();
   try {
     logout();
-    await signInWithEmailAndPassword(auth, username, password);
+    await signInWithEmailAndPassword(auth, email, password);
     const user = auth.currentUser;
     if (user !== null) {
       const response = await getDoc(doc(db, "users", user.uid));
@@ -91,6 +91,7 @@ export const authSignUp = (user, userId) => async (dispatch) => {
 export const sendPasswordReset = async (email) => {
   try {
     const auth = getAuth();
+    auth.languageCode = "it";
     await sendPasswordResetEmail(auth, email);
     alert("Password reset link sent!");
   } catch (err) {

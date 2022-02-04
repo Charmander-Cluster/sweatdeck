@@ -106,9 +106,9 @@ const UserProfile = () => {
           <p className="pt-2 text-base text-center">
             Birthday: {authUser.birthday}
           </p>
-          {userWorkout[0] && (
+          {userWorkout.length > 0 && (
             <p className="pt-2 text-base text-center">
-              Total Workouts: {userWorkout[0].length}
+              Total Workouts: {userWorkout.length}
             </p>
           )}
           <div className="flex flex-row">

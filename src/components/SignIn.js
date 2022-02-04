@@ -27,7 +27,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
+    <div className="flex flex-col items-center justify-center pt-10">
       <h1 className="mb-2 text-lg font-bold uppercase">Sign In</h1>
       <form
         className="flex flex-col items-center justify-center mb-4"
@@ -78,7 +78,7 @@ const SignIn = () => {
         <div>
           <h2>
             Don't have an account?{" "}
-            <Link to="/signuptest" className="underline">
+            <Link to="/signup" className="underline">
               Sign up!
             </Link>
           </h2>
