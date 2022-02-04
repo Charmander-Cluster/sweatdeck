@@ -46,7 +46,7 @@ const Routes = () => {
 
   return (
     <div>
-      {user ? (
+      {/* {user ? ( */}
         <Switch>
           <Route exact path="/optionalsignup" component={OptionalSignUp} />
           <Route exact path="/createworkout" component={CreateWorkout} />
@@ -64,13 +64,13 @@ const Routes = () => {
           <Route exact path="/users/:id" component={UserProfile} />
           <Route exact path="/" component={Dashboard} />
         </Switch>
-      ) : (
+      // ) : (
         <Switch>
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/" component={SignIn} />
         </Switch>
-      )}
+      {/* )} */}
     </div>
   );
 };
