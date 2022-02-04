@@ -20,33 +20,33 @@ import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./components/SignUp";
 import OptionalSignUp from "./components/OptionalSignUp";
 
-const Routes = () => {
-  const authUser = useSelector((state) => state.auth);
+const Routes = (props) => {
+  // const authUser = useSelector((state) => state.auth);
 
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
+  // const [user, setUser] = useState(getAuth().currentUser);
+  // onAuthStateChanged(getAuth(), (u) => {
+  //   setUser(u);
+  // });
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!authUser.uid || isLoading) {
-      dispatch(fetchLoginUser());
-    }
+  // useEffect(() => {
+  //   if (!authUser.uid || isLoading) {
+  //     dispatch(fetchLoginUser());
+  //   }
 
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser.uid, isLoading]);
+  //   return () => {
+  //     setLoading(false);
+  //   };
+  // }, [dispatch, authUser.uid, isLoading]);
 
   // console.log(authUser);
 
   return (
     <div>
-      {user ? (
+      {props.user ? (
         <Switch>
           <Route exact path="/optionalsignup" component={OptionalSignUp} />
           <Route exact path="/createworkout" component={CreateWorkout} />
