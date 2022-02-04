@@ -103,7 +103,7 @@ app.post('/cardiologin', (req, res) => {
 app.post("/cardiorefresh", (req, res) => {
   const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: SPOTIFY_REDIRECT_URI,
+    redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
     clientId: SPOTIFY_CLIENT_ID,
     clientSecret: SPOTIFY_CLIENT_SECRET,
     refreshToken
