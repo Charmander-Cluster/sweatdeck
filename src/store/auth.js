@@ -45,8 +45,6 @@ export const authSignUp = (user, userId) => async (dispatch) => {
 
     const users = collection(db, "users");
 
-    console.log(userId);
-
     if (user.password) {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -69,8 +67,6 @@ export const authSignUp = (user, userId) => async (dispatch) => {
         goal: user.goal || "",
       });
     }
-
-    console.log(userId);
 
     dispatch(setAuth(user));
   } catch (error) {

@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchLoginUser } from "../store";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const authUser = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (!authUser) {
+      dispatch(fetchLoginUser());
+    }
+  }, [dispatch, authUser]);
+
   return (
-    <div className="w-full h-screen fixed">
+    <div className="fixed w-full h-screen">
       {authUser.uid && (
         <section
           id="bottom-navigation"
-          className="md:hidden navbar block fixed inset-x-0 bottom-0 z-10 bg-teal-700 shadow-md shadow-black"
+          className="fixed inset-x-0 bottom-0 z-10 block bg-teal-700 shadow-md md:hidden navbar shadow-black"
         >
           <div id="tabs" className="flex justify-between">
             <Link
               to="/"
-              className="w-full justify-center inline-block text-center pt-2 pb-1"
+              className="justify-center inline-block w-full pt-2 pb-1 text-center"
             >
               <svg
-                className="w-6 h-6 inline-block mb-1"
+                className="inline-block w-6 h-6 mb-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -31,14 +40,14 @@ const Navbar = () => {
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 ></path>
               </svg>
-              <span className="tab tab-home block text-xs">Dashboard</span>
+              <span className="block text-xs tab tab-home">Dashboard</span>
             </Link>
             <Link
               to="/createworkout"
-              className="w-full justify-center inline-block text-center pt-2 pb-1"
+              className="justify-center inline-block w-full pt-2 pb-1 text-center"
             >
               <svg
-                className="w-6 h-6 inline-block mb-1"
+                className="inline-block w-6 h-6 mb-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -51,14 +60,14 @@ const Navbar = () => {
                   d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              <span className="tab tab-home block text-xs">Create</span>
+              <span className="block text-xs tab tab-home">Create</span>
             </Link>
             <Link
               to="/workouts"
-              className="w-full justify-center inline-block text-center pt-2 pb-1"
+              className="justify-center inline-block w-full pt-2 pb-1 text-center"
             >
               <svg
-                className="w-6 h-6 inline-block mb-1"
+                className="inline-block w-6 h-6 mb-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -72,15 +81,15 @@ const Navbar = () => {
                 ></path>
               </svg>
 
-              <span className="tab tab-whishlist block text-xs">Workouts</span>
+              <span className="block text-xs tab tab-whishlist">Workouts</span>
             </Link>
 
             <Link
               to={`/users/${authUser.uid}`}
-              className="w-full justify-center inline-block text-center pt-2 pb-1"
+              className="justify-center inline-block w-full pt-2 pb-1 text-center"
             >
               <svg
-                className="inline-block mb-1 w-6 h-6"
+                className="inline-block w-6 h-6 mb-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -93,7 +102,7 @@ const Navbar = () => {
                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 ></path>
               </svg>
-              <span className="tab tab-account block text-xs">Me</span>
+              <span className="block text-xs tab tab-account">Me</span>
             </Link>
           </div>
         </section>
