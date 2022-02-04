@@ -28,7 +28,7 @@ export const fetchSingleWorkoutThunk = (userId, docId) => {
       //   let exercise = await getDocs(workoutRef);
 
       const workout = await getDoc(doc(db, `users/${userId}/workouts`, docId));
-      console.log("this is workout from sW thunk", workout.data());
+      //console.log("this is workout from sW thunk", workout.data());
 
       //console.log("this is exercise from single Workout", exercise);
       //   let allExercises = exercise.docs.map((elem) => {

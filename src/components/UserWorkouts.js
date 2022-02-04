@@ -18,25 +18,29 @@ const UserWorkouts = () => {
     dispatch(fetchUserWorkoutsThunk(id));
   }, [dispatch, id]);
 
-  console.log("User workouts from component", workouts);
+  //console.log("User workouts from component", workouts);
 
   return (
-    <div>
-      <div>
-        {workouts.map((workout) => {
-          return (
-            <div key={workout.elemId}>
-              <div>{workout.elemData.category}</div>
+    <div className="container p-3 w-screen flex flex-col items-center justify-center py-2">
+      <div className="rounded overflow-hidden pt-20">
+        <div className="grid grid-cols-1"> 
+          {workouts.map((workout) => {
+            return (
+              <div key={workout.elemId} className="flex flex-col px-6 mt-4 border-solid border-2">
+                <div className="font-bold text-3xl text-center mb-1">
+                  {workout.elemData.name}
+                </div>
 
-              <Link
-                to={`/users/${id}/workouts/${workout.elemId}`}
-                className="info__button"
-              >
-                See Workout
-              </Link>
-            </div>
-          );
-        })}
+                <Link
+                  to={`/users/${id}/workouts/${workout.elemId}`}
+                  className="flex flex-row text-1xl mx-2 my-2 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3"
+                >
+                  See Workout
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
