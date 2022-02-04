@@ -88,13 +88,13 @@ const WorkoutChart = (props) => {
       window.myChart = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["Distance", "Time"],
+          labels: ["Distance", "Minutes"],
           datasets: [
             {
               label: false,
               data: [
                 props.userWorkout[0].exercises[0].distance,
-                props.userWorkout[0].exercises[0].time,
+                props.userWorkout[0].exercises[0].minutes,
               ],
               backgroundColor: "#FDBA74",
             },

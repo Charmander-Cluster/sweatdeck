@@ -135,13 +135,13 @@ const Dashboard = () => {
                       <div className="w-1 bg-teal-600 rounded-sm h-9" />
                       <div className="flex flex-col pt-2 pl-3">
                         <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Time
+                          Hours
                         </p>
                       </div>
                     </div>
 
                     <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {userWorkout[0].exercises[0].time}
+                      {userWorkout[0].exercises[0].hours}
                     </p>
                   </div>
                 )}
@@ -167,13 +167,13 @@ const Dashboard = () => {
                       <div className="w-1 bg-teal-600 rounded-sm h-9" />
                       <div className="flex flex-col pt-2 pl-3">
                         <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Laps
+                          Minutes
                         </p>
                       </div>
                     </div>
 
                     <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {userWorkout[0].exercises[0].laps}
+                      {userWorkout[0].exercises[0].minutes}
                     </p>
                   </div>
                 )}

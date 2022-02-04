@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { localEditWorkout } from "../../store/localCreateWorkout";
+import { strengthLocalEditWorkout } from "../../store/strengthLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "./useAuth";
-import { useHistory } from "react-router-dom";
+import useAuthStrength from "./useAuthStrength";
+import history from "../../history";
 
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -17,7 +17,7 @@ const spotifyApi = new SpotifyWebApi({
 
 const token = new URLSearchParams(window.location.search).get("code");
 
-const SelectPlaylist = (props) => {
+const StrengthPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
 
@@ -26,7 +26,7 @@ const SelectPlaylist = (props) => {
     setUser(u);
   });
 
-  let history = useHistory();
+  // let history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,44 +34,42 @@ const SelectPlaylist = (props) => {
   }, [dispatch, user]);
 
   const userId = authUser.uid;
+  const accessToken = useAuthStrength(token);
+  let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  console.log("**USERID**", userId);
-
-  const accessToken = useAuth(token);
-
-  let localWorkout = useSelector((state) => state.localWorkout);
-
-  console.log("local workout store:", localWorkout);
-  //console.log("This is the home component!");
+  console.log("strength local workout store:", strengthLocalWorkout);
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   useEffect(() => {
-    if (playlistConfirmed) dispatch(createDBWorkout(localWorkout, userId));
-  }, [dispatch, userId, localWorkout, playlistConfirmed]);
+    if (playlistConfirmed)
+      dispatch(createDBWorkout(strengthLocalWorkout, userId));
+  }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
 
+  //console.log("This is the home component!");
   //console.log("Playlists:", playlists);
   //console.log("selected playlist", selectedPlaylist);
+  //console.log("**AUTH USER**", authUser)
+  //console.log("**USER**", user)
+  // console.log("**USERID**", userId)
 
   const createWorkout = () => {
     dispatch(
-      localEditWorkout({
-        ...localWorkout,
+      strengthLocalEditWorkout({
+        ...strengthLocalWorkout,
         playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
       })
     );
-    dispatch(createDBWorkout(localWorkout, userId));
+    dispatch(createDBWorkout(strengthLocalWorkout, userId));
   };
 
   const handleConfirm = (event) => {
     event.preventDefault();
     dispatch(
-      localEditWorkout({
-        ...localWorkout,
+      strengthLocalEditWorkout({
+        ...strengthLocalWorkout,
         playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
       })
     );
@@ -220,7 +218,7 @@ const SelectPlaylist = (props) => {
                       ></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200  dark:divide-gray-700 overflow:scroll">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700 overflow:scroll">
                     {playlists.map((playlist) => (
                       <tr
                         key={playlist.id}
@@ -251,4 +249,4 @@ const SelectPlaylist = (props) => {
   );
 };
 
-export default SelectPlaylist;
+export default StrengthPlaylist;

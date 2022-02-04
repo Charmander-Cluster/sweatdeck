@@ -7,7 +7,8 @@ import db from "../firebase";
 import workouts from "./workouts";
 import users from "./users";
 import auth from "./auth";
-import localCreateWorkoutReducer from "./localCreateWorkout";
+import strengthLocalCreateWorkoutReducer from "./strengthLocalCreateWorkout";
+import cardioLocalCreateWorkoutReducer from "./cardioLocalCreateWorkout";
 import createDBWorkoutReducer from "./createDBWorkout";
 
 import { persistStore, persistReducer } from "redux-persist";
@@ -22,7 +23,8 @@ const reducer = combineReducers({
   auth,
   workouts,
   users,
-  localWorkout: localCreateWorkoutReducer,
+  cardioLocalWorkout: cardioLocalCreateWorkoutReducer,
+  strengthLocalWorkout: strengthLocalCreateWorkoutReducer,
   DBWorkout: createDBWorkoutReducer,
 });
 
@@ -43,6 +45,6 @@ let persistor = persistStore(store);
 
 export default store;
 export * from "./auth";
-export * from "./localCreateWorkout";
+export * from "./cardioLocalCreateWorkout";
+export * from "./strengthLocalCreateWorkout";
 export * from "./createDBWorkout";
-export * from "./workouts";
