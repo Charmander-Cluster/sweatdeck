@@ -139,5 +139,5 @@
 } */
 
 .highlight {
-  @apply bg-teal-600 rounded-full;
+  @apply bg-teal-600 rounded-full shadow-md shadow-black;
 }

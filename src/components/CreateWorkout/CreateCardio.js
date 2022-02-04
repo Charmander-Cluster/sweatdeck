@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
-import history from "../../history";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
@@ -78,7 +77,7 @@ const CreateCardio = (props) => {
     workout.exercises.push(exercises);
     dispatch(cardioLocalCreateWorkout(workout));
     console.log("local workout:", cardioLocalWorkout);
-    history.push(AUTH_URL);
+    window.location.href = AUTH_URL;
   };
 
   const handleSubmitWithoutPlaylist = (event) => {

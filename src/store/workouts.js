@@ -61,15 +61,12 @@ export const fetchLatestUserWorkoutThunk = (userId) => {
   };
 };
 
-const initialState = {
-  userWorkout: {},
-  // userExercises: {},
-};
+const initialState = {};
 
 export default function workoutsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LATEST_USER_WORKOUT:
-      return { ...state, userWorkout: action.userWorkout };
+      return action.userWorkout;
     // case GET_LATEST_USER_EXERCISES:
     //   return { ...state, userExercises: action.userExercises };
 
