@@ -5,7 +5,7 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
 
@@ -20,7 +20,7 @@ export const authenticate = (username, password) => async (dispatch) => {
     await signInWithEmailAndPassword(auth, username, password);
     const user = auth.currentUser;
     if (user !== null) {
-      const response = await getDoc(doc(db, "Users", user.uid));
+      const response = await getDoc(doc(db, "users", user.uid));
       const fullDetail = { ...user, ...response.data() };
       dispatch(setAuth(fullDetail));
     }
@@ -33,36 +33,45 @@ export const fetchLoginUser = () => async (dispatch) => {
   const auth = getAuth();
   const user = auth.currentUser;
   if (user) {
-    const response = await getDoc(doc(db, "Users", user.uid));
+    const response = await getDoc(doc(db, "users", user.uid));
     const fullDetail = { ...user, ...response.data() };
     await dispatch(setAuth(fullDetail));
   }
 };
 
-export const authSignUp = (user) => async (dispatch) => {
+export const authSignUp = (user, userId) => async (dispatch) => {
   try {
     const auth = getAuth();
 
-    const response = await createUserWithEmailAndPassword(
-      auth,
-      user.email,
-      user.password
-    );
-
     const users = collection(db, "users");
 
-    await setDoc(doc(users, response.user.uid), {
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      email: user.email,
-      username: user.username,
-      state: user.state,
-      birthday: user.birthday,
-      gender: user.gender || "",
-      favoriteWorkoutType: user.favoriteWorkoutType || "",
-      frequency: user.frequency || "",
-      goal: user.goal || "",
-    });
+    console.log(userId);
+
+    if (user.password) {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        user.email,
+        user.password
+      );
+      await setDoc(doc(users, response.user.uid), {
+        email: user.email || "",
+        username: user.username || "",
+        state: user.state || "",
+        birthday: user.birthday || "",
+      });
+    } else {
+      await updateDoc(doc(users, userId), {
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        gender: user.gender || "",
+        favoriteWorkoutType: user.favoriteWorkoutType || "",
+        frequency: user.frequency || "",
+        goal: user.goal || "",
+      });
+    }
+
+    console.log(userId);
+
     dispatch(setAuth(user));
   } catch (error) {
     console.log("CODE: ", error.code);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { fetchSingleUserThunk } from "../store/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
 import Calendar from "react-calendar";
@@ -8,14 +7,11 @@ import femaleImage from "../assets/female-useravatar.png";
 import defaultImage from "../assets/default-useravatar.png";
 import { isSameDay } from "date-fns";
 import { fetchLatestUserWorkoutThunk } from "../store/workouts";
-import { fetchLoginUser } from "../store";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { logout } from "../store/auth";
 
 const UserProfile = () => {
-  const { fullUser, userWorkout } = useSelector((state) => {
+  const { userWorkout } = useSelector((state) => {
     return {
-      fullUser: state.users.user,
       userWorkout: state.workouts.userWorkout,
     };
   });
@@ -23,54 +19,45 @@ const UserProfile = () => {
   const authUser = useSelector((state) => state.auth);
 
   const [isLoading, setLoading] = useState(true);
-
-  const [workoutDates, setWorkoutDates] = useState([]);
   const [date, setDate] = useState(new Date());
+
   let history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    if (isLoading && authUser) {
-      dispatch(fetchLoginUser());
-      setWorkoutDates(userWorkout[0]);
+    if (isLoading) {
+      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
     }
 
     return () => {
       setLoading(false);
     };
-  }, [dispatch, userWorkout, isLoading, authUser]);
-
-  useEffect(() => {
-    if (authUser.uid) {
-      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-      dispatch(fetchSingleUserThunk(authUser.uid));
-    }
-  }, [dispatch, authUser]);
+  }, [dispatch, authUser, isLoading]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
-    if (workoutDates) {
-      if (workoutDates.length > 0 && workoutDates[0].date) {
-        workoutDates.forEach((doc) => {
-          const convertedDate = doc.date.toDate();
-          workoutDatesArr.push(convertedDate);
-        });
-        return workoutDatesArr;
-      }
+    // Loop through all user dates and convert to UTC
+    if (userWorkout.length > 0) {
+      userWorkout.forEach((doc) => {
+        const convertedDate = new Date(
+          doc.createdAt.seconds * 1000 + doc.createdAt.nanoseconds / 1000000
+        );
+        workoutDatesArr.push(convertedDate);
+      });
     }
+
+    return workoutDatesArr;
   };
 
   const dates = dateConverter();
 
   function tileWorkoutDates({ date, view }) {
     // Add class to tiles in month view only
-    if (view === "month" && workoutDates) {
+    if (view === "month" && userWorkout) {
       // Check if a date React-Calendar wants to check is on the list of dates to add class to
-      if (workoutDates.length > 0 && workoutDates[0].date) {
-        if (dates.find((dDate) => isSameDay(dDate, date))) {
-          return "highlight";
-        }
+      if (dates.find((dDate) => isSameDay(dDate, date))) {
+        return "highlight";
       }
     }
   }
@@ -82,52 +69,52 @@ const UserProfile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
-      <div className="rounded overflow-hidden pt-20">
-        <div className="-mt-20 w-full flex justify-center pt-4">
-          {fullUser && fullUser.gender === "Male" ? (
-            <div className="h-32 w-32">
+      <div className="pt-20 overflow-hidden rounded">
+        <div className="flex justify-center w-full pt-4 -mt-20">
+          {authUser && authUser.gender === "Male" ? (
+            <div className="w-32 h-32">
               <img
                 src={maleImage}
                 alt="User Profile"
-                className="rounded-full object-cover h-full w-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md"
               />
             </div>
-          ) : fullUser.gender === "Female" ? (
-            <div className="h-32 w-32">
+          ) : authUser.gender === "Female" ? (
+            <div className="w-32 h-32">
               <img
                 src={femaleImage}
                 alt="User Profile"
-                className="rounded-full object-cover h-full w-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md"
               />
             </div>
           ) : (
-            <div className="h-32 w-32">
+            <div className="w-32 h-32">
               <img
                 src={defaultImage}
                 alt="User Profile"
-                className="rounded-full object-cover h-full w-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md"
               />
             </div>
           )}
         </div>
 
         <div className="flex flex-col px-6 mt-4">
-          <h1 className="font-bold text-3xl text-center mb-1">
-            {fullUser.username}
+          <h1 className="mb-1 text-3xl font-bold text-center">
+            {authUser.username}
           </h1>
-          <p className="text-center text-base pt-2">State: {fullUser.state}</p>
-          <p className="text-base pt-2 text-center">
-            Birthday: {fullUser.birthday}
+          <p className="pt-2 text-base text-center">State: {authUser.state}</p>
+          <p className="pt-2 text-base text-center">
+            Birthday: {authUser.birthday}
           </p>
           {userWorkout[0] && (
-            <p className="text-base pt-2 text-center">
+            <p className="pt-2 text-base text-center">
               Total Workouts: {userWorkout[0].length}
             </p>
           )}
           <div className="flex flex-row">
             <Link to={`${id}/edit`}>
               <div className="ml-1">
-                <button className="flex flex-row items-center text-md my-3 focus:outline-none px-8 py-3 bg-teal-700 shadow-md shadow-black text-white rounded text-sm leading-none">
+                <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-700 rounded shadow-md text-md focus:outline-none shadow-black">
                   <svg
                     className="w-5 h-5 mr-2"
                     fill="none"
@@ -154,7 +141,7 @@ const UserProfile = () => {
             </Link>
             <div className="ml-3">
               <button
-                className="flex flex-row text-md my-3 items-center focus:outline-none px-8 py-3 bg-teal-700 shadow-md shadow-black text-white rounded text-sm leading-none"
+                className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-700 rounded shadow-md text-md focus:outline-none shadow-black"
                 onClick={() => handleClick()}
               >
                 <svg

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import SignUp from "./components/SignUp";
@@ -8,12 +8,28 @@ import { CreateWorkout, SpotifyLogin, SelectPlaylist } from "./components";
 import Dashboard from "./components/Dashboard";
 import SignIn from "./components/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { fetchLoginUser } from "./store";
+import { useDispatch, useSelector } from "react-redux";
+import SignUpTest from "./components/SignUpTest";
+import OptionalSignUp from "./components/OptionalSignUp";
 
 const Routes = () => {
+  const authUser = useSelector((state) => state.auth);
+
   const [user, setUser] = useState(getAuth().currentUser);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!authUser) {
+      dispatch(fetchLoginUser());
+    }
+  }, [dispatch, authUser]);
+
+  // console.log(authUser);
 
   return (
     <div>
@@ -33,6 +49,9 @@ const Routes = () => {
           <Route exact path="/" component={SignIn} />
         </Switch>
       )}
+
+      <Route exact path="/signuptest" component={SignUpTest} />
+      <Route exact path="/optionalsignup" component={OptionalSignUp} />
     </div>
   );
 };

@@ -45,3 +45,4 @@ export default store;
 export * from "./auth";
 export * from "./localCreateWorkout";
 export * from "./createDBWorkout";
+export * from "./workouts";

@@ -3,38 +3,38 @@ import { Link } from "react-router-dom";
 
 const EmptyDashboard = (props) => {
   return (
-    <div className="px-4 rounded-lg sm:px-6 md:px-8 pt-5 pb-11 md:w-1/2 w-full sm:border-r">
-      <div className="sm:flex items-center justify-between">
+    <div className="w-full px-4 pt-5 rounded-lg sm:px-6 md:px-8 pb-11 md:w-1/2 sm:border-r">
+      <div className="items-center justify-between sm:flex">
         <div>
-          {/* {props.fullUser.username && (
+          {props.authUser.username && (
             <p className="text-base font-bold leading-none text-white">
-              {props.fullUser.username}'s Dashboard
+              {props.authUser.username}'s Dashboard
             </p>
-          )} */}
+          )}
         </div>
       </div>
       <div className="mt-9">
-        <p className="text-sm font-medium tracking-wide leading-none text-white">
+        <p className="text-sm font-medium leading-none tracking-wide text-white">
           You have no workouts
         </p>
-        <div className="w-full bg-teal-600 rounded-full h-1 mt-4"></div>
+        <div className="w-full h-1 mt-4 bg-teal-600 rounded-full"></div>
       </div>
       <div className="mt-12">
-        <p className="text-sm font-medium tracking-wide leading-none text-white text-center">
+        <p className="text-sm font-medium leading-none tracking-wide text-center text-white">
           Getting started
         </p>
-        <Link to="#">
-          <button className="mt-5 sm:mt-0 w-full h-28 focus:outline-none px-5 py-2 bg-teal-700 shadow-md shadow-black text-white rounded text-sm leading-none">
+        <Link to="/createworkout">
+          <button className="w-full px-5 py-2 mt-5 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 h-28 focus:outline-none shadow-black">
             Create Workout
           </button>
         </Link>
         <Link to={`users/${props.authUser.uid}`}>
-          <button className="mt-5 sm:mt-0 w-full h-28 focus:outline-none px-5 py-2 bg-teal-700 shadow-md shadow-black text-white rounded text-sm leading-none">
+          <button className="w-full px-5 py-2 mt-5 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 h-28 focus:outline-none shadow-black">
             View User Profile
           </button>
         </Link>
         <Link to="#">
-          <button className="mt-5 sm:mt-0 w-full h-28 focus:outline-none px-5 py-2 bg-teal-700 shadow-md shadow-black text-white rounded text-sm leading-none">
+          <button className="w-full px-5 py-2 mt-5 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 h-28 focus:outline-none shadow-black">
             Link Spotify
           </button>
         </Link>

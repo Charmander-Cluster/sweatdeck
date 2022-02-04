@@ -6,8 +6,9 @@ const WorkoutChart = (props) => {
     if (window.myChart instanceof Chart) {
       window.myChart.destroy();
     }
+
     const ctx = document.getElementById("myChart").getContext("2d");
-    if (props.userExercises[1][0].reps) {
+    if (props.userWorkout[0].exercises[0].reps) {
       window.myChart = new Chart(ctx, {
         type: "line",
         data: {
@@ -16,9 +17,9 @@ const WorkoutChart = (props) => {
             {
               label: false,
               data: [
-                props.userExercises[1][0].reps,
-                props.userExercises[1][0].sets,
-                props.userExercises[1][0].weight,
+                props.userWorkout[0].exercises[0].reps,
+                props.userWorkout[0].exercises[0].sets,
+                props.userWorkout[0].exercises[0].weight,
               ],
               backgroundColor: "rgba(255, 255, 255, 0.1)",
               borderColor: "#0f766e",
@@ -29,9 +30,9 @@ const WorkoutChart = (props) => {
             {
               label: false,
               data: [
-                props.userExercises[1][1].reps,
-                props.userExercises[1][1].sets,
-                props.userExercises[1][1].weight,
+                props.userWorkout[0].exercises[1].reps,
+                props.userWorkout[0].exercises[1].sets,
+                props.userWorkout[0].exercises[1].weight,
               ],
               backgroundColor: "rgba(255, 255, 255, 0.1)",
               borderColor: "#FDBA74",
@@ -83,7 +84,7 @@ const WorkoutChart = (props) => {
           },
         },
       });
-    } else if (props.userExercises[1][0].distance) {
+    } else if (props.userWorkout[0].exercises[0].distance) {
       window.myChart = new Chart(ctx, {
         type: "bar",
         data: {
@@ -92,8 +93,8 @@ const WorkoutChart = (props) => {
             {
               label: false,
               data: [
-                props.userExercises[1][0].distance,
-                props.userExercises[1][0].time,
+                props.userWorkout[0].exercises[0].distance,
+                props.userWorkout[0].exercises[0].time,
               ],
               backgroundColor: "#FDBA74",
             },
@@ -150,8 +151,8 @@ const WorkoutChart = (props) => {
       <Helmet>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
       </Helmet>
-      <div className="mt-2 w-full border-2 border-teal-500 p-2 shadow-md shadow-black">
-        <p className="text-base font-medium pb-2 text-center leading-none text-white">
+      <div className="w-full p-2 mt-2 border-2 border-teal-500 shadow-md shadow-black">
+        <p className="pb-2 text-base font-medium leading-none text-center text-white">
           Analysis
         </p>
         <div className="w-full h-full">
