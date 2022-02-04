@@ -10,6 +10,7 @@ import SignIn from "./components/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import UserWorkouts from "./components/UserWorkouts";
 import SingleWorkout from "./components/SingleWorkout";
+import CardioOrStrengthButtons from "./components/CardioOrStrengthButtons";
 
 const Routes = () => {
   // const auth = getAuth();
@@ -35,6 +36,11 @@ const Routes = () => {
       <Switch>
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
+        <Route
+          exact
+          path="/users/:id/chooseworkout"
+          component={CardioOrStrengthButtons}
+        />
         <Route exact path="/users/:id/workouts" component={UserWorkouts} />
         <Route
           exact

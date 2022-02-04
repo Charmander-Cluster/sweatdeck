@@ -19,11 +19,14 @@ const getUserWorkouts = (workouts) => {
   };
 };
 
-export const fetchUserWorkoutsThunk = (userId) => {
+export const fetchUserWorkoutsThunk = (userId, cardioOrStrength) => {
   return async (dispatch) => {
     try {
       const workoutRef = collection(db, `users/${userId}/workouts`);
-      let allWorkouts = query(workoutRef, where("category", "==", "strength")); //change this to cardioOrStrength
+      let allWorkouts = query(
+        workoutRef,
+        where("category", "==", cardioOrStrength)
+      ); //change this to cardioOrStrength
       //let exercises = query(allWorkouts)
       let exercises = await getDocs(allWorkouts);
 
