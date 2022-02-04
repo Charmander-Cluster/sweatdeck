@@ -102,19 +102,19 @@ const WorkoutChart = (props) => {
               fill: "start",
               tension: 0.4,
             },
-            {
-              label: false,
-              data: [
-                props.userWorkout[1].distance,
-                props.userWorkout[1].time,
-                props.userWorkout[1].laps,
-              ],
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              borderColor: "#FDBA74",
-              pointBackgroundColor: "#0f766e",
-              fill: "start",
-              tension: 0.4,
-            },
+            // {
+            //   label: false,
+            //   data: [
+            //     props.userWorkout[1].distance,
+            //     props.userWorkout[1].time,
+            //     props.userWorkout[1].laps,
+            //   ],
+            //   backgroundColor: "rgba(255, 255, 255, 0.1)",
+            //   borderColor: "#FDBA74",
+            //   pointBackgroundColor: "#0f766e",
+            //   fill: "start",
+            //   tension: 0.4,
+            // },
           ],
         },
         options: {
