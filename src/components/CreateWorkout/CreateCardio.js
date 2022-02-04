@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from 'react-router'
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import history from "../../history";
 
-import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout"
-import { createDBWorkout } from "../../store/createDBWorkout"
+import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
+import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 
 const CreateCardio = (props) => {
   const redirectUri =
@@ -21,47 +20,46 @@ const CreateCardio = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
-  const userId = authUser.uid
+  const userId = authUser.uid;
 
   let cardioLocalWorkout = useSelector((state) => {
     console.log("State: ", state);
     return state.cardioLocalWorkout;
   });
 
-
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  useEffect(()=> {
-    if (workoutAdded){
-    dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId))
-    // history.push("/confirmcardiocreate")
-    setRedirect(true)
-  }
-  }, [dispatch, workoutAdded, cardioLocalWorkout, userId])
+  useEffect(() => {
+    if (workoutAdded) {
+      dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
+      // history.push("/confirmcardiocreate")
+      setRedirect(true);
+    }
+  }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
 
   // const localWorkout = useSelector(state => state.localWorkout)
 
   const [workout, setWorkout] = useState({
     category: "cardio",
     name: "",
-    exercises: []
+    exercises: [],
   });
 
   const [exercises, setExercises] = useState({
-      type: "",
-      distance: "",
-      units: "",
-      hours: "",
-      minutes: ""
-  })
+    type: "",
+    distance: "",
+    units: "",
+    hours: "",
+    minutes: "",
+  });
 
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
@@ -75,10 +73,9 @@ const CreateCardio = (props) => {
     setExercises({ ...exercises, [event.target.name]: event.target.value });
   };
 
-
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
-    workout.exercises.push(exercises)
+    workout.exercises.push(exercises);
     dispatch(cardioLocalCreateWorkout(workout));
     console.log("local workout:", cardioLocalWorkout);
     history.push(AUTH_URL);
@@ -86,33 +83,33 @@ const CreateCardio = (props) => {
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
-    dispatch(cardioLocalCreateWorkout(workout))
+    dispatch(cardioLocalCreateWorkout(workout));
     setWorkoutAdded(true);
     //history.push("/confirmcardiocreate")
-
   };
 
   console.log(workout);
 
-  return (redirect) ? (<Redirect to="/confirmcardiocreate"/>)
-  :
-  (<div className="flex flex-col items-center justify-center py-2">
+  return redirect ? (
+    <Redirect to="/confirmcardiocreate" />
+  ) : (
+    <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
         <h1 className="my-10 text-3xl text-teal-500 align-center">
           Create Cardio Workout
         </h1>
       </div>
 
-      <div className="flex flex-row w-full text-1xl -mt-4 mb-3 justify-center">
-        <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto m-3 mb-14">
-          <form className="max-w-4xl justify-center p-3 ">
+      <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
+        <div className="m-3 my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700 mb-14">
+          <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
                 <div>
-                  <div className="container p-3 w-screen">
+                  <div className="container w-screen p-3">
                     <div className="flex justify-center">
                       <img
-                        className="max-h-16 h-16 mb-2"
+                        className="h-16 mb-2 max-h-16"
                         alt="weight-icon"
                         src="https://allenparkdowntown.org/wp-content/uploads/ES-safe-sidewalk.png"
                       ></img>
@@ -121,11 +118,11 @@ const CreateCardio = (props) => {
                       <div className="flex-col justify-center align-center">
                         <div className="container flex justify-center">
                           <div className="flex justify-center">
-                            {/* <div className="w-20 md:w-1/2 px-3"> */}
+                            {/* <div className="w-20 px-3 md:w-1/2"> */}
                             <div className="">
                               <label
                                 htmlFor="name"
-                                className="block text-sm font-medium mt-3"
+                                className="block mt-3 text-sm font-medium"
                               >
                                 Workout Type
                               </label>
@@ -155,10 +152,10 @@ const CreateCardio = (props) => {
 
                         <div className="flex justify-center">
                           <div className="flex justify-center">
-                            {/* <div className="w-20 md:w-1/2 px-3"> */}
+                            {/* <div className="w-20 px-3 md:w-1/2"> */}
                             <div className="">
                               {/* <label
-                className="block uppercase tracking-wide text-xs font-bold mb-2"
+                className="block mb-2 text-xs font-bold tracking-wide uppercase"
                 htmlFor="minutes"
               >
                 Minutes
@@ -173,7 +170,7 @@ const CreateCardio = (props) => {
                           <div className="flex-col">
                             <label
                               htmlFor="name"
-                              className="block text-sm font-medium mt-5"
+                              className="block mt-5 text-sm font-medium"
                             >
                               Name Your Workout
                             </label>
@@ -184,7 +181,7 @@ const CreateCardio = (props) => {
                               onChange={handleChange}
                               value={workout.name}
                             />
-                            <div className="flex align-center m-5">
+                            <div className="flex m-5 align-center">
                               <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                                 <label
                                   htmlFor="distance"
@@ -266,22 +263,21 @@ const CreateCardio = (props) => {
                               </div>
                             </div>
 
-                            <div className="grid place-items-center mt-5">
+                            <div className="grid mt-5 place-items-center">
                               <button
-                                className="flex bg-teal-500 text-white p-3 mb-3 text-lg rounded-md"
+                                className="flex p-3 mb-3 text-lg text-white bg-teal-500 rounded-md"
                                 onClick={handleSubmitWithSpotify}
                                 // href={AUTH_URL}
                               >
                                 Save & Connect Playlist
                               </button>
 
-
-                              <button className="flex text-teal-500 border border-teal-500 p-3 mb-3 text-lg rounded-md"
-                               onClick={handleSubmitWithoutPlaylist}>
+                              <button
+                                className="flex p-3 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md"
+                                onClick={handleSubmitWithoutPlaylist}
+                              >
                                 Save Without Playlist
                               </button>
-
-
                             </div>
                           </div>
                         </div>

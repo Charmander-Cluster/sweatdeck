@@ -6,12 +6,15 @@ import history from "../../history";
 
 const CreateStrength = (props) => {
   const redirectUri =
-    process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/strengthplaylist";
+    process.env.SPOTIFY_REDIRECT_URI ||
+    "http://localhost:3000/strengthplaylist";
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
   const dispatch = useDispatch();
 
-  const strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
+  const strengthLocalWorkout = useSelector(
+    (state) => state.strengthLocalWorkout
+  );
 
   const [workout, setWorkout] = useState({
     category: "strength",
@@ -47,21 +50,21 @@ const CreateStrength = (props) => {
           Create Strength Workout
         </h1>
       </div>
-      <div className="flex flex-row w-full text-1xl -mt-4 mb-3 justify-center">
-        <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto m-3 mb-14">
-          <form className="max-w-4xl justify-center p-3 ">
+      <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
+        <div className="m-3 my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700 mb-14">
+          <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
-                <div className="container p-4 w-screen">
+                <div className="container w-screen p-4">
                   <div className="flex justify-center">
                     <img
-                      className="max-h-16 h-16 mb-1 -mt-2"
+                      className="h-16 mb-1 -mt-2 max-h-16"
                       alt="weight-icon"
                       src="https://icons-for-free.com/iconfiles/png/512/fitness+gym+gymnasium+icon-1320168052118785594.png"
                     ></img>
                   </div>
                   {/* <h1>Details</h1> */}
-                  {/* <div className="border border-teal-500 bg-neutral-700 rounded-md my-5 overflow-x-auto"> */}
+                  {/* <div className="my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700"> */}
                   <div className="flex justify-center">
                     <div className="flex-col my-3">
                       <label
@@ -101,7 +104,7 @@ const CreateStrength = (props) => {
 
                   <div className="flex justify-end">
                     {/* <button
-          className="bg-teal-500 p-1 rounded-md"
+          className="p-1 bg-teal-500 rounded-md"
           onClick={() => setCounter(counter + 1)}
         >
           Add Exercise
@@ -111,20 +114,20 @@ const CreateStrength = (props) => {
                       type="image"
                       alt="add-workout"
                       src="https://cdn-icons-png.flaticon.com/512/189/189689.png"
-                      className="bg-teal-500 mr-3 h-8 rounded-2xl"
+                      className="h-8 mr-3 bg-teal-500 rounded-2xl"
                       onClick={() => setCounter(counter + 1)}
                     />
                   </div>
 
-                  <div className="grid place-items-center mt-8">
+                  <div className="grid mt-8 place-items-center">
                     <button
-                      className="flex bg-teal-500 text-white p-2 mb-3 text-lg rounded-md"
+                      className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
                       onClick={handleSubmitWithSpotify}
                       href={AUTH_URL}
                     >
                       Save & Connect Playlist
                     </button>
-                    <button className="flex text-teal-500 border rounded- border-teal-500 p-2 mb-3 text-lg rounded-md">
+                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-">
                       Save Without Playlist
                     </button>
                   </div>

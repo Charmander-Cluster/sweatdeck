@@ -1,30 +1,20 @@
 import React, { useState } from "react";
-//import firebase from "firebase";
 import { useDispatch } from "react-redux";
-//import { useHistory } from "react-router";
-// import { Redirect } from "react-router-dom";
 import { authSignUp, authenticate } from "../store/auth";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-const SignUp = () => {
+const SignUpTest = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   //const history = useHistory();
   const [userEmails] = useState({});
   const [userInput, setUserInput] = useState({
     user: {
-      firstName: "",
-      lastName: "",
       username: "",
       password: "",
       email: "",
       state: "",
       birthday: "",
-      gender: "",
-      favoriteWorkoutType: "",
-      frequency: "",
-      goal: "",
     },
     errors: {},
   });
@@ -32,24 +22,17 @@ const SignUp = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formName = evt.target.name;
     const user = {
-      firstName: evt.target.firstName.value,
-      lastName: evt.target.lastName.value,
       username: evt.target.username.value,
       password: evt.target.password.value,
       email: evt.target.email.value,
       state: evt.target.state.value,
       birthday: evt.target.birthday.value,
-      gender: evt.target.gender.value,
-      favoriteWorkoutType: evt.target.favoriteWorkoutType.value,
-      frequency: evt.target.frequency.value,
-      goal: evt.target.goal.value,
     };
 
-    await dispatch(authSignUp(user, formName));
+    await dispatch(authSignUp(user));
     await dispatch(authenticate(user.email, user.password));
-    history.push("/");
+    history.push("/optionalsignup");
   };
 
   const handleChange = (evt) => {
@@ -67,184 +50,125 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
-      <h1 className="mb-2 uppercase font-bold text-lg">Sign Up Here</h1>
-      <h4 className="mb-2 font-bold text-sm">*Required fields</h4>
-      <form className="flex flex-col mb-4" onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="w-full p-10 ">
+          <div className="items-center pb-6 border-b border-teal-700 md:flex">
+            <h1 className="mb-2 text-lg font-bold text-center uppercase">
+              Sign Up
+            </h1>
+            <div className="flex items-center mt-4 md:mt-0">
+              <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
+                <p className="text-base font-medium leading-none text-white">
+                  01
+                </p>
+              </div>
+              <p className="ml-3 text-base font-medium leading-4 text-white">
+                Security
+              </p>
+            </div>
+            <div className="flex items-center mt-4 md:mt-0 md:ml-12">
+              <div className="flex items-center justify-center w-8 h-8 bg-white rounded">
+                <p className="text-base font-medium leading-none text-teal-700">
+                  02
+                </p>
+              </div>
+              <p className="ml-3 text-base font-medium leading-4 text-white">
+                Optional info
+              </p>
+            </div>
+          </div>
+          <h1
+            aria-label="profile information"
+            className="mt-8 text-3xl font-bold text-white focus:outline-none"
+          >
+            Security
+          </h1>
 
-        <div>
-          <h1 className="font-extrabold text-sm">Username:*</h1>
-          {/* <label>Username: </label> */}
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Password:*</h1>
-          {/* <label>Password: </label> */}
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">E-mail:*</h1>
-          {/* <label>E-mail: </label> */}
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
-            placeholder="E-mail"
-            name="email"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">State (Location):*</h1>
-          {/* <label>State (Location): </label> */}
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
-            placeholder="State (location)"
-            name="state"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Birthday:*</h1>
-          {/* <label>Birthday: </label> */}
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
-            placeholder="Birthday"
-            name="birthday"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">First Name:</h1>
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
-            placeholder="First Name"
-            name="firstName"
-            onChange={handleChange}
-            //required
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Last Name:</h1>
-          <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            type="text"
-            placeholder="Last Name"
-            name="lastName"
-            onChange={handleChange}
-            //required
-          />
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Gender:</h1>
-          {/* <label>Birthday: </label> */}
-          <select
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            placeholder="Gender"
-            name="gender"
-            onChange={handleChange}
-            default=""
+          <div className="items-center mt-8 md:flex">
+            <div className="flex flex-col">
+              <h1 className="pt-2 font-extrabold">Username</h1>
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+              <h1 className="pt-2 font-extrabold">Password</h1>
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="items-center mt-2 md:flex">
+            <div className="flex flex-col">
+              <h1 className="pt-2 font-extrabold">Email Address</h1>
+              <input
+                type="text"
+                placeholder="E-mail"
+                name="email"
+                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="items-center mt-2 md:flex">
+            <div className="flex flex-col">
+              <h1 className="pt-2 font-extrabold">Date of birth</h1>
+              <input
+                type="text"
+                placeholder="Birthday"
+                name="birthday"
+                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+              <h1 className="pt-2 font-extrabold">State (Location)</h1>
+              <input
+                type="text"
+                placeholder="State (location)"
+                name="state"
+                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            aria-label="Next step"
+            className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
           >
-            <option value = ""></option>
-            <option value="Prefer not to say">Prefer not to say</option>
-            <option value="Female Identifying">Female Identifying</option>
-            <option value="Male Identifying">Male Identifying</option>
-            <option value="Non-Conforming">Non-Conforming</option>
-          </select>
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Favorite Workout Type:</h1>
-          {/* <label>Birthday: </label> */}
-          <select
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            placeholder="Favorite Workout Type"
-            name="favoriteWorkoutType"
-            onChange={handleChange}
-            default=""
-          >
-            <option value = ""></option>
-            <option value="cardio">Cardio</option>
-            <option value="strength">Strength</option>
-          </select>
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Frequency (# of days worked out/week):</h1>
-          {/* <label>Birthday: </label> */}
-          <select
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            placeholder="Frequency"
-            name="frequency"
-            onChange={handleChange}
-            default=""
-          >
-            <option value = ""></option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-        </div>
-        <div>
-          <h1 className="font-extrabold text-sm">Goal:</h1>
-          {/* <label>Birthday: </label> */}
-          <select
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-            placeholder="Goal"
-            name="goal"
-            onChange={handleChange}
-            default=""
-          >
-            <option value = ""></option>
-            <option value="Get started">Just getting started</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Competition">Competition</option>
-            <option value="Weight Loss">Weight Loss</option>
-            <option value="Hobby">Hobby</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div>
-          <button className="flex flex-row text-1xl mx-2 my-2 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
-            Sign Up
+            <span className="text-sm font-medium text-center text-white capitalize">
+              Next Step
+            </span>
+            <svg
+              className="mt-1 ml-3"
+              width={12}
+              height={8}
+              viewBox="0 0 12 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8.01 3H0V5H8.01V8L12 4L8.01 0V3Z" fill="#242731" />
+            </svg>
           </button>
         </div>
       </form>
-      <div>
-        <h2>Already have an account? <Link to ='/signin'>Sign in</Link></h2> 
-      </div>
-      {/* <div>
-        {userInput.errors.email !== "" && (
-          <span className="error">{userInput.errors.email}</span>
-        )}
-        {userInput.errors.password !== "" && (
-          <span className="error">{userInput.errors.password}</span>
-        )}
-        {userInput.errors !== "" && <span className="error"></span>}
-      </div> */}
     </div>
   );
 };
 
-export default SignUp;
+export default SignUpTest;

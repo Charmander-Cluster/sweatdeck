@@ -6,28 +6,26 @@ import { getFirestore, reduxFirestore } from "redux-firestore";
 import db from "../firebase";
 import workouts from "./workouts";
 import users from "./users";
-import singleWorkout from "./singleWorkout";
 import auth from "./auth";
 import strengthLocalCreateWorkoutReducer from "./strengthLocalCreateWorkout";
 import cardioLocalCreateWorkoutReducer from "./cardioLocalCreateWorkout";
 import createDBWorkoutReducer from "./createDBWorkout";
 
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: 'root',
-  storage
-}
+  key: "root",
+  storage,
+};
 
 const reducer = combineReducers({
   auth,
   workouts,
   users,
-  singleWorkout,
   cardioLocalWorkout: cardioLocalCreateWorkoutReducer,
   strengthLocalWorkout: strengthLocalCreateWorkoutReducer,
-  DBWorkout: createDBWorkoutReducer
+  DBWorkout: createDBWorkoutReducer,
 });
 
 const middleware = composeWithDevTools(
@@ -39,15 +37,14 @@ const middleware = composeWithDevTools(
 );
 //const store = createStore(reducer, middleware);
 
-const persistedReducer = persistReducer(persistConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer);
 
-const store = createStore(persistedReducer, middleware)
+const store = createStore(persistedReducer, middleware);
 
-let persistor = persistStore(store)
+let persistor = persistStore(store);
 
 export default store;
 export * from "./auth";
 export * from "./cardioLocalCreateWorkout";
 export * from "./strengthLocalCreateWorkout";
-export * from "./createDBWorkout"
-
+export * from "./createDBWorkout";

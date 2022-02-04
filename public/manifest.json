@@ -1,7 +1,7 @@
 {
   "short_name": "Sweatdeck",
   "name": "Sweatdeck",
-  "start_url": ".",
+  "start_url": "./",
   "icons": [
     {
       "src": "./manifest-icon-192.png",

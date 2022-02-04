@@ -1,39 +1,43 @@
-import { doc, setDoc, collection, updateDoc, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  updateDoc,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import db from "../firebase";
 
-const CREATE_DB_WORKOUT = "CREATE_DB_WORKOUT"
+const CREATE_DB_WORKOUT = "CREATE_DB_WORKOUT";
 
 const _createDBWorkout = (workout) => {
   return {
     type: CREATE_DB_WORKOUT,
-    workout
-  }
-}
+    workout,
+  };
+};
 
 export const createDBWorkout = (workout, userId) => async (dispatch) => {
   try {
-    const userRef = collection(db, `users/${userId}/workouts`)
-    const workoutRef = collection(db, `workouts`)
-    console.log("**THUNK USERID**", userId)
+    const userRef = collection(db, `users/${userId}/workouts`);
+    const workoutRef = collection(db, `workouts`);
+    console.log("**THUNK USERID**", userId);
     const response = await addDoc(userRef, {
       createdAt: serverTimestamp(),
       name: workout.name,
       category: workout.category,
       exercises: workout.exercises,
-      playlist: workout.playlist
-    })
-    .then(
-      function(docRef) {
-      const userWorkoutId = docRef.id
+      playlist: workout.playlist,
+    }).then(function (docRef) {
+      const userWorkoutId = docRef.id;
       setDoc(doc(db, "workouts", userWorkoutId), {
         createdAt: serverTimestamp(),
         name: workout.name,
         category: workout.category,
         exercises: workout.exercises,
-        playlist: workout.playlist
-      })
-      }
-      )
+        playlist: workout.playlist,
+      });
+    });
     //   // const response2 = await addDoc(workoutRef, {
     //   //   timestamp: serverTimestamp(),
     //   //   name: workout.name,
@@ -51,63 +55,58 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
     //   })
     // })
 
-
     // dispatch(_createDBWorkout(response));
   } catch (error) {
     return error;
   }
-}
+};
 
-export const createDBWorkoutNoPlaylist = (workout, userId) => async (dispatch) => {
-  try {
-    const userRef = collection(db, `users/${userId}/workouts`)
-    const workoutRef = collection(db, `workouts`)
-    console.log("**THUNK USERID**", userId)
-    const response = await addDoc(userRef, {
-      createdAt: serverTimestamp(),
-      name: workout.name,
-      category: workout.category,
-      exercises: workout.exercises
-    })
-    .then(
-      function(docRef) {
-      const userWorkoutId = docRef.id
-      setDoc(doc(db, "workouts", userWorkoutId), {
+export const createDBWorkoutNoPlaylist =
+  (workout, userId) => async (dispatch) => {
+    try {
+      const userRef = collection(db, `users/${userId}/workouts`);
+      const workoutRef = collection(db, `workouts`);
+      console.log("**THUNK USERID**", userId);
+      const response = await addDoc(userRef, {
         createdAt: serverTimestamp(),
         name: workout.name,
         category: workout.category,
-        exercises: workout.exercises
-      })
-      }
-      )
-    //   // const response2 = await addDoc(workoutRef, {
-    //   //   timestamp: serverTimestamp(),
-    //   //   name: workout.name,
-    //   //   category: workout.category,
-    //   //   exercises: workout.exercises,
-    //   //   playlist: workout.playlist
-    //   // })
-    // )
-    //console.log("**THUNK RES**", response.data())
-    // .then(function(docRef) {
-    //   const exerciseRef = docRef.id
-    //   const newRef = collection(db,`users/${userId}/workouts/${exerciseRef}/exercises`)
-    //   const response = await addDoc(newRef, {
+        exercises: workout.exercises,
+      }).then(function (docRef) {
+        const userWorkoutId = docRef.id;
+        setDoc(doc(db, "workouts", userWorkoutId), {
+          createdAt: serverTimestamp(),
+          name: workout.name,
+          category: workout.category,
+          exercises: workout.exercises,
+        });
+      });
+      //   // const response2 = await addDoc(workoutRef, {
+      //   //   timestamp: serverTimestamp(),
+      //   //   name: workout.name,
+      //   //   category: workout.category,
+      //   //   exercises: workout.exercises,
+      //   //   playlist: workout.playlist
+      //   // })
+      // )
+      //console.log("**THUNK RES**", response.data())
+      // .then(function(docRef) {
+      //   const exerciseRef = docRef.id
+      //   const newRef = collection(db,`users/${userId}/workouts/${exerciseRef}/exercises`)
+      //   const response = await addDoc(newRef, {
 
-    //   })
-    // })
+      //   })
+      // })
 
+      // dispatch(_createDBWorkout(response));
+    } catch (error) {
+      return error;
+    }
+  };
 
-    // dispatch(_createDBWorkout(response));
-  } catch (error) {
-    return error;
-  }
-}
+const initialState = {};
 
-
-const initialState = {}
-
-export default function createDBWorkoutReducer (state=initialState, action) {
+export default function createDBWorkoutReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_DB_WORKOUT:
       return action.workout;
