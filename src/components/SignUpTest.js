@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { authSignUp, authenticate } from "../store/auth";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const SignUpTest = () => {
   let history = useHistory();
@@ -55,9 +54,9 @@ const SignUpTest = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="w-full p-10 ">
-          <div className="items-center pb-6 border-b border-teal-500 md:flex">
+          <div className="items-center pb-6 border-b border-teal-700 md:flex">
             <div className="flex items-center mt-4 md:mt-0">
-              <div className="flex items-center justify-center w-8 h-8 bg-teal-500 border-2 border-white rounded">
+              <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
                 <p className="text-base font-medium leading-none text-white">
                   01
                 </p>
@@ -68,7 +67,7 @@ const SignUpTest = () => {
             </div>
             <div className="flex items-center mt-4 md:mt-0 md:ml-12">
               <div className="flex items-center justify-center w-8 h-8 bg-white rounded">
-                <p className="text-base font-medium leading-none text-teal-500">
+                <p className="text-base font-medium leading-none text-teal-700">
                   02
                 </p>
               </div>
@@ -159,7 +158,7 @@ const SignUpTest = () => {
 
           <button
             aria-label="Next step"
-            className="flex items-center justify-center py-4 mt-10 bg-teal-500 rounded shadow-md shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+            className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
           >
             <span className="text-sm font-medium text-center text-white capitalize">
               Next Step

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
-import SignUp from "./components/SignUp";
+// import SignUp from "./components/SignUp";
 import EditUser from "./components/EditUser";
 //import SingleWorkout from "./components/SingleWorkout"
 import { CreateWorkout, SpotifyLogin, SelectPlaylist } from "./components";
@@ -45,13 +45,11 @@ const Routes = () => {
       ) : (
         <Switch>
           <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/signuptest" component={SignUpTest} />
           <Route exact path="/" component={SignIn} />
         </Switch>
       )}
-
-      <Route exact path="/signuptest" component={SignUpTest} />
-      <Route exact path="/optionalsignup" component={OptionalSignUp} />
+      <Route path="/optionalsignup" component={OptionalSignUp} />
     </div>
   );
 };

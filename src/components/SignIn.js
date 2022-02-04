@@ -28,16 +28,16 @@ const SignIn = () => {
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
-      <h1 className="mb-2 uppercase font-bold text-lg">Sign In</h1>
+      <h1 className="mb-2 text-lg font-bold uppercase">Sign In</h1>
       <form
         className="flex flex-col items-center justify-center mb-4"
         onSubmit={handleSubmit}
       >
         <div>
-          <h1 className="font-extrabold text-sm">Email:</h1>
+          <h1 className="text-sm font-extrabold">Email:</h1>
           {/* <label>Username: </label> */}
           <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+            className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
             type="text"
             placeholder="Email"
             name="email"
@@ -46,10 +46,10 @@ const SignIn = () => {
           />
         </div>
         <div>
-          <h1 className="font-extrabold text-sm">Password:</h1>
+          <h1 className="text-sm font-extrabold">Password:</h1>
           {/* <label>Password: </label> */}
           <input
-            className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+            className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
             type="text"
             placeholder="Password"
             name="password"
@@ -57,19 +57,19 @@ const SignIn = () => {
         </div>
         <div>
           <button
-            className="flex flex-row text-1xl mx-2 my-3 justify-center bg-teal-700 shadow-md shadow-black transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3"
+            className="flex flex-row justify-center px-8 py-3 mx-2 my-3 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
             type="submit"
           >
             Sign In
           </button>
         </div>
       </form>
-      <div className="flex flex-col justify-center items-center text-center">
+      <div className="flex flex-col items-center justify-center text-center">
         <div className="flex flex-row">
           <h2>Forgot your password? </h2>
 
           <button
-            className="underline ml-1"
+            className="ml-1 underline"
             onClick={() => sendPasswordReset(email)}
           >
             Password Reset
@@ -78,7 +78,7 @@ const SignIn = () => {
         <div>
           <h2>
             Don't have an account?{" "}
-            <Link to="/signup" className="underline">
+            <Link to="/signuptest" className="underline">
               Sign up!
             </Link>
           </h2>

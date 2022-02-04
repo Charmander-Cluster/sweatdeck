@@ -34,18 +34,18 @@ const EditUser = () => {
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <form onSubmit={handleSubmit}>
-        <div className="rounded overflow-hidden pt-20">
-          <div className="-mt-20 w-full flex justify-center pt-4">
-            <div className="h-32 w-32">
+        <div className="pt-20 overflow-hidden rounded">
+          <div className="flex justify-center w-full pt-4 -mt-20">
+            <div className="w-32 h-32">
               <img
                 src="https://foundrmeet.com/wp-content/themes/cera/assets/images/avatars/user-avatar.png"
                 alt="User Profile"
-                className="rounded-full object-cover h-full w-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md"
               />
             </div>
           </div>
           <div className="flex flex-col mt-4">
-            <h1 className="font-bold text-3xl text-center mb-1">
+            <h1 className="mb-1 text-3xl font-bold text-center">
               {userState.firstName} {userState.lastName}
             </h1>
             <div className="pt-4">
@@ -55,27 +55,27 @@ const EditUser = () => {
                 onChange={handleChange}
                 name="username"
                 value={userState.username}
-                className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
                 placeholder="Username"
               />
             </div>
             <div>
-              <h1 className="font-extrabold pt-2">State</h1>
+              <h1 className="pt-2 font-extrabold">State</h1>
               <label htmlFor="state"></label>
               <input
                 onChange={handleChange}
                 name="state"
                 value={userState.state}
-                className="appearance-none relative block pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
                 placeholder="State"
               />
             </div>
-            <div className="lg:hidden w-full relative md:mt-4">
-              <h1 className="font-extrabold pt-2">Favorite Workout Type</h1>
-              <div className="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+            <div className="relative w-full lg:hidden md:mt-4">
+              <h1 className="pt-2 font-extrabold">Favorite Workout Type</h1>
+              <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-selector mt-4"
+                  className="mt-4 icon icon-tabler icon-tabler-selector"
                   width={24}
                   height={24}
                   viewBox="0 0 24 24"
@@ -92,7 +92,7 @@ const EditUser = () => {
               </div>
               <select
                 aria-label="Selected tab"
-                className="focus:outline-none form-select block w-full pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 appearance-none rounded-md focus:ring-teal-500 focus:border-teal-500"
+                className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Favorite Workout Type"
                 name="favoriteWorkoutType"
                 onChange={handleChange}
@@ -102,12 +102,12 @@ const EditUser = () => {
                 <option value="Strength">Strength</option>
               </select>
             </div>
-            <div className="lg:hidden w-full relative md:mt-4">
-              <h1 className="font-extrabold pt-2">Goal:</h1>
-              <div className="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+            <div className="relative w-full lg:hidden md:mt-4">
+              <h1 className="pt-2 font-extrabold">Goal</h1>
+              <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-selector mt-4"
+                  className="mt-4 icon icon-tabler icon-tabler-selector"
                   width={24}
                   height={24}
                   viewBox="0 0 24 24"
@@ -124,7 +124,7 @@ const EditUser = () => {
               </div>
               <select
                 aria-label="Selected tab"
-                className="focus:outline-none form-select block w-full pl-3 pr-20 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 appearance-none rounded-md focus:ring-teal-500 focus:border-teal-500"
+                className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Goal"
                 name="goal"
                 onChange={handleChange}
@@ -138,7 +138,7 @@ const EditUser = () => {
                 <option value="Other">Other</option>
               </select>
             </div>
-            <button className="flex flex-row text-1xl my-4 justify-center bg-teal-700 shadow-md shadow-black transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3">
+            <button className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md text-1xl shadow-black hover:bg-teal-600">
               <svg
                 className="w-6 h-6 mr-2 pb-0.5"
                 fill="none"

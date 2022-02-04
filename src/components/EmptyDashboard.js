@@ -33,7 +33,7 @@ const EmptyDashboard = (props) => {
             View User Profile
           </button>
         </Link>
-        <Link to="#">
+        <Link to="spotifyhome">
           <button className="w-full px-5 py-2 mt-5 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 h-28 focus:outline-none shadow-black">
             Link Spotify
           </button>
