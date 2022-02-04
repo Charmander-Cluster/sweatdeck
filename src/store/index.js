@@ -4,12 +4,12 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import db from "../firebase";
-import workouts from "./workouts";
+import allWorkouts from "./workoutsPage";
 import users from "./users";
 import singleWorkout from "./singleWorkout";
 
 const reducer = combineReducers({
-  workouts,
+  allWorkouts,
   users,
   singleWorkout,
 });

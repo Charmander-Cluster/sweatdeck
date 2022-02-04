@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchUserWorkoutsThunk } from "../store/workouts";
+import { fetchUserWorkoutsThunk } from "../store/workoutsPage";
 import { useDispatch, useSelector } from "react-redux";
 //import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import { fetchSingleWorkoutThunk } from "../store/singleWorkout";
 import { Link } from "react-router-dom";
 
 const UserWorkouts = () => {
-  const workouts = useSelector((state) => state.workouts);
+  const workouts = useSelector((state) => state.allWorkouts);
 
   // const workouts = useSelector((state) => state.workouts.workouts);
 
