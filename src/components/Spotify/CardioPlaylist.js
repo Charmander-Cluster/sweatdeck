@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { localEditWorkout } from "../../store/localCreateWorkout";
+import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "./useAuth";
+import useAuthCardio from "./useAuthCardio";
 import history from "../../history";
 
 import { createDBWorkout } from "../../store/createDBWorkout"
@@ -17,7 +17,7 @@ const spotifyApi = new SpotifyWebApi({
 
 const token = new URLSearchParams(window.location.search).get("code");
 
-const SelectPlaylist = (props) => {
+const CardioPlaylist = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false)
@@ -32,19 +32,11 @@ const SelectPlaylist = (props) => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-
   const userId = authUser.uid
+  const accessToken = useAuthCardio(token);
+  let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
 
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  console.log("**USERID**", userId)
-
-  const accessToken = useAuth(token);
-
-  let localWorkout = useSelector((state) => state.localWorkout);
-
-  console.log("local workout store:", localWorkout);
-  //console.log("This is the home component!");
+  console.log("cardio local workout store:", cardioLocalWorkout);
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
@@ -52,29 +44,31 @@ const SelectPlaylist = (props) => {
 
   useEffect(()=> {
     if (playlistConfirmed)
-    dispatch(createDBWorkout(localWorkout, userId))
-  }, [dispatch, userId, localWorkout, playlistConfirmed])
+    dispatch(createDBWorkout(cardioLocalWorkout, userId))
+  }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed])
 
+  //console.log("This is the home component!");
   //console.log("Playlists:", playlists);
   //console.log("selected playlist", selectedPlaylist);
+  //console.log("**AUTH USER**", authUser)
+  //console.log("**USER**", user)
+  // console.log("**USERID**", userId)
 
   const createWorkout = () => {
     dispatch(
-      localEditWorkout({...localWorkout,
+      cardioLocalEditWorkout({...cardioLocalWorkout,
         playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
       }))
-      dispatch(createDBWorkout(localWorkout, userId))
+      dispatch(createDBWorkout(cardioLocalWorkout, userId))
   }
-
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    dispatch(localEditWorkout({...localWorkout,
-                playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-              }))
+    dispatch(cardioLocalEditWorkout({...cardioLocalWorkout,
+      playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+    }))
     setPlaylistConfirmed(true)
   };
-
 
   useEffect(() => {
     if (!accessToken) return;
@@ -249,4 +243,4 @@ const SelectPlaylist = (props) => {
   );
 };
 
-export default SelectPlaylist;
+export default CardioPlaylist;

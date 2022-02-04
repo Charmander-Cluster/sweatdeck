@@ -16,7 +16,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
     const workoutRef = collection(db, `workouts`)
     console.log("**THUNK USERID**", userId)
     const response = await addDoc(userRef, {
-      timestamp: serverTimestamp(),
+      createdAt: serverTimestamp(),
       name: workout.name,
       category: workout.category,
       exercises: workout.exercises,
@@ -26,7 +26,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
       function(docRef) {
       const userWorkoutId = docRef.id
       setDoc(doc(db, "workouts", userWorkoutId), {
-        timestamp: serverTimestamp(),
+        createdAt: serverTimestamp(),
         name: workout.name,
         category: workout.category,
         exercises: workout.exercises,

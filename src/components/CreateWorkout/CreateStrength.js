@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import StrengthDetails from "./StrengthDetails";
 import { useSelector, useDispatch } from "react-redux";
-import { localCreateWorkout } from "../../store/localCreateWorkout";
+import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
 import history from "../../history";
 
 const CreateStrength = (props) => {
-  const redirectUri = props.redirectUri;
+  const redirectUri =
+    process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/strengthplaylist";
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
   const dispatch = useDispatch();
 
-  const localWorkout = useSelector((state) => state.localWorkout);
+  const strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 
   const [workout, setWorkout] = useState({
     category: "strength",
@@ -34,8 +35,8 @@ const CreateStrength = (props) => {
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
-    dispatch(localCreateWorkout(workout));
-    console.log("local workout:", localWorkout);
+    dispatch(strengthLocalCreateWorkout(workout));
+    console.log("local workout:", strengthLocalWorkout);
     history.push(AUTH_URL);
   };
 

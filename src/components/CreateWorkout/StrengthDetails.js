@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthExercises"
 
 const StrengthDetails = (props) => {
@@ -43,6 +43,12 @@ const StrengthDetails = (props) => {
     //setCompletedExercise({})
   }
   console.log(exercise);
+
+  // useEffect(()=>{
+  // if (isCompleted === true)
+  //   handleUpdate(completedExercise)
+  //   setIsSaved(true)
+  // }, [isSaved, isCompleted, handleUpdate, completedExercise])
 
 
   return (
@@ -207,8 +213,8 @@ const StrengthDetails = (props) => {
       </div>)
       )}
 
-
-      {/* {(!isCompleted ?
+{/*
+      {(!isCompleted ?
         (<div className="flex justify-end">
         <button type="add" onClick={handleComplete} className="mt-2 mr-1 border border-teal-500 rounded-md p-1">
           Finish Update

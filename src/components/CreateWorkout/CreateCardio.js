@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { localCreateWorkout } from "../../store/localCreateWorkout";
+import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import history from "../../history";
 
 const CreateCardio = (props) => {
-  const redirectUri = props.redirectUri;
+  const redirectUri =
+    process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
@@ -13,7 +14,7 @@ const CreateCardio = (props) => {
   // const localWorkout = useSelector(state => state.localWorkout)
   let localWorkout = useSelector((state) => {
     console.log("State: ", state);
-    return state.localWorkout;
+    return state.cardioLocalWorkout;
   });
 
   const [workout, setWorkout] = useState({
@@ -38,7 +39,7 @@ const CreateCardio = (props) => {
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
-    dispatch(localCreateWorkout(workout));
+    dispatch(cardioLocalCreateWorkout(workout));
     console.log("local workout:", localWorkout);
     history.push(AUTH_URL);
   };
