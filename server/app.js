@@ -33,12 +33,13 @@ app.use(express.static(path.join(__dirname, '..', 'public')))
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
-const SPOTIFY_REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI
+const SPOTIFY_REDIRECT_URI_CARDIO = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_CARDIO
+const SPOTIFY_REDIRECT_URI_STRENGTH = process.env.REACT_APP_SPOTIFY_REDIRECT_URI_STRENGTH
 
-app.post('/login', (req, res) => {
+app.post('/strengthlogin', (req, res) => {
   const code = req.body.code
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: SPOTIFY_REDIRECT_URI,
+    redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
     clientId: SPOTIFY_CLIENT_ID,
     clientSecret: SPOTIFY_CLIENT_SECRET,
   })
@@ -56,7 +57,50 @@ app.post('/login', (req, res) => {
 })
 })
 
-app.post("/refresh", (req, res) => {
+app.post("/strengthrefresh", (req, res) => {
+  const refreshToken = req.body.refreshToken
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
+    clientId: SPOTIFY_CLIENT_ID,
+    clientSecret: SPOTIFY_CLIENT_SECRET,
+    refreshToken
+  })
+
+  spotifyApi.refreshAccessToken()
+  .then(
+    (data) => {
+      console.log('The access token has been refreshed');
+      res.json({
+        accessToken: data.body.accessToken,
+        expiresIn: data.body.expiresIn,
+      })
+    }).catch(() => {
+      res.sendStatus(400)
+    })
+})
+
+app.post('/cardiologin', (req, res) => {
+  const code = req.body.code
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
+    clientId: SPOTIFY_CLIENT_ID,
+    clientSecret: SPOTIFY_CLIENT_SECRET,
+  })
+
+  spotifyApi.authorizationCodeGrant(code).then(data => {
+    console.log(data.body.access_token)
+    res.json({
+      accessToken: data.body.access_token,
+      refreshToken: data.body.refresh_token,
+      expiresIn: data.body.expires_in,
+    })
+  }).catch((err)=> {
+    console.log(err)
+  res.sendStatus(400)
+})
+})
+
+app.post("/cardiorefresh", (req, res) => {
   const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI,

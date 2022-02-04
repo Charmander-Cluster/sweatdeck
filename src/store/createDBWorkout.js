@@ -16,7 +16,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
     const workoutRef = collection(db, `workouts`)
     console.log("**THUNK USERID**", userId)
     const response = await addDoc(userRef, {
-      timestamp: serverTimestamp(),
+      createdAt: serverTimestamp(),
       name: workout.name,
       category: workout.category,
       exercises: workout.exercises,
@@ -26,11 +26,57 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
       function(docRef) {
       const userWorkoutId = docRef.id
       setDoc(doc(db, "workouts", userWorkoutId), {
-        timestamp: serverTimestamp(),
+        createdAt: serverTimestamp(),
         name: workout.name,
         category: workout.category,
         exercises: workout.exercises,
         playlist: workout.playlist
+      })
+      }
+      )
+    //   // const response2 = await addDoc(workoutRef, {
+    //   //   timestamp: serverTimestamp(),
+    //   //   name: workout.name,
+    //   //   category: workout.category,
+    //   //   exercises: workout.exercises,
+    //   //   playlist: workout.playlist
+    //   // })
+    // )
+    //console.log("**THUNK RES**", response.data())
+    // .then(function(docRef) {
+    //   const exerciseRef = docRef.id
+    //   const newRef = collection(db,`users/${userId}/workouts/${exerciseRef}/exercises`)
+    //   const response = await addDoc(newRef, {
+
+    //   })
+    // })
+
+
+    // dispatch(_createDBWorkout(response));
+  } catch (error) {
+    return error;
+  }
+}
+
+export const createDBWorkoutNoPlaylist = (workout, userId) => async (dispatch) => {
+  try {
+    const userRef = collection(db, `users/${userId}/workouts`)
+    const workoutRef = collection(db, `workouts`)
+    console.log("**THUNK USERID**", userId)
+    const response = await addDoc(userRef, {
+      createdAt: serverTimestamp(),
+      name: workout.name,
+      category: workout.category,
+      exercises: workout.exercises
+    })
+    .then(
+      function(docRef) {
+      const userWorkoutId = docRef.id
+      setDoc(doc(db, "workouts", userWorkoutId), {
+        createdAt: serverTimestamp(),
+        name: workout.name,
+        category: workout.category,
+        exercises: workout.exercises
       })
       }
       )

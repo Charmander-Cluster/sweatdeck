@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { localEditWorkout } from "../../store/localCreateWorkout";
+import { Redirect } from 'react-router'
+import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "./useAuth";
+import useAuthCardio from "./useAuthCardio";
 import history from "../../history";
 
 import { createDBWorkout } from "../../store/createDBWorkout"
 import { fetchLoginUser } from "../../store/auth";
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const spotifyApi = new SpotifyWebApi({
@@ -17,64 +17,60 @@ const spotifyApi = new SpotifyWebApi({
 
 const token = new URLSearchParams(window.location.search).get("code");
 
-const SelectPlaylist = (props) => {
+const CardioPlaylist = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false)
+  const [redirect, setRedirect] = useState(false)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
   const dispatch = useDispatch();
+  const userId = authUser.uid
 
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
 
-  const userId = authUser.uid
+  let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
+  console.log("cardio local workout store:", cardioLocalWorkout);
 
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  console.log("**USERID**", userId)
+  const accessToken = useAuthCardio(token);
 
-  const accessToken = useAuth(token);
-
-  let localWorkout = useSelector((state) => state.localWorkout);
-
-  console.log("local workout store:", localWorkout);
-  //console.log("This is the home component!");
-
-  //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   useEffect(()=> {
     if (playlistConfirmed)
-    dispatch(createDBWorkout(localWorkout, userId))
-  }, [dispatch, userId, localWorkout, playlistConfirmed])
+    dispatch(createDBWorkout(cardioLocalWorkout, userId))
+  }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed])
 
+  //console.log("This is the home component!");
   //console.log("Playlists:", playlists);
   //console.log("selected playlist", selectedPlaylist);
+  //console.log("**AUTH USER**", authUser)
+  //console.log("**USER**", user)
+  // console.log("**USERID**", userId)
 
-  const createWorkout = () => {
-    dispatch(
-      localEditWorkout({...localWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-      }))
-      dispatch(createDBWorkout(localWorkout, userId))
-  }
-
+  // const createWorkout = () => {
+  //   dispatch(
+  //     cardioLocalEditWorkout({...cardioLocalWorkout,
+  //       playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+  //     }))
+  //     dispatch(createDBWorkout(cardioLocalWorkout, userId))
+  // }
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    dispatch(localEditWorkout({...localWorkout,
-                playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-              }))
+    dispatch(cardioLocalEditWorkout({...cardioLocalWorkout,
+      playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+    }))
     setPlaylistConfirmed(true)
+    setRedirect(true)
   };
-
 
   useEffect(() => {
     if (!accessToken) return;
@@ -135,10 +131,8 @@ const SelectPlaylist = (props) => {
       });
   }, [accessToken]);
 
-  return !accessToken ? (
-    <div>Loading...</div>
-  ) : (
-    <div>
+  return (redirect) ? (<Redirect to="/confirmcardiocreate"/>) :
+  (<div>
       <div className="grid place-items-center">
         <div className="flex-col justify-center bg-zinc-800 w-full fixed top-0">
           <div className="flex justify-end">
@@ -249,4 +243,4 @@ const SelectPlaylist = (props) => {
   );
 };
 
-export default SelectPlaylist;
+export default CardioPlaylist;

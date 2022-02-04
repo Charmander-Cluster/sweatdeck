@@ -3,7 +3,7 @@ import axios from "axios"
 
 const port = process.env.PORT || "http://localhost:3001"
 
-const useAuth = (code) =>  {
+const useAuthCardio = (code) =>  {
   let axiosConfig = {
     headers: {
         'Content-Type': 'application/json',
@@ -17,10 +17,10 @@ const useAuth = (code) =>  {
 
   useEffect(() => {
     axios
-      .post(`${port}/login`, {code}, axiosConfig)
+      .post(`${port}/cardiologin`, {code}, axiosConfig)
       .then(res => {
-        console.log(res.data)
-        console.log(res.status)
+        // console.log(res.data)
+        // console.log(res.status)
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
         setExpiresIn(res.data.expiresIn)
@@ -35,7 +35,7 @@ const useAuth = (code) =>  {
     if (!refreshToken || !expiresIn) return
     const interval = setInterval(() => {
       axios
-        .post(`${port}/refresh`, {
+        .post(`${port}/cardiorefresh`, {
           refreshToken,
         })
         .then(res => {
@@ -53,5 +53,5 @@ const useAuth = (code) =>  {
   return accessToken
 }
 
-export default useAuth
+export default useAuthCardio
 
