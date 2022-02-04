@@ -23,16 +23,18 @@ export const fetchUserWorkoutsThunk = (userId) => {
   return async (dispatch) => {
     try {
       const workoutRef = collection(db, `users/${userId}/workouts`);
-      let allWorkouts = query(workoutRef, where("category", "==", "cardio"));
+      let allWorkouts = query(workoutRef, where("category", "==", "strength")); //change this to cardioOrStrength
+      //let exercises = query(allWorkouts)
       let exercises = await getDocs(allWorkouts);
 
+      console.log("this is exercises from thunk", exercises);
       let allExercises = exercises.docs.map((elem) => {
         return { elemId: elem.id, elemData: elem.data() };
       });
       console.log("All Exercises from Thunk", allExercises);
       dispatch(getUserWorkouts(allExercises));
     } catch (err) {
-      console.log("FAiled at UserWorkouts Thunk", err);
+      console.log("Failed at UserWorkouts Thunk", err);
     }
   };
 };
@@ -42,7 +44,7 @@ const initialState = [];
 export default function userWorkoutsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER_WORKOUTS:
-      return { ...state, workouts: action.workouts }; //{[], workouts: [{},{}]}
+      return action.workouts;
     default:
       return state;
   }
