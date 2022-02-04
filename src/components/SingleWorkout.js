@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSingleWorkoutThunk } from "../store/singleWorkout";
 import { useDispatch } from "react-redux";
+
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
+
   console.log("this is workout from SingleWorkout", workout);
 
   let { id, docId } = useParams();
