@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthExercises"
 
 const StrengthDetails = (props) => {
   const workout = props.workout;
   const handleUpdate = props.handleUpdate
+  const strengthLocalWorkout = useSelector(state=>state.strengthLocalWorkout)
+
+  const thisArray = props.thisArray
+  console.log(thisArray)
 
   const [completedExercise, setCompletedExercise ] = useState({})
 
@@ -43,6 +48,12 @@ const StrengthDetails = (props) => {
     //setCompletedExercise({})
   }
   console.log(exercise);
+
+  // useEffect(()=>{
+  // if (isCompleted === true)
+  //   handleUpdate(completedExercise)
+  //   setIsSaved(true)
+  // }, [isSaved, isCompleted, handleUpdate, completedExercise])
 
 
   return (
@@ -207,8 +218,8 @@ const StrengthDetails = (props) => {
       </div>)
       )}
 
-
-      {/* {(!isCompleted ?
+{/*
+      {(!isCompleted ?
         (<div className="flex justify-end">
         <button type="add" onClick={handleComplete} className="mt-2 mr-1 border border-teal-500 rounded-md p-1">
           Finish Update

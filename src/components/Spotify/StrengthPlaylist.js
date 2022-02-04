@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { localEditWorkout } from "../../store/localCreateWorkout";
+import { strengthLocalEditWorkout } from "../../store/strengthLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "./useAuth";
+import useAuthStrength from "./useAuthStrength";
 import history from "../../history";
 
-import { createDBWorkout } from "../../store/createDBWorkout"
+import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -17,64 +17,64 @@ const spotifyApi = new SpotifyWebApi({
 
 const token = new URLSearchParams(window.location.search).get("code");
 
-const SelectPlaylist = (props) => {
-
+const StrengthPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
-  const [playlistConfirmed, setPlaylistConfirmed] = useState(false)
+  const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
+
+  // let history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
+  const userId = authUser.uid;
+  const accessToken = useAuthStrength(token);
+  let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 
-  const userId = authUser.uid
-
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  console.log("**USERID**", userId)
-
-  const accessToken = useAuth(token);
-
-  let localWorkout = useSelector((state) => state.localWorkout);
-
-  console.log("local workout store:", localWorkout);
-  //console.log("This is the home component!");
+  console.log("strength local workout store:", strengthLocalWorkout);
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
-  useEffect(()=> {
+  useEffect(() => {
     if (playlistConfirmed)
-    dispatch(createDBWorkout(localWorkout, userId))
-  }, [dispatch, userId, localWorkout, playlistConfirmed])
+      dispatch(createDBWorkout(strengthLocalWorkout, userId));
+  }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
 
+  //console.log("This is the home component!");
   //console.log("Playlists:", playlists);
   //console.log("selected playlist", selectedPlaylist);
+  //console.log("**AUTH USER**", authUser)
+  //console.log("**USER**", user)
+  // console.log("**USERID**", userId)
 
   const createWorkout = () => {
     dispatch(
-      localEditWorkout({...localWorkout,
+      strengthLocalEditWorkout({
+        ...strengthLocalWorkout,
         playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-      }))
-      dispatch(createDBWorkout(localWorkout, userId))
-  }
-
+      })
+    );
+    dispatch(createDBWorkout(strengthLocalWorkout, userId));
+  };
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    dispatch(localEditWorkout({...localWorkout,
-                playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-              }))
-    setPlaylistConfirmed(true)
+    dispatch(
+      strengthLocalEditWorkout({
+        ...strengthLocalWorkout,
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+      })
+    );
+    setPlaylistConfirmed(true);
   };
-
 
   useEffect(() => {
     if (!accessToken) return;
@@ -140,15 +140,15 @@ const SelectPlaylist = (props) => {
   ) : (
     <div>
       <div className="grid place-items-center">
-        <div className="flex-col justify-center bg-zinc-800 w-full fixed top-0">
+        <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
-            <button className="text-teal-500 border border-teak-500 p-1 text-sm rounded-md mt-2 mr-2">
+            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
               Cancel
             </button>
           </div>
           <div className="flex-col justify-center">
             <div className="grid justify-center">
-              <h1 className="grid text-2xl  mt-5 mb-5">
+              <h1 className="grid mt-5 mb-5 text-2xl">
                 Select Your Spotify Playlist
               </h1>
             </div>
@@ -165,7 +165,7 @@ const SelectPlaylist = (props) => {
                   <div className="flex ">
                     <button
                       onClick={handleConfirm}
-                      className="bg-teal-500 p-2 m-2 rounded-md text-sm"
+                      className="p-2 m-2 text-sm bg-teal-500 rounded-md"
                     >
                       Confirm & Connect
                     </button>
@@ -176,10 +176,10 @@ const SelectPlaylist = (props) => {
           )}
 
           {/* <div className="flex mb-5">
-            <button className="bg-teal-500 p-3 m-2 rounded-md">
+            <button className="p-3 m-2 bg-teal-500 rounded-md">
               Confirm & Connect
             </button>
-            <button className="text-teal-500 border border-teak-500 p-3 m-2 rounded-md">
+            <button className="p-3 m-2 text-teal-500 border rounded-md border-teak-500">
               Cancel
             </button>
           </div> */}
@@ -199,7 +199,7 @@ const SelectPlaylist = (props) => {
       {!playlists.length ? (
         <div>Getting Playlists</div>
       ) : (
-        <div className="flex flex-col mt-52 mb-14 justify-center">
+        <div className="flex flex-col justify-center mt-52 mb-14">
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden ">
@@ -208,17 +208,17 @@ const SelectPlaylist = (props) => {
                     <tr>
                       <th
                         scope="col"
-                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                        className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                       >
                         Playlist
                       </th>
                       <th
                         scope="col"
-                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
+                        className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
                       ></th>
                     </tr>
                   </thead>
-                  <tbody className=" divide-y divide-gray-200  dark:divide-gray-700 overflow:scroll">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700 overflow:scroll">
                     {playlists.map((playlist) => (
                       <tr
                         key={playlist.id}
@@ -226,14 +226,14 @@ const SelectPlaylist = (props) => {
                         onClick={() => setSelectedPlaylist(playlist)}
                         className="hover:bg-gray-100 dark:hover:bg-teal-500"
                       >
-                        <td className="px-8 py-2 border-t border-gray-600 p-8">
+                        <td className="p-8 px-8 py-2 border-t border-gray-600">
                           <img
                             className="h-10"
                             alt="playlist-art"
                             src={playlist.imageUrl}
                           />
                         </td>
-                        <td className="px-8 py-2 border-t border-gray-600 p-8">
+                        <td className="p-8 px-8 py-2 border-t border-gray-600">
                           {playlist.name}
                         </td>
                       </tr>
@@ -249,4 +249,4 @@ const SelectPlaylist = (props) => {
   );
 };
 
-export default SelectPlaylist;
+export default StrengthPlaylist;
