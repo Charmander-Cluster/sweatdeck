@@ -13,11 +13,7 @@ const Dashboard = () => {
 
   // const [isLoading, setLoading] = useState(true);
 
-  const { userWorkout } = useSelector((state) => {
-    return {
-      userWorkout: state.workouts.userWorkout,
-    };
-  });
+  const userWorkout = useSelector((state) => state.workouts);
 
   useEffect(() => {
     if (!authUser) {
@@ -47,7 +43,7 @@ const Dashboard = () => {
     };
   }, [dispatch, authUser, isLoading]);
 
-  // console.log(userWorkout[0]);
+  // console.log(userWorkout);
 
   return (
     <>
