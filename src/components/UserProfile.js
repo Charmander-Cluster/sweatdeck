@@ -25,15 +25,9 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-    }
-
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser, isLoading]);
+  // useEffect(() => {
+  //   dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+  // }, [dispatch, authUser, isLoading]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
