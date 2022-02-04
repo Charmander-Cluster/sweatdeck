@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from 'react-router'
+import { Link } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import history from "../../history";
+
+import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout"
+import { createDBWorkout } from "../../store/createDBWorkout"
+import { fetchLoginUser } from "../../store/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 const CreateCardio = (props) => {
   const redirectUri =
@@ -11,43 +19,84 @@ const CreateCardio = (props) => {
 
   const dispatch = useDispatch();
 
-  // const localWorkout = useSelector(state => state.localWorkout)
-  let localWorkout = useSelector((state) => {
+  const [user, setUser] = useState(getAuth().currentUser);
+  const [workoutAdded, setWorkoutAdded] = useState(false);
+  const [redirect, setRedirect] = useState(false)
+
+  const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
+  const userId = authUser.uid
+
+  let cardioLocalWorkout = useSelector((state) => {
     console.log("State: ", state);
     return state.cardioLocalWorkout;
   });
 
+
+  useEffect(() => {
+    dispatch(fetchLoginUser());
+  }, [dispatch, user]);
+
+  useEffect(()=> {
+    if (workoutAdded){
+    dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId))
+    // history.push("/confirmcardiocreate")
+    setRedirect(true)
+  }
+  }, [dispatch, workoutAdded, cardioLocalWorkout, userId])
+
+  // const localWorkout = useSelector(state => state.localWorkout)
+
   const [workout, setWorkout] = useState({
-    category: "",
+    category: "cardio",
     name: "",
-    exercises: {
+    exercises: []
+  });
+
+  const [exercises, setExercises] = useState({
       type: "",
       distance: "",
       units: "",
       hours: "",
       minutes: ""
-    }
-  });
+  })
 
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
 
+  // const handleNestedChange = (event) => {
+  //   setWorkout({ ...workout, exercises: { ...workout.exercises[0], [event.target.name]: event.target.value }});
+  // };
+
   const handleNestedChange = (event) => {
-    setWorkout({ ...workout, exercises: { ...workout.exercises, [event.target.name]: event.target.value }});
+    setExercises({ ...exercises, [event.target.name]: event.target.value });
   };
+
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
+    workout.exercises.push(exercises)
     dispatch(cardioLocalCreateWorkout(workout));
-    console.log("local workout:", localWorkout);
+    console.log("local workout:", cardioLocalWorkout);
     history.push(AUTH_URL);
+  };
+
+  const handleSubmitWithoutPlaylist = (event) => {
+    event.preventDefault();
+    dispatch(cardioLocalCreateWorkout(workout))
+    setWorkoutAdded(true);
+    //history.push("/confirmcardiocreate")
+
   };
 
   console.log(workout);
 
-  return (
-    <div className="flex flex-col items-center justify-center py-2">
+  return (redirect) ? (<Redirect to="/confirmcardiocreate"/>)
+  :
+  (<div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
         <h1 className="my-10 text-3xl text-teal-500 align-center">
           Create Cardio Workout
@@ -225,9 +274,14 @@ const CreateCardio = (props) => {
                               >
                                 Save & Connect Playlist
                               </button>
-                              <button className="flex text-teal-500 border border-teal-500 p-3 mb-3 text-lg rounded-md">
+
+
+                              <button className="flex text-teal-500 border border-teal-500 p-3 mb-3 text-lg rounded-md"
+                               onClick={handleSubmitWithoutPlaylist}>
                                 Save Without Playlist
                               </button>
+
+
                             </div>
                           </div>
                         </div>

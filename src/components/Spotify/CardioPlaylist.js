@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from 'react-router'
 import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -8,7 +9,6 @@ import history from "../../history";
 
 import { createDBWorkout } from "../../store/createDBWorkout"
 import { fetchLoginUser } from "../../store/auth";
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const spotifyApi = new SpotifyWebApi({
@@ -21,24 +21,25 @@ const CardioPlaylist = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false)
+  const [redirect, setRedirect] = useState(false)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
   const dispatch = useDispatch();
+  const userId = authUser.uid
 
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  const userId = authUser.uid
-  const accessToken = useAuthCardio(token);
-  let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
 
+  let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
   console.log("cardio local workout store:", cardioLocalWorkout);
 
-  //const [token, setToken] = useState("");
+  const accessToken = useAuthCardio(token);
+
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
@@ -54,13 +55,13 @@ const CardioPlaylist = (props) => {
   //console.log("**USER**", user)
   // console.log("**USERID**", userId)
 
-  const createWorkout = () => {
-    dispatch(
-      cardioLocalEditWorkout({...cardioLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-      }))
-      dispatch(createDBWorkout(cardioLocalWorkout, userId))
-  }
+  // const createWorkout = () => {
+  //   dispatch(
+  //     cardioLocalEditWorkout({...cardioLocalWorkout,
+  //       playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+  //     }))
+  //     dispatch(createDBWorkout(cardioLocalWorkout, userId))
+  // }
 
   const handleConfirm = (event) => {
     event.preventDefault();
@@ -68,6 +69,7 @@ const CardioPlaylist = (props) => {
       playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
     }))
     setPlaylistConfirmed(true)
+    setRedirect(true)
   };
 
   useEffect(() => {
@@ -129,10 +131,8 @@ const CardioPlaylist = (props) => {
       });
   }, [accessToken]);
 
-  return !accessToken ? (
-    <div>Loading...</div>
-  ) : (
-    <div>
+  return (redirect) ? (<Redirect to="/confirmcardiocreate"/>) :
+  (<div>
       <div className="grid place-items-center">
         <div className="flex-col justify-center bg-zinc-800 w-full fixed top-0">
           <div className="flex justify-end">

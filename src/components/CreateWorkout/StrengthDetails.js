@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthExercises"
 
 const StrengthDetails = (props) => {
   const workout = props.workout;
   const handleUpdate = props.handleUpdate
+  const strengthLocalWorkout = useSelector(state=>state.strengthLocalWorkout)
+
+  const thisArray = props.thisArray
+  console.log(thisArray)
 
   const [completedExercise, setCompletedExercise ] = useState({})
 

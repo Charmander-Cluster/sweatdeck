@@ -84,6 +84,7 @@ const CreateStrength = (props) => {
                     <StrengthDetails
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
+                      thisArray={0}
                       workout={workout}
                     />
                     {[...Array(counter)].map((_, i) => (
@@ -91,6 +92,7 @@ const CreateStrength = (props) => {
                         handleChange={handleChange}
                         handleUpdate={handleUpdate}
                         workout={workout}
+                        thisArray={counter}
                         key={i}
                         number={i}
                       />
