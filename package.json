@@ -62,7 +62,7 @@
     "server": "nodemon server",
     "start:dev": "npm run start & npm run server"
   },
-  "proxy": "0.0.0.0",
+  "proxy": "https://sweatdeckapp.herokuapp.com/",
   "eslintConfig": {
     "extends": [
       "react-app",
