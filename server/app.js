@@ -20,14 +20,9 @@ module.exports = app;
 app.use(morgan("dev"));
 
 // body parsing middleware
-<<<<<<< HEAD
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended:true }))
 app.use(express.static(path.join(__dirname, 'build')));
-=======
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
->>>>>>> origin
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
