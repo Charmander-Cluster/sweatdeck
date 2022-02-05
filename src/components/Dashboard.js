@@ -15,11 +15,11 @@ const Dashboard = () => {
 
   const userWorkout = useSelector((state) => state.workouts);
 
-  useEffect(() => {
-    if (!authUser) {
-      dispatch(fetchLoginUser());
-    }
-  }, [dispatch, authUser]);
+  // useEffect(() => {
+  //   if (!authUser) {
+  //     dispatch(fetchLoginUser());
+  //   }
+  // }, [dispatch, authUser]);
 
   // useEffect(() => {
   //   if (isLoading) {
@@ -187,7 +187,7 @@ const Dashboard = () => {
               Completed
             </button>
           ) : (
-            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-white bg-red-700 rounded shadow-md sm:mt-0 focus:outline-none shadow-black">
+            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-white rounded shadow-md bg-gradient-to-r from-teal-500 to-fuchsia-500 sm:mt-0 focus:outline-none shadow-black">
               In Progress
             </button>
           )}

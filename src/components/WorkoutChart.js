@@ -27,6 +27,7 @@ const WorkoutChart = (props) => {
               fill: "start",
               tension: 0.4,
             },
+
             {
               label: false,
               data: [

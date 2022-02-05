@@ -29,7 +29,7 @@ const UserProfile = () => {
     return () => {
       setLoading(false);
     };
-  }, [dispatch, authUser, isLoading]);
+  }, [dispatch, authUser, isLoading, userWorkout]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];

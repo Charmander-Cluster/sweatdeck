@@ -7,30 +7,23 @@ import { fetchLoginUser } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const authUser = useSelector((state) => state.auth);
-
   const [user, setUser] = useState(getAuth().currentUser);
+
+  const dispatch = useDispatch();
+
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
 
-  const dispatch = useDispatch();
-
-  const [isLoading, setLoading] = useState(true);
-
   useEffect(() => {
-    if (!authUser.uid || isLoading) {
+    if (user) {
       dispatch(fetchLoginUser());
     }
-
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser.uid, isLoading]);
+  }, [dispatch, user]);
 
   return (
     <div>
-      <Routes user={user} />
+      <Routes />
       <Navbar />
     </div>
   );

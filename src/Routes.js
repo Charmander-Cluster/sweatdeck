@@ -47,9 +47,13 @@ const Routes = (props) => {
 
   // console.log(authUser);
 
+  const authUser = useSelector((state) => state.auth);
+
+  console.log(authUser);
+
   return (
-    <div>
-      {props.user ? (
+    <>
+      {authUser && (
         <Switch>
           <Route exact path="/optionalsignup" component={OptionalSignUp} />
           <Route exact path="/createworkout" component={CreateWorkout} />
@@ -74,14 +78,10 @@ const Routes = (props) => {
           <Route exact path="/users/:id" component={UserProfile} />
           <Route exact path="/" component={Dashboard} />
         </Switch>
-      ) : (
-        <Switch>
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/" component={SignIn} />
-        </Switch>
       )}
-    </div>
+
+      <Route path="/signin" component={SignIn} />
+    </>
   );
 };
 
