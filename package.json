@@ -64,6 +64,9 @@
     "server": "nodemon server",
     "start:dev": "npm run start & npm run server"
   },
+  "engines": {
+    "node": ">=14.0.0"
+   },
 
   "eslintConfig": {
     "extends": [
