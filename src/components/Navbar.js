@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import auth from "../store/auth";
 
 const Navbar = () => {
   const authUser = useSelector((state) => state.auth);
@@ -56,7 +57,7 @@ const Navbar = () => {
               <span className="block text-xs tab tab-home">Create</span>
             </Link>
             <Link
-              to="/users/:id/chooseworkout"
+              to={`/users/${authUser.uid}/chooseworkout`}
               className="justify-center inline-block w-full pt-2 pb-1 text-center"
             >
               <svg

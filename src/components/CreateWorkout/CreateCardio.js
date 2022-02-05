@@ -51,6 +51,7 @@ const CreateCardio = (props) => {
     category: "cardio",
     name: "",
     exercises: [],
+    userId: "",
   });
 
   const [exercises, setExercises] = useState({
@@ -83,6 +84,7 @@ const CreateCardio = (props) => {
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
+    workout.exercises.push(exercises);
     dispatch(cardioLocalCreateWorkout(workout));
     setWorkoutAdded(true);
     //history.push("/confirmcardiocreate")
