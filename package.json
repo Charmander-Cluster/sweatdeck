@@ -61,7 +61,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server",
-    "start:dev": "npm run start & npm run server"
+    "start:dev": "npm run start & npm run server",
+    "heroku-postbuild": "cd src && npm install && npm run build"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
