@@ -36,6 +36,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
         category: workout.category,
         exercises: workout.exercises,
         playlist: workout.playlist,
+        userId: doc(db, "users",  userId)
       });
     });
     //   // const response2 = await addDoc(workoutRef, {
@@ -79,6 +80,7 @@ export const createDBWorkoutNoPlaylist =
           name: workout.name,
           category: workout.category,
           exercises: workout.exercises,
+          userId: doc(db, "users",  userId)
         });
       });
       //   // const response2 = await addDoc(workoutRef, {
