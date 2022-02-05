@@ -25,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended:true }))
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
+app.use(express.static(path.join(__dirname, 'build')));
+
 // static file-serving middleware
 //app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'public')))
@@ -122,6 +124,14 @@ app.post("/cardiorefresh", (req, res) => {
     })
 })
 
+
+app.get('/ping', function (req, res) {
+  return res.send('ping');
+});
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html')); //serving build folder
+});
+
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
   if (path.extname(req.path).length) {
@@ -131,11 +141,6 @@ app.use((req, res, next) => {
   } else {
     next()
   }
-})
-
-// sends index.html
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 })
 
 // error handling endware
