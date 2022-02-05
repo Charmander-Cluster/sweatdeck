@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchLoginUser } from "../store";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-
   const authUser = useSelector((state) => state.auth);
-
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
-
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!authUser.uid || isLoading) {
-      dispatch(fetchLoginUser());
-    }
-
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser.uid, isLoading]);
 
   // console.log(authUser);
 
   return (
     <div className="fixed w-full h-screen">
-      {user && authUser.frequency && (
+      {authUser.uid && authUser.frequency && (
         <section
           id="bottom-navigation"
           className="fixed inset-x-0 bottom-0 z-10 block bg-teal-700 shadow-md md:hidden navbar shadow-black"
