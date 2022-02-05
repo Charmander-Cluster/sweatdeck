@@ -30,6 +30,12 @@ app.get("/", (req, res) =>
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
 
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 const SPOTIFY_REDIRECT_URI_CARDIO =
@@ -145,6 +151,10 @@ app.use((req, res, next) => {
 // sends index.html
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public/index.html"));
+});
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // error handling endware
