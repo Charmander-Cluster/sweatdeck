@@ -4,15 +4,16 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import db from "../firebase";
-import workouts from "./workouts";
+import allWorkouts from "./workoutsPage";
 import users from "./users";
 import auth from "./auth";
 import strengthLocalCreateWorkoutReducer from "./strengthLocalCreateWorkout";
 import cardioLocalCreateWorkoutReducer from "./cardioLocalCreateWorkout";
 import createDBWorkoutReducer from "./createDBWorkout";
-
+import workouts from "./workouts";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import singleWorkoutReducer from "./singleWorkout";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,8 @@ const persistConfig = {
 };
 
 const reducer = combineReducers({
+  singleWorkout: singleWorkoutReducer,
+  allWorkouts,
   auth,
   workouts,
   users,

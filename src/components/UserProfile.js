@@ -10,11 +10,7 @@ import { fetchLatestUserWorkoutThunk } from "../store/workouts";
 import { logout } from "../store/auth";
 
 const UserProfile = () => {
-  const { userWorkout } = useSelector((state) => {
-    return {
-      userWorkout: state.workouts.userWorkout,
-    };
-  });
+  const userWorkout = useSelector((state) => state.workouts);
 
   const authUser = useSelector((state) => state.auth);
 
@@ -25,9 +21,15 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-  // }, [dispatch, authUser, isLoading]);
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+    }
+
+    return () => {
+      setLoading(false);
+    };
+  }, [dispatch, authUser, isLoading]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
@@ -70,7 +72,7 @@ const UserProfile = () => {
               <img
                 src={maleImage}
                 alt="User Profile"
-                className="object-cover w-full h-full rounded-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md shadow-black"
               />
             </div>
           ) : authUser.gender === "Female" ? (
@@ -78,7 +80,7 @@ const UserProfile = () => {
               <img
                 src={femaleImage}
                 alt="User Profile"
-                className="object-cover w-full h-full rounded-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md shadow-black"
               />
             </div>
           ) : (
@@ -86,7 +88,7 @@ const UserProfile = () => {
               <img
                 src={defaultImage}
                 alt="User Profile"
-                className="object-cover w-full h-full rounded-full shadow-md"
+                className="object-cover w-full h-full rounded-full shadow-md shadow-black"
               />
             </div>
           )}

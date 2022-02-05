@@ -77,7 +77,7 @@ const Navbar = () => {
               <span className="block text-xs tab tab-home">Create</span>
             </Link>
             <Link
-              to="/workouts"
+              to="/users/:id/chooseworkout"
               className="justify-center inline-block w-full pt-2 pb-1 text-center"
             >
               <svg

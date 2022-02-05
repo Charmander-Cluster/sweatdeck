@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import StrengthDetails from "./StrengthDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
-import history from "../../history";
 
 const CreateStrength = (props) => {
   const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/strengthplaylist' : 'https://sweatdeck.herokuapp.com/strengthplaylist'
@@ -40,7 +39,7 @@ const CreateStrength = (props) => {
     event.preventDefault();
     dispatch(strengthLocalCreateWorkout(workout));
     console.log("local workout:", strengthLocalWorkout);
-    history.push(AUTH_URL);
+    window.location.href = AUTH_URL;
   };
 
   return (

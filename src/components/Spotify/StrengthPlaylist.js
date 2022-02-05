@@ -4,7 +4,6 @@ import { strengthLocalEditWorkout } from "../../store/strengthLocalCreateWorkout
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuthStrength from "./useAuthStrength";
-import history from "../../history";
 
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
