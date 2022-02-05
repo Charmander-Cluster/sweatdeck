@@ -103,6 +103,7 @@ export const sendPasswordReset = async (email) => {
 export const logout = () => (dispatch) => {
   const auth = getAuth();
   signOut(auth);
+  // purgeAuth();
   return dispatch(setAuth({}));
 };
 
@@ -111,6 +112,7 @@ export default function auth(state = {}, action) {
     case SET_AUTH: {
       return { ...action.auth };
     }
+
     default:
       return state;
   }

@@ -11,37 +11,11 @@ const Dashboard = () => {
   const authUser = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(true);
 
-  // const [isLoading, setLoading] = useState(true);
-
   const userWorkout = useSelector((state) => state.workouts);
 
-  // useEffect(() => {
-  //   if (!authUser) {
-  //     dispatch(fetchLoginUser());
-  //   }
-  // }, [dispatch, authUser]);
-
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     if (authUser.uid) {
-  //       dispatch(fetchSingleUserThunk(authUser.uid));
-  //     }
-  //   }
-
-  //   return () => {
-  //     setLoading(false);
-  //   };
-  // }, [dispatch, authUser.uid, isLoading, userWorkout]);
-
   useEffect(() => {
-    if (isLoading) {
-      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-    }
-
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser, isLoading]);
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+  }, [dispatch, authUser.uid]);
 
   // console.log(userWorkout);
 
