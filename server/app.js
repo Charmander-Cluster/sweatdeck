@@ -22,15 +22,9 @@ app.use(morgan('dev'))
 // body parsing middleware
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended:true }))
-
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
-
-
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
 // static file-serving middleware
 //app.use(express.static(path.join(__dirname, '..', 'public')))
@@ -128,6 +122,11 @@ app.post("/cardiorefresh", (req, res) => {
       res.sendStatus(400)
     })
 })
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+});
+
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
