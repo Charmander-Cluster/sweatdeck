@@ -27,6 +27,7 @@ const WorkoutChart = (props) => {
               fill: "start",
               tension: 0.4,
             },
+
             {
               label: false,
               data: [
@@ -96,7 +97,7 @@ const WorkoutChart = (props) => {
                 props.userWorkout[0].exercises[0].distance,
                 props.userWorkout[0].exercises[0].minutes,
               ],
-              backgroundColor: "#FDBA74",
+              backgroundColor: "#0d9488",
             },
           ],
         },
