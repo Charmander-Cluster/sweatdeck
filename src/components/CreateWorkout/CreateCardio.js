@@ -12,38 +12,40 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CreateCardio = (props) => {
   // const redirectUri ="http://localhost:3000/cardioplaylist";
 
-  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/cardioplaylist' : 'https://sweatdeck.herokuapp.com/cardioplaylist'
+  const redirectUri = /localhost/.test(window.location.href)
+    ? "http://localhost:3000/cardioplaylist"
+    : "https://sweatdeck.herokuapp.com/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState(getAuth().currentUser);
+  // const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
+  // const authUser = useSelector((state) => state.auth);
+  // onAuthStateChanged(getAuth(), (u) => {
+  //   setUser(u);
+  // });
   const authUser = useSelector((state) => state.auth);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
-  const userId = authUser.uid;
 
   let cardioLocalWorkout = useSelector((state) => {
     console.log("State: ", state);
     return state.cardioLocalWorkout;
   });
 
-  useEffect(() => {
-    dispatch(fetchLoginUser());
-  }, [dispatch, user]);
+  // useEffect(() => {
+  //   dispatch(fetchLoginUser());
+  // }, [dispatch, user]);
 
   useEffect(() => {
     if (workoutAdded) {
-      dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
+      dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, authUser.uid));
       // history.push("/confirmcardiocreate")
       setRedirect(true);
     }
-  }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
+  }, [dispatch, workoutAdded, cardioLocalWorkout, authUser.uid]);
 
   // const localWorkout = useSelector(state => state.localWorkout)
 

@@ -17,20 +17,20 @@ const spotifyApi = new SpotifyWebApi({
 const token = new URLSearchParams(window.location.search).get("code");
 
 const CardioPlaylist = (props) => {
-  const [user, setUser] = useState(getAuth().currentUser);
+  // const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
+  // onAuthStateChanged(getAuth(), (u) => {
+  //   setUser(u);
+  // });
   const dispatch = useDispatch();
   const userId = authUser.uid;
 
   useEffect(() => {
     dispatch(fetchLoginUser());
-  }, [dispatch, user]);
+  }, [dispatch, userId]);
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
   console.log("cardio local workout store:", cardioLocalWorkout);
@@ -214,7 +214,7 @@ const CardioPlaylist = (props) => {
                       ></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200  dark:divide-gray-700 overflow:scroll">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700 overflow:scroll">
                     {playlists.map((playlist) => (
                       <tr
                         key={playlist.id}

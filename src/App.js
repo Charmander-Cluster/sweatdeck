@@ -16,7 +16,7 @@ function App() {
   });
 
   useEffect(() => {
-    if (user) {
+    if (!user) {
       dispatch(fetchLoginUser());
     }
   }, [dispatch, user]);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import WorkoutChart from "./WorkoutChart";
+import WorkoutStrengthChart from "./WorkoutStrengthChart";
+import WorkoutCardioChart from "./WorkoutCardioChart";
 import EmptyDashboard from "./EmptyDashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLatestUserWorkoutThunk } from "../store/workouts";
@@ -151,7 +152,11 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex items-center justify-between w-full pb-6 mt-6">
-            <WorkoutChart userWorkout={userWorkout} />
+            {userWorkout[0].exercises[0].reps ? (
+              <WorkoutStrengthChart userWorkout={userWorkout} />
+            ) : (
+              <WorkoutCardioChart userWorkout={userWorkout} />
+            )}
           </div>
           {userWorkout[0].isComplete ? (
             <button
@@ -161,9 +166,11 @@ const Dashboard = () => {
               Completed
             </button>
           ) : (
-            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-black bg-red-100 rounded shadow-md sm:mt-0 focus:outline-none shadow-black">
+            // <Link to={`/users/${authUser.uid}/workouts/${workoutId[0]}`}>
+            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-black bg-red-300 rounded shadow-md sm:mt-0 focus:outline-none shadow-black">
               In Progress
             </button>
+            // </Link>
           )}
         </div>
       ) : (
