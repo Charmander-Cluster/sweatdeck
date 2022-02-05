@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
 
 const CreateStrength = (props) => {
-  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/strengthplaylist' : 'https://sweatdeck.herokuapp.com/strengthplaylist'
+  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/strengthplaylist' : 'https://sweatdeck-test.herokuapp.com/strengthplaylist'
 
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
