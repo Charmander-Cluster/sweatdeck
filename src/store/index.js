@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { getFirestore, reduxFirestore } from "redux-firestore";
+// import { getFirestore, reduxFirestore } from "redux-firestore";
 import db from "../firebase";
 import allWorkouts from "./workoutsPage";
 import users from "./users";
@@ -33,10 +33,10 @@ const reducer = combineReducers({
 
 const middleware = composeWithDevTools(
   applyMiddleware(
-    thunkMiddleware.withExtraArgument({ getFirestore }),
+    thunkMiddleware,
     createLogger({ collapsed: true })
   ),
-  reduxFirestore(db)
+
 );
 //const store = createStore(reducer, middleware);
 
