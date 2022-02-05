@@ -22,6 +22,7 @@ app.use(morgan("dev"));
 // body parsing middleware
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "build")));
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
@@ -135,6 +136,10 @@ app.post("/cardiorefresh", (req, res) => {
     .catch(() => {
       res.sendStatus(400);
     });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // any remaining requests with an extension (.js, .css, etc.) send 404

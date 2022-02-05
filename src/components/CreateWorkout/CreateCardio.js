@@ -10,8 +10,9 @@ import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CreateCardio = (props) => {
-  const redirectUri =
-    process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/cardioplaylist";
+  // const redirectUri ="http://localhost:3000/cardioplaylist";
+
+  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/cardioplaylist' : 'https://sweatdeck.herokuapp.com/cardioplaylist'
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
@@ -50,6 +51,7 @@ const CreateCardio = (props) => {
     category: "cardio",
     name: "",
     exercises: [],
+    userId: "",
   });
 
   const [exercises, setExercises] = useState({
@@ -82,6 +84,7 @@ const CreateCardio = (props) => {
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
+    workout.exercises.push(exercises);
     dispatch(cardioLocalCreateWorkout(workout));
     setWorkoutAdded(true);
     //history.push("/confirmcardiocreate")
