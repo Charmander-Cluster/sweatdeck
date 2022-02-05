@@ -27,7 +27,7 @@ const useAuthCardio = (code) =>  {
         window.history.pushState({}, null, "/")
       })
       .catch(() => {
-        window.location = "/"
+        window.location = "/failed-login"
       })
   }, [code])
 
@@ -43,7 +43,7 @@ const useAuthCardio = (code) =>  {
           setExpiresIn(res.data.expiresIn)
         })
         .catch(() => {
-          window.location = "/"
+          window.location = "/failed-refresh"
         })
     }, (expiresIn - 60) * 1000)
 
