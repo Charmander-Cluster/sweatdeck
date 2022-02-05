@@ -7,19 +7,17 @@ import { fetchLoginUser } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const [user, setUser] = useState(getAuth().currentUser);
+  // const [user, setUser] = useState(getAuth().currentUser);
 
   const dispatch = useDispatch();
 
   onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
+    dispatch(fetchLoginUser());
   });
 
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchLoginUser());
-    }
-  }, [dispatch, user]);
+  // useEffect(() => {
+  //   dispatch(fetchLoginUser());
+  // }, [dispatch, user]);
 
   return (
     <div>

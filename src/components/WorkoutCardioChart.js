@@ -17,8 +17,8 @@ const WorkoutCardioChart = (props) => {
           {
             label: false,
             data: [
-              props.userWorkout[0].exercises[0].distance,
-              props.userWorkout[0].exercises[0].minutes,
+              props.workout.exercises[0].distance,
+              props.workout.exercises[0].minutes,
             ],
             backgroundColor: "#0d9488",
           },

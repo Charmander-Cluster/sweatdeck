@@ -17,9 +17,9 @@ const WorkoutStrengthChart = (props) => {
           {
             label: false,
             data: [
-              props.userWorkout[0].workoutData.exercises[0].reps,
-              props.userWorkout[0].workoutData.exercises[0].sets,
-              props.userWorkout[0].workoutData.exercises[0].weight,
+              props.workout.workoutData.exercises[0].reps,
+              props.workout.workoutData.exercises[0].sets,
+              props.workout.workoutData.exercises[0].weight,
             ],
             backgroundColor: "rgba(255, 255, 255, 0.1)",
             borderColor: "#0f766e",
@@ -31,9 +31,9 @@ const WorkoutStrengthChart = (props) => {
           {
             label: false,
             data: [
-              props.userWorkout[0].workoutData.exercises[1].reps,
-              props.userWorkout[0].workoutData.exercises[1].sets,
-              props.userWorkout[0].workoutData.exercises[1].weight,
+              props.workout.workoutData.exercises[1].reps,
+              props.workout.workoutData.exercises[1].sets,
+              props.workout.workoutData.exercises[1].weight,
             ],
             backgroundColor: "rgba(255, 255, 255, 0.1)",
             borderColor: "#FDBA74",
