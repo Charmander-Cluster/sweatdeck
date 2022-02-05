@@ -11,37 +11,11 @@ const Dashboard = () => {
   const authUser = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(true);
 
-  // const [isLoading, setLoading] = useState(true);
-
   const userWorkout = useSelector((state) => state.workouts);
 
   useEffect(() => {
-    if (!authUser) {
-      dispatch(fetchLoginUser());
-    }
-  }, [dispatch, authUser]);
-
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     if (authUser.uid) {
-  //       dispatch(fetchSingleUserThunk(authUser.uid));
-  //     }
-  //   }
-
-  //   return () => {
-  //     setLoading(false);
-  //   };
-  // }, [dispatch, authUser.uid, isLoading, userWorkout]);
-
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-    }
-
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser, isLoading]);
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+  }, [dispatch, authUser.uid]);
 
   // console.log(userWorkout);
 
@@ -187,7 +161,7 @@ const Dashboard = () => {
               Completed
             </button>
           ) : (
-            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-white bg-red-700 rounded shadow-md sm:mt-0 focus:outline-none shadow-black">
+            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-black bg-red-100 rounded shadow-md sm:mt-0 focus:outline-none shadow-black">
               In Progress
             </button>
           )}

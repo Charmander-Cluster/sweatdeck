@@ -14,7 +14,6 @@ const UserProfile = () => {
 
   const authUser = useSelector((state) => state.auth);
 
-  const [isLoading, setLoading] = useState(true);
   const [date, setDate] = useState(new Date());
 
   let history = useHistory();
@@ -22,14 +21,10 @@ const UserProfile = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (isLoading) {
+    if (authUser.uid) {
       dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
     }
-
-    return () => {
-      setLoading(false);
-    };
-  }, [dispatch, authUser, isLoading]);
+  }, [dispatch, authUser.uid]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
@@ -62,6 +57,8 @@ const UserProfile = () => {
     dispatch(logout());
     history.push("/signin");
   };
+
+  console.log(userWorkout);
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
