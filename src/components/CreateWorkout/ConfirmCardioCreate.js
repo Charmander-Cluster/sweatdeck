@@ -6,9 +6,7 @@ const ConfirmCardioCreate = () => {
   // const [workoutDetails, setWorkoutDetails] = useState({})
   const cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
   const [completed, setCompleted] = useState(false);
-  const [saved, setSaved] = useState(false);
-
-  console.log(cardioLocalWorkout);
+  // const [saved, setSaved] = useState(false);
 
   // useEffect(()=>{
   //   setWorkoutDetails(cardioLocalWorkout)
@@ -19,15 +17,18 @@ const ConfirmCardioCreate = () => {
     setCompleted(true);
   };
 
-  const handleSaveOnly = () => {
-    setSaved(true);
-  };
+  // const handleSaveOnly = () => {
+  //   setSaved(true);
+  // };
 
   return (
     <div className="container flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
-        <div className="flex justify-center">
-          <h1 className="mt-28 text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500  to-purple-600">
+        <div className="flex-col justify-center">
+          <div className="flex justify-center">
+          <img alt="purple-checkmark" src="https://iconarchive.com/download/i85557/graphicloads/100-flat/check.ico" className="mt-20 h-32"/>
+          </div>
+          <h1 className="mt-10 text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500  to-purple-600">
             You've Created A New Cardio Workout!
           </h1>
         </div>
@@ -40,18 +41,26 @@ const ConfirmCardioCreate = () => {
       <div>Time: {workoutDetails.exercises.hours} hours and {workoutDetails.exercises.minutes} minutes</div>
       <div></div> */}
 
-      {!completed && !saved && (
+      {!completed && (
         <div>
-          <div className="grid justify-center mt-20 mb-10">
+          <div className="grid justify-center mt-20">
             <button
               type="button"
-              className="text-xl bg-teal-500  rounded-md p-8 w-64 border border-white text-zinc-800"
+              className="text-xl bg-teal-500  rounded-md p-3 border border-white text-white"
               onClick={handleSaveAndComplete}
             >
-              Save & Mark Completed Today
+              Mark Completed Today
             </button>
           </div>
           <div className="grid justify-center">
+            <button
+              type="button"
+              className="text-xl text-white border border-white rounded-md mt-5 p-3 w-52 "
+            >
+              Return Home
+            </button>
+          </div>
+          {/* <div className="grid justify-center">
             <button
               type="button"
               className="text-xl text-teal-500 border border-teal-500  rounded-md p-8 w-64 "
@@ -59,21 +68,42 @@ const ConfirmCardioCreate = () => {
             >
               Save for Later
             </button>
-          </div>
+          </div> */}
         </div>
       )}
 
-      {!completed && saved && (
+      {/* {!completed && saved && (
         <div>
           Your Workout Saved!
           <button>Return Home</button>
         </div>
-      )}
+      )} */}
 
-      {completed && !saved && (
+      {completed && (
         <div>
-          Your Workout Saved & Marked Completed Today!
-          <button>Return Home</button>
+        <div className="grid justify-center mt-20">
+          <div className="flex-row">
+          <div
+            type="button"
+            className="flex text-2xl text-teal-500 rounded-md p-3"
+          >
+
+            {/* <img alt="teal-checkmark" className="h-6" src="https://nzqba.co.nz/wp-content/uploads/2019/07/tick.png"/> */}
+            <img alt="teal-checkmark" className="h-6 mr-2" src="https://palmbayprep.org/wp-content/uploads/2015/09/Calendar-Icon.png"/>
+
+
+            Completed Today
+          </div>
+          </div>
+        </div>
+        <div className="grid justify-center">
+          <button
+            type="button"
+            className="text-xl text-white rounded-md mt-5 p-3 border border-white w-52"
+          >
+            Return Home
+          </button>
+        </div>
         </div>
       )}
     </div>

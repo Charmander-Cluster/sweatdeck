@@ -19,7 +19,9 @@ const CreateStrength = (props) => {
     category: "strength",
     name: "",
     exercises: [],
-    userId:""
+    userId:"",
+    timesCompleted: 0,
+    datesCompleted:[]
   });
 
   const [exercise, setExercise] = useState({});

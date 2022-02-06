@@ -52,6 +52,8 @@ const CreateCardio = (props) => {
     name: "",
     exercises: [],
     userId: "",
+    timesCompleted: 0,
+    datesCompleted:[]
   });
 
   const [exercises, setExercises] = useState({
