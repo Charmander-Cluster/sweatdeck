@@ -30,11 +30,11 @@ export const fetchUserWorkoutsThunk = (userId, cardioOrStrength) => {
       //let exercises = query(allWorkouts)
       let exercises = await getDocs(allWorkouts);
 
-      console.log("this is exercises from thunk", exercises);
+      //console.log("this is exercises from thunk", exercises);
       let allExercises = exercises.docs.map((elem) => {
         return { elemId: elem.id, elemData: elem.data() };
       });
-      console.log("All Exercises from Thunk", allExercises);
+      //console.log("All Exercises from Thunk", allExercises);
       dispatch(getUserWorkouts(allExercises));
     } catch (err) {
       console.log("Failed at UserWorkouts Thunk", err);

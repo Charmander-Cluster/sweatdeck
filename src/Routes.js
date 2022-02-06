@@ -19,9 +19,9 @@ import { fetchLoginUser } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./components/SignUp";
 import OptionalSignUp from "./components/OptionalSignUp";
-import SingleWorkout from "./components/SingleWorkout";
-import UserWorkouts from "./components/UserWorkouts";
-import CardioOrStrengthButtons from "./components/CardioOrStrengthButtons";
+import SingleWorkout from "./components/Workouts/SingleWorkout";
+import UserWorkouts from "./components/Workouts/UserWorkouts";
+import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -44,7 +44,7 @@ const Routes = (props) => {
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
-          <Route path="/users/:id/workouts/:docId" component={SingleWorkout} />
+          <Route exact path="/users/:id/workouts/:docId" component={SingleWorkout} />
           <Route exact path="/users/:id/workouts" component={UserWorkouts} />
           <Route
             exact
