@@ -44,7 +44,7 @@ const Routes = (props) => {
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
-          <Route path="/users/:id/workouts/:docId" component={SingleWorkout} />
+          <Route exact path="/users/:id/workouts/:docId" component={SingleWorkout} />
           <Route exact path="/users/:id/workouts" component={UserWorkouts} />
           <Route
             exact

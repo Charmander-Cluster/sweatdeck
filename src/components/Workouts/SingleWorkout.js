@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { fetchSingleWorkoutThunk } from "../../store/singleWorkout";
 import { useDispatch } from "react-redux";
 import { logDBWorkout } from "../../store/logWorkout";
+import { Link } from "react-router-dom";
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
@@ -41,6 +42,15 @@ const SingleWorkout = () => {
                       <h1 className="my-3 text-xl text-teal-500 align-center capitalize">
                         {workout.category}
                       </h1>
+                      <h2 className="mb-3 text-lg text-left">
+                                  {" "}
+                                  <a className="text-teal-500 mr-3 text-lg">
+                                    Playlist:{" "}
+                                  </a>{" "} <a className="mr-3 p-1 text-base text-center text-white bg-teal-500 rounded-md"
+                                  href={workout.playlist.url}>
+                                  {workout.playlist.name}
+                                  </a>
+                                </h2>
                       {workout.category === "Strength" ||
                       workout.category === "strength"
                         ? workout.exercises.map((exercise) => {
@@ -112,6 +122,12 @@ const SingleWorkout = () => {
                         >
                           Log Workout
                         </button>
+                        {/* <Link
+                              to={`/users/${id}/workouts/${docId}/edit`}
+                              className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
+                            >
+                              Edit Workout
+                            </Link> */}
                       </div>
                     </div>
                   </div>
