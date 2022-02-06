@@ -4,6 +4,7 @@ import {
   updateDoc,
   increment,
   serverTimestamp,
+  arrayUnion
 } from "firebase/firestore";
 import db from "../firebase";
 
@@ -20,7 +21,9 @@ export const logDBWorkout = (userId, docId) => async (dispatch) => {
   try {
     const userRef = doc(db, `users/${userId}/workouts`, docId);
     const workoutRef = doc(db, `workouts`, docId);
-    await updateDoc(userRef, { timesCompleted: increment(1) });
+    const date = new Date();
+    await updateDoc(userRef, { timesCompleted: increment(1)});
+    await updateDoc(userRef, {datesCompleted: arrayUnion(date) });
     await updateDoc(workoutRef, { logs: increment(1) });
   } catch (error) {
     return error;
