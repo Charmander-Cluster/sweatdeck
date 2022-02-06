@@ -53,7 +53,8 @@ const CreateCardio = (props) => {
     exercises: [],
     userId: "",
     timesCompleted: 0,
-    datesCompleted:[]
+    datesCompleted:[],
+    logs: 0
   });
 
   const [exercises, setExercises] = useState({
@@ -273,6 +274,15 @@ const CreateCardio = (props) => {
                               <button
                                 className="flex p-3 mb-3 text-lg text-white bg-teal-500 rounded-md"
                                 onClick={handleSubmitWithSpotify}
+                                disabled={
+                                  workout.category === "" ||
+                                  workout.name === "" ||
+                                  exercises.type === "" ||
+                                  exercises.distance === "" ||
+                                  exercises.units === "" ||
+                                  exercises.hours === ""||
+                                  exercises.minutes === ""
+                                }
                                 // href={AUTH_URL}
                               >
                                 Save & Connect Playlist
@@ -281,6 +291,15 @@ const CreateCardio = (props) => {
                               <button
                                 className="flex p-3 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md"
                                 onClick={handleSubmitWithoutPlaylist}
+                                disabled={
+                                  workout.category === "" ||
+                                  workout.name === "" ||
+                                  exercises.type === "" ||
+                                  exercises.distance === "" ||
+                                  exercises.units === "" ||
+                                  exercises.hours === ""||
+                                  exercises.minutes === ""
+                                }
                               >
                                 Save Without Playlist
                               </button>

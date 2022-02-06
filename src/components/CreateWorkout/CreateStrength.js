@@ -3,6 +3,11 @@ import StrengthDetails from "./StrengthDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
 
+import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
+import { createDBWorkout } from "../../store/createDBWorkout";
+import { fetchLoginUser } from "../../store/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const CreateStrength = (props) => {
   const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/strengthplaylist' : 'https://sweatdeck-test.herokuapp.com/strengthplaylist'
 
@@ -11,9 +16,32 @@ const CreateStrength = (props) => {
 
   const dispatch = useDispatch();
 
+  const [user, setUser] = useState(getAuth().currentUser);
+  const [workoutAdded, setWorkoutAdded] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
   const strengthLocalWorkout = useSelector(
     (state) => state.strengthLocalWorkout
   );
+
+  const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
+  const userId = authUser.uid;
+
+  useEffect(() => {
+    dispatch(fetchLoginUser());
+  }, [dispatch, user]);
+
+
+  useEffect(() => {
+    if (workoutAdded) {
+      dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
+      // history.push("/confirmcardiocreate")
+      setRedirect(true);
+    }
+  }, [dispatch, workoutAdded, strengthLocalWorkout, userId]);
 
   const [workout, setWorkout] = useState({
     category: "strength",
@@ -21,10 +49,11 @@ const CreateStrength = (props) => {
     exercises: [],
     userId:"",
     timesCompleted: 0,
-    datesCompleted:[]
+    datesCompleted:[],
+    logs: 0
   });
 
-  const [exercise, setExercise] = useState({});
+  //const [exercise, setExercise] = useState({});
 
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
@@ -43,6 +72,13 @@ const CreateStrength = (props) => {
     dispatch(strengthLocalCreateWorkout(workout));
     console.log("local workout:", strengthLocalWorkout);
     window.location.href = AUTH_URL;
+  };
+
+  const handleSubmitWithoutPlaylist = (event) => {
+    event.preventDefault();
+    dispatch(strengthLocalCreateWorkout(workout));
+    setWorkoutAdded(true);
+    //history.push("/confirmcardiocreate")
   };
 
   return (
@@ -126,10 +162,22 @@ const CreateStrength = (props) => {
                       className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
                       onClick={handleSubmitWithSpotify}
                       href={AUTH_URL}
+                      disabled={
+                        workout.category === "" ||
+                        workout.name === "" ||
+                        workout.exercises.length === 0
+                      }
                     >
                       Save & Connect Playlist
                     </button>
-                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-">
+                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
+                    onClick={handleSubmitWithoutPlaylist}
+                    disabled={
+                      workout.category === "" ||
+                      workout.name === "" ||
+                      workout.exercises.length === 0
+                    }
+                    >
                       Save Without Playlist
                     </button>
                   </div>
