@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 // const port = process.env.PORT || "http://localhost:3001"
-const port = process.env.NODE_ENV === 'production' ? 'https://sweatdeck-test.herokuapp.com' : 'http://localhost:3001';
+//const port = process.env.NODE_ENV === 'production' ? 'https://sweatdeck-test.herokuapp.com' : 'http://localhost:3001';
+const port =  /localhost/.test(window.location.href) ? 'http://localhost:3001' : 'https://sweatdeck-test.herokuapp.com'
 
 const useAuthCardio = (code) =>  {
   let axiosConfig = {
