@@ -18,12 +18,11 @@ const useAuthCardio = (code) =>  {
   const [expiresIn, setExpiresIn] = useState()
 
   useEffect(() => {
-    console.log("entering the useAuthCardio")
     axios
       .post(`${port}/cardiologin`, {code}, axiosConfig)
       .then(res => {
         // console.log(res.data)
-        console.log(res.status)
+        //console.log(res.status)
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
         setExpiresIn(res.data.expiresIn)
