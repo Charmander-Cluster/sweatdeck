@@ -45,21 +45,6 @@ const CardioPlaylist = (props) => {
       dispatch(createDBWorkout(cardioLocalWorkout, userId));
   }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
 
-  //console.log("This is the home component!");
-  //console.log("Playlists:", playlists);
-  //console.log("selected playlist", selectedPlaylist);
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  // console.log("**USERID**", userId)
-
-  // const createWorkout = () => {
-  //   dispatch(
-  //     cardioLocalEditWorkout({...cardioLocalWorkout,
-  //       playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-  //     }))
-  //     dispatch(createDBWorkout(cardioLocalWorkout, userId))
-  // }
-
   const handleConfirm = (event) => {
     event.preventDefault();
     dispatch(

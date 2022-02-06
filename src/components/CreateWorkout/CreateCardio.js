@@ -12,7 +12,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CreateCardio = (props) => {
   // const redirectUri ="http://localhost:3000/cardioplaylist";
 
-  const redirectUri =   'https://sweatdeck-test.herokuapp.com/cardioplaylist'
+  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/cardioplaylist' : 'https://sweatdeck-test.herokuapp.com/cardioplaylist'
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
@@ -77,8 +77,10 @@ const CreateCardio = (props) => {
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
     workout.exercises.push(exercises);
+    //Creates application state
     dispatch(cardioLocalCreateWorkout(workout));
     console.log("local workout:", cardioLocalWorkout);
+    //sends to auth URL -- SUCCESSFUL
     window.location.href = AUTH_URL;
   };
 

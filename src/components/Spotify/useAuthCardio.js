@@ -28,7 +28,8 @@ const useAuthCardio = (code) =>  {
         window.history.pushState({}, null, "/")
       })
       .catch(() => {
-        window.location = "/failed-login"
+        // window.location = "/failed-login"
+        console.log("failed")
       })
   }, [code])
 
