@@ -42,15 +42,22 @@ const SingleWorkout = () => {
                       <h1 className="my-3 text-xl text-teal-500 align-center capitalize">
                         {workout.category}
                       </h1>
-                      <h2 className="mb-3 text-lg text-left">
-                                  {" "}
-                                  <a className="text-teal-500 mr-3 text-lg">
-                                    Playlist:{" "}
-                                  </a>{" "} <a className="mr-3 p-1 text-base text-center text-white bg-teal-500 rounded-md"
-                                  href={workout.playlist.url}>
-                                  {workout.playlist.name}
-                                  </a>
-                                </h2>
+                      {!workout.hasOwnProperty('playlist') ? (
+                        <h2>No Linked Playlist</h2>
+                      ) : (
+                        <h2 className="mb-3 text-lg text-left">
+                          {" "}
+                          <a className="text-teal-500 mr-3 text-lg">
+                            Playlist:{" "}
+                          </a>{" "}
+                          <a
+                            className="mr-3 p-1 text-base text-center text-white bg-teal-500 rounded-md"
+                            href={workout.playlist.url}
+                          >
+                            {workout.playlist.name}
+                          </a>
+                        </h2>
+                      )}
                       {workout.category === "Strength" ||
                       workout.category === "strength"
                         ? workout.exercises.map((exercise) => {
@@ -122,12 +129,12 @@ const SingleWorkout = () => {
                         >
                           Log Workout
                         </button>
-                        {/* <Link
-                              to={`/users/${id}/workouts/${docId}/edit`}
-                              className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
-                            >
-                              Edit Workout
-                            </Link> */}
+                        <Link
+                          to={`/users/${id}/workouts/${docId}/editCardio`}
+                          className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
+                        >
+                          Create Similar Workout
+                        </Link>
                       </div>
                     </div>
                   </div>
