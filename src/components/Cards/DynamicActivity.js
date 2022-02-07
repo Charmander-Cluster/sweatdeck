@@ -2,7 +2,7 @@ import React from "react";
 import DoughnutActivityChart from "../Charts/DoughnutActivityChart";
 
 const DynamicActivity = (props) => {
-  //   console.log(props.workouts);
+  const workoutLength = props.workouts.length;
 
   const setsSum = props.workouts
     .filter((workout) => workout.workoutData.category === "strength")
@@ -75,7 +75,10 @@ const DynamicActivity = (props) => {
       <div className="flex items-center justify-center py-2 pl-6 rounded shadow ">
         <div className="pl-3 pr-10">
           <div className="flex items-center justify-center">
-            <DoughnutActivityChart calculatedSums={calculatedSums} />
+            <DoughnutActivityChart
+              calculatedSums={calculatedSums}
+              workoutLength={workoutLength}
+            />
           </div>
           <div className="flex flex-row justify-between">
             <div className="flex flex-col pr-10 mt-4">
