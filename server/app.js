@@ -90,6 +90,7 @@ app.post("/strengthrefresh", (req, res) => {
 });
 
 app.post("/cardiologin", (req, res) => {
+  console.log("THIS IS THE CARDIO LOGIN BACKEND")
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
