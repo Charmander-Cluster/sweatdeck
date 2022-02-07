@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
 import { Redirect } from "react-router";
 import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
@@ -20,6 +21,7 @@ const CardioPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const history = useHistory()
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -41,24 +43,10 @@ const CardioPlaylist = (props) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   useEffect(() => {
-    if (playlistConfirmed)
+    if (playlistConfirmed){
       dispatch(createDBWorkout(cardioLocalWorkout, userId));
+      history.push('/confirmcardiocreate')}
   }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
-
-  //console.log("This is the home component!");
-  //console.log("Playlists:", playlists);
-  //console.log("selected playlist", selectedPlaylist);
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  // console.log("**USERID**", userId)
-
-  // const createWorkout = () => {
-  //   dispatch(
-  //     cardioLocalEditWorkout({...cardioLocalWorkout,
-  //       playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
-  //     }))
-  //     dispatch(createDBWorkout(cardioLocalWorkout, userId))
-  // }
 
   const handleConfirm = (event) => {
     event.preventDefault();
@@ -69,7 +57,6 @@ const CardioPlaylist = (props) => {
       })
     );
     setPlaylistConfirmed(true);
-    setRedirect(true);
   };
 
   useEffect(() => {
@@ -131,9 +118,7 @@ const CardioPlaylist = (props) => {
       });
   }, [accessToken]);
 
-  return redirect ? (
-    <Redirect to="/confirmcardiocreate" />
-  ) : (
+  return (
     <div>
       <div className="grid place-items-center">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
