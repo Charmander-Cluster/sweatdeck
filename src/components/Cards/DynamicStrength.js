@@ -6,15 +6,12 @@ const DynamicStrength = (props) => {
     <div className="container px-6 pt-4 mx-auto snap-center">
       <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded shadow">
         <div className="flex items-start py-5 pl-6 rounded shadow ">
-          <div className="pl-3 pr-10 mt-1">
-            <h3 className="text-base font-normal leading-4 text-white">
-              {props.workoutData.category}
-            </h3>
+          <div className="pl-3 pr-3 mt-1">
             <div className="flex items-end mt-4">
               <h2 className="text-2xl font-bold leading-normal text-fuchsia-700 ">
-                Name
+                Workout
               </h2>
-              <p className="mb-1 ml-2 text-sm text-white">
+              <p className="mb-1 ml-2 text-sm text-white text-clip overflow-clip">
                 {props.workoutData.name}
               </p>
             </div>

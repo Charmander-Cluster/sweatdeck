@@ -25,6 +25,9 @@ const DynamicWorkoutCardioChart = (props) => {
     plugins: {
       legend: {
         display: false,
+        labels: {
+          color: "white",
+        },
       },
       title: {
         display: false,
@@ -37,18 +40,24 @@ const DynamicWorkoutCardioChart = (props) => {
           display: false,
         },
       },
+      x: {
+        ticks: {
+          color: "white",
+        },
+      },
     },
   };
 
-  const labels = ["Distance", "Hours"];
+  const labels = ["Miles", "Minutes"];
 
   const data = {
     labels,
+
     datasets: [
       {
         label: "Dataset 1",
-        data: [props.workoutData.distance, props.workoutData.hours],
-        backgroundColor: "rgba(255, 99, 132)",
+        data: [props.workoutData.distance, props.workoutData.minutes],
+        backgroundColor: "#a21caf",
       },
     ],
   };
