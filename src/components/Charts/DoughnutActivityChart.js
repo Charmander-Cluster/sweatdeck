@@ -30,10 +30,10 @@ const ActivityChart = (props) => {
       <div className="relative flex items-center justify-center w-48 h-48">
         <Doughnut data={data} className="z-10" />
         <div className="absolute z-0 flex flex-col items-center justify-center w-24 h-24 mt-1 bg-white rounded-full">
-          <p className="text-2xl font-semibold leading-6 text-center text-black">
+          <p className="text-2xl font-semibold leading-6 text-center text-fuchsia-700">
             20
           </p>
-          <p className="text-lg font-semibold leading-6 text-center text-black">
+          <p className="text-lg font-semibold leading-6 text-center text-fuchsia-700">
             Workouts
           </p>
         </div>

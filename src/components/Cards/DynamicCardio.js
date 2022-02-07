@@ -2,7 +2,7 @@ import React from "react";
 import DynamicWorkoutCardioChart from "../Charts/DynamicCardioChart";
 
 const DynamicCardio = (props) => {
-  // console.log("Dynamic Cardio ---", props.workoutData.exercises[0]);
+  console.log("Dynamic Cardio ---", props.workoutData.playlist.name);
   return (
     <div className="container px-6 pt-4 mx-auto snap-center">
       <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded shadow">
@@ -15,6 +15,15 @@ const DynamicCardio = (props) => {
               <p className="mb-1 ml-2 text-sm text-white">
                 {" "}
                 {props.workoutData.name}
+              </p>
+            </div>
+            <div className="flex items-end mt-4">
+              <h2 className="font-bold leading-normal text-md text-fuchsia-700 ">
+                Playlist
+              </h2>
+              <p className="mb-1 ml-2 text-sm text-white">
+                {" "}
+                {props.workoutData.playlist.name}
               </p>
             </div>
 

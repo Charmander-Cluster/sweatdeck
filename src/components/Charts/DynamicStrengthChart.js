@@ -33,13 +33,13 @@ const DynamicWorkoutStrengthChart = (props) => {
     scales: {
       y: {
         display: false,
-        grid: {
-          display: false,
-        },
       },
       x: {
         ticks: {
           color: "white",
+        },
+        grid: {
+          display: false,
         },
       },
     },
