@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
 import { strengthLocalEditWorkout } from "../../store/strengthLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -19,6 +20,7 @@ const token = new URLSearchParams(window.location.search).get("code");
 const StrengthPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
+  const history = useHistory()
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -43,8 +45,10 @@ const StrengthPlaylist = (props) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   useEffect(() => {
-    if (playlistConfirmed)
-      dispatch(createDBWorkout(strengthLocalWorkout, userId));
+    if (playlistConfirmed){
+      dispatch(createDBWorkout(strengthLocalWorkout, userId))
+      history.push('/confirmstrengthcreate')};
+
   }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
 
   //console.log("This is the home component!");

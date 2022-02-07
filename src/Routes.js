@@ -11,6 +11,7 @@ import {
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,
+  ConfirmStrengthCreate
 } from "./components";
 import Dashboard from "./components/Dashboard";
 import SignIn from "./components/SignIn";
@@ -46,6 +47,7 @@ const Routes = (props) => {
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
           <Route exact path="/users/:id/workouts/:docId/editCardio" component={EditCardioWorkout} />
+          <Route path="/confirmstrengthcreate" component={ConfirmStrengthCreate} />
           <Route exact path="/users/:id/workouts/:docId" component={SingleWorkout} />
           <Route exact path="/users/:id/workouts" component={UserWorkouts} />
           <Route
