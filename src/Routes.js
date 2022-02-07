@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/Profile/UserProfile";
 import EditUser from "./components/Profile/EditUser";
@@ -16,8 +16,7 @@ import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "./store";
-import { useDispatch, useSelector } from "react-redux";
-import SignUp from "./components/SignUp";
+import { useSelector } from "react-redux";
 import OptionalSignUp from "./components/OptionalSignUp";
 import SingleWorkout from "./components/SingleWorkout";
 import UserWorkouts from "./components/UserWorkouts";

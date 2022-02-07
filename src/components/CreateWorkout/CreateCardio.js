@@ -20,24 +20,23 @@ const CreateCardio = (props) => {
 
   const dispatch = useDispatch();
 
-  // const [user, setUser] = useState(getAuth().currentUser);
+  const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  // const authUser = useSelector((state) => state.auth);
-  // onAuthStateChanged(getAuth(), (u) => {
-  //   setUser(u);
-  // });
   const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
 
   let cardioLocalWorkout = useSelector((state) => {
     console.log("State: ", state);
     return state.cardioLocalWorkout;
   });
 
-  // useEffect(() => {
-  //   dispatch(fetchLoginUser());
-  // }, [dispatch, user]);
+  useEffect(() => {
+    dispatch(fetchLoginUser());
+  }, [dispatch, user]);
 
   console.log(authUser.uid);
 

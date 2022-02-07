@@ -34,6 +34,8 @@ export const fetchUserWorkoutsThunk = (userId, cardioOrStrength) => {
       let allExercises = exercises.docs.map((elem) => {
         return { elemId: elem.id, elemData: elem.data() };
       });
+
+      console.log(allExercises);
       console.log("All Exercises from Thunk", allExercises);
       dispatch(getUserWorkouts(allExercises));
     } catch (err) {

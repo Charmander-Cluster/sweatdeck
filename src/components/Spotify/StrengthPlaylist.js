@@ -17,24 +17,22 @@ const spotifyApi = new SpotifyWebApi({
 const token = new URLSearchParams(window.location.search).get("code");
 
 const StrengthPlaylist = (props) => {
-  // const [user, setUser] = useState(getAuth().currentUser);
+  const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
 
-  // const authUser = useSelector((state) => state.auth);
-  // onAuthStateChanged(getAuth(), (u) => {
-  //   setUser(u);
-  // });
+  const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
 
   // let history = useHistory();
   const dispatch = useDispatch();
-
-  const authUser = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, authUser.uid]);
 
-  const userId = authUser.uid;
+  const userId = user.uid;
   const accessToken = useAuthStrength(token);
   let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 

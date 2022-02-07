@@ -17,15 +17,17 @@ const DynamicCardio = (props) => {
                 {props.workoutData.name}
               </p>
             </div>
-            <div className="flex items-end mt-4">
-              <h2 className="font-bold leading-normal text-md text-fuchsia-700 ">
-                Playlist
-              </h2>
-              <p className="mb-1 ml-2 text-sm text-white">
-                {" "}
-                {props.workoutData.playlist.name}
-              </p>
-            </div>
+            {props.workoutData.playlist && (
+              <div className="flex items-end mt-4">
+                <h2 className="font-bold leading-normal text-md text-fuchsia-700 ">
+                  Playlist
+                </h2>
+                <p className="mb-1 ml-2 text-sm text-white">
+                  {" "}
+                  {props.workoutData.playlist.name}
+                </p>
+              </div>
+            )}
 
             <div className="flex items-center mt-5">
               <div className="flex flex-row">

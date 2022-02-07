@@ -31,7 +31,7 @@ const DashboardTest = () => {
     // console.log(newWorkouts);
     setWorkouts(latestWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, latestWorkouts, authUser, workouts]);
+  }, [fetchData, isLoading, latestWorkouts, authUser]);
 
   return (
     <>
@@ -120,7 +120,7 @@ const DashboardTest = () => {
           </div>
         </div>
       ) : (
-        <DashboardTest authUser={authUser} />
+        <EmptyDashboard authUser={authUser} />
       )}
     </>
   );

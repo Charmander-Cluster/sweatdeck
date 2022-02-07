@@ -17,20 +17,20 @@ const spotifyApi = new SpotifyWebApi({
 const token = new URLSearchParams(window.location.search).get("code");
 
 const CardioPlaylist = (props) => {
-  // const [user, setUser] = useState(getAuth().currentUser);
+  const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
   const [redirect, setRedirect] = useState(false);
-
   const authUser = useSelector((state) => state.auth);
-  // onAuthStateChanged(getAuth(), (u) => {
-  //   setUser(u);
-  // });
+
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
   const dispatch = useDispatch();
   const userId = authUser.uid;
 
   useEffect(() => {
     dispatch(fetchLoginUser());
-  }, [dispatch, userId]);
+  }, [dispatch, user]);
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
   console.log("cardio local workout store:", cardioLocalWorkout);

@@ -106,7 +106,7 @@
   @apply bg-emerald-800 rounded-md;
 } */
 .react-calendar__tile--now {
-  @apply rounded-full bg-gradient-to-r from-fuchsia-500 to-teal-600 shadow-sm shadow-fuchsia-500/50 border-4;
+  @apply rounded-full bg-gradient-to-r from-fuchsia-500 to-teal-600 shadow-sm shadow-fuchsia-500/50 border-4 shadow-md shadow-black;
 }
 /* .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
@@ -142,7 +142,7 @@
 } */
 
 .highlight {
-  @apply bg-teal-600 rounded-full shadow-md shadow-black;
+  @apply bg-teal-600 rounded-full;
 }
 
 .loader {

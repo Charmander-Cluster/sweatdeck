@@ -9,6 +9,8 @@ const UserWorkouts = (props) => {
   console.log("this is props", props.location.state);
   let cardioOrStrength = props.location.state;
 
+  console.log(props.location.state);
+
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -17,22 +19,22 @@ const UserWorkouts = (props) => {
   }, [dispatch, id, cardioOrStrength]);
 
   return (
-    <div className="container p-3 w-screen flex flex-col items-center justify-center py-2">
-      <div className="rounded overflow-hidden pt-20">
+    <div className="container flex flex-col items-center justify-center w-screen p-3 py-2">
+      <div className="pt-20 overflow-hidden rounded">
         <div className="grid grid-cols-1">
           {workouts.map((workout) => {
             return (
               <div
                 key={workout.elemId}
-                className="flex flex-col px-6 mt-4 border-solid border-2"
+                className="flex flex-col px-6 mt-4 border-2 border-solid"
               >
-                <div className="font-bold text-3xl text-center mb-1">
+                <div className="mb-1 text-3xl font-bold text-center">
                   {workout.elemData.name}
                 </div>
 
                 <Link
                   to={`/users/${id}/workouts/${workout.elemId}`}
-                  className="flex flex-row text-1xl mx-2 my-2 justify-center bg-teal-700 transition duration-150 ease-in-out hover:bg-teal-600 rounded text-white px-8 py-3"
+                  className="flex flex-row justify-center px-8 py-3 mx-2 my-2 text-white transition duration-150 ease-in-out bg-teal-700 rounded text-1xl hover:bg-teal-600"
                 >
                   See Workout
                 </Link>
