@@ -9,8 +9,8 @@ export const Biceps = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option>Barbell/Dumbell Curl</option>
-      <option>Hammer Curl</option>
+      <option>barbell/dumbell curl</option>
+      <option>hammer curl</option>
     </select>
   );
 };
@@ -23,10 +23,10 @@ export const Triceps = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option>Tricep Extension</option>
-      <option>Bench Dips</option>
-      <option>Reverse grip bench press</option>
-      <option>Skull Crushers</option>
+      <option>tricep extension</option>
+      <option>bench dips</option>
+      <option>reverse grip bench press</option>
+      <option>skull crushers</option>
 
     </select>
   );
@@ -40,9 +40,9 @@ export const Back = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option >Pullup</option>
-      <option>Row</option>
-      <option>Lat Pulldown</option>
+      <option >pullup</option>
+      <option>row</option>
+      <option>lat pulldown</option>
     </select>
   );
 };
@@ -55,9 +55,9 @@ export const Shoulders = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option>Arnold Press</option>
-      <option>Lateral Raise</option>
-      <option>Barbell / Kettlebell Overhead Press</option>
+      <option>Arnold press</option>
+      <option>lateral raise</option>
+      <option>barbell / kettlebell overhead press</option>
     </select>
   );
 };
@@ -70,10 +70,10 @@ export const Quads = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option>Squat</option>
-      <option>Forward Lunge</option>
-      <option>Backward Lunge</option>
-      <option>Leg Press</option>
+      <option>squat</option>
+      <option>forward lunge</option>
+      <option>backward lunge</option>
+      <option>leg press</option>
     </select>
   );
 };
@@ -86,9 +86,9 @@ export const Chest = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option>Bench Press</option>
-      <option>Chest Fly</option>
-      <option>Dip</option>
+      <option>bench press</option>
+      <option>chest fly</option>
+      <option>dip</option>
     </select>
   );
 };
@@ -101,11 +101,11 @@ export const Abs = (props) => {
     defaultValue="select"
     onChange={handleChange}>
       <option value="select" disabled>--</option>
-      <option>Crunch</option>
-      <option>Sit up</option>
-      <option>Russian Twist</option>
-      <option>Plank</option>
-      <option>Side Plank</option>
+      <option>crunch</option>
+      <option>sit up</option>
+      <option>russian twist</option>
+      <option>plank</option>
+      <option>side plank</option>
     </select>
   );
 };

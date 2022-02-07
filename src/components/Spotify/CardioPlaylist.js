@@ -55,7 +55,7 @@ const CardioPlaylist = (props) => {
     dispatch(
       cardioLocalEditWorkout({
         ...cardioLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
       })
     );
     setPlaylistConfirmed(true);
