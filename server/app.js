@@ -42,7 +42,7 @@ const SPOTIFY_REDIRECT_URI_CARDIO =
 const SPOTIFY_REDIRECT_URI_STRENGTH =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_STRENGTH;
 
-app.post("/strengthlogin", (req, res) => {
+app.post("/api/strengthlogin", (req, res) => {
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
@@ -66,7 +66,7 @@ app.post("/strengthlogin", (req, res) => {
     });
 });
 
-app.post("/strengthrefresh", (req, res) => {
+app.post("/api/strengthrefresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
@@ -89,7 +89,7 @@ app.post("/strengthrefresh", (req, res) => {
     });
 });
 
-app.post("/cardiologin", (req, res) => {
+app.post("/api/cardiologin", (req, res) => {
   console.log("THIS IS THE CARDIO LOGIN BACKEND")
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
@@ -114,7 +114,7 @@ app.post("/cardiologin", (req, res) => {
     });
 });
 
-app.post("/cardiorefresh", (req, res) => {
+app.post("/api/cardiorefresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
