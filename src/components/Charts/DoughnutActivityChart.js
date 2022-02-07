@@ -33,7 +33,7 @@ const ActivityChart = (props) => {
           <p className="text-2xl font-semibold leading-6 text-center text-fuchsia-700">
             20
           </p>
-          <p className="text-lg font-semibold leading-6 text-center text-fuchsia-700">
+          <p className="font-semibold leading-6 text-center text-md text-fuchsia-700">
             Workouts
           </p>
         </div>

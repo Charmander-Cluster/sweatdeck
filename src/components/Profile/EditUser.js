@@ -41,7 +41,7 @@ const EditUser = () => {
   //   handleCodeInApp: true,
   // };
 
-  console.log(useRouteMatch());
+  // console.log(useRouteMatch());
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
