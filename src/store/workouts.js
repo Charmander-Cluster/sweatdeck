@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import db from "../firebase";
 
 const GET_LATEST_USER_WORKOUT = "GET_LATEST_USER_WORKOUT";
@@ -48,11 +48,13 @@ export const fetchLatestUserWorkoutThunk = (userId) => {
   return async (dispatch) => {
     try {
       const workoutRef = collection(db, `users/${userId}/workouts`);
-      const q = query(workoutRef, orderBy("createdAt", "desc"));
+      const q = query(workoutRef, orderBy("createdAt", "desc"), limit(10));
 
       const workouts = await getDocs(q);
 
-      const allUserWorkouts = workouts.docs.map((doc) => doc.data());
+      const allUserWorkouts = workouts.docs.map((doc) => {
+        return { workoutId: doc.id, workoutData: doc.data() };
+      });
 
       await dispatch(getLatestUserWorkout(allUserWorkouts));
     } catch (err) {

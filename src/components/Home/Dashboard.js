@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import WorkoutStrengthChart from "./WorkoutStrengthChart";
-import WorkoutCardioChart from "./WorkoutCardioChart";
+import WorkoutStrengthChart from "../Charts/WorkoutStrengthChart";
+import WorkoutCardioChart from "../Charts/WorkoutCardioChart";
 import EmptyDashboard from "./EmptyDashboard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLatestUserWorkoutThunk } from "../store/workouts";
+import { fetchLatestUserWorkoutThunk } from "../../store/workouts";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -28,14 +28,11 @@ const Dashboard = () => {
   return (
     <>
       {isLoading ? (
-        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden bg-gray-700 opacity-75">
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden opacity-75">
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
-          <h2 className="text-xl font-semibold text-center text-white">
-            Loading...
-          </h2>
         </div>
       ) : workout ? (
-        <div className="w-full px-4 pt-5 rounded-lg sm:px-6 md:px-8 pb-11 md:w-1/2 sm:border-r">
+        <div className="flex flex-col w-full px-4 pt-5 pb-20 rounded-lg">
           <div className="items-center justify-between sm:flex">
             <div>
               <p className="text-lg font-bold leading-none text-white">
@@ -172,14 +169,14 @@ const Dashboard = () => {
           </div>
           {workout.isComplete ? (
             <button
-              className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 focus:outline-none shadow-black"
+              className="w-full h-20 px-5 py-2 mt-2 text-lg leading-none text-white bg-teal-700 rounded shadow-md progress-button sm:mt-0 focus:outline-none shadow-black"
               disabled
             >
               Completed
             </button>
           ) : (
             // <Link to={`/users/${authUser.uid}/workouts/${workoutId[0]}`}>
-            <button className="w-full h-20 px-5 py-2 mt-2 text-sm leading-none text-black bg-red-300 rounded shadow-md sm:mt-0 focus:outline-none shadow-black">
+            <button className="w-full h-20 px-5 py-2 mt-2 text-lg leading-none text-black rounded shadow-md bg-gradient-to-r from-fuchsia-200 to-teal-600 progress-button sm:mt-0 focus:outline-none shadow-black">
               In Progress
             </button>
             // </Link>

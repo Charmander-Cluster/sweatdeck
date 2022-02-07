@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { editUserThunk } from "../store/users";
-import { sendPasswordReset } from "../store";
+import { useHistory, useParams, useLocation } from "react-router-dom";
+import { editUserThunk } from "../../store/users";
+import { sendPasswordReset } from "../../store";
+import { useRouteMatch } from "react-router-dom";
+import maleImage from "../../assets/male-useravatar.png";
+import femaleImage from "../../assets/female-useravatar.png";
+import defaultImage from "../../assets/default-useravatar.png";
 
 const EditUser = () => {
   const authUser = useSelector((state) => state.auth);
@@ -37,7 +41,7 @@ const EditUser = () => {
   //   handleCodeInApp: true,
   // };
 
-  // console.log(authUser.email);
+  console.log(useRouteMatch());
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -45,23 +49,37 @@ const EditUser = () => {
         <div className="pt-20 overflow-hidden rounded">
           <div className="flex justify-center w-full pt-4 -mt-20">
             <div className="w-32 h-32">
-              <img
-                src="https://foundrmeet.com/wp-content/themes/cera/assets/images/avatars/user-avatar.png"
-                alt="User Profile"
-                className="object-cover w-full h-full rounded-full shadow-md"
-              />
+              {authUser && authUser.gender === "Male" ? (
+                <div className="w-32 h-32">
+                  <img
+                    src={maleImage}
+                    alt="User Profile"
+                    className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                  />
+                </div>
+              ) : authUser.gender === "Female" ? (
+                <div className="w-32 h-32">
+                  <img
+                    src={femaleImage}
+                    alt="User Profile"
+                    className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                  />
+                </div>
+              ) : (
+                <div className="w-32 h-32">
+                  <img
+                    src={defaultImage}
+                    alt="User Profile"
+                    className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="flex flex-col mt-4">
             <h1 className="mb-1 text-3xl font-bold text-center">
               {authUser.firstName} {authUser.lastName}
             </h1>
-            <button
-              className="ml-1 underline"
-              onClick={() => sendPasswordReset("asdd@123.com")}
-            >
-              Password Reset
-            </button>
             <div className="pt-4">
               <h1 className="font-extrabold">Username</h1>
               <label htmlFor="username"></label>
@@ -172,6 +190,12 @@ const EditUser = () => {
           </div>
         </div>
       </form>
+      <button
+        className="ml-1 underline"
+        onClick={() => sendPasswordReset(authUser.email)}
+      >
+        Password Reset
+      </button>
     </div>
   );
 };

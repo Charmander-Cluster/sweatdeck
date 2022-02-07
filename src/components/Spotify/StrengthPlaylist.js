@@ -136,6 +136,8 @@ const StrengthPlaylist = (props) => {
       });
   }, [accessToken]);
 
+  console.log(playlists);
+
   return !accessToken ? (
     <div>Loading...</div>
   ) : (

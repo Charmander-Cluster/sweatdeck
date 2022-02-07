@@ -7,7 +7,7 @@ const WorkoutCardioChart = (props) => {
       window.myChart.destroy();
     }
 
-    const ctx = document.getElementById("myChart").getContext("2d");
+    const ctx = document.getElementById("workoutCardioChart").getContext("2d");
 
     window.myChart = new Chart(ctx, {
       type: "bar",
@@ -30,6 +30,7 @@ const WorkoutCardioChart = (props) => {
             display: false,
           },
         },
+        animations: false,
         tooltips: {
           enable: false,
         },
@@ -77,7 +78,7 @@ const WorkoutCardioChart = (props) => {
           Analysis
         </p>
         <div className="w-full h-full">
-          <canvas id="myChart" width={250} />
+          <canvas id="workoutCardioChart" width={250} />
         </div>
       </div>
     </>

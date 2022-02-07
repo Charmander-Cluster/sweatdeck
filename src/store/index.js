@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import db from "../firebase";
 import allWorkouts from "./workoutsPage";
 import users from "./users";
 import auth from "./auth";

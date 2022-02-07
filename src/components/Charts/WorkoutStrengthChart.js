@@ -7,7 +7,9 @@ const WorkoutStrengthChart = (props) => {
       window.myChart.destroy();
     }
 
-    const ctx = document.getElementById("myChart").getContext("2d");
+    const ctx = document
+      .getElementById("workoutStrengthChart")
+      .getContext("2d");
 
     window.myChart = new Chart(ctx, {
       type: "line",
@@ -96,7 +98,7 @@ const WorkoutStrengthChart = (props) => {
           Analysis
         </p>
         <div className="w-full h-full">
-          <canvas id="myChart" width={250} />
+          <canvas id="workoutStrengthChart" width={250} />
         </div>
       </div>
     </>

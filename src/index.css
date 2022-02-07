@@ -18,6 +18,9 @@
   .navbar {
     padding-bottom: env(safe-area-inset-bottom);
   }
+  .progress-button {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
 }
 
 .react-calendar {
@@ -164,4 +167,9 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

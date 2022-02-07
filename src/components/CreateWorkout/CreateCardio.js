@@ -39,6 +39,8 @@ const CreateCardio = (props) => {
   //   dispatch(fetchLoginUser());
   // }, [dispatch, user]);
 
+  console.log(authUser.uid);
+
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, authUser.uid));

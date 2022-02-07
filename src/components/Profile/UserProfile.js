@@ -2,12 +2,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
 import Calendar from "react-calendar";
-import maleImage from "../assets/male-useravatar.png";
-import femaleImage from "../assets/female-useravatar.png";
-import defaultImage from "../assets/default-useravatar.png";
+import maleImage from "../../assets/male-useravatar.png";
+import femaleImage from "../../assets/female-useravatar.png";
+import defaultImage from "../../assets/default-useravatar.png";
 import { isSameDay } from "date-fns";
-import { fetchLatestUserWorkoutThunk } from "../store/workouts";
-import { logout } from "../store/auth";
+import { fetchLatestUserWorkoutThunk } from "../../store/workouts";
+import { logout } from "../../store/auth";
 
 const UserProfile = () => {
   let history = useHistory();
@@ -68,14 +68,11 @@ const UserProfile = () => {
   return (
     <>
       {isLoading ? (
-        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden bg-gray-700 opacity-75">
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden opacity-75">
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
-          <h2 className="text-xl font-semibold text-center text-white">
-            Loading...
-          </h2>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-2">
+        <div className="flex flex-col items-center justify-center py-2 pb-20">
           <div className="pt-20 overflow-hidden rounded">
             <div className="flex justify-center w-full pt-4 -mt-20">
               {authUser && authUser.gender === "Male" ? (

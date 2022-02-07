@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import Routes from "./Routes";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Home/Navbar";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "./store";
 import { useDispatch, useSelector } from "react-redux";

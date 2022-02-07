@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import UserProfile from "./components/UserProfile";
-import EditUser from "./components/EditUser";
+import UserProfile from "./components/Profile/UserProfile";
+import EditUser from "./components/Profile/EditUser";
 //import SingleWorkout from "./components/SingleWorkout"
 import {
   CreateWorkout,
@@ -12,7 +12,7 @@ import {
   StrengthPlaylist,
   ConfirmCardioCreate,
 } from "./components";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "./store";
@@ -22,6 +22,7 @@ import OptionalSignUp from "./components/OptionalSignUp";
 import SingleWorkout from "./components/SingleWorkout";
 import UserWorkouts from "./components/UserWorkouts";
 import CardioOrStrengthButtons from "./components/CardioOrStrengthButtons";
+import DashboardTest from "./components/DashboardTest";
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -32,6 +33,7 @@ const Routes = (props) => {
     <>
       {authUser.uid ? (
         <Switch>
+          <Route exact path="/dashboardtest" component={DashboardTest} />
           <Route exact path="/optionalsignup" component={OptionalSignUp} />
           <Route exact path="/createworkout" component={CreateWorkout} />
           <Route exact path="/createworkout/cardio" component={CreateCardio} />
