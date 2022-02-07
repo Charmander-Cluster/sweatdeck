@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
-import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -23,7 +21,6 @@ const CreateCardio = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  //const [redirect, setRedirect] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -71,10 +68,6 @@ const CreateCardio = (props) => {
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
-
-  // const handleNestedChange = (event) => {
-  //   setWorkout({ ...workout, exercises: { ...workout.exercises[0], [event.target.name]: event.target.value }});
-  // };
 
   const handleNestedChange = (event) => {
     setExercises({ ...exercises, [event.target.name]: event.target.value });
@@ -173,20 +166,10 @@ const CreateCardio = (props) => {
 
                         <div className="flex justify-center">
                           <div className="flex justify-center">
-                            {/* <div className="w-20 px-3 md:w-1/2"> */}
                             <div className="">
-                              {/* <label
-                className="block mb-2 text-xs font-bold tracking-wide uppercase"
-                htmlFor="minutes"
-              >
-                Minutes
-              </label> */}
                             </div>
                           </div>
                         </div>
-
-                        {/* {workout.type !== "" && ( */}
-
                         <div className="flex align-center">
                           <div className="flex-col">
                             <label
@@ -284,6 +267,14 @@ const CreateCardio = (props) => {
                               </div>
                             </div>
 
+                            { (workout.category === "" ||
+                                  workout.name === "" ||
+                                  exercises.type === "" ||
+                                  exercises.distance === "" ||
+                                  exercises.units === "" ||
+                                  exercises.hours === "" ||
+                                  exercises.minutes === "") ?
+                              (<div className="text-red-400 my-5">Complete all fields to add workout </div>) :
                             <div className="grid mt-5 place-items-center">
                               <button
                                 className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
@@ -317,7 +308,11 @@ const CreateCardio = (props) => {
                               >
                                 Save Without Playlist
                               </button>
+                              </div>}
 
+
+
+                              <div className="grid place-items-center">
                               <button
                                 className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
                                 onClick={handleDelete}
@@ -325,6 +320,7 @@ const CreateCardio = (props) => {
                                 Cancel
                               </button>
                             </div>
+
                           </div>
                         </div>
                       </div>

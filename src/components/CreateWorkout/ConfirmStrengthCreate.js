@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { strengthLocalCreateWorkout } from "../../store";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
+import { logDBWorkout } from "../../store/logWorkout"
+import { fetchLoginUser } from "../../store/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const ConfirmStrengthCreate = () => {
-  // const [workoutDetails, setWorkoutDetails] = useState({})
-  const strenthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
   const [completed, setCompleted] = useState(false);
-  // const [saved, setSaved] = useState(false);
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-  // useEffect(()=>{
-  //   setWorkoutDetails(cardioLocalWorkout)
-  //   console.log(workoutDetails)
-  // },)
+  const [user, setUser] = useState(getAuth().currentUser);
 
-  const handleSaveAndComplete = () => {
+  useEffect(() => {
+    dispatch(fetchLoginUser());
+  }, [dispatch, user]);
+
+  const authUser = useSelector((state) => state.auth);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
+  const userId = authUser.uid;
+
+  const newStrengthWorkoutId= useSelector(state=> state.DBWorkout)
+
+  const handleLog= () => {
+    dispatch(logDBWorkout(userId, newStrengthWorkoutId))
     setCompleted(true);
   };
-
-  // const handleSaveOnly = () => {
-  //   setSaved(true);
-  // };
 
   return (
     <div className="container flex-col items-center justify-center py-2">
@@ -47,7 +55,7 @@ const ConfirmStrengthCreate = () => {
             <button
               type="button"
               className="text-xl bg-teal-500  rounded-md p-3 border border-white text-white"
-              onClick={handleSaveAndComplete}
+              onClick={handleLog}
             >
               Mark Completed Today
             </button>
@@ -56,28 +64,13 @@ const ConfirmStrengthCreate = () => {
             <button
               type="button"
               className="text-xl text-white border border-white rounded-md mt-5 p-3 w-52 "
+              onClick={()=>history.push("/")}
             >
               Return Home
             </button>
           </div>
-          {/* <div className="grid justify-center">
-            <button
-              type="button"
-              className="text-xl text-teal-500 border border-teal-500  rounded-md p-8 w-64 "
-              onClick={handleSaveOnly}
-            >
-              Save for Later
-            </button>
-          </div> */}
         </div>
       )}
-
-      {/* {!completed && saved && (
-        <div>
-          Your Workout Saved!
-          <button>Return Home</button>
-        </div>
-      )} */}
 
       {completed && (
         <div>
@@ -88,7 +81,6 @@ const ConfirmStrengthCreate = () => {
             className="flex text-2xl text-teal-500 rounded-md p-3"
           >
 
-            {/* <img alt="teal-checkmark" className="h-6" src="https://nzqba.co.nz/wp-content/uploads/2019/07/tick.png"/> */}
             <img alt="teal-checkmark" className="h-6 mr-2" src="https://palmbayprep.org/wp-content/uploads/2015/09/Calendar-Icon.png"/>
 
 
@@ -100,6 +92,7 @@ const ConfirmStrengthCreate = () => {
           <button
             type="button"
             className="text-xl text-white rounded-md mt-5 p-3 border border-white w-52"
+            onClick={()=>history.push("/")}
           >
             Return Home
           </button>

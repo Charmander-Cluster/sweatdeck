@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
-import { createDBWorkout } from "../../store/createDBWorkout";
+
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useHistory } from "react-router-dom";
@@ -42,7 +42,6 @@ const CreateStrength = (props) => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
       history.push("/confirmstrengthcreate")
-      // setRedirect(true);
     }
   }, [dispatch, workoutAdded, strengthLocalWorkout, userId]);
 
@@ -69,13 +68,13 @@ const CreateStrength = (props) => {
 
   const handleCancel = () => {
     setWorkout({
-      category: "strength",
-      name: "",
-      exercises: [],
-      userId:"",
-      timesCompleted: 0,
-      datesCompleted:[],
-      logs: 0
+        category: "strength",
+        name: "",
+        exercises: [],
+        userId:"",
+        timesCompleted: 0,
+        datesCompleted:[],
+        logs: 0
     })
     setWorkoutAdded(false)
     dispatch(strengthLocalCreateWorkout(workout));
@@ -83,8 +82,6 @@ const CreateStrength = (props) => {
   }
 
   const [counter, setCounter] = useState(0);
-
-  console.log("workout", workout);
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
@@ -97,8 +94,8 @@ const CreateStrength = (props) => {
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     dispatch(strengthLocalCreateWorkout(workout));
-    //setWorkoutAdded(true);
-    //history.push("/confirmcardiocreate")
+    setWorkoutAdded(true);
+    history.push("/confirmcardiocreate")
   };
 
   return (
@@ -161,12 +158,6 @@ const CreateStrength = (props) => {
                   </div>
 
                   <div className="flex justify-end">
-                    {/* <button
-          className="p-1 bg-teal-500 rounded-md"
-          onClick={() => setCounter(counter + 1)}
-        >
-          Add Exercise
-        </button> */}
 
                     <input
                       type="image"
@@ -177,7 +168,12 @@ const CreateStrength = (props) => {
                     />
                   </div>
 
-                  <div className="grid mt-8 place-items-center">
+                  { (workout.category === "" ||
+                        workout.name === "" ||
+                        workout.exercises.length === 0) ?
+                        (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :
+
+                    (<div className="grid mt-8 place-items-center">
                     <button
                       className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
                       onClick={handleSubmitWithSpotify}
@@ -200,13 +196,43 @@ const CreateStrength = (props) => {
                     >
                       Save Without Playlist
                     </button>
+                    </div>)
+                  }
 
+                  {/* <div className="grid mt-8 place-items-center">
+                    <button
+                      className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
+                      onClick={handleSubmitWithSpotify}
+                      href={AUTH_URL}
+                      disabled={
+                        workout.category === "" ||
+                        workout.name === "" ||
+                        workout.exercises.length === 0
+                      }
+                    >
+                      Save & Connect Playlist
+                    </button>
+                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
+                    onClick={handleSubmitWithoutPlaylist}
+                    disabled={
+                      workout.category === "" ||
+                      workout.name === "" ||
+                      workout.exercises.length === 0
+                    }
+                    >
+                      Save Without Playlist
+                    </button>
+                    </div> */}
+
+                    <div className="grid place-items-center">
                     <button className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
                     onClick={handleCancel}
                     >
                       Cancel
                     </button>
-                  </div>
+                    </div>
+
+
                 </div>
               </div>
             </div>
