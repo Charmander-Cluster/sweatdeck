@@ -6,7 +6,7 @@ import { fetchSingleWorkoutThunk } from "../../store/singleWorkout";
 import { useDispatch } from "react-redux";
 import { logDBWorkout } from "../../store/logWorkout";
 import { Link } from "react-router-dom";
-import Popup from "../../components/Popup";
+//import Popup from "../../components/Popup";
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
