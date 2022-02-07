@@ -144,12 +144,12 @@ const SingleWorkout = () => {
                           <div></div>
                         )}
 
-                        <Link
+                        {/* <Link
                           to={`/users/${id}/workouts/${docId}/editCardio`}
                           className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
                         >
                           Create Similar Workout
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>
