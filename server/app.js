@@ -22,7 +22,8 @@ app.use(morgan("dev"));
 // body parsing middleware
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended:true }))
-app.use(express.static(path.join(__dirname, 'build')));
+
+app.use(express.static(path.join(__dirname, "..", 'build')));
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
@@ -32,7 +33,6 @@ app.get("/", (req, res) =>
 //app.use(express.static(path.join(__dirname, '..', 'public')))
 app
   .use(express.static(path.join(__dirname, "..", "public")))
-  .use(cors())
   .use(cookieParser());
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
