@@ -33,10 +33,12 @@ const UserProfile = () => {
     setLoading(false);
   }, [fetchData, isLoading, allWorkouts]);
 
+  console.log(workouts);
+
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
-    if (workouts.length > 0) {
+    if (workouts && workouts.length > 0) {
       workouts.forEach((doc) => {
         const convertedDate = new Date(
           doc.createdAt.seconds * 1000 + doc.createdAt.nanoseconds / 1000000
