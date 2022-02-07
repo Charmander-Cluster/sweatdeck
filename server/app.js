@@ -25,15 +25,13 @@ app.use(bodyParser.urlencoded({ extended:true }))
 
 app.use(express.static(path.join(__dirname, "..", 'build')));
 
-app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "..", "public/index.html"))
-);
-
-// static file-serving middleware
-//app.use(express.static(path.join(__dirname, '..', 'public')))
 app
   .use(express.static(path.join(__dirname, "..", "public")))
   .use(cookieParser());
+
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "..", "public/index.html"))
+);
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
@@ -138,8 +136,9 @@ app.post("/api/cardiorefresh", (req, res) => {
 });
 
 
+
 // any remaining requests with an extension (.js, .css, etc.) send 404
-app.use((req, res, next) => {
+app.use("/api", (req, res, next) => {
   if (path.extname(req.path).length) {
     const err = new Error("Not found");
     err.status = 404;
@@ -147,6 +146,10 @@ app.use((req, res, next) => {
   } else {
     next();
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "..", 'build', 'index.html'));
 });
 
 // error handling endware

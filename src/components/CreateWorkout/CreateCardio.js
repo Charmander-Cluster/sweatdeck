@@ -8,7 +8,6 @@ import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CreateCardio = (props) => {
-  // const redirectUri ="http://localhost:3000/cardioplaylist";
 
   const redirectUri = /localhost/.test(window.location.href)
     ? "http://localhost:3000/cardioplaylist"
