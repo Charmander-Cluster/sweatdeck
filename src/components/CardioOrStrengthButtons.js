@@ -15,7 +15,7 @@ const CardioOrStrengthButtons = () => {
       </div>
 
       <div className="grid justify-center mt-20 mb-10">
-        <Link to={{ pathname: `/users/${id}/workouts`, state: "Cardio" }}>
+        <Link to={{ pathname: `/users/${id}/workouts`, state: "cardio" }}>
           <button
             type="button"
             className="w-64 p-10 text-3xl border border-white rounded-md bg-gradient-to-r from-teal-500 to-purple-800"
@@ -26,7 +26,7 @@ const CardioOrStrengthButtons = () => {
       </div>
 
       <div className="grid justify-center">
-        <Link to={{ pathname: `/users/${id}/workouts`, state: "Strength" }}>
+        <Link to={{ pathname: `/users/${id}/workouts`, state: "strength" }}>
           <button className="w-64 p-10 text-3xl border border-white rounded-md bg-gradient-to-r from-purple-800 to-teal-500 bg-zinc-800">
             Strength
           </button>

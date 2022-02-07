@@ -5,7 +5,7 @@ const DynamicActivity = (props) => {
   //   console.log(props.workouts);
 
   const setsSum = props.workouts
-    .filter((workout) => workout.workoutData.category === "Strength")
+    .filter((workout) => workout.workoutData.category === "strength")
     .map((workout) => {
       return workout.workoutData.exercises;
     })
@@ -19,7 +19,7 @@ const DynamicActivity = (props) => {
     }, 0);
 
   const repsSum = props.workouts
-    .filter((workout) => workout.workoutData.category === "Strength")
+    .filter((workout) => workout.workoutData.category === "strength")
     .map((workout) => {
       return workout.workoutData.exercises;
     })
@@ -33,7 +33,7 @@ const DynamicActivity = (props) => {
     }, 0);
 
   const distanceSum = props.workouts
-    .filter((workout) => workout.workoutData.category === "Cardio")
+    .filter((workout) => workout.workoutData.category === "cardio")
     .map((workout) => {
       return workout.workoutData.exercises;
     })
@@ -47,7 +47,7 @@ const DynamicActivity = (props) => {
     }, 0);
 
   const minutesSum = props.workouts
-    .filter((workout) => workout.workoutData.category === "Cardio")
+    .filter((workout) => workout.workoutData.category === "cardio")
     .map((workout) => {
       return workout.workoutData.exercises;
     })

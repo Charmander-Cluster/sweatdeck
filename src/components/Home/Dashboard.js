@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
-import WorkoutStrengthChart from "../Charts/WorkoutStrengthChart";
-import WorkoutCardioChart from "../Charts/WorkoutCardioChart";
-import EmptyDashboard from "./EmptyDashboard";
+import DynamicActivity from "../Cards/DynamicActivity";
+import DynamicStrength from "../Cards/DynamicStrength";
+import DynamicCardio from "../Cards/DynamicCardio";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLatestUserWorkoutThunk } from "../../store/workouts";
+import EmptyDashboard from "./EmptyDashboard";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const authUser = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(true);
 
-  const userWorkout = useSelector((state) => state.workouts);
-  const [workout, setWorkout] = useState(userWorkout[0]);
+  const { latestWorkouts } = useSelector((state) => state.workouts);
+  const [workouts, setWorkouts] = useState(latestWorkouts);
 
   const fetchData = useCallback(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
@@ -21,9 +22,16 @@ const Dashboard = () => {
     if (isLoading && authUser) {
       fetchData();
     }
-    setWorkout(userWorkout[0]);
+
+    // const newWorkouts = workouts;
+    // newWorkouts.filter((workout) => {
+    //   return workout.workoutData.category === "Strength";
+    // });
+
+    // console.log(newWorkouts);
+    setWorkouts(latestWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, userWorkout, authUser]);
+  }, [fetchData, isLoading, latestWorkouts, authUser]);
 
   return (
     <>
@@ -31,156 +39,85 @@ const Dashboard = () => {
         <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden opacity-75">
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
         </div>
-      ) : workout ? (
-        <div className="flex flex-col w-full px-4 pt-5 pb-20 rounded-lg">
-          <div className="items-center justify-between sm:flex">
-            <div>
-              <p className="text-lg font-bold leading-none text-white">
-                {authUser.username}'s Dashboard
-              </p>
-            </div>
-          </div>
-          <div className="mt-9">
-            <p className="font-medium leading-none tracking-wide text-white text-md">
-              Latest Workout - {workout.category}
-            </p>
-            <div className="w-full h-1 mt-4 bg-teal-600 rounded-full"></div>
-          </div>
-          <div className="mt-8">
-            <div className="items-end justify-between sm:flex">
-              <div>
-                <div className="flex items-start justify-between pb-2">
-                  <div className="flex items-start">
-                    <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                    <div className="flex flex-col pt-2 pl-3">
-                      <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                        Type
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                    {workout.exercises[0].type}
-                  </p>
+      ) : workouts ? (
+        <div className="pb-10">
+          <div className="relative z-10 pt-8 pb-10">
+            <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+              <div className="flex flex-col items-start lg:flex-row lg:items-center">
+                <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+                  <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
+                    Dashboard
+                  </h4>
+                  <div className="h-1 mt-4 bg-teal-600 rounded-full"></div>
                 </div>
-                {workout.exercises[0].reps ? (
-                  <div className="flex items-start justify-between pt-4 pb-2">
-                    <div className="flex items-start">
-                      <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                      <div className="flex flex-col pt-2 pl-3">
-                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Reps
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {workout.exercises[0].reps}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex items-start justify-between pt-4 pb-2">
-                    <div className="flex items-start">
-                      <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                      <div className="flex flex-col pt-2 pl-3">
-                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Distance
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {workout.exercises[0].distance}
-                    </p>
-                  </div>
-                )}
-                {workout.exercises[0].reps ? (
-                  <div className="flex items-start justify-between pt-4 pb-2">
-                    <div className="flex items-start">
-                      <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                      <div className="flex flex-col pt-2 pl-3">
-                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Sets
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {workout.exercises[0].sets}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex items-start justify-between pt-4 pb-2">
-                    <div className="flex items-start">
-                      <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                      <div className="flex flex-col pt-2 pl-3">
-                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Hours
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {workout.exercises[0].hours}
-                    </p>
-                  </div>
-                )}
-
-                {workout.exercises[0].reps ? (
-                  <div className="flex items-start justify-between pt-4 pb-2">
-                    <div className="flex items-start">
-                      <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                      <div className="flex flex-col pt-2 pl-3">
-                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Weight
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {workout.exercises[0].weight}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex items-start justify-between pt-4 pb-2">
-                    <div className="flex items-start">
-                      <div className="w-1 bg-teal-600 rounded-sm h-9" />
-                      <div className="flex flex-col pt-2 pl-3">
-                        <p className="text-lg leading-none text-gray-800 dark:text-gray-100">
-                          Minutes
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="pt-2 text-xl font-semibold leading-5 text-right text-gray-800 dark:text-gray-100">
-                      {workout.exercises[0].minutes}
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between w-full pb-6 mt-6">
-            {workout.exercises[0].reps ? (
-              <WorkoutStrengthChart workout={workout} />
-            ) : (
-              <WorkoutCardioChart workout={workout} />
-            )}
+          <div className="container px-6 mx-auto">
+            <DynamicActivity workouts={workouts} />
           </div>
-          {workout.isComplete ? (
-            <button
-              className="w-full h-20 px-5 py-2 mt-2 text-lg leading-none text-white bg-teal-700 rounded shadow-md progress-button sm:mt-0 focus:outline-none shadow-black"
-              disabled
+          <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+            <div className="flex justify-between lg:flex-row lg:items-center">
+              <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
+                Cardio
+              </h4>
+            </div>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Completed
-            </button>
-          ) : (
-            // <Link to={`/users/${authUser.uid}/workouts/${workoutId[0]}`}>
-            <button className="w-full h-20 px-5 py-2 mt-2 text-lg leading-none text-black rounded shadow-md bg-gradient-to-r from-fuchsia-200 to-teal-600 progress-button sm:mt-0 focus:outline-none shadow-black">
-              In Progress
-            </button>
-            // </Link>
-          )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              ></path>
+            </svg>
+          </div>
+          <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
+            {workouts
+              .filter((workout) => workout.workoutData.category === "cardio")
+              .slice(0, 10)
+              .map(({ workoutId, workoutData }) => {
+                return (
+                  <DynamicCardio key={workoutId} workoutData={workoutData} />
+                );
+              })}
+          </div>
+          <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+            <div className="flex justify-between lg:flex-row lg:items-center">
+              <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
+                Strength
+              </h4>
+            </div>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              ></path>
+            </svg>
+          </div>
+          <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
+            {workouts
+              .filter((workout) => workout.workoutData.category === "strength")
+              .slice(0, 10)
+              .map(({ workoutId, workoutData }) => {
+                return (
+                  <DynamicStrength key={workoutId} workoutData={workoutData} />
+                );
+              })}
+          </div>
         </div>
       ) : (
         <EmptyDashboard authUser={authUser} />
