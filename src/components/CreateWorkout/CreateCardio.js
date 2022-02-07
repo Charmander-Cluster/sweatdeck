@@ -28,7 +28,6 @@ const CreateCardio = (props) => {
   const userId = authUser.uid;
 
   let cardioLocalWorkout = useSelector((state) => {
-    console.log("State: ", state);
     return state.cardioLocalWorkout;
   });
 
@@ -77,7 +76,6 @@ const CreateCardio = (props) => {
     workout.exercises.push(exercises);
     //Creates application state
     dispatch(cardioLocalCreateWorkout(workout));
-    console.log("local workout:", cardioLocalWorkout);
     //sends to auth URL -- SUCCESSFUL
     window.location.href = AUTH_URL;
   };
@@ -102,8 +100,6 @@ const CreateCardio = (props) => {
     dispatch(cardioLocalCreateWorkout(workout));
     history.push("/createworkout");
   };
-
-  console.log(workout);
 
   return (
     <div className="flex flex-col items-center justify-center py-2">

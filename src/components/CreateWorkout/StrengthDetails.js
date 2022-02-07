@@ -45,8 +45,6 @@ const StrengthDetails = (props) => {
     handleUpdate(completedExercise)
     //setCompletedExercise({})
   }
-  console.log("Strength Local Workout", strengthLocalWorkout);
-  console.log("exercise", exercise)
 
   // useEffect(()=>{
   // if (isCompleted === true)

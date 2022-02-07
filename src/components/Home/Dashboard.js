@@ -34,8 +34,6 @@ const Dashboard = () => {
     setLoading(false);
   }, [fetchData, isLoading, latestWorkouts, authUser.uid]);
 
-  console.log(latestWorkouts);
-
   return (
     <>
       {isLoading ? (
