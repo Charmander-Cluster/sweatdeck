@@ -3,7 +3,7 @@ import "./index.css";
 import Routes from "./Routes";
 import Navbar from "./components/Home/Navbar";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { fetchLoginUser } from "./store";
+import { fetchLoginUser } from "./store/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
@@ -11,12 +11,14 @@ function App() {
 
   const dispatch = useDispatch();
 
-  onAuthStateChanged(getAuth(), (u) => {
+  onAuthStateChanged(getAuth(), () => {
     dispatch(fetchLoginUser());
   });
 
   // useEffect(() => {
-  //   dispatch(fetchLoginUser());
+  //   if (user) {
+  //     dispatch(fetchLoginUser());
+  //   }
   // }, [dispatch, user]);
 
   return (

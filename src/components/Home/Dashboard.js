@@ -33,13 +33,15 @@ const Dashboard = () => {
     setLoading(false);
   }, [fetchData, isLoading, latestWorkouts, authUser]);
 
+  console.log(latestWorkouts);
+
   return (
     <>
       {isLoading ? (
         <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden opacity-75">
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
         </div>
-      ) : workouts ? (
+      ) : latestWorkouts && authUser.uid ? (
         <div className="pb-10">
           <div className="relative z-10 pt-8 pb-10">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
@@ -77,6 +79,7 @@ const Dashboard = () => {
               ></path>
             </svg>
           </div>
+
           <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
             {workouts
               .filter((workout) => workout.workoutData.category === "cardio")
@@ -87,6 +90,7 @@ const Dashboard = () => {
                 );
               })}
           </div>
+
           <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
             <div className="flex justify-between lg:flex-row lg:items-center">
               <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
@@ -108,6 +112,7 @@ const Dashboard = () => {
               ></path>
             </svg>
           </div>
+
           <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
             {workouts
               .filter((workout) => workout.workoutData.category === "strength")

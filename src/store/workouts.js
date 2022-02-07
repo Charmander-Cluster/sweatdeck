@@ -94,8 +94,8 @@ export const fetchAllUserWorkoutsThunk = (userId) => {
 };
 
 const initialState = {
-  latestWorkouts: {},
-  allWorkouts: {},
+  latestWorkouts: [],
+  allWorkouts: [],
 };
 
 export default function workoutsReducer(state = initialState, action) {

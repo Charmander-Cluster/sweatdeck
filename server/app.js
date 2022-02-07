@@ -29,13 +29,11 @@ app.get("/", (req, res) =>
 );
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", "public")));
-
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+//app.use(express.static(path.join(__dirname, '..', 'public')))
+app
+  .use(express.static(path.join(__dirname, "..", "public")))
+  .use(cors())
+  .use(cookieParser());
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
