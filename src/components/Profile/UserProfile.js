@@ -6,7 +6,7 @@ import maleImage from "../../assets/male-useravatar.png";
 import femaleImage from "../../assets/female-useravatar.png";
 import defaultImage from "../../assets/default-useravatar.png";
 import { isSameDay } from "date-fns";
-import { fetchLatestUserWorkoutThunk } from "../../store/workouts";
+import { fetchAllUserWorkoutsThunk } from "../../store/workouts";
 import { logout } from "../../store/auth";
 
 const UserProfile = () => {
@@ -18,26 +18,26 @@ const UserProfile = () => {
   const authUser = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(true);
 
-  const userWorkout = useSelector((state) => state.workouts);
-  const [workout, setWorkout] = useState(userWorkout);
+  const { allWorkouts } = useSelector((state) => state.workouts);
+  const [workouts, setWorkouts] = useState({});
 
   const fetchData = useCallback(() => {
-    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+    dispatch(fetchAllUserWorkoutsThunk(authUser.uid));
   }, [dispatch, authUser.uid]);
 
   useEffect(() => {
     if (isLoading) {
       fetchData();
     }
-    setWorkout(userWorkout);
+    setWorkouts(allWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, userWorkout]);
+  }, [fetchData, isLoading, allWorkouts]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
-    if (workout.length > 0) {
-      workout.forEach((doc) => {
+    if (workouts.length > 0) {
+      workouts.forEach((doc) => {
         const convertedDate = new Date(
           doc.createdAt.seconds * 1000 + doc.createdAt.nanoseconds / 1000000
         );
@@ -112,9 +112,9 @@ const UserProfile = () => {
               <p className="pt-2 text-base text-center">
                 Birthday: {authUser.birthday}
               </p>
-              {userWorkout.length > 0 && (
+              {allWorkouts.length > 0 && (
                 <p className="pt-2 text-base text-center">
-                  Total Workouts: {userWorkout.length}
+                  Total Workouts: {allWorkouts.length}
                 </p>
               )}
               <div className="flex flex-row">

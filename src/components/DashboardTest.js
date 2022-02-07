@@ -10,8 +10,8 @@ const DashboardTest = () => {
   const authUser = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(true);
 
-  const userWorkout = useSelector((state) => state.workouts);
-  const [workouts, setWorkouts] = useState(userWorkout);
+  const { latestWorkouts } = useSelector((state) => state.workouts);
+  const [workouts, setWorkouts] = useState(latestWorkouts);
 
   const fetchData = useCallback(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
@@ -28,9 +28,9 @@ const DashboardTest = () => {
     // });
 
     // console.log(newWorkouts);
-    setWorkouts(userWorkout);
+    setWorkouts(latestWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, userWorkout, authUser, workouts]);
+  }, [fetchData, isLoading, latestWorkouts, authUser, workouts]);
 
   return (
     <>
