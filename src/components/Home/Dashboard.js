@@ -5,6 +5,7 @@ import DynamicCardio from "../Cards/DynamicCardio";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLatestUserWorkoutThunk } from "../../store/workouts";
 import EmptyDashboard from "./EmptyDashboard";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Dashboard = () => {
   }, [dispatch, authUser.uid]);
 
   useEffect(() => {
-    if (isLoading && authUser) {
+    if (isLoading && authUser.uid) {
       fetchData();
     }
 
@@ -31,7 +32,7 @@ const Dashboard = () => {
     // console.log(newWorkouts);
     setWorkouts(latestWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, latestWorkouts, authUser]);
+  }, [fetchData, isLoading, latestWorkouts, authUser.uid]);
 
   console.log(latestWorkouts);
 
@@ -60,9 +61,16 @@ const Dashboard = () => {
           </div>
           <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
             <div className="flex justify-between lg:flex-row lg:items-center">
-              <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
-                Cardio
-              </h4>
+              <Link
+                to={{
+                  pathname: `/users/${authUser.uid}/workouts`,
+                  state: "cardio",
+                }}
+              >
+                <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                  Cardio
+                </h4>
+              </Link>
             </div>
             <svg
               className="w-6 h-6"
@@ -86,16 +94,28 @@ const Dashboard = () => {
               .slice(0, 10)
               .map(({ workoutId, workoutData }) => {
                 return (
-                  <DynamicCardio key={workoutId} workoutData={workoutData} />
+                  <DynamicCardio
+                    key={workoutId}
+                    workoutData={workoutData}
+                    workoutId={workoutId}
+                    userId={authUser.uid}
+                  />
                 );
               })}
           </div>
 
           <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
             <div className="flex justify-between lg:flex-row lg:items-center">
-              <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
-                Strength
-              </h4>
+              <Link
+                to={{
+                  pathname: `/users/${authUser.uid}/workouts`,
+                  state: "strength",
+                }}
+              >
+                <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                  Strength
+                </h4>
+              </Link>
             </div>
             <svg
               className="w-6 h-6"

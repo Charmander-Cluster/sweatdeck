@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { authenticate, sendPasswordReset } from "../store/auth";
+import { authenticate, sendPasswordReset } from "../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";

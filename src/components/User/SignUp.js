@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { authSignUp, authenticate } from "../store/auth";
+import { authSignUp, authenticate } from "../../store/auth";
 import { useHistory } from "react-router-dom";
 
 const SignUpTest = () => {

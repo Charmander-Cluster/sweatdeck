@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authSignUp, authenticate } from "../store/auth";
+import { authSignUp, authenticate } from "../../store/auth";
 import { useHistory } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { fetchLoginUser } from "../store/auth";
+import { fetchLoginUser } from "../../store/auth";
 
 const OptionalSignUp = () => {
   let history = useHistory();

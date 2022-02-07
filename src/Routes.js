@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import UserProfile from "./components/Profile/UserProfile";
-import EditUser from "./components/Profile/EditUser";
+import UserProfile from "./components/User/UserProfile";
+import EditUser from "./components/User/EditUser";
 //import SingleWorkout from "./components/SingleWorkout"
 import {
   CreateWorkout,
@@ -11,14 +11,14 @@ import {
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,
-  ConfirmStrengthCreate
+  ConfirmStrengthCreate,
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
-import SignIn from "./components/SignIn";
+import SignIn from "./components/User/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "./store";
 import { useSelector } from "react-redux";
-import OptionalSignUp from "./components/OptionalSignUp";
+import OptionalSignUp from "./components/User/OptionalSignUp";
 import SingleWorkout from "./components/Workouts/SingleWorkout";
 import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
@@ -44,8 +44,15 @@ const Routes = (props) => {
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
-          <Route path="/confirmstrengthcreate" component={ConfirmStrengthCreate} />
-          <Route exact path="/users/:id/workouts/:docId" component={SingleWorkout} />
+          <Route
+            path="/confirmstrengthcreate"
+            component={ConfirmStrengthCreate}
+          />
+          <Route
+            exact
+            path="/users/:id/workouts/:docId"
+            component={SingleWorkout}
+          />
           <Route exact path="/users/:id/workouts" component={UserWorkouts} />
           <Route
             exact
