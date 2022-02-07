@@ -1,13 +1,20 @@
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import db from "../firebase";
 
 const GET_LATEST_USER_WORKOUT = "GET_LATEST_USER_WORKOUT";
-// const GET_LATEST_USER_EXERCISES = "GET_LATEST_USER_EXERCISES";
+const GET_All_USER_WORKOUTS = "GET_ALL_USER_WORKOUTS";
 
 const getLatestUserWorkout = (userWorkout) => {
   return {
     type: GET_LATEST_USER_WORKOUT,
     userWorkout,
+  };
+};
+
+const getAllUserWorkouts = (userWorkouts) => {
+  return {
+    type: GET_All_USER_WORKOUTS,
+    userWorkouts,
   };
 };
 
@@ -47,28 +54,56 @@ const getLatestUserWorkout = (userWorkout) => {
 export const fetchLatestUserWorkoutThunk = (userId) => {
   return async (dispatch) => {
     try {
+      const date = new Date();
+      date.setDate(date.getDate() - 7);
+
       const workoutRef = collection(db, `users/${userId}/workouts`);
-      const q = query(workoutRef, orderBy("createdAt", "desc"));
+      const q = query(
+        workoutRef,
+        where("createdAt", ">=", date),
+        orderBy("createdAt", "desc")
+      );
 
       const workouts = await getDocs(q);
 
-      const allUserWorkouts = workouts.docs.map((doc) => doc.data());
+      const latestUserWorkouts = workouts.docs.map((doc) => {
+        return { workoutId: doc.id, workoutData: doc.data() };
+      });
 
-      await dispatch(getLatestUserWorkout(allUserWorkouts));
+      await dispatch(getLatestUserWorkout(latestUserWorkouts));
     } catch (err) {
       console.log("Error at Fetch User Workout Thunk", err);
     }
   };
 };
 
-const initialState = {};
+export const fetchAllUserWorkoutsThunk = (userId) => {
+  return async (dispatch) => {
+    try {
+      const workoutRef = collection(db, `users/${userId}/workouts`);
+
+      const workouts = await getDocs(workoutRef);
+
+      const allUserWorkouts = workouts.docs.map((doc) => doc.data());
+
+      await dispatch(getAllUserWorkouts(allUserWorkouts));
+    } catch (err) {
+      console.log("Error at Fetch All User Workouts Thunk", err);
+    }
+  };
+};
+
+const initialState = {
+  latestWorkouts: [],
+  allWorkouts: [],
+};
 
 export default function workoutsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LATEST_USER_WORKOUT:
-      return action.userWorkout;
-    // case GET_LATEST_USER_EXERCISES:
-    //   return { ...state, userExercises: action.userExercises };
+      return { ...state, latestWorkouts: action.userWorkout };
+    case GET_All_USER_WORKOUTS:
+      return { ...state, allWorkouts: action.userWorkouts };
 
     default:
       return state;

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
-import UserProfile from "./components/UserProfile";
-import EditUser from "./components/EditUser";
+import UserProfile from "./components/User/UserProfile";
+import EditUser from "./components/User/EditUser";
 //import SingleWorkout from "./components/SingleWorkout"
 import {
   CreateWorkout,
@@ -11,19 +11,19 @@ import {
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,
-  ConfirmStrengthCreate
+  ConfirmStrengthCreate,
 } from "./components";
-import Dashboard from "./components/Dashboard";
-import SignIn from "./components/SignIn";
+import Dashboard from "./components/Home/Dashboard";
+import SignIn from "./components/User/SignIn";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "./store";
-import { useDispatch, useSelector } from "react-redux";
-import SignUp from "./components/SignUp";
-import OptionalSignUp from "./components/OptionalSignUp";
+import { useSelector } from "react-redux";
+import OptionalSignUp from "./components/User/OptionalSignUp";
 import SingleWorkout from "./components/Workouts/SingleWorkout";
 import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
-import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout"
+import SignUp from "./components/User/SignUp";
+import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -46,9 +46,20 @@ const Routes = (props) => {
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
-          <Route exact path="/users/:id/workouts/:docId/editCardio" component={EditCardioWorkout} />
-          <Route path="/confirmstrengthcreate" component={ConfirmStrengthCreate} />
-          <Route exact path="/users/:id/workouts/:docId" component={SingleWorkout} />
+          <Route
+            exact
+            path="/users/:id/workouts/:docId/editCardio"
+            component={EditCardioWorkout}
+          />
+          <Route
+            path="/confirmstrengthcreate"
+            component={ConfirmStrengthCreate}
+          />
+          <Route
+            exact
+            path="/users/:id/workouts/:docId"
+            component={SingleWorkout}
+          />
           <Route exact path="/users/:id/workouts" component={UserWorkouts} />
           <Route
             exact
@@ -60,7 +71,10 @@ const Routes = (props) => {
           <Route exact path="/" component={Dashboard} />
         </Switch>
       ) : (
-        <SignIn />
+        <Switch>
+          <Route exact path="/signup" component={SignUp} />
+          <SignIn />
+        </Switch>
       )}
     </>
   );

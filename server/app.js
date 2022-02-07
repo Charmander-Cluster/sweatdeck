@@ -20,9 +20,9 @@ module.exports = app;
 app.use(morgan("dev"));
 
 // body parsing middleware
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended:true }))
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "build")));
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
@@ -136,10 +136,9 @@ app.post("/cardiorefresh", (req, res) => {
     });
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
@@ -157,9 +156,9 @@ app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public/index.html"));
 });
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // error handling endware
 app.use((err, req, res, next) => {

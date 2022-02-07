@@ -8,7 +8,7 @@ const CardioOrStrengthButtons = () => {
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
-        <h1 className="mt-28 text-3xl text-teal-500 align-center">
+        <h1 className="text-3xl text-teal-500 mt-28 align-center">
           Select Workout Type:
         </h1>
       </div>
@@ -17,7 +17,7 @@ const CardioOrStrengthButtons = () => {
         <Link to={{ pathname: `/users/${id}/workouts`, state: "cardio" }}>
           <button
             type="button"
-            className="text-3xl  bg-gradient-to-r from-teal-500 to-purple-800  rounded-md p-10 w-64 border border-white"
+            className="w-64 p-10 text-3xl border border-white rounded-md bg-gradient-to-r from-teal-500 to-purple-800"
           >
             Cardio
           </button>
@@ -26,7 +26,7 @@ const CardioOrStrengthButtons = () => {
 
       <div className="grid justify-center">
         <Link to={{ pathname: `/users/${id}/workouts`, state: "strength" }}>
-          <button className="text-3xl bg-gradient-to-r from-purple-800 to-teal-500  bg-zinc-800 rounded-md p-10 w-64 border border-white">
+          <button className="w-64 p-10 text-3xl border border-white rounded-md bg-gradient-to-r from-purple-800 to-teal-500 bg-zinc-800">
             Strength
           </button>
         </Link>
