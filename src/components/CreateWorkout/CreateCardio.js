@@ -274,7 +274,7 @@ const CreateCardio = (props) => {
                                   exercises.hours === "" ||
                                   exercises.minutes === "") ?
                               (<div className="text-red-400 my-5">Complete all fields to add workout </div>) :
-                            <div className="grid mt-5 place-items-center">
+                            (<div className="grid mt-5 place-items-center">
                               <button
                                 className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
                                 onClick={handleSubmitWithSpotify}
@@ -307,7 +307,7 @@ const CreateCardio = (props) => {
                               >
                                 Save Without Playlist
                               </button>
-                              </div>}
+                              </div>)}
 
 
 

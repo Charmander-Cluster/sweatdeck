@@ -136,7 +136,6 @@ app.post("/api/cardiorefresh", (req, res) => {
 });
 
 
-
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use("/api", (req, res, next) => {
   if (path.extname(req.path).length) {

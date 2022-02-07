@@ -10,14 +10,15 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
 const CreateStrength = (props) => {
-  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/strengthplaylist' : 'https://sweatdeck-test.herokuapp.com/strengthplaylist'
-
+  const redirectUri = /localhost/.test(window.location.href)
+    ? "http://localhost:3000/strengthplaylist"
+    : "https://sweatdeck-test.herokuapp.com/strengthplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
   const dispatch = useDispatch();
 
-  const history = useHistory()
+  const history = useHistory();
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
@@ -36,11 +37,10 @@ const CreateStrength = (props) => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
-      history.push("/confirmstrengthcreate")
+      history.push("/confirmstrengthcreate");
     }
   }, [dispatch, workoutAdded, strengthLocalWorkout, userId]);
 
@@ -48,13 +48,13 @@ const CreateStrength = (props) => {
     category: "strength",
     name: "",
     exercises: [],
-    userId:"",
+    userId: "",
     timesCompleted: 0,
-    datesCompleted:[],
-    logs: 0
+    datesCompleted: [],
+    logs: 0,
   });
 
-  console.log(strengthLocalWorkout)
+  console.log(strengthLocalWorkout);
   //const [exercise, setExercise] = useState({});
 
   const handleChange = (event) => {
@@ -67,18 +67,18 @@ const CreateStrength = (props) => {
 
   const handleCancel = () => {
     setWorkout({
-        category: "strength",
-        name: "",
-        exercises: [],
-        userId:"",
-        timesCompleted: 0,
-        datesCompleted:[],
-        logs: 0
-    })
-    setWorkoutAdded(false)
+      category: "strength",
+      name: "",
+      exercises: [],
+      userId: "",
+      timesCompleted: 0,
+      datesCompleted: [],
+      logs: 0,
+    });
+    setWorkoutAdded(false);
     dispatch(strengthLocalCreateWorkout(workout));
-    history.push("/createworkout")
-  }
+    history.push("/createworkout");
+  };
 
   const [counter, setCounter] = useState(0);
 
@@ -87,7 +87,6 @@ const CreateStrength = (props) => {
     dispatch(strengthLocalCreateWorkout(workout));
     console.log("local workout:", strengthLocalWorkout);
     window.location.href = AUTH_URL;
-
   };
 
   const handleSubmitWithoutPlaylist = (event) => {
@@ -100,7 +99,7 @@ const CreateStrength = (props) => {
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
-        <h1 className="my-5 text-3xl text-teal-500 text-center align-center">
+        <h1 className="my-5 text-3xl text-center text-teal-500 align-center">
           Create Strength Workout
         </h1>
       </div>
@@ -157,7 +156,6 @@ const CreateStrength = (props) => {
                   </div>
 
                   <div className="flex justify-end">
-
                     <input
                       type="image"
                       alt="add-workout"
@@ -223,9 +221,10 @@ const CreateStrength = (props) => {
                     </button>
                     </div> */}
 
-                    <div className="grid place-items-center">
-                    <button className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
-                    onClick={handleCancel}
+                  <div className="grid place-items-center">
+                    <button
+                      className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
+                      onClick={handleCancel}
                     >
                       Cancel
                     </button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router";
 import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
@@ -21,9 +21,10 @@ const CardioPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
 
   const authUser = useSelector((state) => state.auth);
+
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
@@ -43,9 +44,10 @@ const CardioPlaylist = (props) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   useEffect(() => {
-    if (playlistConfirmed){
+    if (playlistConfirmed) {
       dispatch(createDBWorkout(cardioLocalWorkout, userId));
-      history.push('/confirmcardiocreate')}
+      history.push("/confirmcardiocreate");
+    }
   }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
 
   const handleConfirm = (event) => {
@@ -199,7 +201,7 @@ const CardioPlaylist = (props) => {
                       ></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200  dark:divide-gray-700 overflow:scroll">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700 overflow:scroll">
                     {playlists.map((playlist) => (
                       <tr
                         key={playlist.id}

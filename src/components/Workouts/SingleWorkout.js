@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { fetchSingleWorkoutThunk } from "../../store/singleWorkout";
 import { useDispatch } from "react-redux";
 import { logDBWorkout } from "../../store/logWorkout";
 import { Link } from "react-router-dom";
+//import Popup from "../../components/Popup";
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
@@ -18,9 +19,16 @@ const SingleWorkout = () => {
     dispatch(fetchSingleWorkoutThunk(id, docId));
   }, [dispatch, id, docId]);
 
+  const [btnState, setBtnState] = useState(false);
+
+  const handleBtnClick = (e) => {
+    setBtnState((prev) => !prev);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(logDBWorkout(id, docId));
+    handleBtnClick(event);
   };
 
   //make ternary statement in return
@@ -42,15 +50,22 @@ const SingleWorkout = () => {
                       <h1 className="my-3 text-xl text-teal-500 align-center capitalize">
                         {workout.category}
                       </h1>
-                      <h2 className="mb-3 text-lg text-left">
-                                  {" "}
-                                  <a className="text-teal-500 mr-3 text-lg">
-                                    Playlist:{" "}
-                                  </a>{" "} <a className="mr-3 p-1 text-base text-center text-white bg-teal-500 rounded-md"
-                                  href={workout.playlist.url}>
-                                  {workout.playlist.name}
-                                  </a>
-                                </h2>
+                      {!workout.hasOwnProperty("playlist") ? (
+                        <h2>No Linked Playlist</h2>
+                      ) : (
+                        <h2 className="mb-3 text-lg text-left">
+                          {" "}
+                          <a className="text-teal-500 mr-3 text-lg">
+                            Playlist:{" "}
+                          </a>{" "}
+                          <a
+                            className="mr-3 p-1 text-base text-center text-white bg-teal-500 rounded-md"
+                            href={workout.playlist.url}
+                          >
+                            {workout.playlist.name}
+                          </a>
+                        </h2>
+                      )}
                       {workout.category === "Strength" ||
                       workout.category === "strength"
                         ? workout.exercises.map((exercise) => {
@@ -122,12 +137,19 @@ const SingleWorkout = () => {
                         >
                           Log Workout
                         </button>
+
+                        {btnState ? (
+                          <div>{alert("Workout logged!")}</div>
+                        ) : (
+                          <div></div>
+                        )}
+
                         {/* <Link
-                              to={`/users/${id}/workouts/${docId}/edit`}
-                              className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
-                            >
-                              Edit Workout
-                            </Link> */}
+                          to={`/users/${id}/workouts/${docId}/editCardio`}
+                          className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
+                        >
+                          Create Similar Workout
+                        </Link> */}
                       </div>
                     </div>
                   </div>
@@ -140,44 +162,5 @@ const SingleWorkout = () => {
     </div>
   );
 };
-//return(div name = elem.data.name
-//weight = elem.data.weight
-
-//div)
 
 export default SingleWorkout;
-
-// import React, { useEffect } from "react";
-
-// import { useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
-// import { fetchSingleWorkoutThunk } from "../store/singleWorkout";
-// import { useDispatch } from "react-redux";
-// const SingleWorkout = () => {
-//   let workout = useSelector((state) => state.singleWorkout);
-//   console.log("this is workout from SingleWorkout", workout);
-
-//   let { id, docId } = useParams();
-
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     dispatch(fetchSingleWorkoutThunk(id, docId));
-//   }, [dispatch, id, docId]);
-
-//   //make ternary statement in return
-//   return (
-//     <div>
-//       <h1>{workout.name}</h1>
-//       <h1>{workout.category}</h1>
-//       <h1>{workout.date}</h1>
-//       {/* <div>{workout.exercises.map}</div> */}
-//     </div>
-//   );
-// };
-// //return(div name = elem.data.name
-// //weight = elem.data.weight
-
-// //div)
-
-// export default SingleWorkout;
