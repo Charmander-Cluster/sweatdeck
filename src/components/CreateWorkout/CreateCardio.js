@@ -8,7 +8,6 @@ import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CreateCardio = (props) => {
-  // const redirectUri ="http://localhost:3000/cardioplaylist";
 
   const redirectUri = /localhost/.test(window.location.href)
     ? "http://localhost:3000/cardioplaylist"
@@ -37,12 +36,10 @@ const CreateCardio = (props) => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  console.log(authUser.uid);
-
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
-      history.push("/confirmcardiocreate");
+      history.push("/confirmcardiocreate")
       // setRedirect(true);
     }
   }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
@@ -168,7 +165,8 @@ const CreateCardio = (props) => {
 
                         <div className="flex justify-center">
                           <div className="flex justify-center">
-                            <div className=""></div>
+                            <div className="">
+                            </div>
                           </div>
                         </div>
                         <div className="flex align-center">
@@ -268,54 +266,52 @@ const CreateCardio = (props) => {
                               </div>
                             </div>
 
-                            {workout.category === "" ||
-                            workout.name === "" ||
-                            exercises.type === "" ||
-                            exercises.distance === "" ||
-                            exercises.units === "" ||
-                            exercises.hours === "" ||
-                            exercises.minutes === "" ? (
-                              <div className="my-5 text-red-400">
-                                Complete all fields to add workout{" "}
-                              </div>
-                            ) : (
-                              <div className="grid mt-5 place-items-center">
-                                <button
-                                  className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
-                                  onClick={handleSubmitWithSpotify}
-                                  disabled={
-                                    workout.category === "" ||
-                                    workout.name === "" ||
-                                    exercises.type === "" ||
-                                    exercises.distance === "" ||
-                                    exercises.units === "" ||
-                                    exercises.hours === "" ||
-                                    exercises.minutes === ""
-                                  }
-                                  // href={AUTH_URL}
-                                >
-                                  Save & Connect Playlist
-                                </button>
+                            { (workout.category === "" ||
+                                  workout.name === "" ||
+                                  exercises.type === "" ||
+                                  exercises.distance === "" ||
+                                  exercises.units === "" ||
+                                  exercises.hours === "" ||
+                                  exercises.minutes === "") ?
+                              (<div className="text-red-400 my-5">Complete all fields to add workout </div>) :
+                            (<div className="grid mt-5 place-items-center">
+                              <button
+                                className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
+                                onClick={handleSubmitWithSpotify}
+                                disabled={
+                                  workout.category === "" ||
+                                  workout.name === "" ||
+                                  exercises.type === "" ||
+                                  exercises.distance === "" ||
+                                  exercises.units === "" ||
+                                  exercises.hours === "" ||
+                                  exercises.minutes === ""
+                                }
+                                // href={AUTH_URL}
+                              >
+                                Save & Connect Spotify Playlist
+                              </button>
 
-                                <button
-                                  className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
-                                  onClick={handleSubmitWithoutPlaylist}
-                                  disabled={
-                                    workout.category === "" ||
-                                    workout.name === "" ||
-                                    exercises.type === "" ||
-                                    exercises.distance === "" ||
-                                    exercises.units === "" ||
-                                    exercises.hours === "" ||
-                                    exercises.minutes === ""
-                                  }
-                                >
-                                  Save Without Playlist
-                                </button>
-                              </div>
-                            )}
+                              <button
+                                className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
+                                onClick={handleSubmitWithoutPlaylist}
+                                disabled={
+                                  workout.category === "" ||
+                                  workout.name === "" ||
+                                  exercises.type === "" ||
+                                  exercises.distance === "" ||
+                                  exercises.units === "" ||
+                                  exercises.hours === "" ||
+                                  exercises.minutes === ""
+                                }
+                              >
+                                Save Without Playlist
+                              </button>
+                              </div>)}
 
-                            <div className="grid place-items-center">
+
+
+                              <div className="grid place-items-center">
                               <button
                                 className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
                                 onClick={handleDelete}
@@ -323,6 +319,7 @@ const CreateCardio = (props) => {
                                 Cancel
                               </button>
                             </div>
+
                           </div>
                         </div>
                       </div>

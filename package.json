@@ -57,13 +57,13 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server",
+    "start-react":"react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server",
-    "start:dev": "npm run start & npm run server",
-    "heroku-postbuild": "cd src && npm install && npm run build"
+    "start:dev": "npm run start-react & npm run server"
   },
   "engines": {
     "node": "16.13.0"

@@ -51,18 +51,11 @@ const StrengthPlaylist = (props) => {
     }
   }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
 
-  //console.log("This is the home component!");
-  //console.log("Playlists:", playlists);
-  //console.log("selected playlist", selectedPlaylist);
-  //console.log("**AUTH USER**", authUser)
-  //console.log("**USER**", user)
-  // console.log("**USERID**", userId)
-
   const createWorkout = () => {
     dispatch(
       strengthLocalEditWorkout({
         ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
       })
     );
     dispatch(createDBWorkout(strengthLocalWorkout, userId));
@@ -83,27 +76,6 @@ const StrengthPlaylist = (props) => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
-
-  // const [spotifyUser, setSpotifyUser] = useState({});
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   axios
-  //     .get("https://api.spotify.com/v1/me", {
-  //       headers: {
-  //         Accept: "application/json",
-  //         Authorization: "Bearer " + accessToken,
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setSpotifyUser({
-  //         id: response.data.id,
-  //         name: response.data.display_name,
-  //         url: response.data.external_urls.spotify,
-  //       });
-  //     });
-  // }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -179,15 +151,6 @@ const StrengthPlaylist = (props) => {
               </div>
             </div>
           )}
-
-          {/* <div className="flex mb-5">
-            <button className="p-3 m-2 bg-teal-500 rounded-md">
-              Confirm & Connect
-            </button>
-            <button className="p-3 m-2 text-teal-500 border rounded-md border-teak-500">
-              Cancel
-            </button>
-          </div> */}
         </div>
         {/* <p className="text-sm">
           Only "public" playlists may be linked to your workout.

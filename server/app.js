@@ -20,20 +20,18 @@ module.exports = app;
 app.use(morgan("dev"));
 
 // body parsing middleware
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended:true }))
+
+app.use(express.static(path.join(__dirname, "..", 'build')));
+
+app
+  .use(express.static(path.join(__dirname, "..", "public")))
+  .use(cookieParser());
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "..", "public/index.html"))
 );
-
-// static file-serving middleware
-//app.use(express.static(path.join(__dirname, '..', 'public')))
-app
-  .use(express.static(path.join(__dirname, "..", "public")))
-  .use(cors())
-  .use(cookieParser());
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
@@ -42,7 +40,7 @@ const SPOTIFY_REDIRECT_URI_CARDIO =
 const SPOTIFY_REDIRECT_URI_STRENGTH =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_STRENGTH;
 
-app.post("/strengthlogin", (req, res) => {
+app.post("/api/strengthlogin", (req, res) => {
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
@@ -66,7 +64,7 @@ app.post("/strengthlogin", (req, res) => {
     });
 });
 
-app.post("/strengthrefresh", (req, res) => {
+app.post("/api/strengthrefresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
@@ -89,7 +87,8 @@ app.post("/strengthrefresh", (req, res) => {
     });
 });
 
-app.post("/cardiologin", (req, res) => {
+app.post("/api/cardiologin", (req, res) => {
+  console.log("THIS IS THE CARDIO LOGIN BACKEND")
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
@@ -113,7 +112,7 @@ app.post("/cardiologin", (req, res) => {
     });
 });
 
-app.post("/cardiorefresh", (req, res) => {
+app.post("/api/cardiorefresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
@@ -136,12 +135,9 @@ app.post("/cardiorefresh", (req, res) => {
     });
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
-app.use((req, res, next) => {
+app.use("/api", (req, res, next) => {
   if (path.extname(req.path).length) {
     const err = new Error("Not found");
     err.status = 404;
@@ -151,13 +147,8 @@ app.use((req, res, next) => {
   }
 });
 
-// sends index.html
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "public/index.html"));
-});
-
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "..", 'build', 'index.html'));
 });
 
 // error handling endware

@@ -24,8 +24,7 @@ const CreateStrength = (props) => {
   const [workoutAdded, setWorkoutAdded] = useState(false);
   //const [redirect, setRedirect] = useState(false);
 
-  const strengthLocalWorkout = useSelector(
-    (state) => state.strengthLocalWorkout
+  const strengthLocalWorkout = useSelector(state => state.strengthLocalWorkout
   );
 
   const authUser = useSelector((state) => state.auth);
@@ -94,7 +93,7 @@ const CreateStrength = (props) => {
     event.preventDefault();
     dispatch(strengthLocalCreateWorkout(workout));
     setWorkoutAdded(true);
-    history.push("/confirmcardiocreate");
+    // history.push("/confirmstrengthcreate")
   };
 
   return (
@@ -166,40 +165,36 @@ const CreateStrength = (props) => {
                     />
                   </div>
 
-                  {workout.category === "" ||
-                  workout.name === "" ||
-                  workout.exercises.length === 0 ? (
-                    <div className="my-3 text-center text-red-400">
-                      Complete all fields and save an exercise to create your
-                      workout
-                    </div>
-                  ) : (
-                    <div className="grid mt-8 place-items-center">
-                      <button
-                        className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
-                        onClick={handleSubmitWithSpotify}
-                        href={AUTH_URL}
-                        disabled={
-                          workout.category === "" ||
-                          workout.name === "" ||
-                          workout.exercises.length === 0
-                        }
-                      >
-                        Save & Connect Playlist
-                      </button>
-                      <button
-                        className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
-                        onClick={handleSubmitWithoutPlaylist}
-                        disabled={
-                          workout.category === "" ||
-                          workout.name === "" ||
-                          workout.exercises.length === 0
-                        }
-                      >
-                        Save Without Playlist
-                      </button>
-                    </div>
-                  )}
+                  { (workout.category === "" ||
+                    workout.name === "" ||
+                    workout.exercises.length === 0) ?
+                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :
+
+                    (<div className="grid mt-8 place-items-center">
+                    <button
+                      className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
+                      onClick={handleSubmitWithSpotify}
+                      href={AUTH_URL}
+                      disabled={
+                        workout.category === "" ||
+                        workout.name === "" ||
+                        workout.exercises.length === 0
+                      }
+                    >
+                      Save & Connect Spotify Playlist
+                    </button>
+                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
+                    onClick={handleSubmitWithoutPlaylist}
+                    disabled={
+                      workout.category === "" ||
+                      workout.name === "" ||
+                      workout.exercises.length === 0
+                    }
+                    >
+                      Save Without Playlist
+                    </button>
+                    </div>)
+                  }
 
                   {/* <div className="grid mt-8 place-items-center">
                     <button
@@ -233,7 +228,8 @@ const CreateStrength = (props) => {
                     >
                       Cancel
                     </button>
-                  </div>
+                    </div>
+
                 </div>
               </div>
             </div>
