@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
@@ -12,15 +12,18 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CreateCardio = (props) => {
   // const redirectUri ="http://localhost:3000/cardioplaylist";
 
-  const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/cardioplaylist' : 'https://sweatdeck-test.herokuapp.com/cardioplaylist'
+  const redirectUri = /localhost/.test(window.location.href)
+    ? "http://localhost:3000/cardioplaylist"
+    : "https://sweatdeck-test.herokuapp.com/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  //const [redirect, setRedirect] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -40,8 +43,8 @@ const CreateCardio = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
-      // history.push("/confirmcardiocreate")
-      setRedirect(true);
+      history.push("/confirmcardiocreate")
+      // setRedirect(true);
     }
   }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
 
@@ -53,8 +56,8 @@ const CreateCardio = (props) => {
     exercises: [],
     userId: "",
     timesCompleted: 0,
-    datesCompleted:[],
-    logs: 0
+    datesCompleted: [],
+    logs: 0,
   });
 
   const [exercises, setExercises] = useState({
@@ -92,23 +95,34 @@ const CreateCardio = (props) => {
     workout.exercises.push(exercises);
     dispatch(cardioLocalCreateWorkout(workout));
     setWorkoutAdded(true);
-    //history.push("/confirmcardiocreate")
+  };
+
+  const handleDelete = () => {
+    setWorkout({
+      category: "cardio",
+      name: "",
+      exercises: [],
+      userId: "",
+      timesCompleted: 0,
+      datesCompleted: [],
+      logs: 0,
+    });
+    dispatch(cardioLocalCreateWorkout(workout));
+    history.push("/createworkout");
   };
 
   console.log(workout);
 
-  return redirect ? (
-    <Redirect to="/confirmcardiocreate" />
-  ) : (
+  return (
     <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
-        <h1 className="my-10 text-3xl text-teal-500 align-center">
+        <h1 className="my-5 text-3xl text-purple-500 align-center">
           Create Cardio Workout
         </h1>
       </div>
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
-        <div className="m-3 my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700 mb-14">
+        <div className="m-3 my-5 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
           <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
@@ -118,7 +132,7 @@ const CreateCardio = (props) => {
                       <img
                         className="h-16 mb-2 max-h-16"
                         alt="weight-icon"
-                        src="https://allenparkdowntown.org/wp-content/uploads/ES-safe-sidewalk.png"
+                        src="https://cdn-wellnessnow.b-cdn.net/wp-content/uploads/2021/01/regenerate-icon.svg"
                       ></img>
                     </div>
                     <div className="flex justify-center">
@@ -215,7 +229,7 @@ const CreateCardio = (props) => {
                                   Units
                                 </label>
                                 <select
-                                  className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   name="units"
                                   required
                                   defaultValue="select"
@@ -272,7 +286,7 @@ const CreateCardio = (props) => {
 
                             <div className="grid mt-5 place-items-center">
                               <button
-                                className="flex p-3 mb-3 text-lg text-white bg-teal-500 rounded-md"
+                                className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
                                 onClick={handleSubmitWithSpotify}
                                 disabled={
                                   workout.category === "" ||
@@ -280,7 +294,7 @@ const CreateCardio = (props) => {
                                   exercises.type === "" ||
                                   exercises.distance === "" ||
                                   exercises.units === "" ||
-                                  exercises.hours === ""||
+                                  exercises.hours === "" ||
                                   exercises.minutes === ""
                                 }
                                 // href={AUTH_URL}
@@ -289,7 +303,7 @@ const CreateCardio = (props) => {
                               </button>
 
                               <button
-                                className="flex p-3 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md"
+                                className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
                                 onClick={handleSubmitWithoutPlaylist}
                                 disabled={
                                   workout.category === "" ||
@@ -297,11 +311,18 @@ const CreateCardio = (props) => {
                                   exercises.type === "" ||
                                   exercises.distance === "" ||
                                   exercises.units === "" ||
-                                  exercises.hours === ""||
+                                  exercises.hours === "" ||
                                   exercises.minutes === ""
                                 }
                               >
                                 Save Without Playlist
+                              </button>
+
+                              <button
+                                className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
+                                onClick={handleDelete}
+                              >
+                                Cancel
                               </button>
                             </div>
                           </div>

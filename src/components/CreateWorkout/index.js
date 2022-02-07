@@ -28,7 +28,7 @@ const CreateWorkout = () => {
 
 
       <div className="flex items-center justify-center">
-        <h1 className="mt-20 text-3xl text-teal-500 align-center">
+        <h1 className="mt-28 text-3xl text-teal-500 align-center">
           Create a New Workout
         </h1>
       </div>
@@ -41,7 +41,7 @@ const CreateWorkout = () => {
         <Link to="/createworkout/cardio">
           <button
             type="button"
-            className="text-3xl  bg-gradient-to-r from-teal-500 to-purple-800  rounded-md p-6 w-72 border border-white"
+            className="text-3xl  bg-gradient-to-r from-teal-500 to-purple-800  rounded-md p-6 w-72 border border-purple-800"
           >
             Create Cardio
           </button>
@@ -50,7 +50,7 @@ const CreateWorkout = () => {
 
       <div className="grid justify-center">
         <Link to="/createworkout/strength">
-          <button className="text-3xl bg-gradient-to-r from-purple-800 to-teal-500  bg-zinc-800 rounded-md p-6 w-68 border border-white">
+          <button className="text-3xl bg-gradient-to-r from-purple-800 to-teal-500  bg-zinc-800 rounded-md p-6 w-68 border border-teal-500">
             Create Strength
           </button>
         </Link>

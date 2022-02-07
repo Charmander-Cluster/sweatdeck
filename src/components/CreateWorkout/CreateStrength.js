@@ -7,6 +7,7 @@ import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useHistory } from "react-router-dom";
 
 const CreateStrength = (props) => {
   const redirectUri =  /localhost/.test(window.location.href) ? 'http://localhost:3000/strengthplaylist' : 'https://sweatdeck-test.herokuapp.com/strengthplaylist'
@@ -16,9 +17,11 @@ const CreateStrength = (props) => {
 
   const dispatch = useDispatch();
 
+  const history = useHistory()
+
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  //const [redirect, setRedirect] = useState(false);
 
   const strengthLocalWorkout = useSelector(
     (state) => state.strengthLocalWorkout
@@ -38,8 +41,8 @@ const CreateStrength = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
-      // history.push("/confirmcardiocreate")
-      setRedirect(true);
+      history.push("/confirmstrengthcreate")
+      // setRedirect(true);
     }
   }, [dispatch, workoutAdded, strengthLocalWorkout, userId]);
 
@@ -53,6 +56,7 @@ const CreateStrength = (props) => {
     logs: 0
   });
 
+  console.log(strengthLocalWorkout)
   //const [exercise, setExercise] = useState({});
 
   const handleChange = (event) => {
@@ -63,6 +67,21 @@ const CreateStrength = (props) => {
     setWorkout({ ...workout }, workout.exercises.push(exercise));
   };
 
+  const handleCancel = () => {
+    setWorkout({
+      category: "strength",
+      name: "",
+      exercises: [],
+      userId:"",
+      timesCompleted: 0,
+      datesCompleted:[],
+      logs: 0
+    })
+    setWorkoutAdded(false)
+    dispatch(strengthLocalCreateWorkout(workout));
+    history.push("/createworkout")
+  }
+
   const [counter, setCounter] = useState(0);
 
   console.log("workout", workout);
@@ -72,19 +91,20 @@ const CreateStrength = (props) => {
     dispatch(strengthLocalCreateWorkout(workout));
     console.log("local workout:", strengthLocalWorkout);
     window.location.href = AUTH_URL;
+
   };
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     dispatch(strengthLocalCreateWorkout(workout));
-    setWorkoutAdded(true);
+    //setWorkoutAdded(true);
     //history.push("/confirmcardiocreate")
   };
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
-        <h1 className="my-10 text-3xl text-teal-500 align-center">
+        <h1 className="my-5 text-3xl text-teal-500 text-center align-center">
           Create Strength Workout
         </h1>
       </div>
@@ -179,6 +199,12 @@ const CreateStrength = (props) => {
                     }
                     >
                       Save Without Playlist
+                    </button>
+
+                    <button className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
+                    onClick={handleCancel}
+                    >
+                      Cancel
                     </button>
                   </div>
                 </div>

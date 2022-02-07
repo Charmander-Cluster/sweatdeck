@@ -17,9 +17,13 @@ const StrengthDetails = (props) => {
   const [isCompleted, setIsCompleted] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
 
+  console.log("isSaved =", isSaved)
+  console.log("isCompleted =", isCompleted)
+
   useEffect(() => {
     if (isSaved) {
       handleUpdate(completedExercise)
+      setIsSaved(false)
     }
   }, [isSaved])
 
@@ -51,17 +55,17 @@ const StrengthDetails = (props) => {
 
   const handleAdd = (event) => {
     event.preventDefault();
-    setIsSaved(true)
-    handleUpdate(completedExercise)
-    //setCompletedExercise({})
+    setCompletedExercise(exercise)
+    //handleUpdate(completedExercise)
+    //setIsSaved(true)
   }
   console.log(exercise);
 
-  // useEffect(()=>{
-  // if (isCompleted === true)
-  //   handleUpdate(completedExercise)
-  //   setIsSaved(true)
-  // }, [isSaved, isCompleted, handleUpdate, completedExercise])
+  useEffect(()=>{
+  if (isCompleted)
+    handleUpdate(completedExercise)
+    setIsSaved(true)
+  }, [isSaved, isCompleted, handleUpdate, completedExercise])
 
 
   return (
@@ -224,7 +228,7 @@ const StrengthDetails = (props) => {
 
       {(isSaved) && ((
         <div className="flex justify-end">
-      <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
+      <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
         Added to Workout
       </div>
 
