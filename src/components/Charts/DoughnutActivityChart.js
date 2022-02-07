@@ -5,7 +5,25 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ActivityChart = (props) => {
+  const labels = ["Sets", "Reps", "Miles", "Minutes"];
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        labels: {
+          color: "white",
+        },
+      },
+      title: {
+        display: false,
+      },
+    },
+  };
+
   const data = {
+    labels,
     datasets: [
       {
         data: [
@@ -28,8 +46,8 @@ const ActivityChart = (props) => {
   return (
     <>
       <div className="relative flex items-center justify-center w-48 h-48">
-        <Doughnut data={data} className="z-10" />
-        <div className="absolute z-0 flex flex-col items-center justify-center w-24 h-24 mt-1 bg-white rounded-full">
+        <Doughnut data={data} options={options} className="z-10" />
+        <div className="absolute z-0 flex flex-col items-center justify-center w-24 h-24 bg-white rounded-full">
           <p className="text-2xl font-semibold leading-6 text-center text-fuchsia-700">
             20
           </p>

@@ -51,7 +51,6 @@ const DynamicWorkoutStrengthChart = (props) => {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
         data: [props.workoutData.sets, props.workoutData.reps],
         backgroundColor: "#a21caf",
       },
