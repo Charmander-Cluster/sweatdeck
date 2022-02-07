@@ -184,7 +184,7 @@ const CreateStrength = (props) => {
                         workout.exercises.length === 0
                       }
                     >
-                      Save & Connect Playlist
+                      Save & Connect Spotify Playlist
                     </button>
                     <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
                     onClick={handleSubmitWithoutPlaylist}
@@ -231,7 +231,6 @@ const CreateStrength = (props) => {
                       Cancel
                     </button>
                     </div>
-
 
                 </div>
               </div>

@@ -290,7 +290,7 @@ const CreateCardio = (props) => {
                                 }
                                 // href={AUTH_URL}
                               >
-                                Save & Connect Playlist
+                                Save & Connect Spotify Playlist
                               </button>
 
                               <button
