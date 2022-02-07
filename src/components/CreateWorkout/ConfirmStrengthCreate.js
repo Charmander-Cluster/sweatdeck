@@ -5,7 +5,7 @@ import { logDBWorkout } from "../../store/logWorkout"
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const ConfirmCardioCreate = () => {
+const ConfirmStrengthCreate = () => {
   const [completed, setCompleted] = useState(false);
   const dispatch = useDispatch()
   const history = useHistory()
@@ -22,10 +22,10 @@ const ConfirmCardioCreate = () => {
   });
   const userId = authUser.uid;
 
-  const newCardioWorkoutId= useSelector(state=> state.DBWorkout)
+  const newStrengthWorkoutId= useSelector(state=> state.DBWorkout)
 
   const handleLog= () => {
-    dispatch(logDBWorkout(userId, newCardioWorkoutId))
+    dispatch(logDBWorkout(userId, newStrengthWorkoutId))
     setCompleted(true);
   };
 
@@ -37,7 +37,7 @@ const ConfirmCardioCreate = () => {
           <img alt="purple-checkmark" src="https://iconarchive.com/download/i85557/graphicloads/100-flat/check.ico" className="mt-20 h-32"/>
           </div>
           <h1 className="mt-10 text-3xl text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500  to-purple-600">
-            You've Created A New Cardio Workout!
+            You've Created A New Strength Workout!
           </h1>
         </div>
       </div>
@@ -80,6 +80,7 @@ const ConfirmCardioCreate = () => {
             type="button"
             className="flex text-2xl text-teal-500 rounded-md p-3"
           >
+
             <img alt="teal-checkmark" className="h-6 mr-2" src="https://palmbayprep.org/wp-content/uploads/2015/09/Calendar-Icon.png"/>
 
 
@@ -102,4 +103,4 @@ const ConfirmCardioCreate = () => {
   );
 };
 
-export default ConfirmCardioCreate;
+export default ConfirmStrengthCreate;

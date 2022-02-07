@@ -22,11 +22,11 @@ export const fetchSingleWorkoutThunk = (userId, docId) => {
   return async (dispatch) => {
     try {
       const workout = await getDoc(doc(db, `users/${userId}/workouts`, docId));
-      console.log("this is workout from sW thunk", workout.data());
+      //console.log("this is workout from sW thunk", workout.data());
 
       dispatch(getSingleWorkout(workout.data()));
     } catch (err) {
-      console.log("FAiled at single Workout Thunk", err);
+      console.log("Failed at single Workout Thunk", err);
     }
   };
 };

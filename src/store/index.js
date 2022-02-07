@@ -12,6 +12,7 @@ import workouts from "./workouts";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import singleWorkoutReducer from "./singleWorkout";
+import logWorkout from "./logWorkout";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +20,7 @@ const persistConfig = {
 };
 
 const reducer = combineReducers({
+  logWorkout,
   singleWorkout: singleWorkoutReducer,
   allWorkouts,
   auth,

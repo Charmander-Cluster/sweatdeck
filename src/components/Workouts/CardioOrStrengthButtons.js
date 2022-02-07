@@ -4,13 +4,12 @@ import { Link, useParams } from "react-router-dom";
 
 const CardioOrStrengthButtons = () => {
   const { id } = useParams();
-  console.log("ID from cOrS", id);
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
         <h1 className="text-3xl text-teal-500 mt-28 align-center">
-          Select Workout Type
+          Select Workout Type:
         </h1>
       </div>
 
