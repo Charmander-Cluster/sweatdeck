@@ -22,6 +22,7 @@ import OptionalSignUp from "./components/User/OptionalSignUp";
 import SingleWorkout from "./components/Workouts/SingleWorkout";
 import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
+import SignUp from "./components/User/SignUp";
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -64,7 +65,10 @@ const Routes = (props) => {
           <Route exact path="/" component={Dashboard} />
         </Switch>
       ) : (
-        <SignIn />
+        <Switch>
+          <Route exact path="/signup" component={SignUp} />
+          <SignIn />
+        </Switch>
       )}
     </>
   );

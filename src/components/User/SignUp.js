@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { authSignUp, authenticate } from "../../store/auth";
 import { useHistory } from "react-router-dom";
 
-const SignUpTest = () => {
+const SignUp = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   //const history = useHistory();
@@ -171,4 +171,4 @@ const SignUpTest = () => {
   );
 };
 
-export default SignUpTest;
+export default SignUp;
