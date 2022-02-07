@@ -23,8 +23,7 @@ const CreateStrength = (props) => {
   const [workoutAdded, setWorkoutAdded] = useState(false);
   //const [redirect, setRedirect] = useState(false);
 
-  const strengthLocalWorkout = useSelector(
-    (state) => state.strengthLocalWorkout
+  const strengthLocalWorkout = useSelector(state => state.strengthLocalWorkout
   );
 
   const authUser = useSelector((state) => state.auth);
@@ -95,7 +94,7 @@ const CreateStrength = (props) => {
     event.preventDefault();
     dispatch(strengthLocalCreateWorkout(workout));
     setWorkoutAdded(true);
-    history.push("/confirmcardiocreate")
+    // history.push("/confirmstrengthcreate")
   };
 
   return (
@@ -169,9 +168,9 @@ const CreateStrength = (props) => {
                   </div>
 
                   { (workout.category === "" ||
-                        workout.name === "" ||
-                        workout.exercises.length === 0) ?
-                        (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :
+                    workout.name === "" ||
+                    workout.exercises.length === 0) ?
+                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :
 
                     (<div className="grid mt-8 place-items-center">
                     <button

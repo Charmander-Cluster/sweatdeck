@@ -16,7 +16,7 @@ const StrengthDetails = (props) => {
 
   const [exercise, setExercise] = useState({
     bodyPart: "",
-    type: "",
+    type: "strength",
     weight: "",
     units: "",
     reps: "",
@@ -46,8 +46,7 @@ const StrengthDetails = (props) => {
     //setCompletedExercise({})
   }
   console.log("Strength Local Workout", strengthLocalWorkout);
-  console.log("isCompleted", isCompleted)
-  console.log("isSaved", isSaved)
+  console.log("exercise", exercise)
 
   // useEffect(()=>{
   // if (isCompleted === true)
