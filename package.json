@@ -55,7 +55,7 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "npm run build && node server",
+    "start": "node server",
     "start-react":"react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
