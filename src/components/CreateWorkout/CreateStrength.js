@@ -54,7 +54,6 @@ const CreateStrength = (props) => {
     logs: 0,
   });
 
-  console.log(strengthLocalWorkout);
   //const [exercise, setExercise] = useState({});
 
   const handleChange = (event) => {
@@ -85,7 +84,6 @@ const CreateStrength = (props) => {
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
     dispatch(strengthLocalCreateWorkout(workout));
-    console.log("local workout:", strengthLocalWorkout);
     window.location.href = AUTH_URL;
   };
 

@@ -36,7 +36,6 @@ const CardioPlaylist = (props) => {
   }, [dispatch, user]);
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
-  console.log("cardio local workout store:", cardioLocalWorkout);
 
   const accessToken = useAuthCardio(token);
 
@@ -90,7 +89,6 @@ const CardioPlaylist = (props) => {
   useEffect(() => {
     if (!accessToken) return;
     // if(!spotifyUser) return
-    console.log(accessToken);
     axios
       .get("https://api.spotify.com/v1/me/playlists", {
         params: { limit: 50, offset: 0 },
@@ -106,7 +104,6 @@ const CardioPlaylist = (props) => {
           (playlist) => playlist.public === true
           // && playlist.owner.id === spotifyUser.id
         );
-        console.log(publicPlaylists);
 
         const myPlaylists = publicPlaylists.map((playlist) => ({
           name: playlist.name,

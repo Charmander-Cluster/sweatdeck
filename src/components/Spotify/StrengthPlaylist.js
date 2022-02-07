@@ -38,8 +38,6 @@ const StrengthPlaylist = (props) => {
   const accessToken = useAuthStrength(token);
   let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 
-  console.log("strength local workout store:", strengthLocalWorkout);
-
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
@@ -96,7 +94,6 @@ const StrengthPlaylist = (props) => {
           (playlist) => playlist.public === true
           // && playlist.owner.id === spotifyUser.id
         );
-        console.log(publicPlaylists);
 
         const myPlaylists = publicPlaylists.map((playlist) => ({
           name: playlist.name,
@@ -110,7 +107,6 @@ const StrengthPlaylist = (props) => {
       });
   }, [accessToken]);
 
-  console.log(playlists);
 
   return !accessToken ? (
     <div>Loading...</div>
