@@ -33,17 +33,35 @@ const EditStrengthWorkout = () => {
   };
 
   const handleUpdate = (exercises) => {
-    workout.exercises = exercises
+    workout.exercises = exercises;
   };
 
-  // const handleNestedChange = (event) => {
-  //   setWorkout({ ...workout, exercises: { ...workout.exercises[0], [event.target.name]: event.target.value }});
-  // };
+  const handleDelete = (num) => {
+    console.log("handleDelete num!!!!!!!!!; ", num);
+    setWorkout(
+      { ...workout },
+      workout.exercises.splice(num,1)
+    );
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(editWorkoutThunk(id, docId, workout));
     history.push(`/users/${id}/workouts/${docId}`);
+  };
+
+  const handleAdd = (event) => {
+    setWorkout(
+      { ...workout },
+      workout.exercises.push({
+        bodyPart: "select",
+        type: "select",
+        weight: "",
+        units: "select",
+        reps: "",
+        sets: "",
+      })
+    );
   };
 
   //console.log(currentWorkout.exercises);
@@ -88,17 +106,29 @@ const EditStrengthWorkout = () => {
                               defaultValue={currentWorkout.name}
                             />
 
-<div className="my-2">
-                    {[...Array(currentWorkout.exercises.length)].map((_, i) => (
-                      <EditStrengthDetails
-                      handleUpdate={handleUpdate}
-                        workout={workout}
-                        thisArray={currentWorkout.exercises.length}
-                        key={i}
-                        number={i}
-                      />
-                    ))}
-                  </div>
+                            <div className="my-2">
+                              {[...Array(workout.exercises.length)].map(
+                                (_, i) => (
+                                  <EditStrengthDetails
+                                    handleUpdate={handleUpdate}
+                                    handleDelete={handleDelete}
+                                    workout={workout}
+                                    key={i}
+                                    number={i}
+                                  />
+                                )
+                              )}
+                            </div>
+
+                            <div className="flex justify-end">
+                              <input
+                                type="image"
+                                alt="add-workout"
+                                src="https://cdn-icons-png.flaticon.com/512/189/189689.png"
+                                className="h-8 mr-3 bg-teal-500 rounded-2xl"
+                                onClick={handleAdd}
+                              />
+                            </div>
 
                             <div className="grid mt-5 place-items-center">
                               <button

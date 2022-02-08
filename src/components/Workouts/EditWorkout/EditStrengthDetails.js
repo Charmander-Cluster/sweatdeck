@@ -13,8 +13,7 @@ import {
 const EditStrengthDetails = (props) => {
   const workout = props.workout;
   const handleUpdate = props.handleUpdate;
-
-  // const thisArray = props.thisArray
+  const handleDelete = props.handleDelete;
 
   // console.log("Workout from EditStrengthDetails: ", workout)
   // console.log("thisArray from EditStrengthDetails: ", thisArray)
@@ -45,7 +44,9 @@ const EditStrengthDetails = (props) => {
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    //console.log("1111111111Exercise from the handleconfirm: ", exercise);
+    console.log("1111111111[props.num] from handleconfirm: ", props.number);
+    console.log("22222222exercise from handleconfirm: ", exercise);
+
 
     exercises[props.number] = exercise;
     setIsCompleted(true);
@@ -57,6 +58,12 @@ const EditStrengthDetails = (props) => {
     event.preventDefault();
     setIsSaved(true);
     handleUpdate(completedExercises);
+  };
+
+  const handleRemove = (event) => {
+    event.preventDefault();
+    console.log("++++props.number: ", props.number);
+    handleDelete(props.number);
   };
 
   return (
@@ -239,6 +246,16 @@ const EditStrengthDetails = (props) => {
         </div>
 
         <div className="flex justify-center"></div>
+
+        <div className="flex object-left-bottom">
+          <button
+            type="remove"
+            onClick={handleRemove}
+            className="mt-2 p-2 text-white font-bold bg-red-500 rounded-md p-1 text-sm"
+          >
+            X
+          </button>
+        </div>
 
         {!isCompleted && !isSaved && (
           <div className="flex justify-end">
