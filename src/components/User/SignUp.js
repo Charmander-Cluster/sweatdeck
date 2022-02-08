@@ -1,174 +1,574 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { authSignUp, authenticate } from "../../store/auth";
 import { useHistory } from "react-router-dom";
+import { Formik } from "formik";
+import DatePickerField from "./DatePickerField";
 
 const SignUp = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   //const history = useHistory();
   const [userEmails] = useState({});
-  const [userInput, setUserInput] = useState({
-    user: {
-      username: "",
-      password: "",
-      email: "",
-      state: "",
-      birthday: "",
-    },
-    errors: {},
-  });
+  const [step, setStep] = useState(1);
+  const [isDone, setDone] = useState(false);
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+  // await dispatch(authSignUp(user));
+  // await dispatch(authenticate(user.email, user.password));
+  // history.push("/");
+  // };
+  const authUser = useSelector((state) => state.auth);
 
-    const user = {
-      username: evt.target.username.value,
-      password: evt.target.password.value,
-      email: evt.target.email.value,
-      state: evt.target.state.value,
-      birthday: evt.target.birthday.value,
-    };
-
-    await dispatch(authSignUp(user));
-    await dispatch(authenticate(user.email, user.password));
-    history.push("/optionalsignup");
+  const stepClick = () => {
+    setStep(2);
   };
 
-  const handleChange = (evt) => {
-    let errors = { password: "", email: "" };
-    if (userInput.user.password.length < 6) {
-      errors.password = "Password must be at least 6 characters long.";
+  useEffect(() => {
+    if (authUser.email) {
+      history.push("/");
     }
-    if (userInput.user.email in userEmails) {
-      errors.email = "E-mail has already been used.";
-    }
-    setUserInput({
-      user: { ...userInput.user, [evt.target.name]: evt.target.value },
-      errors,
-    });
-  };
+  }, [history, authUser.email]);
+
+  // const datepickerEl = document.getElementById("datepickerId");
+  // new Datepicker(datepickerEl, {
+  //   // options
+  // });
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="w-full p-10 ">
-          <div className="items-center pb-6 border-b border-teal-700 md:flex">
-            <h1 className="mb-2 text-lg font-bold text-center uppercase">
-              Sign Up
-            </h1>
-            <div className="flex items-center mt-4 md:mt-0">
-              <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
-                <p className="text-base font-medium leading-none text-white">
-                  01
-                </p>
-              </div>
-              <p className="ml-3 text-base font-medium leading-4 text-white">
-                Security
-              </p>
-            </div>
-            <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-              <div className="flex items-center justify-center w-8 h-8 bg-white rounded">
-                <p className="text-base font-medium leading-none text-teal-700">
-                  02
-                </p>
-              </div>
-              <p className="ml-3 text-base font-medium leading-4 text-white">
-                Optional info
-              </p>
-            </div>
-          </div>
-          <h1
-            aria-label="profile information"
-            className="mt-8 text-3xl font-bold text-white focus:outline-none"
-          >
-            Security
-          </h1>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+          username: "",
+          birthday: "",
+          state: "",
+          firstName: "",
+          lastName: "",
+          gender: "",
+          favoriteWorkoutType: "",
+          frequency: "",
+          goal: "",
+        }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = "Required";
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = "Invalid email address";
+          }
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          const selectedDate = new Date(values.birthday); // pass in date param here
+          const formattedDate = `${
+            selectedDate.getMonth() + 1
+          }/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
+          values.birthday = formattedDate;
 
-          <div className="items-center mt-8 md:flex">
-            <div className="flex flex-col">
-              <h1 className="pt-2 font-extrabold">Username</h1>
-              <input
-                type="text"
-                placeholder="Username"
-                name="username"
-                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
-              <h1 className="pt-2 font-extrabold">Password</h1>
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                onChange={handleChange}
-                required
-              />
-            </div>
+          dispatch(authSignUp(values));
+          setTimeout(() => {
+            dispatch(authenticate(values.email, values.password));
+            console.log("this is values from onSubmit", values);
+            setSubmitting(false);
+            setDone(true);
+          }, 1000);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <div>
+            {step === 1 ? (
+              <form>
+                <div className="w-full p-10 ">
+                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+                      Sign Up
+                    </h1>
+                    <div className="flex items-center mt-4 md:mt-0">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
+                        <p className="text-base font-medium leading-none text-white">
+                          01
+                        </p>
+                      </div>
+                      <p className="ml-3 text-base font-medium leading-4 text-white">
+                        Security
+                      </p>
+                    </div>
+                    <div className="flex items-center mt-4 md:mt-0 md:ml-12">
+                      <div className="flex items-center justify-center w-8 h-8 bg-white rounded">
+                        <p className="text-base font-medium leading-none text-teal-700">
+                          02
+                        </p>
+                      </div>
+                      <p className="ml-3 text-base font-medium leading-4 text-white">
+                        Optional info
+                      </p>
+                    </div>
+                  </div>
+                  <h1
+                    aria-label="profile information"
+                    className="mt-8 text-3xl font-bold text-white focus:outline-none"
+                  >
+                    Security
+                  </h1>
+
+                  <div className="items-center mt-8 md:flex">
+                    <div className="flex flex-col">
+                      <h1 className="pt-2 font-extrabold">Username</h1>
+                      <input
+                        type="text"
+                        placeholder="Username"
+                        value={values.username}
+                        name="username"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                      <h1 className="pt-2 font-extrabold">Password</h1>
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        value={values.password}
+                        name="password"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="items-center mt-2 md:flex">
+                    <div className="flex flex-col">
+                      <h1 className="pt-2 font-extrabold">Email Address</h1>
+                      <input
+                        type="email"
+                        placeholder="E-mail"
+                        value={values.email}
+                        name="email"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="items-center mt-2 md:flex">
+                    <div className="flex flex-col">
+                      <h1 className="pt-2 font-extrabold">Date of birth</h1>
+
+                      <DatePickerField
+                        name="birthday"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                      />
+                    </div>
+                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                      <h1 className="pt-2 font-extrabold">State (Location)</h1>
+
+                      <select
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        name="state"
+                        defaultValue="select"
+                        onChange={handleChange}
+                      >
+                        <option value="select" disabled>
+                          --
+                        </option>
+                        <option value="AL">AL</option>
+                        <option value="AK">AK</option>
+                        <option value="AZ">AZ</option>
+                        <option value="AR">AR</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DE">DE</option>
+                        <option value="DC">D.C.</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="IA">IA</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="ME">ME</option>
+                        <option value="MD">MD</option>
+                        <option value="MA">MA</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MS">MS</option>
+                        <option value="MO">MO</option>
+                        <option value="MT">MT</option>
+                        <option value="NE">NE</option>
+                        <option value="NV">NV</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NY">NY</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VT">VT</option>
+                        <option value="VA">VA</option>
+                        <option value="WA">WA</option>
+                        <option value="WV">WV</option>
+                        <option value="WI">WI</option>
+                        <option value="WY">WY</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={stepClick}
+                    aria-label="Next step"
+                    className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                  >
+                    <span className="text-sm font-medium text-center text-white capitalize">
+                      Next Step
+                    </span>
+                    <svg
+                      className="mt-1 ml-3"
+                      width={12}
+                      height={8}
+                      viewBox="0 0 12 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.01 3H0V5H8.01V8L12 4L8.01 0V3Z"
+                        fill="#242731"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div className="w-full p-10 ">
+                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+                      Sign Up
+                    </h1>
+                    <div className="flex items-center mt-4 md:mt-0">
+                      <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded">
+                        <p className="text-base font-medium leading-none text-teal-500">
+                          01
+                        </p>
+                      </div>
+                      <p className="ml-3 text-base font-medium leading-4 text-white">
+                        Security
+                      </p>
+                    </div>
+                    <div className="flex items-center mt-4 md:mt-0 md:ml-12">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 rounded">
+                        <p className="text-base font-medium leading-none text-white">
+                          02
+                        </p>
+                      </div>
+                      <p className="ml-3 text-base font-medium leading-4 text-white">
+                        Optional info
+                      </p>
+                    </div>
+                  </div>
+                  <h1
+                    tabIndex={0}
+                    aria-label="profile information"
+                    className="mt-8 text-3xl font-bold text-white focus:outline-none"
+                  >
+                    Optional info
+                  </h1>
+
+                  <div className="items-center mt-8 md:flex">
+                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                      <h1 className="pt-2 font-extrabold">First Name</h1>
+                      <input
+                        type="text"
+                        placeholder="First Name"
+                        name="firstName"
+                        value={values.firstName}
+                        tabIndex={0}
+                        aria-label="Enter first name"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                      <h1 className="pt-2 font-extrabold">Last Name</h1>
+                      <input
+                        type="text"
+                        placeholder="Last Name"
+                        value={values.lastName}
+                        name="lastName"
+                        tabIndex={0}
+                        aria-label="Enter last name"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="relative mt-2 lg:hidden md:mt-4">
+                      <h1 className="pt-2 font-extrabold">Gender</h1>
+                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="mt-4 icon icon-tabler icon-tabler-selector"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="#a0aec0"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <polyline points="8 9 12 5 16 9" />
+                          <polyline points="16 15 12 19 8 15" />
+                        </svg>
+                      </div>
+                      <select
+                        aria-label="Selected tab"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        placeholder="Gender"
+                        name="gender"
+                        onChange={handleChange}
+                      >
+                        <option value="Prefer not to say">
+                          Prefer not to say
+                        </option>
+                        <option value="Female Identifying">
+                          Female Identifying
+                        </option>
+                        <option value="Male Identifying">
+                          Male Identifying
+                        </option>
+                        <option value="Non-Conforming">Non-Conforming</option>
+                      </select>
+                    </div>
+                    <div className="relative mt-2 lg:hidden md:mt-4">
+                      <h1 className="pt-2 font-extrabold">
+                        Favorite Workout Type
+                      </h1>
+                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="mt-4 icon icon-tabler icon-tabler-selector"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="#a0aec0"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <polyline points="8 9 12 5 16 9" />
+                          <polyline points="16 15 12 19 8 15" />
+                        </svg>
+                      </div>
+                      <select
+                        aria-label="Selected tab"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        placeholder="Favorite Workout Type"
+                        name="favoriteWorkoutType"
+                        onChange={handleChange}
+                      >
+                        <option value="Cardio">Cardio</option>
+                        <option value="Strength">Strength</option>
+                      </select>
+                    </div>
+                    <div className="relative mt-2 lg:hidden md:mt-4">
+                      <h1 className="pt-2 font-extrabold">Goal</h1>
+                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="mt-4 icon icon-tabler icon-tabler-selector"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="#a0aec0"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <polyline points="8 9 12 5 16 9" />
+                          <polyline points="16 15 12 19 8 15" />
+                        </svg>
+                      </div>
+                      <select
+                        aria-label="Selected tab"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        placeholder="Goal"
+                        name="goal"
+                        defaultValue="select"
+                        onChange={handleChange}
+                      >
+                        <option value="select" disabled>
+                          --
+                        </option>
+                        <option value="Just getting started">
+                          Just getting started
+                        </option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Competition">Competition</option>
+                        <option value="Weight Loss">Weight Loss</option>
+                        <option value="Hobby">Hobby</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="items-center mt-2 md:flex">
+                    <div className="relative lg:hidden md:mt-4">
+                      <h1 className="pt-2 font-extrabold">Workout Frequency</h1>
+                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="mt-4 icon icon-tabler icon-tabler-selector"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="#a0aec0"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <polyline points="8 9 12 5 16 9" />
+                          <polyline points="16 15 12 19 8 15" />
+                        </svg>
+                      </div>
+                      <select
+                        aria-label="Selected tab"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        placeholder="Frequency"
+                        name="frequency"
+                        onChange={handleChange}
+                      >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button
+                    aria-label="Submit"
+                    type="submit"
+                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                  >
+                    <span className="text-sm font-medium text-center text-white capitalize">
+                      Submit
+                    </span>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
-          <div className="items-center mt-2 md:flex">
-            <div className="flex flex-col">
-              <h1 className="pt-2 font-extrabold">Email Address</h1>
-              <input
-                type="text"
-                placeholder="E-mail"
-                name="email"
-                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="items-center mt-2 md:flex">
-            <div className="flex flex-col">
-              <h1 className="pt-2 font-extrabold">Date of birth</h1>
-              <input
-                type="text"
-                placeholder="Birthday"
-                name="birthday"
-                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
-              <h1 className="pt-2 font-extrabold">State (Location)</h1>
-              <input
+        )}
+      </Formik>
+    </div>
+  );
+};
+
+export default SignUp;
+{
+  // <select
+  // className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+  // name="state"
+  // defaultValue="select"
+  // onChange={handleChange}
+  // >
+  // <option value="select" disabled>
+  //   --
+  // </option>
+  // 	<option value="AL">Alabama</option>
+  // 	<option value="AK">Alaska</option>
+  // 	<option value="AZ">Arizona</option>
+  // 	<option value="AR">Arkansas</option>
+  // 	<option value="CA">California</option>
+  // 	<option value="CO">Colorado</option>
+  // 	<option value="CT">Connecticut</option>
+  // 	<option value="DE">Delaware</option>
+  // 	<option value="DC">District Of Columbia</option>
+  // 	<option value="FL">Florida</option>
+  // 	<option value="GA">Georgia</option>
+  // 	<option value="HI">Hawaii</option>
+  // 	<option value="ID">Idaho</option>
+  // 	<option value="IL">Illinois</option>
+  // 	<option value="IN">Indiana</option>
+  // 	<option value="IA">Iowa</option>
+  // 	<option value="KS">Kansas</option>
+  // 	<option value="KY">Kentucky</option>
+  // 	<option value="LA">Louisiana</option>
+  // 	<option value="ME">Maine</option>
+  // 	<option value="MD">Maryland</option>
+  // 	<option value="MA">Massachusetts</option>
+  // 	<option value="MI">Michigan</option>
+  // 	<option value="MN">Minnesota</option>
+  // 	<option value="MS">Mississippi</option>
+  // 	<option value="MO">Missouri</option>
+  // 	<option value="MT">Montana</option>
+  // 	<option value="NE">Nebraska</option>
+  // 	<option value="NV">Nevada</option>
+  // 	<option value="NH">New Hampshire</option>
+  // 	<option value="NJ">New Jersey</option>
+  // 	<option value="NM">New Mexico</option>
+  // 	<option value="NY">New York</option>
+  // 	<option value="NC">North Carolina</option>
+  // 	<option value="ND">North Dakota</option>
+  // 	<option value="OH">Ohio</option>
+  // 	<option value="OK">Oklahoma</option>
+  // 	<option value="OR">Oregon</option>
+  // 	<option value="PA">Pennsylvania</option>
+  // 	<option value="RI">Rhode Island</option>
+  // 	<option value="SC">South Carolina</option>
+  // 	<option value="SD">South Dakota</option>
+  // 	<option value="TN">Tennessee</option>
+  // 	<option value="TX">Texas</option>
+  // 	<option value="UT">Utah</option>
+  // 	<option value="VT">Vermont</option>
+  // 	<option value="VA">Virginia</option>
+  // 	<option value="WA">Washington</option>
+  // 	<option value="WV">West Virginia</option>
+  // 	<option value="WI">Wisconsin</option>
+  // 	<option value="WY">Wyoming</option>
+  // </select>
+}
+{
+  /* <input
                 type="text"
                 placeholder="State (location)"
                 name="state"
                 className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
                 onChange={handleChange}
                 required
-              />
-            </div>
-          </div>
-
-          <button
-            aria-label="Next step"
-            className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
-          >
-            <span className="text-sm font-medium text-center text-white capitalize">
-              Next Step
-            </span>
-            <svg
-              className="mt-1 ml-3"
-              width={12}
-              height={8}
-              viewBox="0 0 12 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M8.01 3H0V5H8.01V8L12 4L8.01 0V3Z" fill="#242731" />
-            </svg>
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-};
-
-export default SignUp;
+              /> */
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { editUserThunk } from "../../store/users";
@@ -7,14 +7,34 @@ import { useRouteMatch } from "react-router-dom";
 import maleImage from "../../assets/male-useravatar.png";
 import femaleImage from "../../assets/female-useravatar.png";
 import defaultImage from "../../assets/default-useravatar.png";
+import { fetchSingleUserThunk } from "../../store/users";
 
 const EditUser = () => {
-  const authUser = useSelector((state) => state.auth);
-  const [userState, setUserState] = useState(authUser);
+  const authUser = useSelector((state) => state.users.user);
+  const [userState, setUserState] = useState({
+    username: authUser.username || "",
+    state: authUser.state || "",
+    favoriteWorkoutType: authUser.favoriteWorkoutType || "",
+    goal: authUser.goal || "",
+  });
+  console.log("this is userState", userState);
 
   let history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const [isLoading, setLoading] = useState(true);
+
+  const fetchData = useCallback(() => {
+    dispatch(fetchSingleUserThunk(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (isLoading) {
+      fetchData();
+    }
+    setLoading(false);
+  }, [fetchData, isLoading]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -27,7 +47,7 @@ const EditUser = () => {
     dispatch(editUserThunk(id, userState));
     history.push(`/users/${id}`);
   };
-
+  console.log("this is authUser", authUser);
   // const actionCodeSettings = {
   //   url: "https://www.example.com/?email=user@example.com",
   //   iOS: {
@@ -78,7 +98,7 @@ const EditUser = () => {
           </div>
           <div className="flex flex-col mt-4">
             <h1 className="mb-1 text-3xl font-bold text-center">
-              {authUser.firstName} {authUser.lastName}
+              {authUser.username}
             </h1>
             <div className="pt-4">
               <h1 className="font-extrabold">Username</h1>
@@ -91,17 +111,92 @@ const EditUser = () => {
                 placeholder="Username"
               />
             </div>
-            <div>
-              <h1 className="pt-2 font-extrabold">State</h1>
-              <label htmlFor="state"></label>
-              <input
-                onChange={handleChange}
+            <div className="relative w-full lg:hidden md:mt-4">
+              <h1 className="pt-2 font-extrabold">State (Location)</h1>
+              <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mt-4 icon icon-tabler icon-tabler-selector"
+                  width={24}
+                  height={24}
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="#a0aec0"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <polyline points="8 9 12 5 16 9" />
+                  <polyline points="16 15 12 19 8 15" />
+                </svg>
+              </div>
+
+              <select
+                aria-label="Selected tab"
+                className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                 name="state"
-                value={userState.state}
-                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
-                placeholder="State"
-              />
+                defaultValue={userState.state}
+                onChange={handleChange}
+              >
+                <option value={userState.state} disabled>
+                  {userState.state}
+                </option>
+
+                <option value="AL">AL</option>
+                <option value="AK">AK</option>
+                <option value="AZ">AZ</option>
+                <option value="AR">AR</option>
+                <option value="CA">CA</option>
+                <option value="CO">CO</option>
+                <option value="CT">CT</option>
+                <option value="DE">DE</option>
+                <option value="DC">D.C.</option>
+                <option value="FL">FL</option>
+                <option value="GA">GA</option>
+                <option value="HI">HI</option>
+                <option value="ID">ID</option>
+                <option value="IL">IL</option>
+                <option value="IN">IN</option>
+                <option value="IA">IA</option>
+                <option value="KS">KS</option>
+                <option value="KY">KY</option>
+                <option value="LA">LA</option>
+                <option value="ME">ME</option>
+                <option value="MD">MD</option>
+                <option value="MA">MA</option>
+                <option value="MI">MI</option>
+                <option value="MN">MN</option>
+                <option value="MS">MS</option>
+                <option value="MO">MO</option>
+                <option value="MT">MT</option>
+                <option value="NE">NE</option>
+                <option value="NV">NV</option>
+                <option value="NH">NH</option>
+                <option value="NJ">NJ</option>
+                <option value="NM">NM</option>
+                <option value="NY">NY</option>
+                <option value="NC">NC</option>
+                <option value="ND">ND</option>
+                <option value="OH">OH</option>
+                <option value="OK">OK</option>
+                <option value="OR">OR</option>
+                <option value="PA">PA</option>
+                <option value="RI">RI</option>
+                <option value="SC">SC</option>
+                <option value="SD">SD</option>
+                <option value="TN">TN</option>
+                <option value="TX">TX</option>
+                <option value="UT">UT</option>
+                <option value="VT">VT</option>
+                <option value="VA">VA</option>
+                <option value="WA">WA</option>
+                <option value="WV">WV</option>
+                <option value="WI">WI</option>
+                <option value="WY">WY</option>
+              </select>
             </div>
+
             <div className="relative w-full lg:hidden md:mt-4">
               <h1 className="pt-2 font-extrabold">Favorite Workout Type</h1>
               <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
@@ -201,3 +296,13 @@ const EditUser = () => {
 };
 
 export default EditUser;
+
+{
+  /* <input
+onChange={handleChange}
+name="state"
+value={userState.state}
+className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+placeholder="State"
+/> */
+}
