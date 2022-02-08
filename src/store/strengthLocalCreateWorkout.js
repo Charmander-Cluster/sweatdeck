@@ -15,7 +15,8 @@ export const strengthLocalEditWorkout = (localWorkout) => {
   };
 };
 
-const initialState = {};
+const initialState = {
+};
 
 export default function strengthLocalCreateWorkoutReducer(state = initialState, action) {
   switch (action.type) {

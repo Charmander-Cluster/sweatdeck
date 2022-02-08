@@ -5,27 +5,25 @@ import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthE
 const StrengthDetails = (props) => {
   const workout = props.workout;
   const handleUpdate = props.handleUpdate
+  const thisArray = props.thisArray
   const strengthLocalWorkout = useSelector(state=>state.strengthLocalWorkout)
 
-  const thisArray = props.thisArray
+  console.log("this array", thisArray)
 
   const [completedExercise, setCompletedExercise ] = useState({})
 
   const [isCompleted, setIsCompleted] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
+  console.log("strength local", strengthLocalWorkout)
 
   const [exercise, setExercise] = useState({
-    bodyPart: "",
-    type: "strength",
-    weight: "",
-    units: "",
-    reps: "",
-    sets: "",
+    bodyPart: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray] ) ? "select" : (strengthLocalWorkout.exercises[thisArray].bodyPart),
+    type: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].type),
+    weight: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].weight),
+    units: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].units),
+    reps: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].reps),
+    sets: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].sets),
   });
-
-  console.log(completedExercise)
-  console.log(workout)
-  console.log("isSaved", isSaved)
 
   const handleChange = (event) => {
     setExercise({ ...exercise, [event.target.name]: event.target.value });
@@ -42,15 +40,18 @@ const StrengthDetails = (props) => {
   // const handleAdd = (event) => {
   //   event.preventDefault();
   //   setIsSaved(true)
-  //   handleUpdate(completedExercise)
+  //   handleUpdaçte(completedExercise)
   //   //setCompletedExercise({})
   // }
 
   useEffect(()=>{
-  if (isCompleted === true)
+  if (isCompleted === true){
     handleUpdate(completedExercise)
-    setIsSaved(true)
-    setIsSaved(false)
+    setIsSaved(true)}
+    else {
+      setIsSaved(false)
+    }
+    //setIsSaved(false)
   }, [isCompleted])
 
 
@@ -77,6 +78,7 @@ const StrengthDetails = (props) => {
                     name="bodyPart"
                     defaultValue="select"
                     onChange={handleChange}
+                    value={exercise.bodyPart}
                   >
                     <option value="select" disabled>
                       --
@@ -102,13 +104,13 @@ const StrengthDetails = (props) => {
                     // className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
                   >
-                    {exercise.bodyPart === "biceps" && <Biceps handleChange={handleChange}/>}
-                    {exercise.bodyPart === "triceps" && <Triceps/>}
-                    {exercise.bodyPart === "shoulders" && <Shoulders handleChange={handleChange}/>}
-                    {exercise.bodyPart === "back" && <Back handleChange={handleChange}/>}
-                    {exercise.bodyPart === "quads" && <Quads handleChange={handleChange}/>}
-                    {exercise.bodyPart === "chest" && <Chest handleChange={handleChange}/>}
-                    {exercise.bodyPart === "abs" && <Abs handleChange={handleChange}/>}
+                    {exercise.bodyPart === "biceps" && <Biceps handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "triceps" && <Triceps handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "shoulders" && <Shoulders handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "back" && <Back handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "quads" && <Quads handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "chest" && <Chest handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "abs" && <Abs handleChange={handleChange} type={exercise.type}/>}
                   </div>
                 </div>
               </div>
@@ -127,6 +129,7 @@ const StrengthDetails = (props) => {
               name="weight"
               required
               type="number"
+              min = "0"
               onChange={handleChange}
               value={exercise.weight}
             />
@@ -141,6 +144,7 @@ const StrengthDetails = (props) => {
               name="units"
               defaultValue="select"
               onChange={handleChange}
+              value={exercise.units}
             >
               <option value="select" disabled>
                 {" "}
@@ -206,8 +210,10 @@ const StrengthDetails = (props) => {
         exercise.weight ===  "" ||
         exercise.units === "" ||
         exercise.reps === "" ||
-        exercise.sets === "") && !isCompleted) ? (<div>Complete all fields to add</div>) : (
-          <div className="flex justify-end">
+        exercise.sets === "")) && (<div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">Complete all fields to add</div>)}
+
+      {(!isCompleted) &&
+        (<div className="flex justify-end">
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
           Confirm Details
         </button>
@@ -215,7 +221,7 @@ const StrengthDetails = (props) => {
         )
       }
 
-      {(isSaved) && ((
+      {(isCompleted) && ((
         <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
         Added to Workout

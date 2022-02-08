@@ -22,16 +22,24 @@ const CreateStrength = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  //const [redirect, setRedirect] = useState(false);
-
-  const strengthLocalWorkout = useSelector(state => state.strengthLocalWorkout
-  );
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
   const userId = authUser.uid;
+
+  const strengthLocalWorkout = useSelector(state => state.strengthLocalWorkout);
+
+  console.log(strengthLocalWorkout)
+  const [counter, setCounter] = useState((strengthLocalWorkout.count) ? strengthLocalWorkout.count : 0);
+
+  const handleAdd = () => {
+    setCounter(counter + 1)
+    setWorkout({ ...workout, count: counter+1 })
+  }
+  console.log("counter", counter)
+
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -42,16 +50,19 @@ const CreateStrength = (props) => {
       dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
       history.push("/confirmstrengthcreate");
     }
-  }, [dispatch, workoutAdded, strengthLocalWorkout, userId]);
+  }, [dispatch, workoutAdded, strengthLocalWorkout, userId])
+
 
   const [workout, setWorkout] = useState({
     category: "strength",
-    name: "",
-    exercises: [],
+    name: (!strengthLocalWorkout.name || strengthLocalWorkout.exercises.length === 0) ? "" : (strengthLocalWorkout.name),
+
+    exercises: (!strengthLocalWorkout.exercises || strengthLocalWorkout.exercises.length===0) ? [] : (strengthLocalWorkout.exercises),
     userId: "",
     timesCompleted: 0,
     datesCompleted: [],
     logs: 0,
+    count: counter
   });
 
   //const [exercise, setExercise] = useState({});
@@ -73,13 +84,12 @@ const CreateStrength = (props) => {
       timesCompleted: 0,
       datesCompleted: [],
       logs: 0,
+      count: 0
     });
-    setWorkoutAdded(false);
-    dispatch(strengthLocalCreateWorkout(workout));
+    //setWorkoutAdded(false);
+    dispatch(strengthLocalCreateWorkout({workout}));
     history.push("/createworkout");
   };
-
-  const [counter, setCounter] = useState(0);
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
@@ -146,9 +156,8 @@ const CreateStrength = (props) => {
                         handleChange={handleChange}
                         handleUpdate={handleUpdate}
                         workout={workout}
-                        thisArray={counter}
+                        thisArray={i+1}
                         key={i}
-                        number={i}
                       />
                     ))}
                   </div>
@@ -159,11 +168,11 @@ const CreateStrength = (props) => {
                       alt="add-workout"
                       src="https://cdn-icons-png.flaticon.com/512/189/189689.png"
                       className="h-8 mr-3 bg-teal-500 rounded-2xl"
-                      onClick={() => setCounter(counter + 1)}
+                      onClick={handleAdd}
                     />
                   </div>
 
-                  { (workout.category === "" ||
+                  {(workout.category === "" ||
                     workout.name === "" ||
                     workout.exercises.length === 0) ?
                  (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :

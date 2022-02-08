@@ -97,7 +97,7 @@ const CreateCardio = (props) => {
       datesCompleted: [],
       logs: 0,
     });
-    dispatch(cardioLocalCreateWorkout(workout));
+    dispatch(cardioLocalCreateWorkout({}));
     history.push("/createworkout");
   };
 
