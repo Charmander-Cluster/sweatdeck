@@ -39,30 +39,32 @@ const EditStrengthDetails = (props) => {
       ...exercise,
       [event.target.name]: event.target.value,
     });
-    console.log("1111111111Exercise from the handlechange: ", exercise);
   };
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    console.log("1111111111[props.num] from handleconfirm: ", props.number);
-    console.log("22222222exercise from handleconfirm: ", exercise);
-
-
     exercises[props.number] = exercise;
     setIsCompleted(true);
     setCompletedExercises(exercises);
-    //console.log("2222222222Exercises from the handleconfirm: ", exercises);
   };
 
-  const handleAdd = (event) => {
-    event.preventDefault();
-    setIsSaved(true);
-    handleUpdate(completedExercises);
-  };
+  // const handleAdd = (event) => {
+  //   event.preventDefault();
+  //   setIsSaved(true);
+  //   handleUpdate(completedExercises);
+  // };
+
+  useEffect(() => {
+    if (isCompleted === true) {
+      handleUpdate(completedExercises);
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  }, [isCompleted]);
 
   const handleRemove = (event) => {
     event.preventDefault();
-    console.log("++++props.number: ", props.number);
     handleDelete(props.number);
   };
 
@@ -257,7 +259,7 @@ const EditStrengthDetails = (props) => {
           </button>
         </div>
 
-        {!isCompleted && !isSaved && (
+        {/* {!isCompleted && !isSaved && (
           <div className="flex justify-end">
             <p className="mt-2 text-red-400 rounded-md p-1 text-sm">
               Complete all fields
@@ -278,52 +280,37 @@ const EditStrengthDetails = (props) => {
               Confirm Details
             </button>
           </div>
-        )}
+        )} */}
 
-        {/* {
+{
         ((exercise.bodyPart === "" ||
         exercise.type === "" ||
         exercise.weight ===  "" ||
         exercise.units === "" ||
         exercise.reps === "" ||
-        exercise.sets === "") && !isCompleted) ? (<div>Complete all fields to add</div>) : (
-          <div className="flex justify-end">
+        exercise.sets === "")) && (<div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">Complete all fields to add</div>)}
+
+      {(!(exercise.bodyPart === "" ||
+        exercise.type === "" ||
+        exercise.weight ===  "" ||
+        exercise.units === "" ||
+        exercise.reps === "" ||
+        exercise.sets === "") && !isCompleted) &&
+        (<div className="flex justify-end">
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
           Confirm Details
         </button>
         </div>
         )
-      } */}
+      }
 
-        {isCompleted && !isSaved && (
-          <div className="flex justify-end">
-            <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
-              Confirmed
-            </div>
-            <button
-              type="add"
-              onClick={handleAdd}
-              className="mt-2 border border-teal-500 rounded-md p-1 text-sm"
-            >
-              Save to Workout
-            </button>
-          </div>
-        )}
-
-        {isCompleted && isSaved && (
-          <div className="flex justify-end">
-            <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
-              Saved to Workout
-            </div>
-
-            {/* <div
-              type="add"
-              className="mt-2 mr-1 text-red-400  border border-red-400 rounded-md p-1"
-            >
-              Delete
-            </div> */}
-          </div>
-        )}
+{(isCompleted) && ((
+        <div className="flex justify-end">
+      <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
+        Saved to Workout
+      </div>
+      </div>)
+      )}
       </div>
     </div>
   );
