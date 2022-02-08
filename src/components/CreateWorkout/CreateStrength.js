@@ -31,14 +31,12 @@ const CreateStrength = (props) => {
 
   const strengthLocalWorkout = useSelector(state => state.strengthLocalWorkout);
 
-  console.log(strengthLocalWorkout)
   const [counter, setCounter] = useState((strengthLocalWorkout.count) ? strengthLocalWorkout.count : 0);
 
   const handleAdd = () => {
     setCounter(counter + 1)
     setWorkout({ ...workout, count: counter+1 })
   }
-  console.log("counter", counter)
 
 
   useEffect(() => {

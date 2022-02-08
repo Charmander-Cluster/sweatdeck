@@ -38,8 +38,6 @@ const StrengthPlaylist = (props) => {
   const accessToken = useAuthStrength(token);
   let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 
-  console.log("strength local", strengthLocalWorkout)
-
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});

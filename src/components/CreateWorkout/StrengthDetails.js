@@ -8,13 +8,10 @@ const StrengthDetails = (props) => {
   const thisArray = props.thisArray
   const strengthLocalWorkout = useSelector(state=>state.strengthLocalWorkout)
 
-  console.log("this array", thisArray)
-
   const [completedExercise, setCompletedExercise ] = useState({})
 
   const [isCompleted, setIsCompleted] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
-  console.log("strength local", strengthLocalWorkout)
 
   const [exercise, setExercise] = useState({
     bodyPart: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray] ) ? "select" : (strengthLocalWorkout.exercises[thisArray].bodyPart),
@@ -57,10 +54,12 @@ const StrengthDetails = (props) => {
 
   return (
     <div>
+
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
+
         <div className="flex justify-center">
           <div className="flex-col justify-center align-center">
             <div className="container flex justify-center">
