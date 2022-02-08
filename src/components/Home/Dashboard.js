@@ -15,14 +15,14 @@ const Dashboard = () => {
   const { latestWorkouts } = useSelector((state) => state.workouts);
   const [workouts, setWorkouts] = useState(latestWorkouts);
 
-  // const fetchData = useCallback(() => {
-  //   dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-  // }, [dispatch, authUser.uid]);
+  const fetchData = useCallback(() => {
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+  }, [dispatch, authUser.uid]);
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+      fetchData();
     }
 
     // const newWorkouts = workouts;
@@ -34,7 +34,7 @@ const Dashboard = () => {
     return () => {
       isMounted = false;
     };
-  }, [authUser.uid, dispatch]);
+  }, [authUser.uid, dispatch, fetchData]);
 
   useEffect(() => {
     setWorkouts(latestWorkouts);
