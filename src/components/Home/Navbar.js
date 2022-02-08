@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed z-40 w-full h-screen">
-      {authUser.uid && authUser.frequency && (
+      {authUser.uid && (
         <section
           id="bottom-navigation"
           className="fixed inset-x-0 bottom-0 z-10 block bg-teal-700 shadow-md md:hidden navbar shadow-black"

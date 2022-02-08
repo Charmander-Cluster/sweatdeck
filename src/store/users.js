@@ -63,6 +63,7 @@ export const editUserThunk = (userId, user) => {
       const response = await getDoc(userData);
       dispatch(editUser(response.data()));
     } catch (err) {
+      console.log("this is user from thunk", user);
       console.log("Failed at Edit User Thunk", err);
     }
   };
