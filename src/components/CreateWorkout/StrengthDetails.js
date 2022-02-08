@@ -212,7 +212,12 @@ const StrengthDetails = (props) => {
         exercise.reps === "" ||
         exercise.sets === "")) && (<div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">Complete all fields to add</div>)}
 
-      {(!isCompleted) &&
+      {(!(exercise.bodyPart === "" ||
+        exercise.type === "" ||
+        exercise.weight ===  "" ||
+        exercise.units === "" ||
+        exercise.reps === "" ||
+        exercise.sets === "") && !isCompleted) &&
         (<div className="flex justify-end">
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
           Confirm Details
