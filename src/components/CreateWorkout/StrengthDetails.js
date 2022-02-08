@@ -15,6 +15,7 @@ const StrengthDetails = (props) => {
   const handleUpdate = props.handleUpdate;
   const thisArray = props.thisArray;
   const handleDelete = props.handleDelete;
+  // const finalExercise = props.finalExercise
   const strengthLocalWorkout = useSelector(
     (state) => state.strengthLocalWorkout
   );
@@ -61,6 +62,19 @@ const StrengthDetails = (props) => {
     setExercise({ ...exercise, [event.target.name]: event.target.value });
   };
 
+  // useEffect(() => {
+  //   if (finalExercise) {
+  //     setExercise({
+  //       bodyPart:"select",
+  //       type:"select",
+  //       weight:"",
+  //       units: "select",
+  //       reps: "",
+  //       sets: ""
+  //     })
+  //   }
+  // }, [finalExercise])
+
   const handleConfirm = (event) => {
     event.preventDefault();
     setIsCompleted(true);
@@ -72,14 +86,28 @@ const StrengthDetails = (props) => {
   // const handleAdd = (event) => {
   //   event.preventDefault();
   //   setIsSaved(true)
-  //   handleUpdaçte(completedExercise)
+  //   handleUpdate(completedExercise)
   //   //setCompletedExercise({})
   // }
 
+  console.log("this array element", thisArray)
+  console.log("workout", workout)
+
   const handleRemove = (event) => {
     event.preventDefault();
+    if (thisArray ===0 ) {
+      setExercise({
+        bodyPart:"select",
+        type:"select",
+        weight:"",
+        units: "select",
+        reps: "",
+        sets: ""
+      })
+      setIsCompleted(false)
+    }
     console.log("++++props.number: ", thisArray);
-    handleDelete(props.thisArray);
+    handleDelete(thisArray);
   };
 
   useEffect(() => {
@@ -96,8 +124,8 @@ const StrengthDetails = (props) => {
     <div>
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
         <div>
-        <div className="flex -mb-2 justify-end">
-          <button onClick={() => handleRemove}>
+        <div className="flex -mb-6 justify-end">
+          <button onClick={handleRemove}>
             {" "}
             <img
               alt="red-x"
@@ -287,9 +315,9 @@ const StrengthDetails = (props) => {
 
         {!(
           exercise.bodyPart === "" ||
-          exercise.type === "" ||
+          (exercise.type === "" || exercise.type === "select")||
           exercise.weight === "" ||
-          exercise.units === "" ||
+          (exercise.units === "" || exercise.units === "select") ||
           exercise.reps === "" ||
           exercise.sets === ""
         ) &&

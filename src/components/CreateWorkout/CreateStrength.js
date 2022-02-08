@@ -22,6 +22,7 @@ const CreateStrength = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
+  // const [finalExercise, setFinalExercise] = useState(true)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -36,8 +37,8 @@ const CreateStrength = (props) => {
   const handleAdd = () => {
     setCounter(counter + 1)
     setWorkout({ ...workout, count: counter+1 })
+    // setFinalExercise(false)
   }
-
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -50,11 +51,15 @@ const CreateStrength = (props) => {
     }
   }, [dispatch, workoutAdded, strengthLocalWorkout, userId])
 
+  // useEffect(() => {
+  //   if (finalExercise) {
+
+  //   }
+  // })
 
   const [workout, setWorkout] = useState({
     category: "strength",
     name: (!strengthLocalWorkout.name || strengthLocalWorkout.exercises.length === 0) ? "" : (strengthLocalWorkout.name),
-
     exercises: (!strengthLocalWorkout.exercises || strengthLocalWorkout.exercises.length===0) ? [] : (strengthLocalWorkout.exercises),
     userId: "",
     timesCompleted: 0,
@@ -75,11 +80,17 @@ const CreateStrength = (props) => {
 
   const handleDelete = (element) => {
     console.log("handleDelete num!!!!!!!!!; ", element);
-    setWorkout(
-      { ...workout },
-      workout.exercises.splice(element, 1)
-    );
+    setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+    if (counter > 0) {
+      setCounter(counter - 1)
+      setWorkout({ ...workout, count: counter-1 })
+    }
+    // else {
+    //   setFinalExercise(true)
+    // }
   };
+
+  // console.log(finalExercise)
 
   const handleCancel = () => {
     setWorkout({
@@ -158,7 +169,7 @@ const CreateStrength = (props) => {
                       thisArray={0}
                       workout={workout}
                     />
-                    {[...Array(counter)].map((_, i) => (
+                    {(counter >= 0)  && [...Array(counter)].map((_, i) => (
                       <StrengthDetails
                         handleChange={handleChange}
                         handleUpdate={handleUpdate}
