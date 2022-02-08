@@ -73,6 +73,14 @@ const CreateStrength = (props) => {
     setWorkout({ ...workout }, workout.exercises.push(exercise));
   };
 
+  const handleDelete = (element) => {
+    console.log("handleDelete num!!!!!!!!!; ", element);
+    setWorkout(
+      { ...workout },
+      workout.exercises.splice(element, 1)
+    );
+  };
+
   const handleCancel = () => {
     setWorkout({
       category: "strength",
@@ -146,6 +154,7 @@ const CreateStrength = (props) => {
                     <StrengthDetails
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
+                      handleDelete = {handleDelete}
                       thisArray={0}
                       workout={workout}
                     />
@@ -153,6 +162,7 @@ const CreateStrength = (props) => {
                       <StrengthDetails
                         handleChange={handleChange}
                         handleUpdate={handleUpdate}
+                        handleDelete = {handleDelete}
                         workout={workout}
                         thisArray={i+1}
                         key={i}

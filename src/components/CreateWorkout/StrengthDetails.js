@@ -1,25 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthExercises"
+import {
+  Biceps,
+  Triceps,
+  Shoulders,
+  Back,
+  Quads,
+  Chest,
+  Abs,
+} from "./StrengthExercises";
 
 const StrengthDetails = (props) => {
   const workout = props.workout;
-  const handleUpdate = props.handleUpdate
-  const thisArray = props.thisArray
-  const strengthLocalWorkout = useSelector(state=>state.strengthLocalWorkout)
+  const handleUpdate = props.handleUpdate;
+  const thisArray = props.thisArray;
+  const handleDelete = props.handleDelete;
+  const strengthLocalWorkout = useSelector(
+    (state) => state.strengthLocalWorkout
+  );
 
-  const [completedExercise, setCompletedExercise ] = useState({})
+  const [completedExercise, setCompletedExercise] = useState({});
 
-  const [isCompleted, setIsCompleted] = useState(false)
-  const [isSaved, setIsSaved] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const [exercise, setExercise] = useState({
-    bodyPart: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray] ) ? "select" : (strengthLocalWorkout.exercises[thisArray].bodyPart),
-    type: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].type),
-    weight: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].weight),
-    units: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].units),
-    reps: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].reps),
-    sets: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].sets),
+    bodyPart:
+      !strengthLocalWorkout.exercises ||
+      !strengthLocalWorkout.exercises[thisArray]
+        ? "select"
+        : strengthLocalWorkout.exercises[thisArray].bodyPart,
+    type:
+      !strengthLocalWorkout.exercises ||
+      !strengthLocalWorkout.exercises[thisArray]
+        ? "select"
+        : strengthLocalWorkout.exercises[thisArray].type,
+    weight:
+      !strengthLocalWorkout.exercises ||
+      !strengthLocalWorkout.exercises[thisArray]
+        ? ""
+        : strengthLocalWorkout.exercises[thisArray].weight,
+    units:
+      !strengthLocalWorkout.exercises ||
+      !strengthLocalWorkout.exercises[thisArray]
+        ? "select"
+        : strengthLocalWorkout.exercises[thisArray].units,
+    reps:
+      !strengthLocalWorkout.exercises ||
+      !strengthLocalWorkout.exercises[thisArray]
+        ? ""
+        : strengthLocalWorkout.exercises[thisArray].reps,
+    sets:
+      !strengthLocalWorkout.exercises ||
+      !strengthLocalWorkout.exercises[thisArray]
+        ? ""
+        : strengthLocalWorkout.exercises[thisArray].sets,
   });
 
   const handleChange = (event) => {
@@ -28,11 +63,11 @@ const StrengthDetails = (props) => {
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    setIsCompleted(true)
-    setCompletedExercise(exercise)
+    setIsCompleted(true);
+    setCompletedExercise(exercise);
     //handleUpdate(completedExercise)
     //setIsSaved(true)
-  }
+  };
 
   // const handleAdd = (event) => {
   //   event.preventDefault();
@@ -41,21 +76,37 @@ const StrengthDetails = (props) => {
   //   //setCompletedExercise({})
   // }
 
-  useEffect(()=>{
-  if (isCompleted === true){
-    handleUpdate(completedExercise)
-    setIsSaved(true)}
-    else {
-      setIsSaved(false)
+  const handleRemove = (event) => {
+    event.preventDefault();
+    console.log("++++props.number: ", thisArray);
+    handleDelete(props.thisArray);
+  };
+
+  useEffect(() => {
+    if (isCompleted === true) {
+      handleUpdate(completedExercise);
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
     }
     //setIsSaved(false)
-  }, [isCompleted])
-
+  }, [isCompleted]);
 
   return (
     <div>
-
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
+        <div>
+        <div className="flex -mb-2 justify-end">
+          <button onClick={() => handleRemove}>
+            {" "}
+            <img
+              alt="red-x"
+              className="h-5"
+              src="https://cdn-icons-png.flaticon.com/512/1828/1828595.png"
+            />{" "}
+          </button>
+        </div>
+        </div>
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
@@ -100,16 +151,38 @@ const StrengthDetails = (props) => {
                     Exercise
                   </label>
                   <div
-                    // className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
+                  // className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    {exercise.bodyPart === "biceps" && <Biceps handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "triceps" && <Triceps handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "shoulders" && <Shoulders handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "back" && <Back handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "quads" && <Quads handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "chest" && <Chest handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "abs" && <Abs handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "biceps" && (
+                      <Biceps
+                        handleChange={handleChange}
+                        type={exercise.type}
+                      />
+                    )}
+                    {exercise.bodyPart === "triceps" && (
+                      <Triceps
+                        handleChange={handleChange}
+                        type={exercise.type}
+                      />
+                    )}
+                    {exercise.bodyPart === "shoulders" && (
+                      <Shoulders
+                        handleChange={handleChange}
+                        type={exercise.type}
+                      />
+                    )}
+                    {exercise.bodyPart === "back" && (
+                      <Back handleChange={handleChange} type={exercise.type} />
+                    )}
+                    {exercise.bodyPart === "quads" && (
+                      <Quads handleChange={handleChange} type={exercise.type} />
+                    )}
+                    {exercise.bodyPart === "chest" && (
+                      <Chest handleChange={handleChange} type={exercise.type} />
+                    )}
+                    {exercise.bodyPart === "abs" && (
+                      <Abs handleChange={handleChange} type={exercise.type} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -128,7 +201,7 @@ const StrengthDetails = (props) => {
               name="weight"
               required
               type="number"
-              min = "0"
+              min="0"
               onChange={handleChange}
               value={exercise.weight}
             />
@@ -182,11 +255,9 @@ const StrengthDetails = (props) => {
           </div>
         </div>
 
+        <div className="flex justify-center"></div>
 
-        <div className="flex justify-center">
-        </div>
-
-{/*
+        {/*
       {(!isCompleted && !isSaved) && (<div className="flex justify-end">
         <p className="mt-2 text-red-400 rounded-md p-1 text-sm">Complete all fields</p>
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm"
@@ -203,37 +274,46 @@ const StrengthDetails = (props) => {
         </div>
       )} */}
 
-      {
-        ((exercise.bodyPart === "" ||
-        exercise.type === "" ||
-        exercise.weight ===  "" ||
-        exercise.units === "" ||
-        exercise.reps === "" ||
-        exercise.sets === "")) && (<div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">Complete all fields to add</div>)}
+        {(exercise.bodyPart === "" ||
+          exercise.type === "" ||
+          exercise.weight === "" ||
+          exercise.units === "" ||
+          exercise.reps === "" ||
+          exercise.sets === "") && (
+          <div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">
+            Complete all fields to add
+          </div>
+        )}
 
-      {(!(exercise.bodyPart === "" ||
-        exercise.type === "" ||
-        exercise.weight ===  "" ||
-        exercise.units === "" ||
-        exercise.reps === "" ||
-        exercise.sets === "") && !isCompleted) &&
-        (<div className="flex justify-end">
-        <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
-          Confirm Details
-        </button>
-        </div>
-        )
-      }
+        {!(
+          exercise.bodyPart === "" ||
+          exercise.type === "" ||
+          exercise.weight === "" ||
+          exercise.units === "" ||
+          exercise.reps === "" ||
+          exercise.sets === ""
+        ) &&
+          !isCompleted && (
+            <div className="flex justify-end">
+              <button
+                type="add"
+                onClick={handleConfirm}
+                className="mt-2 border border-teal-500 rounded-md p-1 text-sm"
+              >
+                Confirm Details
+              </button>
+            </div>
+          )}
 
-      {(isCompleted) && ((
-        <div className="flex justify-end">
-      <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
-        Added to Workout
-      </div>
-      </div>)
-      )}
+        {isCompleted && (
+          <div className="flex justify-end">
+            <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
+              Added to Workout
+            </div>
+          </div>
+        )}
 
-      {/* {(isCompleted && !isSaved) && ((
+        {/* {(isCompleted && !isSaved) && ((
       <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
         Confirmed
@@ -244,7 +324,7 @@ const StrengthDetails = (props) => {
       </div>)
       )} */}
 
-      {/* {(isSaved) && ((
+        {/* {(isSaved) && ((
         <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
         Added to Workout
@@ -256,7 +336,7 @@ const StrengthDetails = (props) => {
       </div>)
       )} */}
 
-{/*
+        {/*
       {(!isCompleted ?
         (<div className="flex justify-end">
         <button type="add" onClick={handleComplete} className="mt-2 mr-1 border border-teal-500 rounded-md p-1">
@@ -273,8 +353,6 @@ const StrengthDetails = (props) => {
         </button>
         </div>)
         )} */}
-
-
       </div>
     </div>
   );
