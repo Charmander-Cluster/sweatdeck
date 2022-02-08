@@ -6,7 +6,7 @@ import auth from "../../store/auth";
 const Navbar = () => {
   const authUser = useSelector((state) => state.auth);
 
-  console.log(authUser.frequency);
+  console.log(authUser.uid);
 
   return (
     <div className="fixed z-40 w-full h-screen">

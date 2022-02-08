@@ -27,34 +27,34 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Routes = () => {
   const authUser = useSelector((state) => state.auth);
-  let auth = getAuth();
+  const auth = getAuth();
 
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   // console.log(authUser.uid);
 
-  const [user, setUser] = useState(auth);
+  const [user, setUser] = useState(getAuth().currentUser);
   onAuthStateChanged(auth, (user) => {
-    if (!authUser.uid) {
-      dispatch(fetchLoginUser());
-    }
     setUser(user);
   });
 
-  // const fetchUser = useCallback(() => {
-  //   if (user) {
-  //     dispatch(fetchLoginUser());
-  //   }
-  // }, [dispatch, user]);
+  const fetchUser = useCallback(() => {
+    dispatch(fetchLoginUser());
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     fetchUser();
-  //   }
-  //   setLoading(false);
-  // }, [dispatch, fetchUser, isLoading]);
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      fetchUser();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch, fetchUser]);
 
   console.log(authUser);
 
