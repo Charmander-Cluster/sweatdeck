@@ -47,8 +47,8 @@ const CreateCardio = (props) => {
 
   const [workout, setWorkout] = useState({
     category: "cardio",
-    name: "",
-    exercises: [],
+    name: (!cardioLocalWorkout.name) ? "" : (cardioLocalWorkout.name),
+    exercises: (!cardioLocalWorkout.exercises || cardioLocalWorkout.exercises.length===0) ? [] : (cardioLocalWorkout.exercises),
     userId: "",
     timesCompleted: 0,
     datesCompleted: [],
@@ -56,11 +56,11 @@ const CreateCardio = (props) => {
   });
 
   const [exercises, setExercises] = useState({
-    type: "",
-    distance: "",
-    units: "",
-    hours: "",
-    minutes: "",
+    type: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].type),
+    distance: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].distance),
+    units: (!cardioLocalWorkout.exercises) ? "select" : (cardioLocalWorkout.exercises[0].units),
+    hours: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].hours),
+    minutes: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].minutes),
   });
 
   const handleChange = (event) => {
@@ -139,6 +139,7 @@ const CreateCardio = (props) => {
                                 className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 name="type"
                                 defaultValue=""
+                                value={exercises.type}
                                 onChange={handleNestedChange}
                               >
                                 <option value="" disabled></option>
@@ -195,7 +196,7 @@ const CreateCardio = (props) => {
                                   type="number"
                                   min="0"
                                   onChange={handleNestedChange}
-                                  value={workout.distance}
+                                  value={exercises.distance}
                                 />
                               </div>
 
@@ -211,6 +212,7 @@ const CreateCardio = (props) => {
                                   name="units"
                                   required
                                   defaultValue="select"
+                                  value={exercises.units}
                                   onChange={handleNestedChange}
                                 >
                                   <option value="select" disabled>
@@ -238,8 +240,8 @@ const CreateCardio = (props) => {
                                   required
                                   type="number"
                                   min="0"
+                                  value={exercises.hours}
                                   onChange={handleNestedChange}
-                                  value={workout.hours}
                                 />
                               </div>
                               <div className="mt-10">:</div>
@@ -256,8 +258,8 @@ const CreateCardio = (props) => {
                                   required
                                   type="number"
                                   min="0"
+                                  value={exercises.minutes}
                                   onChange={handleNestedChange}
-                                  value={workout.minutes}
                                 />
                               </div>
                             </div>
