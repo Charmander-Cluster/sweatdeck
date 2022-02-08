@@ -24,6 +24,7 @@ import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
+import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -48,8 +49,13 @@ const Routes = (props) => {
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
           <Route
             exact
-            path="/users/:id/workouts/:docId/editCardio"
+            path="/users/:id/workouts/:docId/editcardio"
             component={EditCardioWorkout}
+          />
+                    <Route
+            exact
+            path="/users/:id/workouts/:docId/editstrength"
+            component={EditStrengthWorkout}
           />
           <Route
             path="/confirmstrengthcreate"
