@@ -34,7 +34,8 @@ const CreateWorkout = () => {
       </div>
 
       <div className="flex items-center justify-center">
-        <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/>
+        {/* <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/> */}
+        <img src="purple-clipboard.png" className="h-32 mt-10" alt="add-list"/>
       </div>
 
       <div className="grid justify-center mt-16 mb-10">

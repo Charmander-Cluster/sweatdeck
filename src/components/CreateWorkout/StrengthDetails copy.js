@@ -5,8 +5,9 @@ import { Biceps, Triceps, Shoulders, Back, Quads, Chest, Abs } from "./StrengthE
 const StrengthDetails = (props) => {
   const workout = props.workout;
   const handleUpdate = props.handleUpdate
-  const thisArray = props.thisArray
   const strengthLocalWorkout = useSelector(state=>state.strengthLocalWorkout)
+
+  const thisArray = props.thisArray
 
   const [completedExercise, setCompletedExercise ] = useState({})
 
@@ -14,12 +15,12 @@ const StrengthDetails = (props) => {
   const [isSaved, setIsSaved] = useState(false)
 
   const [exercise, setExercise] = useState({
-    bodyPart: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray] ) ? "select" : (strengthLocalWorkout.exercises[thisArray].bodyPart),
-    type: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].type),
-    weight: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].weight),
-    units: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].units),
-    reps: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].reps),
-    sets: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].sets),
+    bodyPart: "",
+    type: "strength",
+    weight: "",
+    units: "",
+    reps: "",
+    sets: "",
   });
 
   const handleChange = (event) => {
@@ -28,38 +29,36 @@ const StrengthDetails = (props) => {
 
   const handleConfirm = (event) => {
     event.preventDefault();
+    // for (let key in exercise) {
+    //   if (!exercise[key]) {
+    //     alert("All fields are required.")
+
+    //   }
+    // }
     setIsCompleted(true)
     setCompletedExercise(exercise)
-    //handleUpdate(completedExercise)
-    //setIsSaved(true)
   }
 
-  // const handleAdd = (event) => {
-  //   event.preventDefault();
-  //   setIsSaved(true)
-  //   handleUpdaçte(completedExercise)
-  //   //setCompletedExercise({})
-  // }
-
-  useEffect(()=>{
-  if (isCompleted === true){
+  const handleAdd = (event) => {
+    event.preventDefault();
+    setIsSaved(true)
     handleUpdate(completedExercise)
-    setIsSaved(true)}
-    else {
-      setIsSaved(false)
-    }
-    //setIsSaved(false)
-  }, [isCompleted])
+    //setCompletedExercise({})
+  }
+
+  // useEffect(()=>{
+  // if (isCompleted === true)
+  //   handleUpdate(completedExercise)
+  //   setIsSaved(true)
+  // }, [isSaved, isCompleted, handleUpdate, completedExercise])
 
 
   return (
     <div>
-
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
-
         <div className="flex justify-center">
           <div className="flex-col justify-center align-center">
             <div className="container flex justify-center">
@@ -77,7 +76,6 @@ const StrengthDetails = (props) => {
                     name="bodyPart"
                     defaultValue="select"
                     onChange={handleChange}
-                    value={exercise.bodyPart}
                   >
                     <option value="select" disabled>
                       --
@@ -103,13 +101,13 @@ const StrengthDetails = (props) => {
                     // className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
                   >
-                    {exercise.bodyPart === "biceps" && <Biceps handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "triceps" && <Triceps handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "shoulders" && <Shoulders handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "back" && <Back handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "quads" && <Quads handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "chest" && <Chest handleChange={handleChange} type={exercise.type}/>}
-                    {exercise.bodyPart === "abs" && <Abs handleChange={handleChange} type={exercise.type}/>}
+                    {exercise.bodyPart === "biceps" && <Biceps handleChange={handleChange}/>}
+                    {exercise.bodyPart === "triceps" && <Triceps/>}
+                    {exercise.bodyPart === "shoulders" && <Shoulders handleChange={handleChange}/>}
+                    {exercise.bodyPart === "back" && <Back handleChange={handleChange}/>}
+                    {exercise.bodyPart === "quads" && <Quads handleChange={handleChange}/>}
+                    {exercise.bodyPart === "chest" && <Chest handleChange={handleChange}/>}
+                    {exercise.bodyPart === "abs" && <Abs handleChange={handleChange}/>}
                   </div>
                 </div>
               </div>
@@ -128,7 +126,6 @@ const StrengthDetails = (props) => {
               name="weight"
               required
               type="number"
-              min = "0"
               onChange={handleChange}
               value={exercise.weight}
             />
@@ -143,7 +140,6 @@ const StrengthDetails = (props) => {
               name="units"
               defaultValue="select"
               onChange={handleChange}
-              value={exercise.units}
             >
               <option value="select" disabled>
                 {" "}
@@ -186,7 +182,7 @@ const StrengthDetails = (props) => {
         <div className="flex justify-center">
         </div>
 
-{/*
+
       {(!isCompleted && !isSaved) && (<div className="flex justify-end">
         <p className="mt-2 text-red-400 rounded-md p-1 text-sm">Complete all fields</p>
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm"
@@ -201,39 +197,24 @@ const StrengthDetails = (props) => {
           Confirm Details
         </button>
         </div>
-      )} */}
+      )}
 
-      {
+      {/* {
         ((exercise.bodyPart === "" ||
         exercise.type === "" ||
         exercise.weight ===  "" ||
         exercise.units === "" ||
         exercise.reps === "" ||
-        exercise.sets === "")) && (<div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">Complete all fields to add</div>)}
-
-      {(!(exercise.bodyPart === "" ||
-        exercise.type === "" ||
-        exercise.weight ===  "" ||
-        exercise.units === "" ||
-        exercise.reps === "" ||
-        exercise.sets === "") && !isCompleted) &&
-        (<div className="flex justify-end">
+        exercise.sets === "") && !isCompleted) ? (<div>Complete all fields to add</div>) : (
+          <div className="flex justify-end">
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
           Confirm Details
         </button>
         </div>
         )
-      }
+      } */}
 
-      {(isCompleted) && ((
-        <div className="flex justify-end">
-      <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
-        Added to Workout
-      </div>
-      </div>)
-      )}
-
-      {/* {(isCompleted && !isSaved) && ((
+      {(isCompleted && !isSaved) && ((
       <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
         Confirmed
@@ -242,9 +223,9 @@ const StrengthDetails = (props) => {
         Add to Workout
       </button>
       </div>)
-      )} */}
+      )}
 
-      {/* {(isSaved) && ((
+      {(isCompleted && isSaved) && ((
         <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
         Added to Workout
@@ -254,7 +235,7 @@ const StrengthDetails = (props) => {
         Delete
       </div>
       </div>)
-      )} */}
+      )}
 
 {/*
       {(!isCompleted ?

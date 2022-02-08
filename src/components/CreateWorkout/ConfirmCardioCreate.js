@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 import { logDBWorkout } from "../../store/logWorkout"
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -88,13 +88,14 @@ const ConfirmCardioCreate = () => {
           </div>
         </div>
         <div className="grid justify-center">
+          <Link to="/">
           <button
             type="button"
             className="text-xl text-white rounded-md mt-5 p-3 border border-white w-52"
-            onClick={()=>history.push("/")}
           >
             Return Home
           </button>
+          </Link>
         </div>
         </div>
       )}
