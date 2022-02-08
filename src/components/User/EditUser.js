@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { editUserThunk } from "../../store/users";
@@ -7,14 +7,32 @@ import { useRouteMatch } from "react-router-dom";
 import maleImage from "../../assets/male-useravatar.png";
 import femaleImage from "../../assets/female-useravatar.png";
 import defaultImage from "../../assets/default-useravatar.png";
+import { fetchSingleUserThunk } from "../../store/users";
 
 const EditUser = () => {
-  const authUser = useSelector((state) => state.auth);
-  const [userState, setUserState] = useState(authUser);
+  const authUser = useSelector((state) => state.users.user);
+  const [userState, setUserState] = useState({
+    username: authUser.username || "",
+    state: authUser.state || "",
+    favoriteWorkoutType: authUser.favoriteWorkoutType || "",
+    goal: authUser.goal || "",
+  });
 
   let history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [isLoading, setLoading] = useState(true);
+
+  const fetchData = useCallback(() => {
+    dispatch(fetchSingleUserThunk(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (isLoading) {
+      fetchData();
+    }
+    setLoading(false);
+  }, [fetchData, isLoading]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -42,6 +60,8 @@ const EditUser = () => {
   // };
 
   // console.log(useRouteMatch());
+
+  console.log(userState);
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -78,7 +98,7 @@ const EditUser = () => {
           </div>
           <div className="flex flex-col mt-4">
             <h1 className="mb-1 text-3xl font-bold text-center">
-              {authUser.firstName} {authUser.lastName}
+              {authUser.username}
             </h1>
             <div className="pt-4">
               <h1 className="font-extrabold">Username</h1>
@@ -162,7 +182,7 @@ const EditUser = () => {
                 onChange={handleChange}
                 defaultValue={userState.goal}
               >
-                <option value="Get started">Just getting started</option>
+                <option value="Get started">{authUser.goal}</option>
                 <option value="Maintenance">Maintenance</option>
                 <option value="Competition">Competition</option>
                 <option value="Weight Loss">Weight Loss</option>

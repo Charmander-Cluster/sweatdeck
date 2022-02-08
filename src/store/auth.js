@@ -43,8 +43,6 @@ export const authSignUp = (user) => async (dispatch) => {
   try {
     const auth = getAuth();
 
-    console.log(user.email);
-
     const response = await createUserWithEmailAndPassword(
       auth,
       user.email,

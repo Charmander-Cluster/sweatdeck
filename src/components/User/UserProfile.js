@@ -8,6 +8,7 @@ import defaultImage from "../../assets/default-useravatar.png";
 import { isSameDay } from "date-fns";
 import { fetchAllUserWorkoutsThunk } from "../../store/workouts";
 import { logout } from "../../store/auth";
+import { fetchSingleUserThunk } from "../../store/users";
 
 const UserProfile = () => {
   let history = useHistory();
@@ -15,15 +16,16 @@ const UserProfile = () => {
   const { id } = useParams();
 
   const [date, setDate] = useState(new Date());
-  const authUser = useSelector((state) => state.auth);
+  const authUser = useSelector((state) => state.users.user);
   const [isLoading, setLoading] = useState(true);
 
   const { allWorkouts } = useSelector((state) => state.workouts);
   const [workouts, setWorkouts] = useState({});
 
   const fetchData = useCallback(() => {
-    dispatch(fetchAllUserWorkoutsThunk(authUser.uid));
-  }, [dispatch, authUser.uid]);
+    dispatch(fetchAllUserWorkoutsThunk(id));
+    dispatch(fetchSingleUserThunk(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (isLoading) {
@@ -32,6 +34,8 @@ const UserProfile = () => {
     setWorkouts(allWorkouts);
     setLoading(false);
   }, [fetchData, isLoading, allWorkouts]);
+
+  console.log(authUser);
 
   const dateConverter = () => {
     const workoutDatesArr = [];

@@ -27,40 +27,40 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Routes = () => {
   const authUser = useSelector((state) => state.auth);
-  const auth = getAuth();
+  // const auth = getAuth();
 
-  // const [isLoading, setLoading] = useState(true);
+  // // const [isLoading, setLoading] = useState(true);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  // console.log(authUser.uid);
+  // // console.log(authUser.uid);
 
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(auth, (user) => {
-    setUser(user);
-  });
+  // const [user, setUser] = useState(getAuth().currentUser);
+  // onAuthStateChanged(auth, (user) => {
+  //   setUser(user);
+  // });
 
-  const fetchUser = useCallback(() => {
-    dispatch(fetchLoginUser());
-  }, [dispatch]);
+  // const fetchUser = useCallback(() => {
+  //   dispatch(fetchLoginUser());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    let isMounted = true;
+  // useEffect(() => {
+  //   let isMounted = true;
 
-    if (isMounted) {
-      fetchUser();
-    }
+  //   if (isMounted) {
+  //     fetchUser();
+  //   }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [dispatch, fetchUser]);
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [dispatch, fetchUser]);
 
   console.log(authUser);
 
   return (
     <>
-      {user ? (
+      {authUser.uid ? (
         <Switch>
           {/* <Route exact path="/optionalsignup" /> */}
           <Route exact path="/createworkout" component={CreateWorkout} />
