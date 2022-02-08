@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/User/UserProfile";
 import EditUser from "./components/User/EditUser";
@@ -15,26 +15,54 @@ import {
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/User/SignIn";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "./store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import OptionalSignUp from "./components/User/OptionalSignUp";
 import SingleWorkout from "./components/Workouts/SingleWorkout";
 import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const Routes = (props) => {
+const Routes = () => {
   const authUser = useSelector((state) => state.auth);
+  let auth = getAuth();
 
-  // console.log(authUser);
+  const [isLoading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
+  // console.log(authUser.uid);
+
+  const [user, setUser] = useState(auth);
+  onAuthStateChanged(auth, (user) => {
+    if (!authUser.uid) {
+      dispatch(fetchLoginUser());
+    }
+    setUser(user);
+  });
+
+  // const fetchUser = useCallback(() => {
+  //   if (user) {
+  //     dispatch(fetchLoginUser());
+  //   }
+  // }, [dispatch, user]);
+
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     fetchUser();
+  //   }
+  //   setLoading(false);
+  // }, [dispatch, fetchUser, isLoading]);
+
+  console.log(authUser);
 
   return (
     <>
-      {authUser.uid ? (
+      {user ? (
         <Switch>
-          <Route exact path="/optionalsignup" component={OptionalSignUp} />
+          {/* <Route exact path="/optionalsignup" /> */}
           <Route exact path="/createworkout" component={CreateWorkout} />
           <Route exact path="/createworkout/cardio" component={CreateCardio} />
           <Route
@@ -73,7 +101,7 @@ const Routes = (props) => {
       ) : (
         <Switch>
           <Route exact path="/signup" component={SignUp} />
-          <SignIn />
+          <Route exact path="/" component={SignIn} />
         </Switch>
       )}
     </>

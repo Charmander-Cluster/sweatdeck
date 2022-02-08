@@ -39,34 +39,32 @@ export const fetchLoginUser = () => async (dispatch) => {
   }
 };
 
-export const authSignUp = (user, userId) => async (dispatch) => {
+export const authSignUp = (user) => async (dispatch) => {
   try {
     const auth = getAuth();
 
+    console.log(user.email);
+
+    const response = await createUserWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
+
     const users = collection(db, "users");
 
-    if (user.password) {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password
-      );
-      await setDoc(doc(users, response.user.uid), {
-        email: user.email || "",
-        username: user.username || "",
-        state: user.state || "",
-        birthday: user.birthday || "",
-      });
-    } else {
-      await updateDoc(doc(users, userId), {
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        gender: user.gender || "",
-        favoriteWorkoutType: user.favoriteWorkoutType || "",
-        frequency: user.frequency || "",
-        goal: user.goal || "",
-      });
-    }
+    await setDoc(doc(users, response.user.uid), {
+      email: user.email,
+      username: user.username,
+      state: user.state,
+      birthday: user.birthday,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      gender: user.gender,
+      favoriteWorkoutType: user.favoriteWorkoutType,
+      frequency: user.frequency,
+      goal: user.goal,
+    });
 
     dispatch(setAuth(user));
   } catch (error) {

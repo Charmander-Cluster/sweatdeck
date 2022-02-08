@@ -2,7 +2,7 @@ import React from "react";
 import DynamicWorkoutCardioChart from "../Charts/DynamicCardioChart";
 
 const DynamicCardio = (props) => {
-  console.log("Dynamic Cardio ---", props.userId);
+  // console.log("Dynamic Cardio ---", props.userId);
 
   return (
     <div className="container px-6 pt-4 mx-auto snap-center">

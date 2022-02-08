@@ -33,8 +33,6 @@ const UserProfile = () => {
     setLoading(false);
   }, [fetchData, isLoading, allWorkouts]);
 
-  console.log(workouts);
-
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
@@ -64,7 +62,7 @@ const UserProfile = () => {
 
   const handleClick = () => {
     dispatch(logout());
-    history.push("/signin");
+    history.push("/");
   };
 
   return (
