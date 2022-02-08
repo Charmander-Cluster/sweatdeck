@@ -115,9 +115,9 @@ const StrengthPlaylist = (props) => {
       <div className="grid place-items-center">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
-            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
+            {/* <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
               Cancel
-            </button>
+            </button> */}
           </div>
           <div className="flex-col justify-center">
             <div className="grid justify-center">
