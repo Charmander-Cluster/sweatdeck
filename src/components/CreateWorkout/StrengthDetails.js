@@ -18,7 +18,7 @@ const StrengthDetails = (props) => {
 
   const [exercise, setExercise] = useState({
     bodyPart: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray] ) ? "select" : (strengthLocalWorkout.exercises[thisArray].bodyPart),
-    type: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].type),
+    type: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].type),
     weight: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].weight),
     units: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "select" : (strengthLocalWorkout.exercises[thisArray].units),
     reps: (!strengthLocalWorkout.exercises || !strengthLocalWorkout.exercises[thisArray]) ? "" : (strengthLocalWorkout.exercises[thisArray].reps),
