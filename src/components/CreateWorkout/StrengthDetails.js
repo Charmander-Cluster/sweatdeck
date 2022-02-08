@@ -62,33 +62,11 @@ const StrengthDetails = (props) => {
     setExercise({ ...exercise, [event.target.name]: event.target.value });
   };
 
-  // useEffect(() => {
-  //   if (finalExercise) {
-  //     setExercise({
-  //       bodyPart:"select",
-  //       type:"select",
-  //       weight:"",
-  //       units: "select",
-  //       reps: "",
-  //       sets: ""
-  //     })
-  //   }
-  // }, [finalExercise])
-
   const handleConfirm = (event) => {
     event.preventDefault();
     setIsCompleted(true);
     setCompletedExercise(exercise);
-    //handleUpdate(completedExercise)
-    //setIsSaved(true)
   };
-
-  // const handleAdd = (event) => {
-  //   event.preventDefault();
-  //   setIsSaved(true)
-  //   handleUpdate(completedExercise)
-  //   //setCompletedExercise({})
-  // }
 
   console.log("this array element", thisArray)
   console.log("workout", workout)
@@ -117,7 +95,6 @@ const StrengthDetails = (props) => {
     } else {
       setIsSaved(false);
     }
-    //setIsSaved(false)
   }, [isCompleted]);
 
   return (
@@ -285,23 +262,6 @@ const StrengthDetails = (props) => {
 
         <div className="flex justify-center"></div>
 
-        {/*
-      {(!isCompleted && !isSaved) && (<div className="flex justify-end">
-        <p className="mt-2 text-red-400 rounded-md p-1 text-sm">Complete all fields</p>
-        <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm"
-        disabled={
-          exercise.bodyPart === "" ||
-          exercise.type === "" ||
-          exercise.weight ===  "" ||
-          exercise.units === "" ||
-          exercise.reps === "" ||
-          exercise.sets === ""
-        }>
-          Confirm Details
-        </button>
-        </div>
-      )} */}
-
         {(exercise.bodyPart === "" ||
           exercise.type === "" ||
           exercise.weight === "" ||
@@ -341,46 +301,6 @@ const StrengthDetails = (props) => {
           </div>
         )}
 
-        {/* {(isCompleted && !isSaved) && ((
-      <div className="flex justify-end">
-      <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
-        Confirmed
-      </div>
-      <button type="add" onClick={handleAdd} className="mt-2 border border-teal-500 rounded-md p-1 text-sm">
-        Add to Workout
-      </button>
-      </div>)
-      )} */}
-
-        {/* {(isSaved) && ((
-        <div className="flex justify-end">
-      <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
-        Added to Workout
-      </div>
-
-      <div type="add" className="mt-2 mr-1 text-red-400  border border-red-400 rounded-md p-1">
-        Delete
-      </div>
-      </div>)
-      )} */}
-
-        {/*
-      {(!isCompleted ?
-        (<div className="flex justify-end">
-        <button type="add" onClick={handleComplete} className="mt-2 mr-1 border border-teal-500 rounded-md p-1">
-          Finish Update
-        </button>
-        </div>
-        ) :
-        (<div className="flex justify-end">
-        <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
-          Updated
-        </div>
-        <button type="add" onClick={handleAdd} className="mt-2 border border-teal-500 rounded-md p-1">
-          Save
-        </button>
-        </div>)
-        )} */}
       </div>
     </div>
   );
