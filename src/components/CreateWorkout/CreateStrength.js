@@ -38,7 +38,6 @@ const CreateStrength = (props) => {
     setWorkout({ ...workout, count: counter+1 })
   }
 
-
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
@@ -50,11 +49,9 @@ const CreateStrength = (props) => {
     }
   }, [dispatch, workoutAdded, strengthLocalWorkout, userId])
 
-
   const [workout, setWorkout] = useState({
     category: "strength",
     name: (!strengthLocalWorkout.name || strengthLocalWorkout.exercises.length === 0) ? "" : (strengthLocalWorkout.name),
-
     exercises: (!strengthLocalWorkout.exercises || strengthLocalWorkout.exercises.length===0) ? [] : (strengthLocalWorkout.exercises),
     userId: "",
     timesCompleted: 0,
@@ -63,14 +60,21 @@ const CreateStrength = (props) => {
     count: counter
   });
 
-  //const [exercise, setExercise] = useState({});
-
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
 
   const handleUpdate = (exercise) => {
     setWorkout({ ...workout }, workout.exercises.push(exercise));
+  };
+
+  const handleDelete = (element) => {
+    console.log("handleDelete num!!!!!!!!!; ", element);
+    setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+    if (counter > 0) {
+      setCounter(counter - 1)
+      setWorkout({ ...workout, count: counter-1 })
+    }
   };
 
   const handleCancel = () => {
@@ -84,7 +88,6 @@ const CreateStrength = (props) => {
       logs: 0,
       count: 0
     });
-    //setWorkoutAdded(false);
     dispatch(strengthLocalCreateWorkout({workout}));
     history.push("/createworkout");
   };
@@ -146,13 +149,15 @@ const CreateStrength = (props) => {
                     <StrengthDetails
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
+                      handleDelete = {handleDelete}
                       thisArray={0}
                       workout={workout}
                     />
-                    {[...Array(counter)].map((_, i) => (
+                    {(counter >= 0)  && [...Array(counter)].map((_, i) => (
                       <StrengthDetails
                         handleChange={handleChange}
                         handleUpdate={handleUpdate}
+                        handleDelete = {handleDelete}
                         workout={workout}
                         thisArray={i+1}
                         key={i}
@@ -173,7 +178,7 @@ const CreateStrength = (props) => {
                   {(workout.category === "" ||
                     workout.name === "" ||
                     workout.exercises.length === 0) ?
-                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :
+                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create workout</div>) :
 
                     (<div className="grid mt-8 place-items-center">
                     <button
