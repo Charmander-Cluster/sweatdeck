@@ -239,3 +239,4 @@ const CreateStrength = (props) => {
 };
 
 export default CreateStrength;
+

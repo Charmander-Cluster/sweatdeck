@@ -23,35 +23,34 @@ const StrengthDetails = (props) => {
     sets: "",
   });
 
-  console.log(completedExercise)
-  console.log(workout)
-  console.log("isSaved", isSaved)
-
   const handleChange = (event) => {
     setExercise({ ...exercise, [event.target.name]: event.target.value });
   };
 
   const handleConfirm = (event) => {
     event.preventDefault();
+    // for (let key in exercise) {
+    //   if (!exercise[key]) {
+    //     alert("All fields are required.")
+
+    //   }
+    // }
     setIsCompleted(true)
     setCompletedExercise(exercise)
-    //handleUpdate(completedExercise)
-    //setIsSaved(true)
   }
 
-  // const handleAdd = (event) => {
-  //   event.preventDefault();
-  //   setIsSaved(true)
-  //   handleUpdate(completedExercise)
-  //   //setCompletedExercise({})
-  // }
-
-  useEffect(()=>{
-  if (isCompleted === true)
-    handleUpdate(completedExercise)
+  const handleAdd = (event) => {
+    event.preventDefault();
     setIsSaved(true)
-    setIsSaved(false)
-  }, [isCompleted])
+    handleUpdate(completedExercise)
+    //setCompletedExercise({})
+  }
+
+  // useEffect(()=>{
+  // if (isCompleted === true)
+  //   handleUpdate(completedExercise)
+  //   setIsSaved(true)
+  // }, [isSaved, isCompleted, handleUpdate, completedExercise])
 
 
   return (
@@ -183,7 +182,7 @@ const StrengthDetails = (props) => {
         <div className="flex justify-center">
         </div>
 
-{/*
+
       {(!isCompleted && !isSaved) && (<div className="flex justify-end">
         <p className="mt-2 text-red-400 rounded-md p-1 text-sm">Complete all fields</p>
         <button type="add" onClick={handleConfirm} className="mt-2 border border-teal-500 rounded-md p-1 text-sm"
@@ -198,9 +197,9 @@ const StrengthDetails = (props) => {
           Confirm Details
         </button>
         </div>
-      )} */}
+      )}
 
-      {
+      {/* {
         ((exercise.bodyPart === "" ||
         exercise.type === "" ||
         exercise.weight ===  "" ||
@@ -213,17 +212,9 @@ const StrengthDetails = (props) => {
         </button>
         </div>
         )
-      }
+      } */}
 
-      {(isSaved) && ((
-        <div className="flex justify-end">
-      <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
-        Added to Workout
-      </div>
-      </div>)
-      )}
-
-      {/* {(isCompleted && !isSaved) && ((
+      {(isCompleted && !isSaved) && ((
       <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-green-500 rounded-md p-1">
         Confirmed
@@ -232,9 +223,9 @@ const StrengthDetails = (props) => {
         Add to Workout
       </button>
       </div>)
-      )} */}
+      )}
 
-      {/* {(isSaved) && ((
+      {(isCompleted && isSaved) && ((
         <div className="flex justify-end">
       <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
         Added to Workout
@@ -244,7 +235,7 @@ const StrengthDetails = (props) => {
         Delete
       </div>
       </div>)
-      )} */}
+      )}
 
 {/*
       {(!isCompleted ?
