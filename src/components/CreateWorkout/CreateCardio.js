@@ -254,7 +254,7 @@ const CreateCardio = (props) => {
                                 </label>
                                 <input
                                   name="minutes"
-                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -271,7 +271,7 @@ const CreateCardio = (props) => {
                                   exercises.units === "" ||
                                   exercises.hours === "" ||
                                   exercises.minutes === "") ?
-                              (<div className="text-red-400 my-5">Complete all fields to add workout </div>) :
+                              (<div className="text-red-400 my-5">Complete all fields to create workout </div>) :
                             (<div className="grid mt-5 place-items-center">
                               <button
                                 className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"

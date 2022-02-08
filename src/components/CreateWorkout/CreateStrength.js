@@ -178,7 +178,7 @@ const CreateStrength = (props) => {
                   {(workout.category === "" ||
                     workout.name === "" ||
                     workout.exercises.length === 0) ?
-                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create your workout</div>) :
+                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create workout</div>) :
 
                     (<div className="grid mt-8 place-items-center">
                     <button
