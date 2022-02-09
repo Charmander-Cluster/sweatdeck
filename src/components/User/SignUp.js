@@ -70,7 +70,7 @@ const SignUp = () => {
 
           return errors;
         }}
-        onSubmit={async (values) => {
+        onSubmit={(values) => {
           const selectedDate = new Date(values.birthday); // pass in date param here
           const formattedDate = `${
             selectedDate.getMonth() + 1
@@ -80,14 +80,7 @@ const SignUp = () => {
           dispatch(authSignUp(values));
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        {({ values, errors, touched, handleSubmit, isSubmitting }) => (
           <div>
             {step === 1 ? (
               <Form>
@@ -318,7 +311,6 @@ const SignUp = () => {
                         placeholder="Last Name"
                         name="lastName"
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        onChange={handleChange}
                       />
                     </div>
                     <div className="relative mt-2 lg:hidden md:mt-4">

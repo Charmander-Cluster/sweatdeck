@@ -71,7 +71,7 @@ const Routes = () => {
           />
           <Route path="/users/:id/edit" component={EditUser} />
           <Route exact path="/users/:id" component={UserProfile} />
-          <Route exact path="/" component={Dashboard} />
+          <Route path="/" component={Dashboard} />
         </Switch>
       ) : (
         <Switch>
