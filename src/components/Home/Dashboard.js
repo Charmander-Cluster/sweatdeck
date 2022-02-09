@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import DynamicActivity from "../Cards/DynamicActivity";
 import DynamicStrength from "../Cards/DynamicStrength";
 import DynamicCardio from "../Cards/DynamicCardio";
@@ -13,11 +13,20 @@ const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
 
   const { latestWorkouts } = useSelector((state) => state.workouts);
-  const [workouts, setWorkouts] = useState(latestWorkouts);
+
+  const cardioContainerRef = useRef();
+  const strengthContainerRef = useRef();
 
   const fetchData = useCallback(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
   }, [dispatch, authUser.uid]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      cardioContainerRef.current.scrollLeft = 0;
+      strengthContainerRef.current.scrollLeft = 0;
+    }
+  }, [isLoading, latestWorkouts]);
 
   useEffect(() => {
     let isMounted = true;
@@ -25,22 +34,11 @@ const Dashboard = () => {
       fetchData();
     }
 
-    // const newWorkouts = workouts;
-    // newWorkouts.filter((workout) => {
-    //   return workout.workoutData.category === "Strength";
-    // });
-
-    // console.log(newWorkouts);
-
     setLoading(false);
     return () => {
       isMounted = false;
     };
   }, [authUser.uid, dispatch, fetchData]);
-
-  useEffect(() => {
-    setWorkouts(latestWorkouts);
-  }, [latestWorkouts]);
 
   return (
     <>
@@ -63,7 +61,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="container px-6 mx-auto">
-            <DynamicActivity workouts={workouts} />
+            <DynamicActivity workouts={latestWorkouts} />
           </div>
           <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
             <div className="flex justify-between lg:flex-row lg:items-center">
@@ -78,24 +76,13 @@ const Dashboard = () => {
                 </h4>
               </Link>
             </div>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
-            </svg>
           </div>
 
-          <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
-            {workouts
+          <div
+            ref={cardioContainerRef}
+            className="flex flex-row overflow-auto snap-x hide-scrollbar"
+          >
+            {latestWorkouts
               .filter((workout) => workout.workoutData.category === "cardio")
               .slice(0, 10)
               .map(({ workoutId, workoutData }) => {
@@ -123,24 +110,13 @@ const Dashboard = () => {
                 </h4>
               </Link>
             </div>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
-            </svg>
           </div>
 
-          <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
-            {workouts
+          <div
+            ref={strengthContainerRef}
+            className="flex flex-row overflow-auto snap-x hide-scrollbar"
+          >
+            {latestWorkouts
               .filter((workout) => workout.workoutData.category === "strength")
               .slice(0, 10)
               .map(({ workoutId, workoutData }) => {
