@@ -37,6 +37,7 @@ const CreateCardio = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
+      dispatch(cardioLocalCreateWorkout({}));
       history.push("/confirmcardiocreate");
       // setRedirect(true);
     }
@@ -236,7 +237,6 @@ const CreateCardio = (props) => {
                                 </select>
                               </div>
                             </div>
-
                             <div className="container flex justify-center">
                               <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                                 <label
@@ -275,49 +275,34 @@ const CreateCardio = (props) => {
                               </div>
                             </div>
 
-                            { (workout.category === "" ||
-                                  workout.name === "" ||
-                                  exercises.type === "" ||
-                                  exercises.distance === "" ||
-                                  exercises.units === "" ||
-                                  exercises.hours === "" ||
-                                  exercises.minutes === "") ?
-                              (<div className="my-5 text-red-400">Complete all fields to create workout </div>) :
-                            (<div className="grid mt-5 place-items-center">
-                              <button
-                                className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
-                                onClick={handleSubmitWithSpotify}
-                                disabled={
-                                  workout.category === "" ||
-                                  workout.name === "" ||
-                                  exercises.type === "" ||
-                                  exercises.distance === "" ||
-                                  exercises.units === "" ||
-                                  exercises.hours === "" ||
-                                  exercises.minutes === ""
-                                }
-                                // href={AUTH_URL}
-                              >
-                                Save & Connect Spotify Playlist
-                              </button>
-
-                              <button
-                                className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
-                                onClick={handleSubmitWithoutPlaylist}
-                                disabled={
-                                  workout.category === "" ||
-                                  workout.name === "" ||
-                                  exercises.type === "" ||
-                                  exercises.distance === "" ||
-                                  exercises.units === "" ||
-                                  exercises.hours === "" ||
-                                  exercises.minutes === ""
-                                }
-                              >
-                                Save Without Playlist
-                              </button>
-                              </div>)}
-
+                            {workout.category === "" ||
+                            workout.name === "" ||
+                            exercises.type === "" ||
+                            exercises.distance === "" ||
+                            exercises.units === "" ||
+                            exercises.hours === "" ||
+                            exercises.minutes === "" ? (
+                              <div className="my-5 text-red-400">
+                                Complete all fields to create workout{" "}
+                              </div>
+                            ) : (
+                              <div className="grid mt-5 place-items-center">
+                                <button
+                                  className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
+                                  onClick={handleSubmitWithSpotify}
+                                  disabled={
+                                    workout.category === "" ||
+                                    workout.name === "" ||
+                                    exercises.type === "" ||
+                                    exercises.distance === "" ||
+                                    exercises.units === "" ||
+                                    exercises.hours === "" ||
+                                    exercises.minutes === ""
+                                  }
+                                  // href={AUTH_URL}
+                                >
+                                  Save & Connect Spotify Playlist
+                                </button>
 
                                 <button
                                   className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
