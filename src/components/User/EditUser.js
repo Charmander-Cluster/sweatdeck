@@ -38,7 +38,7 @@ const EditUser = () => {
           history.push(`/users/${id}`);
         }}
       >
-        {({ values, handleSubmit, isSubmitting, errors, touched }) => (
+        {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
             <div className="pt-20 overflow-hidden rounded">
               <div className="flex justify-center w-full pt-4 -mt-20">
@@ -243,7 +243,6 @@ const EditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
                   className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
                 >
                   <svg

@@ -2,6 +2,35 @@ import React from "react";
 import DynamicWorkoutStrengthChart from "../Charts/DynamicStrengthChart";
 
 const DynamicStrength = (props) => {
+  // const setsSum = props.workoutData
+  //   .map((workout) => {
+  //     return workout.exercises;
+  //   })
+
+  //   .reduce((totalSets, workout) => {
+  //     return (
+  //       totalSets +
+  //       workout.reduce((insideSets, exercise) => {
+  //         return insideSets + parseInt(exercise.sets);
+  //       }, 0)
+  //     );
+  //   }, 0);
+
+  // // const repsSum = props.workouts
+  // //   .map((workout) => {
+  // //     return workout.workoutData.exercises;
+  // //   })
+  // //   .reduce((totalReps, workout) => {
+  // //     return (
+  // //       totalReps +
+  // //       workout.reduce((insideReps, exercise) => {
+  // //         return insideReps + parseInt(exercise.reps);
+  // //       }, 0)
+  // //     );
+  // //   }, 0);
+
+  // console.log(setsSum);
+
   return (
     <div className="container px-6 pt-4 mx-auto snap-center">
       <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded shadow-md shadow-black">

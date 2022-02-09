@@ -14,6 +14,9 @@ const Dashboard = () => {
 
   const { latestWorkouts } = useSelector((state) => state.workouts);
 
+  const [strengthCheck, setStrengthCheck] = useState([]);
+  const [cardioCheck, setCardioCheck] = useState([]);
+
   const cardioContainerRef = useRef();
   const strengthContainerRef = useRef();
 
@@ -21,6 +24,17 @@ const Dashboard = () => {
     if (!isLoading && latestWorkouts.length > 0) {
       cardioContainerRef.current.scrollLeft = 0;
       strengthContainerRef.current.scrollLeft = 0;
+      setStrengthCheck(
+        latestWorkouts.filter(
+          (workout) => workout.workoutData.category === "strength"
+        )
+      );
+
+      setCardioCheck(
+        latestWorkouts.filter(
+          (workout) => workout.workoutData.category === "cardio"
+        )
+      );
     }
   }, [isLoading, latestWorkouts]);
 
@@ -38,14 +52,6 @@ const Dashboard = () => {
       isMounted = false;
     };
   }, [dispatch, fetchData]);
-
-  const strengthCheck = latestWorkouts.filter(
-    (workout) => workout.workoutData.category === "strength"
-  );
-
-  const cardioCheck = latestWorkouts.filter(
-    (workout) => workout.workoutData.category === "cardio"
-  );
 
   return (
     <>

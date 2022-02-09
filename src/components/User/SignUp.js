@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authSignUp, authenticate } from "../../store/auth";
+import { authSignUp } from "../../store/auth";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import DatePickerField from "./DatePickerField";
@@ -121,24 +121,20 @@ const SignUp = () => {
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Username</h1>
                       <Field
-                        validate
                         type="text"
                         placeholder="Username"
                         name="username"
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        required
                       />
                       {errors.username && touched.username && errors.username}
                     </div>
                     <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
                       <h1 className="pt-2 font-extrabold">Password</h1>
                       <Field
-                        validate
                         type="password"
                         placeholder="Password"
                         name="password"
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        required
                       />
                       {errors.password && touched.password && errors.password}
                     </div>
@@ -147,12 +143,10 @@ const SignUp = () => {
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Email Address</h1>
                       <Field
-                        validate
                         type="email"
                         placeholder="E-mail"
                         name="email"
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        required
                       />
                       {errors.email && touched.email && errors.email}
                     </div>
@@ -190,7 +184,6 @@ const SignUp = () => {
                         className="w-full p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
                         name="state"
                         as="select"
-                        validate
                       >
                         <option value="--">--</option>
                         <option value="AL">AL</option>
@@ -481,7 +474,6 @@ const SignUp = () => {
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
                     className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                   >
                     <span className="text-sm font-medium text-center text-white capitalize">
