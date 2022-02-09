@@ -7,6 +7,7 @@ import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuthCardio from "./useAuthCardio";
 
+import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -20,9 +21,7 @@ const token = new URLSearchParams(window.location.search).get("code");
 const CardioPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const history = useHistory();
-
 
   const authUser = useSelector((state) => state.auth);
 
@@ -39,7 +38,6 @@ const CardioPlaylist = (props) => {
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
   console.log(cardioLocalWorkout)
 
-
   const accessToken = useAuthCardio(token);
 
   const [playlists, setPlaylists] = useState([]);
@@ -48,6 +46,7 @@ const CardioPlaylist = (props) => {
   useEffect(() => {
     if (playlistConfirmed) {
       dispatch(createDBWorkout(cardioLocalWorkout, userId));
+      dispatch(cardioLocalCreateWorkout({}));
       history.push("/confirmcardiocreate");
     }
   }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
@@ -68,26 +67,6 @@ const CardioPlaylist = (props) => {
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
-  // const [spotifyUser, setSpotifyUser] = useState({});
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   axios
-  //     .get("https://api.spotify.com/v1/me", {
-  //       headers: {
-  //         Accept: "application/json",
-  //         Authorization: "Bearer " + accessToken,
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setSpotifyUser({
-  //         id: response.data.id,
-  //         name: response.data.display_name,
-  //         url: response.data.external_urls.spotify,
-  //       });
-  //     });
-  // }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;

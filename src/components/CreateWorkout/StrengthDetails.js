@@ -68,9 +68,6 @@ const StrengthDetails = (props) => {
     setCompletedExercise(exercise);
   };
 
-  console.log("this array element", thisArray)
-  console.log("workout", workout)
-
   const handleRemove = (event) => {
     event.preventDefault();
     if (thisArray ===0 ) {
@@ -84,7 +81,6 @@ const StrengthDetails = (props) => {
       })
       setIsCompleted(false)
     }
-    console.log("++++props.number: ", thisArray);
     handleDelete(thisArray);
   };
 
