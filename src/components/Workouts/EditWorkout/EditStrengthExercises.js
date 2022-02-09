@@ -2,13 +2,11 @@ import React from "react";
 
 export const Biceps = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
 
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    value={type}
+    defaultValue={props.type}
     onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option>barbell/dumbell curl</option>
@@ -19,13 +17,10 @@ export const Biceps = (props) => {
 
 export const Triceps = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
-
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    value={type}
+    defaultValue={props.type}
     onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option>tricep extension</option>
@@ -39,14 +34,11 @@ export const Triceps = (props) => {
 
 export const Back = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
-
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    onChange={handleChange}
-    value={type}>
+    defaultValue={props.type}
+    onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option >pullup</option>
       <option>row</option>
@@ -57,13 +49,10 @@ export const Back = (props) => {
 
 export const Shoulders = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
-
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    value={type}
+    defaultValue={props.type}
     onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option>Arnold press</option>
@@ -75,13 +64,10 @@ export const Shoulders = (props) => {
 
 export const Quads = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
-
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    value={type}
+    defaultValue={props.type}
     onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option>squat</option>
@@ -94,13 +80,10 @@ export const Quads = (props) => {
 
 export const Chest = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
-
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    value={type}
+    defaultValue={props.type}
     onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option>bench press</option>
@@ -112,13 +95,10 @@ export const Chest = (props) => {
 
 export const Abs = (props) => {
   const handleChange = props.handleChange
-  const type = props.type
-
   return (
     <select className="w-44 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
     name="type"
-    defaultValue="select"
-    value={type}
+    defaultValue={props.type}
     onChange={handleChange}>
       <option value="select" disabled>--</option>
       <option>crunch</option>

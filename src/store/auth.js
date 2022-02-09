@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
@@ -16,7 +17,6 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (email, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    logout();
     await signInWithEmailAndPassword(auth, email, password);
     const user = auth.currentUser;
     if (user !== null) {
@@ -63,8 +63,11 @@ export const authSignUp = (user) => async (dispatch) => {
       frequency: user.frequency,
       goal: user.goal,
     });
+    // if (response.user.uid) {
+    //   authenticate();
+    // }
 
-    dispatch(setAuth(user));
+    // dispatch(setAuth());
   } catch (error) {
     console.log("CODE: ", error.code);
     console.log("MESSAGE: ", error.message);

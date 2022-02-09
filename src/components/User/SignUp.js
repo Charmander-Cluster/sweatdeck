@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authSignUp, authenticate } from "../../store/auth";
+import { authSignUp, fetchLoginUser, authenticate } from "../../store/auth";
 import { useHistory } from "react-router-dom";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import DatePickerField from "./DatePickerField";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 const SignUp = () => {
   let history = useHistory();
@@ -19,11 +17,11 @@ const SignUp = () => {
     setStep(2);
   };
 
-  useEffect(() => {
-    if (authUser.email) {
-      history.push("/");
-    }
-  }, [authUser.email, history]);
+  // useEffect(() => {
+  //   if (authUser.email) {
+  //     history.push("/");
+  //   }
+  // }, [authUser.email, history]);
 
   console.log(authUser.email);
 
@@ -34,8 +32,8 @@ const SignUp = () => {
           email: "",
           password: "",
           username: "",
-          state: "",
           birthday: "",
+          state: "",
           firstName: "",
           lastName: "",
           gender: "",
@@ -56,14 +54,18 @@ const SignUp = () => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           const selectedDate = new Date(values.birthday); // pass in date param here
-          const formattedDate = `${selectedDate.getMonth()}/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
+          const formattedDate = `${
+            selectedDate.getMonth() + 1
+          }/${selectedDate.getDate()}/${selectedDate.getFullYear()}`;
           values.birthday = formattedDate;
+
           dispatch(authSignUp(values));
           setTimeout(() => {
             dispatch(authenticate(values.email, values.password));
+            // dispatch(fetchLoginUser());
+            history.push("/");
             setSubmitting(false);
-            setDone(true);
-          }, 1000);
+          }, 400);
         }}
       >
         {({
@@ -74,7 +76,6 @@ const SignUp = () => {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          /* and other goodies */
         }) => (
           <div>
             {step === 1 ? (
@@ -142,7 +143,7 @@ const SignUp = () => {
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Email Address</h1>
                       <input
-                        type="text"
+                        type="email"
                         placeholder="E-mail"
                         value={values.email}
                         name="email"
@@ -162,15 +163,68 @@ const SignUp = () => {
                     </div>
                     <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
                       <h1 className="pt-2 font-extrabold">State (Location)</h1>
-                      <input
-                        type="text"
-                        placeholder="State (location)"
-                        value={values.state}
-                        name="state"
+
+                      <select
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        name="state"
+                        defaultValue="select"
                         onChange={handleChange}
-                        required
-                      />
+                      >
+                        <option value="select" disabled>
+                          --
+                        </option>
+                        <option value="AL">AL</option>
+                        <option value="AK">AK</option>
+                        <option value="AZ">AZ</option>
+                        <option value="AR">AR</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DE">DE</option>
+                        <option value="DC">D.C.</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="IA">IA</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="ME">ME</option>
+                        <option value="MD">MD</option>
+                        <option value="MA">MA</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MS">MS</option>
+                        <option value="MO">MO</option>
+                        <option value="MT">MT</option>
+                        <option value="NE">NE</option>
+                        <option value="NV">NV</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NY">NY</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VT">VT</option>
+                        <option value="VA">VA</option>
+                        <option value="WA">WA</option>
+                        <option value="WV">WV</option>
+                        <option value="WI">WI</option>
+                        <option value="WY">WY</option>
+                      </select>
                     </div>
                   </div>
 
@@ -353,13 +407,18 @@ const SignUp = () => {
                           <polyline points="16 15 12 19 8 15" />
                         </svg>
                       </div>
-                      <Field
+                      <select
+                        aria-label="Selected tab"
                         className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        placeholder="Goal"
                         name="goal"
+                        defaultValue="select"
                         onChange={handleChange}
-                        component="select"
                       >
-                        <option value="Get started">
+                        <option value="select" disabled>
+                          --
+                        </option>
+                        <option value="Just getting started">
                           Just getting started
                         </option>
                         <option value="Maintenance">Maintenance</option>
@@ -367,7 +426,7 @@ const SignUp = () => {
                         <option value="Weight Loss">Weight Loss</option>
                         <option value="Hobby">Hobby</option>
                         <option value="Other">Other</option>
-                      </Field>
+                      </select>
                     </div>
                   </div>
                   <div className="items-center mt-2 md:flex">

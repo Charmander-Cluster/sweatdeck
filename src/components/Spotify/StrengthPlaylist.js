@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { strengthLocalEditWorkout } from "../../store/strengthLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -37,8 +37,6 @@ const StrengthPlaylist = (props) => {
   const userId = authUser.uid;
   const accessToken = useAuthStrength(token);
   let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
-
-  console.log("strength local workout store:", strengthLocalWorkout);
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
@@ -96,7 +94,6 @@ const StrengthPlaylist = (props) => {
           (playlist) => playlist.public === true
           // && playlist.owner.id === spotifyUser.id
         );
-        console.log(publicPlaylists);
 
         const myPlaylists = publicPlaylists.map((playlist) => ({
           name: playlist.name,
@@ -110,7 +107,6 @@ const StrengthPlaylist = (props) => {
       });
   }, [accessToken]);
 
-  console.log(playlists);
 
   return !accessToken ? (
     <div>Loading...</div>
@@ -119,9 +115,11 @@ const StrengthPlaylist = (props) => {
       <div className="grid place-items-center">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
+            <Link to="/createworkout/strength">
             <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
               Cancel
             </button>
+            </Link>
           </div>
           <div className="flex-col justify-center">
             <div className="grid justify-center">

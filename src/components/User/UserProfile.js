@@ -35,8 +35,6 @@ const UserProfile = () => {
     setLoading(false);
   }, [fetchData, isLoading, allWorkouts]);
 
-  console.log(authUser);
-
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
@@ -79,7 +77,7 @@ const UserProfile = () => {
         <div className="flex flex-col items-center justify-center py-2 pb-20">
           <div className="pt-20 overflow-hidden rounded">
             <div className="flex justify-center w-full pt-4 -mt-20">
-              {authUser && authUser.gender === "Male" ? (
+              {authUser.gender === "Male" ? (
                 <div className="w-32 h-32">
                   <img
                     src={maleImage}

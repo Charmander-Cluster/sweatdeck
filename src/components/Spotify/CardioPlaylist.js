@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
@@ -23,6 +23,7 @@ const CardioPlaylist = (props) => {
   const [redirect, setRedirect] = useState(false);
   const history = useHistory();
 
+
   const authUser = useSelector((state) => state.auth);
 
   onAuthStateChanged(getAuth(), (u) => {
@@ -36,7 +37,8 @@ const CardioPlaylist = (props) => {
   }, [dispatch, user]);
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
-  console.log("cardio local workout store:", cardioLocalWorkout);
+  console.log(cardioLocalWorkout)
+
 
   const accessToken = useAuthCardio(token);
 
@@ -90,7 +92,6 @@ const CardioPlaylist = (props) => {
   useEffect(() => {
     if (!accessToken) return;
     // if(!spotifyUser) return
-    console.log(accessToken);
     axios
       .get("https://api.spotify.com/v1/me/playlists", {
         params: { limit: 50, offset: 0 },
@@ -106,7 +107,6 @@ const CardioPlaylist = (props) => {
           (playlist) => playlist.public === true
           // && playlist.owner.id === spotifyUser.id
         );
-        console.log(publicPlaylists);
 
         const myPlaylists = publicPlaylists.map((playlist) => ({
           name: playlist.name,
@@ -125,9 +125,11 @@ const CardioPlaylist = (props) => {
       <div className="grid place-items-center">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
+            <Link to="/createworkout/cardio">
             <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
               Cancel
             </button>
+            </Link>
           </div>
           <div className="flex-col justify-center">
             <div className="grid justify-center">
