@@ -73,7 +73,7 @@ const SignIn = () => {
               />
               {errors.password && touched.password && errors.password}
             </div>
-            <div>
+            <div className="pt-2">
               <button
                 className="flex flex-row justify-center px-8 py-3 mx-2 my-3 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md cursor-pointer text-1xl shadow-black hover:bg-teal-800"
                 type="submit"
@@ -87,14 +87,11 @@ const SignIn = () => {
       </Formik>
       <div className="flex flex-col items-center justify-center text-center">
         <div className="flex flex-row">
-          <h2>Forgot your password? </h2>
-
-          <button
-            className="ml-1 underline"
-            onClick={() => sendPasswordReset(email)}
-          >
-            Password Reset
-          </button>
+          <Link to="/passwordreset">
+            <button className="mb-2 ml-1 underline">
+              Forgot your password?
+            </button>
+          </Link>
         </div>
         <div>
           <h2>

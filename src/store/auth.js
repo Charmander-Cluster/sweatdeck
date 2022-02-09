@@ -22,7 +22,6 @@ export const authenticate = (email, password) => async (dispatch) => {
     if (user !== null) {
       const response = await getDoc(doc(db, "users", user.uid));
       const fullDetail = { ...user, ...response.data() };
-      console.log(fullDetail);
       dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
@@ -67,8 +66,6 @@ export const authSignUp = (user) => async (dispatch) => {
     if (response.user.uid) {
       dispatch(authenticate(user.email, user.password));
     }
-
-    // dispatch(setAuth());
   } catch (error) {
     console.log("CODE: ", error.code);
     console.log("MESSAGE: ", error.message);
@@ -89,12 +86,10 @@ export const authSignUp = (user) => async (dispatch) => {
 export const sendPasswordReset = async (email) => {
   try {
     const auth = getAuth();
-    auth.languageCode = "it";
+    auth.languageCode = null;
     await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 

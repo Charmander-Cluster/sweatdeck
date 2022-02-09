@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/User/UserProfile";
 import EditUser from "./components/User/EditUser";
@@ -15,15 +15,14 @@ import {
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/User/SignIn";
-import { fetchLoginUser } from "./store";
-import { useSelector, useDispatch } from "react-redux";
-import OptionalSignUp from "./components/User/OptionalSignUp";
+import { useSelector } from "react-redux";
 import SingleWorkout from "./components/Workouts/SingleWorkout";
 import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
+import PasswordReset from "./components/User/PasswordReset";
 
 const Routes = () => {
   const authUser = useSelector((state) => state.auth);
@@ -75,6 +74,7 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
+          <Route exact path="/passwordreset" component={PasswordReset} />
           <Route exact path="/signup" component={SignUp} />
           <Route path="/" component={SignIn} />
         </Switch>
