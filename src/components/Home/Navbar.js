@@ -1,12 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import auth from "../../store/auth";
 
 const Navbar = () => {
   const authUser = useSelector((state) => state.auth);
-
-  // console.log(authUser);
 
   return (
     <div className="fixed z-40 w-full h-screen">

@@ -2,7 +2,7 @@ import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import db from "../firebase";
 
 const GET_LATEST_USER_WORKOUT = "GET_LATEST_USER_WORKOUT";
-const GET_All_USER_WORKOUTS = "GET_ALL_USER_WORKOUTS";
+const GET_ALL_USER_WORKOUTS = "GET_ALL_USER_WORKOUTS";
 
 const getLatestUserWorkout = (userWorkout) => {
   return {
@@ -13,7 +13,7 @@ const getLatestUserWorkout = (userWorkout) => {
 
 const getAllUserWorkouts = (userWorkouts) => {
   return {
-    type: GET_All_USER_WORKOUTS,
+    type: GET_ALL_USER_WORKOUTS,
     userWorkouts,
   };
 };
@@ -102,7 +102,7 @@ export default function workoutsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LATEST_USER_WORKOUT:
       return { ...state, latestWorkouts: action.userWorkout };
-    case GET_All_USER_WORKOUTS:
+    case GET_ALL_USER_WORKOUTS:
       return { ...state, allWorkouts: action.userWorkouts };
 
     default:

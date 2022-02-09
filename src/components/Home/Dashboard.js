@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import DynamicActivity from "../Cards/DynamicActivity";
 import DynamicStrength from "../Cards/DynamicStrength";
 import DynamicCardio from "../Cards/DynamicCardio";
@@ -13,36 +13,41 @@ const Dashboard = () => {
   const [isLoading, setLoading] = useState(true);
 
   const { latestWorkouts } = useSelector((state) => state.workouts);
-  const [workouts, setWorkouts] = useState(latestWorkouts);
+
+  const cardioContainerRef = useRef();
+  const strengthContainerRef = useRef();
+
+  useEffect(() => {
+    if (!isLoading && latestWorkouts.length > 0) {
+      cardioContainerRef.current.scrollLeft = 0;
+      strengthContainerRef.current.scrollLeft = 0;
+    }
+  }, [isLoading, latestWorkouts]);
 
   const fetchData = useCallback(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
   }, [dispatch, authUser.uid]);
 
   useEffect(() => {
-    if (isLoading && authUser.uid) {
+    let isMounted = true;
+    if (isMounted) {
       fetchData();
     }
-
-    // const newWorkouts = workouts;
-    // newWorkouts.filter((workout) => {
-    //   return workout.workoutData.category === "Strength";
-    // });
-
-    // console.log(newWorkouts);
-    setWorkouts(latestWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, latestWorkouts, authUser.uid]);
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch, fetchData]);
 
   return (
     <>
       {isLoading ? (
-        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden opacity-75 hide-scrollbar">
+        <div className="fixed top-0 bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen overflow-hidden opacity-75">
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
         </div>
-      ) : latestWorkouts && authUser.uid ? (
+      ) : latestWorkouts.length > 0 ? (
         <div className="pb-10 scroll">
-          <div className="relative z-10 pt-8 pb-10">
+          <div className="relative z-10 pt-4 pb-10">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
               <div className="flex flex-col items-start lg:flex-row lg:items-center">
                 <div className="my-6 ml-0 lg:ml-20 lg:my-0">
@@ -55,7 +60,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="container px-6 mx-auto">
-            <DynamicActivity workouts={workouts} />
+            <DynamicActivity workouts={latestWorkouts} />
           </div>
           <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
             <div className="flex justify-between lg:flex-row lg:items-center">
@@ -64,30 +69,35 @@ const Dashboard = () => {
                   pathname: `/users/${authUser.uid}/workouts`,
                   state: "cardio",
                 }}
+                className="flex flex-row"
               >
                 <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
                   Cardio
                 </h4>
+
+                <svg
+                  className="w-6 h-6 mt-1 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
               </Link>
             </div>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
-            </svg>
           </div>
 
-          <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
-            {workouts
+          <div
+            ref={cardioContainerRef}
+            className="flex flex-row overflow-auto snap-x hide-scrollbar"
+          >
+            {latestWorkouts
               .filter((workout) => workout.workoutData.category === "cardio")
               .slice(0, 10)
               .map(({ workoutId, workoutData }) => {
@@ -109,30 +119,35 @@ const Dashboard = () => {
                   pathname: `/users/${authUser.uid}/workouts`,
                   state: "strength",
                 }}
+                className="flex flex-row"
               >
                 <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
                   Strength
                 </h4>
+
+                <svg
+                  className="w-6 h-6 mt-1 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
               </Link>
             </div>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
-            </svg>
           </div>
 
-          <div className="flex flex-row overflow-auto snap-x hide-scrollbar">
-            {workouts
+          <div
+            ref={strengthContainerRef}
+            className="flex flex-row overflow-auto snap-x hide-scrollbar"
+          >
+            {latestWorkouts
               .filter((workout) => workout.workoutData.category === "strength")
               .slice(0, 10)
               .map(({ workoutId, workoutData }) => {

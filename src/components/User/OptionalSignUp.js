@@ -57,6 +57,8 @@ const OptionalSignUp = () => {
     });
   };
 
+  console.log(authUser);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
