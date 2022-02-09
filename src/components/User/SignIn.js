@@ -38,13 +38,7 @@ const SignIn = () => {
           history.push("/");
         }}
       >
-        {({
-          errors,
-          touched,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
+        {({ errors, touched, handleSubmit, isSubmitting }) => (
           <Form
             className="flex flex-col items-center justify-center mb-4"
             onSubmit={handleSubmit}
