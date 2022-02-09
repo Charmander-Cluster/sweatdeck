@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { authenticate, sendPasswordReset } from "../../store/auth";
+import React from "react";
+import { authenticate } from "../../store/auth";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -8,8 +8,6 @@ import { Formik, Form, Field } from "formik";
 const SignIn = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-
-  const [email, setEmail] = useState("");
 
   return (
     <div className="flex flex-col items-center justify-center pt-10">

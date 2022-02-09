@@ -73,7 +73,7 @@ const DynamicActivity = (props) => {
       <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-fuchsia-700 ">
         Weekly Activity
       </h3>
-      <div className="flex items-center justify-center py-2 pl-6 rounded shadow ">
+      <div className="flex items-center justify-center py-2 pl-6 rounded shadow">
         <div className="pl-3 pr-10">
           <div className="flex items-center justify-center">
             <DoughnutActivityChart

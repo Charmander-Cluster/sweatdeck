@@ -1,12 +1,10 @@
 import React from "react";
 import { sendPasswordReset } from "../../store/auth";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 
 const PasswordReset = () => {
   let history = useHistory();
-  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col items-center justify-center pt-10">
