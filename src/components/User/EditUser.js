@@ -10,28 +10,10 @@ import { Formik, Form, Field } from "formik";
 
 const EditUser = () => {
   const { user } = useSelector((state) => state.users);
-  // const [userState, setUserState] = useState({
-  //   username: user.username || "",
-  //   state: user.state || "",
-  //   favoriteWorkoutType: user.favoriteWorkoutType || "",
-  //   goal: user.goal || "",
-  // });
 
   let history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
-
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-
-  //   setUserState((state) => ({ ...state, [name]: value }));
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   dispatch(editUserThunk(id, userState));
-  //   history.push(`/users/${id}`);
-  // };
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -42,17 +24,21 @@ const EditUser = () => {
           favoriteWorkoutType: user.favoriteWorkoutType,
           goal: user.goal,
         }}
+        validate={(values) => {
+          const errors = {};
+
+          if (!values.username) {
+            errors.username = "Required";
+          }
+
+          return errors;
+        }}
         onSubmit={(values) => {
           dispatch(editUserThunk(id, values));
           history.push(`/users/${id}`);
         }}
       >
-        {({
-          values,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
+        {({ values, handleSubmit, isSubmitting, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
             <div className="pt-20 overflow-hidden rounded">
               <div className="flex justify-center w-full pt-4 -mt-20">
@@ -97,6 +83,7 @@ const EditUser = () => {
                     className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
                     placeholder="Username"
                   />
+                  {errors.username && touched.username && errors.username}
                 </div>
                 <div className="relative w-full lg:hidden md:mt-4">
                   <h1 className="pt-2 font-extrabold">State (Location)</h1>
