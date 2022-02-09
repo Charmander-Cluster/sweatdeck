@@ -70,7 +70,6 @@ const CreateStrength = (props) => {
   };
 
   const handleDelete = (element) => {
-    console.log("handleDelete num!!!!!!!!!; ", element);
     setWorkout({ ...workout }, workout.exercises.splice(element, 1))
     if (counter > 0) {
       setCounter(counter - 1)
