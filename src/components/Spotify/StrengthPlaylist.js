@@ -68,8 +68,6 @@ const StrengthPlaylist = (props) => {
 
   useEffect(() => {
     if (!accessToken) return;
-    // if(!spotifyUser) return
-    console.log(accessToken);
     axios
       .get("https://api.spotify.com/v1/me/playlists", {
         params: { limit: 50, offset: 0 },
