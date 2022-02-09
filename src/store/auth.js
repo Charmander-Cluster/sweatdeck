@@ -17,7 +17,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (email, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    logout();
+    dispatch(logout());
     await signInWithEmailAndPassword(auth, email, password);
     const user = auth.currentUser;
     if (user !== null) {
@@ -26,7 +26,7 @@ export const authenticate = (email, password) => async (dispatch) => {
       dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+    console.log("Error at authenticate thunk", authError);
   }
 };
 

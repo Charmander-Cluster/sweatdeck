@@ -22,7 +22,7 @@ const EmptyDashboard = (props) => {
         </div>
       </div>
       <div className="mt-12">
-        <p className="font-medium leading-none tracking-wide text-center text-white text-md">
+        <p className="flex items-start font-medium leading-none tracking-wide text-white text-md">
           Getting started
         </p>
         <Link to="/createworkout">
