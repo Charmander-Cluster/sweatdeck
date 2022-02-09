@@ -4,7 +4,7 @@ import DynamicWorkoutStrengthChart from "../Charts/DynamicStrengthChart";
 const DynamicStrength = (props) => {
   return (
     <div className="container px-6 pt-4 mx-auto snap-center">
-      <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded shadow">
+      <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded shadow-md shadow-black">
         <div className="flex items-start py-5 pl-6 rounded shadow ">
           <div className="pl-3 pr-3 mt-1">
             <div className="flex items-end mt-4">

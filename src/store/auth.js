@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
@@ -16,7 +17,6 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (email, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    logout();
     await signInWithEmailAndPassword(auth, email, password);
     const user = auth.currentUser;
     if (user !== null) {
@@ -35,7 +35,7 @@ export const fetchLoginUser = () => async (dispatch) => {
   if (user) {
     const response = await getDoc(doc(db, "users", user.uid));
     const fullDetail = { ...user, ...response.data() };
-    await dispatch(setAuth(fullDetail));
+    dispatch(setAuth(fullDetail));
   }
 };
 
@@ -63,8 +63,9 @@ export const authSignUp = (user) => async (dispatch) => {
       frequency: user.frequency,
       goal: user.goal,
     });
-
-    dispatch(setAuth(user));
+    if (response.user.uid) {
+      dispatch(authenticate(user.email, user.password));
+    }
   } catch (error) {
     console.log("CODE: ", error.code);
     console.log("MESSAGE: ", error.message);
@@ -79,20 +80,16 @@ export const authSignUp = (user) => async (dispatch) => {
       message = "Error: Please try again";
     }
     alert(message);
-
-    return dispatch(setAuth({ error }));
   }
 };
 
 export const sendPasswordReset = async (email) => {
   try {
     const auth = getAuth();
-    auth.languageCode = "it";
+    auth.languageCode = null;
     await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 

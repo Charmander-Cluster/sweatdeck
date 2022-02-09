@@ -15,27 +15,23 @@ import {
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/User/SignIn";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { fetchLoginUser } from "./store";
 import { useSelector } from "react-redux";
-import OptionalSignUp from "./components/User/OptionalSignUp";
 import SingleWorkout from "./components/Workouts/SingleWorkout";
 import UserWorkouts from "./components/Workouts/UserWorkouts";
 import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButtons";
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
+import PasswordReset from "./components/User/PasswordReset";
 
-const Routes = (props) => {
+const Routes = () => {
   const authUser = useSelector((state) => state.auth);
-
-  // console.log(authUser);
 
   return (
     <>
       {authUser.uid ? (
         <Switch>
-          {/* <Route exact path="/optionalsignup" component={OptionalSignUp} /> */}
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/createworkout" component={CreateWorkout} />
           <Route exact path="/createworkout/cardio" component={CreateCardio} />
           <Route
@@ -52,7 +48,7 @@ const Routes = (props) => {
             path="/users/:id/workouts/:docId/editcardio"
             component={EditCardioWorkout}
           />
-                    <Route
+          <Route
             exact
             path="/users/:id/workouts/:docId/editstrength"
             component={EditStrengthWorkout}
@@ -74,12 +70,13 @@ const Routes = (props) => {
           />
           <Route path="/users/:id/edit" component={EditUser} />
           <Route exact path="/users/:id" component={UserProfile} />
-          <Route exact path="/" component={Dashboard} />
+          <Route path="/" component={Dashboard} />
         </Switch>
       ) : (
         <Switch>
+          <Route exact path="/passwordreset" component={PasswordReset} />
           <Route exact path="/signup" component={SignUp} />
-          <SignIn />
+          <Route path="/" component={SignIn} />
         </Switch>
       )}
     </>

@@ -9,6 +9,7 @@ const DatePickerField = ({ ...props }) => {
   return (
     <DatePicker
       format="MM-dd-y"
+      placeholderText="MM/DD/YY"
       {...field}
       {...props}
       selected={(field.value && new Date(field.value)) || null}

@@ -9,6 +9,7 @@ const DynamicActivity = (props) => {
     .map((workout) => {
       return workout.workoutData.exercises;
     })
+
     .reduce((totalSets, workout) => {
       return (
         totalSets +
@@ -68,11 +69,11 @@ const DynamicActivity = (props) => {
   };
 
   return (
-    <div className="relative z-10 w-full mb-6 -mt-8 bg-teal-600 rounded shadow">
+    <div className="relative z-10 w-full mb-6 -mt-8 bg-teal-600 rounded shadow-md shadow-black">
       <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-fuchsia-700 ">
         Weekly Activity
       </h3>
-      <div className="flex items-center justify-center py-2 pl-6 rounded shadow ">
+      <div className="flex items-center justify-center py-2 pl-6 rounded shadow">
         <div className="pl-3 pr-10">
           <div className="flex items-center justify-center">
             <DoughnutActivityChart
