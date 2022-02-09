@@ -8,6 +8,8 @@ const UserWorkouts = (props) => {
   const workouts = useSelector((state) => state.allWorkouts);
   let cardioOrStrength = props.location.state;
 
+  console.log(workouts.length);
+
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -15,7 +17,24 @@ const UserWorkouts = (props) => {
     dispatch(fetchUserWorkoutsThunk(id, cardioOrStrength));
   }, [dispatch, id, cardioOrStrength]);
 
-  return (
+  return !workouts.length ? (
+    <div className="container flex items-center justify-center mt-56">
+    <div className="flex-col justify-center">
+      <div className="text-3xl mb-16 text-center"> You have no {cardioOrStrength} workouts! </div>
+      <div className="flex justify-center">
+      <Link to="/createworkout">
+      <button
+        type="button"
+        className="w-58 p-4 text-3xl border border-white rounded-md bg-gradient-to-r from-teal-500 to-purple-800 justify-center"
+      >
+        {" "}
+        Create a Workout{" "}
+      </button>
+      </Link>
+      </div>
+    </div>
+    </div>
+  ) : (
     <div className="container flex flex-col items-center justify-center w-screen p-3 py-2">
       <div className="pt-20 overflow-hidden rounded">
         <div className="grid grid-cols-1">
