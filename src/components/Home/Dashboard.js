@@ -69,10 +69,26 @@ const Dashboard = () => {
                   pathname: `/users/${authUser.uid}/workouts`,
                   state: "cardio",
                 }}
+                className="flex flex-row"
               >
                 <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
                   Cardio
                 </h4>
+
+                <svg
+                  className="w-6 h-6 mt-1 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
               </Link>
             </div>
           </div>
@@ -103,10 +119,26 @@ const Dashboard = () => {
                   pathname: `/users/${authUser.uid}/workouts`,
                   state: "strength",
                 }}
+                className="flex flex-row"
               >
                 <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
                   Strength
                 </h4>
+
+                <svg
+                  className="w-6 h-6 mt-1 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
               </Link>
             </div>
           </div>
