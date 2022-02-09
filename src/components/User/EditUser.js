@@ -1,38 +1,24 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { editUserThunk } from "../../store/users";
 import { sendPasswordReset } from "../../store";
-import { useRouteMatch } from "react-router-dom";
 import maleImage from "../../assets/male-useravatar.png";
 import femaleImage from "../../assets/female-useravatar.png";
 import defaultImage from "../../assets/default-useravatar.png";
-import { fetchSingleUserThunk } from "../../store/users";
 
 const EditUser = () => {
-  const authUser = useSelector((state) => state.users.user);
+  const { user } = useSelector((state) => state.users);
   const [userState, setUserState] = useState({
-    username: authUser.username || "",
-    state: authUser.state || "",
-    favoriteWorkoutType: authUser.favoriteWorkoutType || "",
-    goal: authUser.goal || "",
+    username: user.username || "",
+    state: user.state || "",
+    favoriteWorkoutType: user.favoriteWorkoutType || "",
+    goal: user.goal || "",
   });
 
   let history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [isLoading, setLoading] = useState(true);
-
-  const fetchData = useCallback(() => {
-    dispatch(fetchSingleUserThunk(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (isLoading) {
-      fetchData();
-    }
-    setLoading(false);
-  }, [fetchData, isLoading]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -45,20 +31,6 @@ const EditUser = () => {
     dispatch(editUserThunk(id, userState));
     history.push(`/users/${id}`);
   };
-  // const actionCodeSettings = {
-  //   url: "https://www.example.com/?email=user@example.com",
-  //   iOS: {
-  //     bundleId: "com.example.ios",
-  //   },
-  //   android: {
-  //     packageName: "com.example.android",
-  //     installApp: true,
-  //     minimumVersion: "12",
-  //   },
-  //   handleCodeInApp: true,
-  // };
-
-  // console.log(useRouteMatch());
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -66,7 +38,7 @@ const EditUser = () => {
         <div className="pt-20 overflow-hidden rounded">
           <div className="flex justify-center w-full pt-4 -mt-20">
             <div className="w-32 h-32">
-              {authUser && authUser.gender === "Male" ? (
+              {user && user.gender === "Male" ? (
                 <div className="w-32 h-32">
                   <img
                     src={maleImage}
@@ -74,7 +46,7 @@ const EditUser = () => {
                     className="object-cover w-full h-full rounded-full shadow-md shadow-black"
                   />
                 </div>
-              ) : authUser.gender === "Female" ? (
+              ) : user.gender === "Female" ? (
                 <div className="w-32 h-32">
                   <img
                     src={femaleImage}
@@ -95,7 +67,7 @@ const EditUser = () => {
           </div>
           <div className="flex flex-col mt-4">
             <h1 className="mb-1 text-3xl font-bold text-center">
-              {authUser.username}
+              {user.username}
             </h1>
             <div className="pt-4">
               <h1 className="font-extrabold">Username</h1>
@@ -254,7 +226,7 @@ const EditUser = () => {
                 onChange={handleChange}
                 defaultValue={userState.goal}
               >
-                <option value="Get started">{authUser.goal}</option>
+                <option value="Get started">{user.goal}</option>
                 <option value="Maintenance">Maintenance</option>
                 <option value="Competition">Competition</option>
                 <option value="Weight Loss">Weight Loss</option>
@@ -284,7 +256,7 @@ const EditUser = () => {
       </form>
       <button
         className="ml-1 underline"
-        onClick={() => sendPasswordReset(authUser.email)}
+        onClick={() => sendPasswordReset(user.email)}
       >
         Password Reset
       </button>

@@ -16,11 +16,10 @@ const UserProfile = () => {
   const { id } = useParams();
 
   const [date, setDate] = useState(new Date());
-  const authUser = useSelector((state) => state.users.user);
   const [isLoading, setLoading] = useState(true);
 
+  const { user } = useSelector((state) => state.users);
   const { allWorkouts } = useSelector((state) => state.workouts);
-  const [workouts, setWorkouts] = useState({});
 
   const fetchData = useCallback(() => {
     dispatch(fetchAllUserWorkoutsThunk(id));
@@ -28,18 +27,21 @@ const UserProfile = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (isLoading) {
+    let isMounted = true;
+    if (isMounted) {
       fetchData();
     }
-    setWorkouts(allWorkouts);
     setLoading(false);
-  }, [fetchData, isLoading, allWorkouts]);
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchData]);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
-    if (workouts && workouts.length > 0) {
-      workouts.forEach((doc) => {
+    if (allWorkouts && allWorkouts.length > 0) {
+      allWorkouts.forEach((doc) => {
         const convertedDate = new Date(
           doc.createdAt.seconds * 1000 + doc.createdAt.nanoseconds / 1000000
         );
@@ -77,7 +79,7 @@ const UserProfile = () => {
         <div className="flex flex-col items-center justify-center py-2 pb-20">
           <div className="pt-20 overflow-hidden rounded">
             <div className="flex justify-center w-full pt-4 -mt-20">
-              {authUser.gender === "Male" ? (
+              {user.gender === "Male" ? (
                 <div className="w-32 h-32">
                   <img
                     src={maleImage}
@@ -85,7 +87,7 @@ const UserProfile = () => {
                     className="object-cover w-full h-full rounded-full shadow-md shadow-black"
                   />
                 </div>
-              ) : authUser.gender === "Female" ? (
+              ) : user.gender === "Female" ? (
                 <div className="w-32 h-32">
                   <img
                     src={femaleImage}
@@ -106,13 +108,11 @@ const UserProfile = () => {
 
             <div className="flex flex-col px-6 mt-4">
               <h1 className="mb-1 text-3xl font-bold text-center">
-                {authUser.username}
+                {user.username}
               </h1>
+              <p className="pt-2 text-base text-center">State: {user.state}</p>
               <p className="pt-2 text-base text-center">
-                State: {authUser.state}
-              </p>
-              <p className="pt-2 text-base text-center">
-                Birthday: {authUser.birthday}
+                Birthday: {user.birthday}
               </p>
               {allWorkouts.length > 0 && (
                 <p className="pt-2 text-base text-center">

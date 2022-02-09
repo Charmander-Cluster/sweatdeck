@@ -9,6 +9,7 @@ const DynamicActivity = (props) => {
     .map((workout) => {
       return workout.workoutData.exercises;
     })
+
     .reduce((totalSets, workout) => {
       return (
         totalSets +

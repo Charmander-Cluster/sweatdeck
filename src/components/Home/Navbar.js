@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const authUser = useSelector((state) => state.auth);
 
-  console.log(authUser);
-
   return (
     <div className="fixed z-40 w-full h-screen">
       {authUser.uid && (
