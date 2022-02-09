@@ -166,11 +166,28 @@ const SignUp = () => {
                       />
                       {errors.birthday && touched.birthday && errors.birthday}
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="relative flex flex-col mt-2 md:ml-12 md:mt-0">
                       <h1 className="pt-2 font-extrabold">State (Location)</h1>
-
+                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="mt-4 icon icon-tabler icon-tabler-selector"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="#a0aec0"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <polyline points="8 9 12 5 16 9" />
+                          <polyline points="16 15 12 19 8 15" />
+                        </svg>
+                      </div>
                       <Field
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
                         name="state"
                         as="select"
                         validate
