@@ -96,7 +96,7 @@ const StrengthDetails = (props) => {
   return (
     <div>
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
-        <div>
+        {/* <div>
         <div className="flex -mb-6 justify-end">
           <button onClick={handleRemove}>
             {" "}
@@ -107,7 +107,7 @@ const StrengthDetails = (props) => {
             />{" "}
           </button>
         </div>
-        </div>
+        </div> */}
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
