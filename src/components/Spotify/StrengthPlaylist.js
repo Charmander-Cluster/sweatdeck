@@ -6,6 +6,7 @@ import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuthStrength from "./useAuthStrength";
 
+import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 
@@ -27,7 +28,6 @@ const StrengthPlaylist = (props) => {
     setUser(u);
   });
 
-  // let history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,26 +45,17 @@ const StrengthPlaylist = (props) => {
   useEffect(() => {
     if (playlistConfirmed) {
       dispatch(createDBWorkout(strengthLocalWorkout, userId));
+      dispatch(strengthLocalCreateWorkout({}))
       history.push("/confirmstrengthcreate");
     }
   }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
-
-  const createWorkout = () => {
-    dispatch(
-      strengthLocalEditWorkout({
-        ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
-      })
-    );
-    dispatch(createDBWorkout(strengthLocalWorkout, userId));
-  };
 
   const handleConfirm = (event) => {
     event.preventDefault();
     dispatch(
       strengthLocalEditWorkout({
         ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl },
       })
     );
     setPlaylistConfirmed(true);

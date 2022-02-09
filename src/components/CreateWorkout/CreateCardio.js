@@ -38,6 +38,7 @@ const CreateCardio = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
+      dispatch(cardioLocalCreateWorkout({}))
       history.push("/confirmcardiocreate")
       // setRedirect(true);
     }

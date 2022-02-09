@@ -45,6 +45,7 @@ const CreateStrength = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
+      dispatch(strengthLocalCreateWorkout({}))
       history.push("/confirmstrengthcreate");
     }
   }, [dispatch, workoutAdded, strengthLocalWorkout, userId])
