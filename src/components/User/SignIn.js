@@ -26,8 +26,13 @@ const SignIn = () => {
             errors.email = "Invalid email address";
           }
 
-          if (!values.email) {
-            errors.email = "Required";
+          const passwordRegex = /(?=.*[0-9])/;
+          if (!values.password) {
+            errors.password = "Required";
+          } else if (values.password.length < 6) {
+            errors.password = "Password must be 6 characters long.";
+          } else if (!passwordRegex.test(values.password)) {
+            errors.password = "Invalid password. Must contain one number.";
           }
         }}
         onSubmit={(values) => {
