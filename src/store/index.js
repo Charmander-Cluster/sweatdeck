@@ -13,6 +13,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import singleWorkoutReducer from "./singleWorkout";
 import logWorkout from "./logWorkout";
+import getData from "./getData"
 
 const persistConfig = {
   key: "root",
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   cardioLocalWorkout: cardioLocalCreateWorkoutReducer,
   strengthLocalWorkout: strengthLocalCreateWorkoutReducer,
   DBWorkout: createDBWorkoutReducer,
+  getData,
 });
 
 const middleware = composeWithDevTools(

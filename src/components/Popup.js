@@ -1,7 +1,22 @@
-import React from "react"
+import React, { useEffect } from "react";
+import { getDataThunk } from "../store/getData";
+import { useDispatch, useSelector } from "react-redux";
 
 const Popup = () => {
-    return (<div><h1>Hello!</h1></div>)
-}
+  const data = useSelector((state) => state.getData);
 
-export default Popup
+  console.log("from popup:" , data); 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDataThunk());
+  }, [dispatch]);
+
+  return (
+    <div>
+      <h1>Hello!</h1>
+    </div>
+  );
+};
+
+export default Popup;
