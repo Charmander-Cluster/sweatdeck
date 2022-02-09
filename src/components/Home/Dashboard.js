@@ -39,6 +39,16 @@ const Dashboard = () => {
     };
   }, [dispatch, fetchData]);
 
+  const strengthCheck = latestWorkouts.filter(
+    (workout) => workout.workoutData.category === "strength"
+  );
+
+  const cardioCheck = latestWorkouts.filter(
+    (workout) => workout.workoutData.category === "cardio"
+  );
+
+  console.log(strengthCheck);
+
   return (
     <>
       {isLoading ? (
@@ -62,37 +72,38 @@ const Dashboard = () => {
           <div className="container px-6 mx-auto">
             <DynamicActivity workouts={latestWorkouts} />
           </div>
-          <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
-            <div className="flex justify-between lg:flex-row lg:items-center">
-              <Link
-                to={{
-                  pathname: `/users/${authUser.uid}/workouts`,
-                  state: "cardio",
-                }}
-                className="flex flex-row"
-              >
-                <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
-                  Cardio
-                </h4>
-
-                <svg
-                  className="w-6 h-6 mt-1 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+          {cardioCheck.length > 0 && (
+            <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+              <div className="flex justify-between lg:flex-row lg:items-center">
+                <Link
+                  to={{
+                    pathname: `/users/${authUser.uid}/workouts`,
+                    state: "cardio",
+                  }}
+                  className="flex flex-row"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-              </Link>
-            </div>
-          </div>
+                  <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                    Cardio
+                  </h4>
 
+                  <svg
+                    className="w-6 h-6 mt-1 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          )}
           <div
             ref={cardioContainerRef}
             className="flex flex-row overflow-auto snap-x hide-scrollbar"
@@ -112,37 +123,38 @@ const Dashboard = () => {
               })}
           </div>
 
-          <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
-            <div className="flex justify-between lg:flex-row lg:items-center">
-              <Link
-                to={{
-                  pathname: `/users/${authUser.uid}/workouts`,
-                  state: "strength",
-                }}
-                className="flex flex-row"
-              >
-                <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
-                  Strength
-                </h4>
-
-                <svg
-                  className="w-6 h-6 mt-1 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+          {strengthCheck.length > 0 && (
+            <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+              <div className="flex justify-between lg:flex-row lg:items-center">
+                <Link
+                  to={{
+                    pathname: `/users/${authUser.uid}/workouts`,
+                    state: "strength",
+                  }}
+                  className="flex flex-row"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-              </Link>
-            </div>
-          </div>
+                  <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                    Strength
+                  </h4>
 
+                  <svg
+                    className="w-6 h-6 mt-1 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          )}
           <div
             ref={strengthContainerRef}
             className="flex flex-row overflow-auto snap-x hide-scrollbar"
