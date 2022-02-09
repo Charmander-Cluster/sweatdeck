@@ -17,28 +17,27 @@ const Dashboard = () => {
   const cardioContainerRef = useRef();
   const strengthContainerRef = useRef();
 
-  const fetchData = useCallback(() => {
-    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
-  }, [dispatch, authUser.uid]);
-
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && latestWorkouts.length > 0) {
       cardioContainerRef.current.scrollLeft = 0;
       strengthContainerRef.current.scrollLeft = 0;
     }
   }, [isLoading, latestWorkouts]);
+
+  const fetchData = useCallback(() => {
+    dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
+  }, [dispatch, authUser.uid]);
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       fetchData();
     }
-
     setLoading(false);
     return () => {
       isMounted = false;
     };
-  }, [authUser.uid, dispatch, fetchData]);
+  }, [dispatch, fetchData]);
 
   return (
     <>

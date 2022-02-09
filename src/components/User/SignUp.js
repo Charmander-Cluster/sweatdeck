@@ -85,12 +85,12 @@ const SignUp = () => {
             {step === 1 ? (
               <Form>
                 <div className="w-full p-10 ">
-                  <div className="items-center pb-6 border-b border-teal-600 md:flex">
+                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
                     <h1 className="mb-2 text-lg font-bold text-center uppercase">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 border-2 border-white rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
                         <p className="text-base font-medium leading-none text-white">
                           01
                         </p>
@@ -241,7 +241,7 @@ const SignUp = () => {
                       values.state === ""
                     }
                     onClick={stepClick}
-                    className="flex items-center justify-center py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                    className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                   >
                     <span className="text-sm font-medium text-center text-white capitalize">
                       Next Step
@@ -265,13 +265,13 @@ const SignUp = () => {
             ) : (
               <Form onSubmit={handleSubmit}>
                 <div className="w-full p-10 ">
-                  <div className="items-center pb-6 border-b border-teal-600 md:flex">
+                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
                     <h1 className="mb-2 text-lg font-bold text-center uppercase">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
                       <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded">
-                        <p className="text-base font-medium leading-none text-teal-600">
+                        <p className="text-base font-medium leading-none text-teal-700">
                           01
                         </p>
                       </div>
@@ -280,7 +280,7 @@ const SignUp = () => {
                       </p>
                     </div>
                     <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 rounded">
                         <p className="text-base font-medium leading-none text-white">
                           02
                         </p>
@@ -465,7 +465,7 @@ const SignUp = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                   >
                     <span className="text-sm font-medium text-center text-white capitalize">
                       Submit
