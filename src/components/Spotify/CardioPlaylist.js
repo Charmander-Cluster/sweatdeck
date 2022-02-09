@@ -36,7 +36,6 @@ const CardioPlaylist = (props) => {
   }, [dispatch, user]);
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
-  console.log(cardioLocalWorkout)
 
   const accessToken = useAuthCardio(token);
 
