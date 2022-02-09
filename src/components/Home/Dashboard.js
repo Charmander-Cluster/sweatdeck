@@ -47,8 +47,6 @@ const Dashboard = () => {
     (workout) => workout.workoutData.category === "cardio"
   );
 
-  console.log(strengthCheck);
-
   return (
     <>
       {isLoading ? (
