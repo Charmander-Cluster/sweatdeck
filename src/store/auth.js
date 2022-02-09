@@ -22,6 +22,7 @@ export const authenticate = (email, password) => async (dispatch) => {
     if (user !== null) {
       const response = await getDoc(doc(db, "users", user.uid));
       const fullDetail = { ...user, ...response.data() };
+      console.log(fullDetail);
       dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
@@ -35,7 +36,7 @@ export const fetchLoginUser = () => async (dispatch) => {
   if (user) {
     const response = await getDoc(doc(db, "users", user.uid));
     const fullDetail = { ...user, ...response.data() };
-    await dispatch(setAuth(fullDetail));
+    dispatch(setAuth(fullDetail));
   }
 };
 
@@ -63,9 +64,9 @@ export const authSignUp = (user) => async (dispatch) => {
       frequency: user.frequency,
       goal: user.goal,
     });
-    // if (response.user.uid) {
-    //   authenticate();
-    // }
+    if (response.user.uid) {
+      dispatch(authenticate(user.email, user.password));
+    }
 
     // dispatch(setAuth());
   } catch (error) {
@@ -82,8 +83,6 @@ export const authSignUp = (user) => async (dispatch) => {
       message = "Error: Please try again";
     }
     alert(message);
-
-    return dispatch(setAuth({ error }));
   }
 };
 

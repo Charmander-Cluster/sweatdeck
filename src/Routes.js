@@ -32,6 +32,7 @@ const Routes = () => {
     <>
       {authUser.uid ? (
         <Switch>
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/createworkout" component={CreateWorkout} />
           <Route exact path="/createworkout/cardio" component={CreateCardio} />
           <Route
