@@ -243,7 +243,7 @@ const EditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
+                  className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-600 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
                 >
                   <svg
                     className="w-6 h-6 mr-2 pb-0.5"

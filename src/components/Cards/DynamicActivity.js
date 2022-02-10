@@ -2,7 +2,15 @@ import React from "react";
 import DoughnutActivityChart from "../Charts/DoughnutActivityChart";
 
 const DynamicActivity = (props) => {
-  const workoutLength = props.workouts.length;
+  // const workoutLength = props.workouts.length;
+
+  const workoutLength = props.workouts
+    .map((workout) => {
+      return workout.workoutData.timesCompleted;
+    })
+    .reduce((timesCompleted, workout) => {
+      return timesCompleted + workout;
+    }, 0);
 
   const setsSum = props.workouts
     .filter((workout) => workout.workoutData.category === "strength")
@@ -102,7 +110,13 @@ const DynamicActivity = (props) => {
             </div>
           </div>
           <div className="flex items-center justify-center pt-4">
-            <p>Well done this week!</p>
+            {workoutLength < 5 ? (
+              <p>Do more workouts!</p>
+            ) : workoutLength < 10 ? (
+              <p>Well done this week!</p>
+            ) : (
+              <p>You are seriously amazing!</p>
+            )}
           </div>
         </div>
       </div>

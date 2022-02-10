@@ -192,7 +192,7 @@ const UserProfile = () => {
               <div className="flex flex-row">
                 <Link to={`${id}/edit`}>
                   <div className="ml-1">
-                    <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-700 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black">
+                    <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black">
                       <svg
                         className="w-5 h-5 mr-2"
                         fill="none"
@@ -219,7 +219,7 @@ const UserProfile = () => {
                 </Link>
                 <div className="ml-3">
                   <button
-                    className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-700 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black"
+                    className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black"
                     onClick={() => handleClick()}
                   >
                     <svg

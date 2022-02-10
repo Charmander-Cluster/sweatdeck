@@ -16,6 +16,7 @@ const Dashboard = () => {
 
   const [strengthCheck, setStrengthCheck] = useState([]);
   const [cardioCheck, setCardioCheck] = useState([]);
+  const [completedCheck, setCompletedCheck] = useState([]);
 
   const cardioContainerRef = useRef();
   const strengthContainerRef = useRef();
@@ -35,8 +36,15 @@ const Dashboard = () => {
           (workout) => workout.workoutData.category === "cardio"
         )
       );
+      setCompletedCheck(
+        latestWorkouts.filter(
+          (workout) => workout.workoutData.timesCompleted > 0
+        )
+      );
     }
   }, [isLoading, latestWorkouts]);
+
+  console.log(completedCheck);
 
   const fetchData = useCallback(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
@@ -74,7 +82,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="container px-6 mx-auto">
-            <DynamicActivity workouts={latestWorkouts} />
+            <DynamicActivity workouts={completedCheck} />
           </div>
           {cardioCheck.length > 0 && (
             <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
