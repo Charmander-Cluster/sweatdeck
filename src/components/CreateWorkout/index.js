@@ -40,9 +40,9 @@ const CreateWorkout = () => {
         {/* <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/> */}
         {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
         <img
-          src="apple-icon-180.png"
-          className="mt-24 h-28 rounded-full shadow-lg shadow-black"
-          alt="add-list"
+          src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
+          className="mt-24 object-cover h-28 w-28 rounded-full shadow-lg shadow-black"
+          alt="Markus Magnusson"
         />
       </div>
 

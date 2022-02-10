@@ -22,7 +22,7 @@ const CardioOrStrengthButtons = () => {
 
       <div className="flex items-center justify-center">
         <img
-          src="apple-icon-180.png"
+          src="https://gifimage.net/wp-content/uploads/2018/11/cute-funny-gif-3.gif"
           className="mt-24 h-28 rounded-full shadow-lg shadow-black"
           alt="add-list"
         />
