@@ -6,11 +6,9 @@ const EmptyDashboard = (props) => {
     <div className="w-full px-4 pt-5 rounded-lg sm:px-6 md:px-8 pb-11 md:w-1/2 sm:border-r">
       <div className="items-center justify-between sm:flex">
         <div>
-          {props.authUser.username && (
-            <p className="mb-2 text-2xl font-bold leading-tight text-white">
-              Dashboard
-            </p>
-          )}
+          <p className="mb-2 text-2xl font-bold leading-tight text-white">
+            Dashboard
+          </p>
         </div>
       </div>
       <div className="flex flex-col items-start lg:flex-row lg:items-center">
