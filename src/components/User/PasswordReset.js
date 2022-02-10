@@ -8,7 +8,7 @@ const PasswordReset = () => {
 
   return (
     <div className="flex flex-col items-center justify-center pt-10 md:min-h-screen">
-      <h1 className="mb-2 text-lg font-bold uppercase">Password Recovery</h1>
+      <h1 className="mt-10 mb-2 text-lg font-bold ">Password Recovery</h1>
       <Formik
         initialValues={{ email: "" }}
         validate={(values) => {
