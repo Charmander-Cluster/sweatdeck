@@ -8,6 +8,7 @@ import {
 import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
+import { latCalc, longCalc} from "../brain/dataMods"
 
 const SET_AUTH = "SET_AUTH";
 
@@ -50,6 +51,8 @@ export const authSignUp = (user) => async (dispatch) => {
     );
 
     const users = collection(db, "users");
+    const userLat = latCalc(user.state);
+    const userLong = longCalc(user.state);
 
     await setDoc(doc(users, response.user.uid), {
       email: user.email,
@@ -62,6 +65,8 @@ export const authSignUp = (user) => async (dispatch) => {
       favoriteWorkoutType: user.favoriteWorkoutType,
       frequency: user.frequency,
       goal: user.goal,
+      lat: userLat,
+      long: userLong
     });
 
     dispatch(setAuth(user));

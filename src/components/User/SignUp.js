@@ -49,6 +49,9 @@ const SignUp = () => {
           favoriteWorkoutType: "",
           frequency: "",
           goal: "",
+          age: "",
+          lat: "",
+          long: ""
         }}
         validate={(values) => {
           const errors = {};
