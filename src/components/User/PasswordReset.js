@@ -7,8 +7,8 @@ const PasswordReset = () => {
   let history = useHistory();
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10">
-      <h1 className="mb-2 text-lg font-bold uppercase">Password Recovery</h1>
+    <div className="flex flex-col items-center justify-center pt-10 md:min-h-screen">
+      <h1 className="mt-10 mb-2 text-lg font-bold ">Password Recovery</h1>
       <Formik
         initialValues={{ email: "" }}
         validate={(values) => {
@@ -34,7 +34,7 @@ const PasswordReset = () => {
             <div>
               <h1 className="text-sm font-extrabold">Email</h1>
               <Field
-                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
                 type="email"
                 placeholder="Email"
                 name="email"

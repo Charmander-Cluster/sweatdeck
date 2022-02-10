@@ -53,7 +53,7 @@ const EditUser = () => {
       >
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <div className="pt-20 overflow-hidden rounded">
+            <div className="pt-20 overflow-hidden rounded md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
               <div className="flex justify-center w-full pt-4 -mt-20">
                 <div className="w-32 h-32">
                   {user && user.gender === "Male" ? (
@@ -93,31 +93,13 @@ const EditUser = () => {
                   <Field
                     type="text"
                     name="username"
-                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
                     placeholder="Username"
                   />
                   {errors.username && touched.username && errors.username}
                 </div>
-                <div className="relative w-full lg:hidden md:mt-4">
+                <div className="relative w-full md:mt-4">
                   <h1 className="pt-2 font-extrabold">State (Location)</h1>
-                  <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mt-4 icon icon-tabler icon-tabler-selector"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#a0aec0"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="8 9 12 5 16 9" />
-                      <polyline points="16 15 12 19 8 15" />
-                    </svg>
-                  </div>
 
                   <Field
                     className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
@@ -182,26 +164,9 @@ const EditUser = () => {
                   </Field>
                 </div>
 
-                <div className="relative w-full lg:hidden md:mt-4">
+                <div className="relative w-full md:mt-4">
                   <h1 className="pt-2 font-extrabold">Favorite Workout Type</h1>
-                  <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mt-4 icon icon-tabler icon-tabler-selector"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#a0aec0"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="8 9 12 5 16 9" />
-                      <polyline points="16 15 12 19 8 15" />
-                    </svg>
-                  </div>
+
                   <Field
                     className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     placeholder="Favorite Workout Type"
@@ -215,26 +180,9 @@ const EditUser = () => {
                     <option value="Strength">Strength</option>
                   </Field>
                 </div>
-                <div className="relative w-full lg:hidden md:mt-4">
+                <div className="relative w-full md:mt-4">
                   <h1 className="pt-2 font-extrabold">Goal</h1>
-                  <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mt-4 icon icon-tabler icon-tabler-selector"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#a0aec0"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="8 9 12 5 16 9" />
-                      <polyline points="16 15 12 19 8 15" />
-                    </svg>
-                  </div>
+
                   <Field
                     className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     placeholder="Goal"
@@ -256,7 +204,7 @@ const EditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
+                  className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-600 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
                 >
                   <svg
                     className="w-6 h-6 mr-2 pb-0.5"
