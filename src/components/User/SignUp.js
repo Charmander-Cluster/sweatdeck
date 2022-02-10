@@ -541,6 +541,7 @@ const SignUp = () => {
                         <option value="Maintenance">Maintenance</option>
                         <option value="Competition">Competition</option>
                         <option value="Weight Loss">Weight Loss</option>
+                        <option value="Build Muscle">Build Muscle</option>
                         <option value="Hobby">Hobby</option>
                         <option value="Other">Other</option>
                       </Field>
@@ -573,14 +574,13 @@ const SignUp = () => {
                         name="frequency"
                         as="select"
                       >
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
+                        <option value="1">1 (day a week)</option>
+                        <option value="2">2 (days a week)</option>
+                        <option value="3">3 (days a week)</option>
+                        <option value="4">4 (days a week)</option>
+                        <option value="5">5 (days a week)</option>
+                        <option value="6">6 (days a week)</option>
+                        <option value="7">7 (days a week)</option>
                       </Field>
                     </div>
                   </div>
