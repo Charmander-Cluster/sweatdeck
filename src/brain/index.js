@@ -1,5 +1,6 @@
 //import brain from "brain.js"
 import { DATA } from './dataset';
+import { NeuralNetwork } from 'brain.js/dist/brain-browser.mjs'
 
 //import brain from "brain.js"
 const brain = require("brain.js");
@@ -13,15 +14,15 @@ let testData = [
   {input: [73, 27.994402, -81.760254], output: [0,0,0,0,0,0,0,1]}, //FL
 ]
 
-  // const net = new brain.NeuralNetwork();
+  const net = new NeuralNetwork();
   
-  // net.train(DATA);
+  net.train(DATA);
 
-  // const output = net.run([73, 27.994402, -81.760254])  
-  // console.log('output: ', output) //[0,0,0,0,0,0,0,1]
+  const output = net.run([73, 27.994402, -81.760254])  
+  console.log('output: ', output) //[0,0,0,0,0,0,0,1]
 
-  // export const reco = (arr) => {
-  //   return net.run(arr);
-  // }
+  export const reco = (arr) => {
+    return net.run(arr);
+  }
 
-  // export default brain;
+   export default brain;
