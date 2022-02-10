@@ -89,7 +89,7 @@ const SignUp = () => {
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 border-2 border-white rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 border-2 border-white rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-white">
                           01
                         </p>
@@ -116,14 +116,14 @@ const SignUp = () => {
                     Security
                   </h1>
 
-                  <div className="items-center mt-8 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
+                  <div className="items-center mt-5 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Username</h1>
                       <Field
                         type="text"
                         placeholder="Username"
                         name="username"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.username && touched.username && errors.username}
                     </div>
@@ -133,7 +133,7 @@ const SignUp = () => {
                         type="password"
                         placeholder="Password"
                         name="password"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.password && touched.password && errors.password}
                     </div>
@@ -145,7 +145,7 @@ const SignUp = () => {
                         type="email"
                         placeholder="E-mail"
                         name="email"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.email && touched.email && errors.email}
                     </div>
@@ -156,7 +156,7 @@ const SignUp = () => {
                       <Field
                         name="birthday"
                         type="date"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.birthday && touched.birthday && errors.birthday}
                     </div>
@@ -164,7 +164,7 @@ const SignUp = () => {
                       <h1 className="pt-2 font-extrabold">State (Location)</h1>
 
                       <Field
-                        className="w-full p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
+                        className="w-full shadow-md shadow-black p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
                         name="state"
                         as="select"
                       >
@@ -273,7 +273,7 @@ const SignUp = () => {
                       </p>
                     </div>
                     <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-white">
                           02
                         </p>
@@ -287,14 +287,14 @@ const SignUp = () => {
                     Optional info
                   </h1>
 
-                  <div className="items-center mt-8 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
+                  <div className="items-center mt-5 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">First Name</h1>
                       <Field
                         type="text"
                         placeholder="First Name"
                         name="firstName"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                     </div>
                     <div className="flex flex-col mt-2">
@@ -303,14 +303,14 @@ const SignUp = () => {
                         type="text"
                         placeholder="Last Name"
                         name="lastName"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                     </div>
                     <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Gender</h1>
 
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Gender"
                         name="gender"
                         as="select"
@@ -333,7 +333,7 @@ const SignUp = () => {
                       </h1>
 
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Favorite Workout Type"
                         name="favoriteWorkoutType"
                         as="select"
@@ -346,7 +346,7 @@ const SignUp = () => {
                       <h1 className="pt-2 font-extrabold">Goal</h1>
 
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Goal"
                         name="goal"
                         as="select"
@@ -368,7 +368,7 @@ const SignUp = () => {
                       <h1 className="pt-2 font-extrabold">Workout Frequency</h1>
 
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Frequency"
                         name="frequency"
                         as="select"

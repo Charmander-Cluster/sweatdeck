@@ -11,7 +11,7 @@ const SignIn = () => {
 
   return (
     <div className="flex flex-col items-center justify-center pt-10 md:min-h-screen">
-      <h1 className="mb-2 text-lg font-bold uppercase">Sign In</h1>
+      <h1 className="text-5xl mb-14">Sweatdeck</h1>
       <Formik
         initialValues={{ email: "", password: "" }}
         validate={(values) => {
@@ -46,7 +46,7 @@ const SignIn = () => {
             <div>
               <h1 className="text-sm font-extrabold">Email</h1>
               <Field
-                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -55,9 +55,9 @@ const SignIn = () => {
               {errors.email && touched.email && errors.email}
             </div>
             <div>
-              <h1 className="text-sm font-extrabold">Password</h1>
+              <h1 className="mt-1 text-sm font-extrabold">Password</h1>
               <Field
-                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
                 type="password"
                 placeholder="Password"
                 name="password"
@@ -79,7 +79,7 @@ const SignIn = () => {
       <div className="flex flex-col items-center justify-center text-center">
         <div className="flex flex-row">
           <Link to="/passwordreset">
-            <button className="mb-2 ml-1 underline">
+            <button className="mb-2 ml-1 text-teal-500">
               Forgot your password?
             </button>
           </Link>
@@ -87,7 +87,7 @@ const SignIn = () => {
         <div>
           <h2>
             Don't have an account?{" "}
-            <Link to="/signup" className="underline">
+            <Link to="/signup" className="text-teal-500">
               Sign up!
             </Link>
           </h2>
