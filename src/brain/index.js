@@ -12,9 +12,9 @@ let getAccuracy = function(net, testData) {
     });
     return hits / testData.length;  
   }
-  const SPLIT = 12;
-  const trainData = DATA.slice(0, SPLIT);
-  const testData = DATA.slice(SPLIT + 1);
+  // const SPLIT = 12;
+  // const trainData = DATA.slice(0, SPLIT);
+  // const testData = DATA.slice(SPLIT + 1);
   
   // https://github.com/BrainJS/brain.js
   //create a simple feed forward neural network with backpropagation
@@ -27,7 +27,7 @@ let getAccuracy = function(net, testData) {
 //   }
   );
   
-  net.train(trainData);
+  net.train(DATA);
   
-  const accuracy = getAccuracy(net, testData);
+  const accuracy = getAccuracy(net, {"1/5/1995", "NJ"});
   console.log('accuracy: ', accuracy);

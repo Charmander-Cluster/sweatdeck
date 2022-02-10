@@ -1,3 +1,27 @@
+import { collection, getDocs, doc } from "firebase/firestore";
+import db from "../firebase.js";
+
+let getData = () => {
+  return async () => {
+    try {
+      const userData = await getDocs(collection(db, "users"));
+      let users = userData.docs.map((elem) => {
+          return {elemData: elem.data() }
+      })
+
+      let arr = [];
+      userData.docs.map((elem) => {
+          arr.push([elem.data().birthday, elem.data().state])
+      })
+
+      return arr;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+
 let shuffle = function(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -16,38 +40,47 @@ let shuffle = function(array) {
     return array;
   }
 
-const samples = [
-  ["2/17/2022", "FL"],
-  ["12/3/1990", "AR"],
-  ["12/07/1990", "NY"],
-  ["2/24/2022", "MA"],
-  ["10/25/1990", "NY"],
-  ["2/16/2022", "CO"],
-  ["10/25/1990", "NY"],
-  ["12/2/1300", "NM"],
-  ["3/3/2022", "NY"],
-  ["1/10/2022", "FL"],
-  ["10/25/1990", "NY"],
-  ["12/13/2014", "AL"],
-  ["2/17/2022", "FL"],
-  ["10/25/1990", "NY"],
-  ["10/25/1990", "FL"],
-  ["10/8/1978", "ME"],
-  ["12/09/1942", "MA"],
-  ["2000/12/02", "NY"],
-  ["10/25/1990", "NY"],
-  ["2/10/2022", "CT"],
-  ["10/25/1990", "NY"],
-  ["10/20/1990", "FL"],
-  ["2/25/2022", "CA"],
-  ["3/2/2022", "IA"]
-];
+// const samples = [
+//   ["2/17/2022", "FL"],
+//   ["12/3/1990", "AR"],
+//   ["12/07/1990", "NY"],
+//   ["2/24/2022", "MA"],
+//   ["10/25/1990", "NY"],
+//   ["2/16/2022", "CO"],
+//   ["10/25/1990", "NY"],
+//   ["12/2/1300", "NM"],
+//   ["3/3/2022", "NY"],
+//   ["1/10/2022", "FL"],
+//   ["10/25/1990", "NY"],
+//   ["12/13/2014", "AL"],
+//   ["2/17/2022", "FL"],
+//   ["10/25/1990", "NY"],
+//   ["10/25/1990", "FL"],
+//   ["10/8/1978", "ME"],
+//   ["12/09/1942", "MA"],
+//   ["2000/12/02", "NY"],
+//   ["10/25/1990", "NY"],
+//   ["2/10/2022", "CT"],
+//   ["10/25/1990", "NY"],
+//   ["10/20/1990", "FL"],
+//   ["2/25/2022", "CA"],
+//   ["3/2/2022", "IA"]
+// ];
+const samples = getData();
+
+const labels = [];
+let multiplier = Math.floor((samples.length)/4)
+let labeler = (arr, num) => {
+for (let i =0; i<= num; i++){
+  labels.push(arr)
+}
+}
+labeler([1,0,0,0], multiplier);
+labeler([0,1,0,0], multiplier);
+labeler([0,0,1,0], multiplier);
+labeler([0,0,0,1], samples.length - (multiplier*3));
 
 
-const labels = [
-[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],
-[1,0,0],[1,0,0],[1,0,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],
-[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1]];
 
 const orderedData = samples.map((sample,index) => {
     return {
