@@ -251,16 +251,15 @@ const SignUp = () => {
                       </Field>
                     </div>
                   </div>
-                  {errors.length === 0 ? (
+                  {errors.length > 0 ||
+                  values.username === "" ||
+                  values.email === "" ||
+                  values.password === "" ||
+                  values.birthday === "" ||
+                  values.state === "" ? (
                     <button
-                      // errors.length > 0 ||
-                      // values.username === "" ||
-                      // values.email === "" ||
-                      // values.password === "" ||
-                      // values.birthday === "" ||
-                      // values.state === ""
                       type = "button"
-                      onClick={stepClick}
+                      onClick={errorClick}
                       className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
                       <span className="text-sm font-medium text-center text-white capitalize">
@@ -282,14 +281,8 @@ const SignUp = () => {
                     </button>
                   ) : (
                     <button
-                      // errors.length > 0 ||
-                      // values.username === "" ||
-                      // values.email === "" ||
-                      // values.password === "" ||
-                      // values.birthday === "" ||
-                      // values.state === ""
-                      type = "button"
-                      onClick={errorClick}
+                    type = "button"
+                      onClick={stepClick}
                       className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
                       <span className="text-sm font-medium text-center text-white capitalize">
