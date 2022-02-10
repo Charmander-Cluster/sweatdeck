@@ -44,8 +44,6 @@ const Dashboard = () => {
     }
   }, [isLoading, latestWorkouts]);
 
-  console.log(completedCheck);
-
   const fetchData = useCallback(() => {
     dispatch(fetchLatestUserWorkoutThunk(authUser.uid));
   }, [dispatch, authUser.uid]);
