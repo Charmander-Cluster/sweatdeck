@@ -44,7 +44,7 @@ const PasswordReset = () => {
 
             <div className="mt-2">
               <button
-                className="flex flex-row justify-center px-8 py-3 mx-2 my-3 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md cursor-pointer text-1xl shadow-black hover:bg-teal-800"
+                className="flex flex-row justify-center px-8 py-3 mx-2 my-3 text-white transition duration-150 ease-in-out bg-teal-600 rounded shadow-md cursor-pointer text-1xl shadow-black hover:bg-teal-700"
                 type="submit"
                 disabled={isSubmitting}
               >
