@@ -95,13 +95,13 @@ const SignUp = () => {
           <div>
             {step === 1 ? (
               <Form>
-                <div className="w-full p-10 ">
-                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
-                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
+                  <div className="items-center pb-6 border-b border-teal-600 md:flex">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase md:pt-3 md:pr-2">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 border-2 border-white rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-white">
                           01
                         </p>
@@ -111,7 +111,7 @@ const SignUp = () => {
                       </p>
                     </div>
                     <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-                      <div className="flex items-center justify-center w-8 h-8 bg-white rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-white rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-teal-600">
                           02
                         </p>
@@ -127,72 +127,55 @@ const SignUp = () => {
                   >
                     Security
                   </h1>
-
-                  <div className="items-center mt-8 md:flex">
+                  <div className="items-center mt-5 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Username</h1>
                       <Field
                         type="text"
                         placeholder="Username"
                         name="username"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.username && touched.username && errors.username}
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">Password</h1>
                       <Field
                         type="password"
                         placeholder="Password"
                         name="password"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.password && touched.password && errors.password}
                     </div>
                   </div>
-                  <div className="items-center mt-2 md:flex">
+                  <div className="items-center mt-2 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Email Address</h1>
                       <Field
                         type="email"
                         placeholder="E-mail"
                         name="email"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.email && touched.email && errors.email}
                     </div>
                   </div>
-                  <div className="items-center mt-2 md:flex">
+                  <div className="items-center mt-2 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Date of birth</h1>
-                      <DatePickerField
+                      <Field
                         name="birthday"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        type="date"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                       {errors.birthday && touched.birthday && errors.birthday}
                     </div>
-                    <div className="relative flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="relative flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">State (Location)</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
-                        className="w-full p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
+                        className="w-full shadow-md shadow-black p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
                         name="state"
                         as="select"
                       >
@@ -250,7 +233,7 @@ const SignUp = () => {
                         <option value="WY">WY</option>
                       </Field>
                     </div>
-                  </div>
+                  </div>{" "}
                   {errors.length > 0 ||
                   values.username === "" ||
                   values.email === "" ||
@@ -260,7 +243,7 @@ const SignUp = () => {
                     <button
                       type="button"
                       onClick={errorClick}
-                      className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                      className="flex items-center justify-center py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
                       <span className="text-sm font-medium text-center text-white capitalize">
                         Next Step
@@ -283,7 +266,7 @@ const SignUp = () => {
                     <button
                       type="button"
                       onClick={stepClick}
-                      className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                      className="flex items-center justify-center py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
                       <span className="text-sm font-medium text-center text-white capitalize">
                         Next Step
@@ -303,7 +286,6 @@ const SignUp = () => {
                       </svg>
                     </button>
                   )}
-
                   {btnState ? (
                     // <div>{alert("Workout logged!")}</div>
                     <div
@@ -382,14 +364,14 @@ const SignUp = () => {
               </Form>
             ) : (
               <Form onSubmit={handleSubmit}>
-                <div className="w-full p-10 ">
-                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
-                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
+                  <div className="items-center pb-6 border-b border-teal-600 md:flex">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase md:pt-3 md:pr-2">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
-                      <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded">
-                        <p className="text-base font-medium leading-none text-teal-700">
+                      <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded shadow-md shadow-black">
+                        <p className="text-base font-medium leading-none text-teal-600">
                           01
                         </p>
                       </div>
@@ -398,7 +380,7 @@ const SignUp = () => {
                       </p>
                     </div>
                     <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-white">
                           02
                         </p>
@@ -412,47 +394,30 @@ const SignUp = () => {
                     Optional info
                   </h1>
 
-                  <div className="items-center mt-8 md:flex">
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                  <div className="items-center mt-5 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">First Name</h1>
                       <Field
                         type="text"
                         placeholder="First Name"
                         name="firstName"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">Last Name</h1>
                       <Field
                         type="text"
                         placeholder="Last Name"
                         name="lastName"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Gender</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Gender"
                         name="gender"
                         as="select"
@@ -469,30 +434,13 @@ const SignUp = () => {
                         <option value="Non-Conforming">Non-Conforming</option>
                       </Field>
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">
                         Favorite Workout Type
                       </h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Favorite Workout Type"
                         name="favoriteWorkoutType"
                         as="select"
@@ -501,28 +449,11 @@ const SignUp = () => {
                         <option value="Strength">Strength</option>
                       </Field>
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Goal</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Goal"
                         name="goal"
                         as="select"
@@ -536,53 +467,34 @@ const SignUp = () => {
                         <option value="Maintenance">Maintenance</option>
                         <option value="Competition">Competition</option>
                         <option value="Weight Loss">Weight Loss</option>
-                        <option value="Build Muscle">Build Muscle</option>
                         <option value="Hobby">Hobby</option>
                         <option value="Other">Other</option>
                       </Field>
                     </div>
-                  </div>
-                  <div className="items-center mt-2 md:flex">
-                    <div className="relative lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Workout Frequency</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Frequency"
                         name="frequency"
                         as="select"
                       >
-                        <option value="1">1 (day a week)</option>
-                        <option value="2">2 (days a week)</option>
-                        <option value="3">3 (days a week)</option>
-                        <option value="4">4 (days a week)</option>
-                        <option value="5">5 (days a week)</option>
-                        <option value="6">6 (days a week)</option>
-                        <option value="7">7 (days a week)</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
                       </Field>
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                   >
                     <span className="text-sm font-medium text-center text-white capitalize">
                       Submit
