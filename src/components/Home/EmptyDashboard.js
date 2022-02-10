@@ -7,20 +7,22 @@ const EmptyDashboard = (props) => {
       <div className="items-center justify-between sm:flex">
         <div>
           {props.authUser.username && (
-            <p className="text-base font-bold leading-none text-white">
-              {props.authUser.username}'s Dashboard
+            <p className="mb-2 text-2xl font-bold leading-tight text-white">
+              Dashboard
             </p>
           )}
         </div>
       </div>
-      <div className="mt-9">
-        <p className="text-sm font-medium leading-none tracking-wide text-white">
-          You have no workouts
-        </p>
-        <div className="w-full h-1 mt-4 bg-teal-600 rounded-full"></div>
+      <div className="flex flex-col items-start lg:flex-row lg:items-center">
+        <div className="mt-9">
+          <p className="text-lg font-medium leading-none tracking-wide text-white">
+            You have no workouts
+          </p>
+          <div className="h-1 mt-4 bg-teal-600 rounded-full"></div>
+        </div>
       </div>
       <div className="mt-12">
-        <p className="text-sm font-medium leading-none tracking-wide text-center text-white">
+        <p className="flex items-start font-medium leading-none tracking-wide text-white text-md">
           Getting started
         </p>
         <Link to="/createworkout">
@@ -31,11 +33,6 @@ const EmptyDashboard = (props) => {
         <Link to={`users/${props.authUser.uid}`}>
           <button className="w-full px-5 py-2 mt-5 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 h-28 focus:outline-none shadow-black">
             View User Profile
-          </button>
-        </Link>
-        <Link to="spotifyhome">
-          <button className="w-full px-5 py-2 mt-5 text-sm leading-none text-white bg-teal-700 rounded shadow-md sm:mt-0 h-28 focus:outline-none shadow-black">
-            Link Spotify
           </button>
         </Link>
       </div>

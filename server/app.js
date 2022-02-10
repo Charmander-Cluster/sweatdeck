@@ -39,6 +39,18 @@ if (process.env.LE_URL && process.env.LE_CONTENT) {
   });
 }
 
+if (process.env.NODE_ENV === "production") {
+  app.use(function (req, res, next) {
+    if (
+      req.headers["x-forwarded-proto"] !== "https" &&
+      req.path !== process.env.LE_URL
+    ) {
+      return res.redirect(["https://", req.get("Host"), req.url].join(""));
+    }
+    return next();
+  });
+}
+
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
 const SPOTIFY_REDIRECT_URI_CARDIO =

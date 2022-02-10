@@ -37,6 +37,12 @@ const UserProfile = () => {
     };
   }, [fetchData]);
 
+  // const completedDates = allWorkouts.map((workout) => {
+  //   return workout.completedDates;
+  // });
+
+  // console.log(completedDates);
+
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
@@ -76,7 +82,7 @@ const UserProfile = () => {
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-2 pb-20">
+        <div className="flex flex-col items-center justify-center py-2 pb-20 md:min-h-screen">
           <div className="pt-20 overflow-hidden rounded">
             <div className="flex justify-center w-full pt-4 -mt-20">
               {user.gender === "Male" ? (
@@ -192,7 +198,7 @@ const UserProfile = () => {
               <div className="flex flex-row">
                 <Link to={`${id}/edit`}>
                   <div className="ml-1">
-                    <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-700 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black">
+                    <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black">
                       <svg
                         className="w-5 h-5 mr-2"
                         fill="none"
@@ -219,7 +225,7 @@ const UserProfile = () => {
                 </Link>
                 <div className="ml-3">
                   <button
-                    className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-700 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black"
+                    className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black"
                     onClick={() => handleClick()}
                   >
                     <svg
@@ -241,7 +247,7 @@ const UserProfile = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="md:flex md:justify-center">
               <Calendar
                 prevLabel={null}
                 prev2Label={null}
