@@ -213,7 +213,7 @@ const EditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  className="flex flex-row justify-center px-8 py-3 mt-4 text-white transition duration-150 ease-in-out bg-purple-600 rounded shadow-md text-1xl shadow-black hover:bg-purple-700"
+                  className="flex flex-row justify-center px-8 py-3 mt-5 mb-2 text-white transition duration-150 ease-in-out bg-purple-600 rounded shadow-md text-1xl shadow-black hover:bg-purple-700"
                 >
                   <svg
                     className="w-6 h-6 mr-2 pb-0.5"
@@ -231,17 +231,19 @@ const EditUser = () => {
                   </svg>
                   Save Changes
                 </button>
+                <div className="flex justify-center">
+                  <button
+                    className="text-purple-600 hover:text-purple-700"
+                    onClick={passwordReset}
+                  >
+                    Password Reset
+                  </button>
+                </div>
               </div>
             </div>
           </Form>
         )}
       </Formik>
-      <button
-        className="ml-1 text-purple-600 hover:text-purple-700"
-        onClick={passwordReset}
-      >
-        Password Reset
-      </button>
 
       {btnState ? (
         // <div>{alert("Workout logged!")}</div>

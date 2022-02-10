@@ -17,7 +17,7 @@ const scopes = [
 ];
 
 const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join(
-  "#20"
+  "%20"
 )}`;
 
 const SpotifyLogin = () => {

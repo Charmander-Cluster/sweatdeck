@@ -20,8 +20,8 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10 md:min-h-screen">
-      <div className="my-6 ml-0">
+    <div className="flex flex-col items-center justify-center min-h-screen pb-20">
+      <div className="my-3 ml-0">
         <h1 className="text-6xl">Sweatdeck</h1>
         <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
       </div>
