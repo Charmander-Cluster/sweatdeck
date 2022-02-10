@@ -32,12 +32,7 @@ const ActivityChart = (props) => {
           props.calculatedSums.distanceSum,
           props.calculatedSums.minutesSum,
         ],
-        backgroundColor: [
-          "rgba(255, 99, 132)",
-          "rgba(54, 162, 235)",
-          "rgba(255, 206, 86)",
-          "#c084fc",
-        ],
+        backgroundColor: ["#f87171", "#38bdf8", "#facc15", "#e879f9"],
         borderColor: ["#fef2f2"],
         borderWidth: 2,
       },
@@ -48,10 +43,10 @@ const ActivityChart = (props) => {
       <div className="relative flex items-center justify-center w-48 h-48">
         <Doughnut data={data} options={options} className="z-10" />
         <div className="absolute z-0 flex flex-col items-center justify-center w-24 h-24 bg-white rounded-full">
-          <p className="text-2xl font-semibold leading-6 text-center text-fuchsia-700">
+          <p className="text-2xl font-semibold leading-6 text-center text-fuchsia-600">
             {props.workoutLength}
           </p>
-          <p className="font-semibold leading-6 text-center text-md text-fuchsia-700">
+          <p className="font-semibold leading-6 text-center text-md text-fuchsia-600">
             Workouts
           </p>
         </div>

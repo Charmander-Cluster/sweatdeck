@@ -64,7 +64,7 @@ const SingleWorkout = () => {
     <div className="flex flex-col items-center justify-center py-2">
       <div className="flex items-center justify-center">
         <div className="grid grid-cols-1">
-          <h1 className="my-10 text-3xl text-teal-500 align-center text-center uppercase">
+          <h1 className="my-10 text-3xl text-center text-teal-500 uppercase align-center">
             {workout.name}
           </h1>
           <div className="flex flex-row justify-center w-full -mt-10 text-1xl">
@@ -73,16 +73,16 @@ const SingleWorkout = () => {
                 <div className="flex flex-wrap -mx-3">
                   <div className="container flex justify-center w-screen text-center">
                     <div className="grid grid-cols-1">
-                    <div className="flex justify-start">
-          <button
-            type="button"
-            className="flex p-1 ml-2 text-base text-teal-500 border  border-teal-500 border-2 rounded-md"
-            onClick={handleDeleteModal}
-          >
-            Go back
-          </button>
-          </div>
-                      <h1 className="my-3 text-xl text-teal-500 align-center capitalize">
+                      <div className="flex justify-start">
+                        <button
+                          type="button"
+                          className="flex p-1 ml-2 text-base text-teal-500 border border-2 border-teal-500 rounded-md"
+                          onClick={handleDeleteModal}
+                        >
+                          Go back
+                        </button>
+                      </div>
+                      <h1 className="my-3 text-xl text-teal-500 capitalize align-center">
                         {workout.category}
                       </h1>
                       {!workout.hasOwnProperty("playlist") ? (
@@ -90,11 +90,11 @@ const SingleWorkout = () => {
                       ) : (
                         <h2 className="mb-3 text-lg text-left">
                           {" "}
-                          <a className="text-teal-500 mr-3 text-lg">
+                          <a className="mr-3 text-lg text-teal-500">
                             Playlist:{" "}
                           </a>{" "}
                           <a
-                            className="mr-3 p-1 text-base text-center text-white bg-teal-500 rounded-md"
+                            className="p-1 mr-3 text-base text-center text-white bg-teal-500 rounded-md"
                             href={workout.playlist.url}
                           >
                             {workout.playlist.name}
@@ -107,28 +107,28 @@ const SingleWorkout = () => {
                             return (
                               <ul
                                 key={workout.exercises.indexOf(exercise) + 1}
-                                className="text-lg text-left mb-6  list-none"
+                                className="mb-6 text-lg text-left list-none"
                               >
                                 <li>
-                                  <a className="text-teal-500 mr-3">
+                                  <a className="mr-3 text-teal-500">
                                     Body Part:
                                   </a>{" "}
                                   {exercise.bodyPart}
                                 </li>
                                 <li>
-                                  <a className="text-teal-500 mr-3">Type:</a>{" "}
+                                  <a className="mr-3 text-teal-500">Type:</a>{" "}
                                   {exercise.type}
                                 </li>
                                 <li>
-                                  <a className="text-teal-500 mr-3">Reps:</a>{" "}
+                                  <a className="mr-3 text-teal-500">Reps:</a>{" "}
                                   {exercise.reps}
                                 </li>
                                 <li>
-                                  <a className="text-teal-500 mr-3">Sets:</a>{" "}
+                                  <a className="mr-3 text-teal-500">Sets:</a>{" "}
                                   {exercise.sets}
                                 </li>
                                 <li>
-                                  <a className="text-teal-500 mr-3">Weight:</a>{" "}
+                                  <a className="mr-3 text-teal-500">Weight:</a>{" "}
                                   {exercise.weight} {exercise.units}
                                 </li>
                               </ul>
@@ -138,25 +138,25 @@ const SingleWorkout = () => {
                             return (
                               <ul
                                 key={workout.exercises.indexOf(exercise) + 1}
-                                className="text-lg text-left mb-3 list-none"
+                                className="mb-3 text-lg text-left list-none"
                               >
                                 <li>
                                   {" "}
-                                  <a className="text-teal-500 mr-3">
+                                  <a className="mr-3 text-teal-500">
                                     Type:{" "}
                                   </a>{" "}
                                   {exercise.type}
                                 </li>
                                 <li>
                                   {" "}
-                                  <a className="text-teal-500 mr-3">
+                                  <a className="mr-3 text-teal-500">
                                     Distance:{" "}
                                   </a>
                                   {exercise.distance} {exercise.units}
                                 </li>
                                 <li>
                                   {" "}
-                                  <a className="text-teal-500 mr-3">
+                                  <a className="mr-3 text-teal-500">
                                     Time:{" "}
                                   </a>{" "}
                                   {!exercise.hours ? 0 : exercise.hours} hours{" "}
@@ -169,7 +169,7 @@ const SingleWorkout = () => {
                       <div className="container flex justify-center">
                         <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                           <button
-                            className="flex p-1 mb-3 ml-3 text-base text-teal-500 border  border-teal-500 border-2 rounded-md"
+                            className="flex p-1 mb-3 ml-3 text-base text-teal-500 border border-2 border-teal-500 rounded-md"
                             onClick={handleSubmit}
                           >
                             Log Workout
@@ -179,31 +179,31 @@ const SingleWorkout = () => {
                         {btnState ? (
                           // <div>{alert("Workout logged!")}</div>
                           <div
-                            className="fixed z-10 inset-0 overflow-y-auto"
+                            className="fixed inset-0 z-10 overflow-y-auto"
                             aria-labelledby="modal-title"
                             role="dialog"
                             aria-modal="true"
                           >
-                            <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                            <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                               <div
-                                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                                className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
                                 aria-hidden="true"
                               ></div>
 
                               <span
-                                class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
                                 aria-hidden="true"
                               >
                                 &#8203;
                               </span>
 
-                              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                              <div className="inline-block overflow-hidden text-left align-middle transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                                   <div className="sm:flex sm:items-start">
-                                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-5 w-5 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"></div>
+                                    <div className="flex items-center justify-center flex-shrink-0 w-5 h-5 mx-auto bg-green-500 rounded-full sm:mx-0 sm:h-10 sm:w-10"></div>
                                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                       <h3
-                                        className="text-lg leading-6 font-medium text-gray-900"
+                                        className="text-lg font-medium leading-6 text-gray-900"
                                         id="modal-title"
                                       >
                                         Workout logged!
@@ -211,10 +211,10 @@ const SingleWorkout = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
                                   <button
                                     type="button"
-                                    className="modal-close mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm modal-close hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                                     onClick={handleModal}
                                   >
                                     Done
@@ -230,7 +230,7 @@ const SingleWorkout = () => {
                           <div>
                             <Link
                               to={`/users/${id}/workouts/${docId}/edit${workout.category}`}
-                              className="flex text-center p-1 mb-3 ml-3 text-base text-white bg-teal-500 rounded-md"
+                              className="flex p-1 mb-3 ml-3 text-base text-center text-white bg-teal-500 rounded-md"
                             >
                               Edit Workout
                             </Link>
@@ -238,7 +238,7 @@ const SingleWorkout = () => {
                         </div>
                         <div className="grid mt-5 place-items-center"></div>
                         <button
-                          className="flex justify-center p-1 mb-3 ml-3 mr-3 text-base text-red-500 border border-gray-400 border-2 rounded-md"
+                          className="flex justify-center p-1 mb-3 ml-3 mr-3 text-base text-red-500 border border-2 border-gray-400 rounded-md"
                           onClick={handleDelete}
                         >
                           Delete Workout
@@ -247,31 +247,31 @@ const SingleWorkout = () => {
                         {deleteBtnState ? (
                           // <div>{alert("Workout logged!")}</div>
                           <div
-                            className="fixed z-10 inset-0 overflow-y-auto"
+                            className="fixed inset-0 z-10 overflow-y-auto"
                             aria-labelledby="modal-title"
                             role="dialog"
                             aria-modal="true"
                           >
-                            <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                            <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                               <div
-                                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                                className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
                                 aria-hidden="true"
                               ></div>
 
                               <span
-                                class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
                                 aria-hidden="true"
                               >
                                 &#8203;
                               </span>
 
-                              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                              <div className="inline-block overflow-hidden text-left align-middle transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                                   <div className="sm:flex sm:items-start">
-                                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-5 w-5 rounded-full bg-red-500 sm:mx-0 sm:h-10 sm:w-10"></div>
+                                    <div className="flex items-center justify-center flex-shrink-0 w-5 h-5 mx-auto bg-red-500 rounded-full sm:mx-0 sm:h-10 sm:w-10"></div>
                                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                       <h3
-                                        className="text-lg leading-6 font-medium text-gray-900"
+                                        className="text-lg font-medium leading-6 text-gray-900"
                                         id="modal-title"
                                       >
                                         Workout Deleted!
@@ -279,10 +279,10 @@ const SingleWorkout = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
                                   <button
                                     type="button"
-                                    className="modal-close mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm modal-close hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                                     onClick={handleDeleteModal}
                                   >
                                     Done

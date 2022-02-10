@@ -16,6 +16,7 @@ const Dashboard = () => {
 
   const [strengthCheck, setStrengthCheck] = useState([]);
   const [cardioCheck, setCardioCheck] = useState([]);
+  const [completedCheck, setCompletedCheck] = useState([]);
 
   const cardioContainerRef = useRef();
   const strengthContainerRef = useRef();
@@ -33,6 +34,11 @@ const Dashboard = () => {
       setCardioCheck(
         latestWorkouts.filter(
           (workout) => workout.workoutData.category === "cardio"
+        )
+      );
+      setCompletedCheck(
+        latestWorkouts.filter(
+          (workout) => workout.workoutData.timesCompleted > 0
         )
       );
     }
@@ -62,7 +68,7 @@ const Dashboard = () => {
       ) : latestWorkouts.length > 0 ? (
         <div className="pb-10 scroll">
           <div className="relative z-10 pt-4 pb-10">
-            <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+            <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex lg:flex-row lg:items-center">
               <div className="flex flex-col items-start lg:flex-row lg:items-center">
                 <div className="my-6 ml-0 lg:ml-20 lg:my-0">
                   <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
@@ -73,104 +79,112 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="container px-6 mx-auto">
-            <DynamicActivity workouts={latestWorkouts} />
+          <div className="container px-6 mx-auto md:max-w-md">
+            <DynamicActivity workouts={completedCheck} />
           </div>
-          {cardioCheck.length > 0 && (
-            <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
-              <div className="flex justify-between lg:flex-row lg:items-center">
-                <Link
-                  to={{
-                    pathname: `/users/${authUser.uid}/workouts`,
-                    state: "cardio",
-                  }}
-                  className="flex flex-row"
-                >
-                  <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
-                    Cardio
-                  </h4>
-
-                  <svg
-                    className="w-6 h-6 mt-1 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+          <div className="md:flex md:flex-col md:justify-center md:items-center">
+            {cardioCheck.length > 0 && (
+              <div className="container flex items-start justify-between px-6 mx-auto md:justify-center lg:flex-row lg:items-center">
+                <div className="flex justify-between lg:flex-row lg:items-center">
+                  <Link
+                    to={{
+                      pathname: `/users/${authUser.uid}/workouts`,
+                      state: "cardio",
+                    }}
+                    className="flex flex-row"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </Link>
+                    <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                      Cardio
+                    </h4>
+
+                    <svg
+                      className="w-6 h-6 mt-1 ml-2 md:hidden"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </Link>
+                </div>
               </div>
+            )}
+            <div
+              ref={cardioContainerRef}
+              className="flex flex-row overflow-auto snap-x hide-scrollbar md:max-w-min"
+            >
+              {latestWorkouts
+                .filter((workout) => workout.workoutData.category === "cardio")
+                .slice(0, 10)
+                .map(({ workoutId, workoutData }) => {
+                  return (
+                    <DynamicCardio
+                      key={workoutId}
+                      workoutData={workoutData}
+                      workoutId={workoutId}
+                      userId={authUser.uid}
+                    />
+                  );
+                })}
             </div>
-          )}
-          <div
-            ref={cardioContainerRef}
-            className="flex flex-row overflow-auto snap-x hide-scrollbar"
-          >
-            {latestWorkouts
-              .filter((workout) => workout.workoutData.category === "cardio")
-              .slice(0, 10)
-              .map(({ workoutId, workoutData }) => {
-                return (
-                  <DynamicCardio
-                    key={workoutId}
-                    workoutData={workoutData}
-                    workoutId={workoutId}
-                    userId={authUser.uid}
-                  />
-                );
-              })}
           </div>
-
-          {strengthCheck.length > 0 && (
-            <div className="container flex items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
-              <div className="flex justify-between lg:flex-row lg:items-center">
-                <Link
-                  to={{
-                    pathname: `/users/${authUser.uid}/workouts`,
-                    state: "strength",
-                  }}
-                  className="flex flex-row"
-                >
-                  <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
-                    Strength
-                  </h4>
-
-                  <svg
-                    className="w-6 h-6 mt-1 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+          <div className="md:flex md:flex-col md:justify-center md:items-center">
+            {strengthCheck.length > 0 && (
+              <div className="container flex items-start justify-between px-6 mx-auto md:justify-center lg:flex-row lg:items-center">
+                <div className="flex justify-between lg:flex-row lg:items-center">
+                  <Link
+                    to={{
+                      pathname: `/users/${authUser.uid}/workouts`,
+                      state: "strength",
+                    }}
+                    className="flex flex-row"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </Link>
+                    <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                      Strength
+                    </h4>
+
+                    <svg
+                      className="w-6 h-6 mt-1 ml-2 md:hidden"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </Link>
+                </div>
               </div>
+            )}
+            <div
+              ref={strengthContainerRef}
+              className="flex flex-row overflow-auto snap-x hide-scrollbar md:max-w-min"
+            >
+              {latestWorkouts
+                .filter(
+                  (workout) => workout.workoutData.category === "strength"
+                )
+                .slice(0, 10)
+                .map(({ workoutId, workoutData }) => {
+                  return (
+                    <DynamicStrength
+                      key={workoutId}
+                      workoutData={workoutData}
+                    />
+                  );
+                })}
             </div>
-          )}
-          <div
-            ref={strengthContainerRef}
-            className="flex flex-row overflow-auto snap-x hide-scrollbar"
-          >
-            {latestWorkouts
-              .filter((workout) => workout.workoutData.category === "strength")
-              .slice(0, 10)
-              .map(({ workoutId, workoutData }) => {
-                return (
-                  <DynamicStrength key={workoutId} workoutData={workoutData} />
-                );
-              })}
           </div>
         </div>
       ) : (
