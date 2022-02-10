@@ -418,6 +418,7 @@ const SignUp = () => {
                         <option value="Maintenance">Maintenance</option>
                         <option value="Competition">Competition</option>
                         <option value="Weight Loss">Weight Loss</option>
+                        <option value="Build Muscle">Build Muscle</option>
                         <option value="Hobby">Hobby</option>
                         <option value="Other">Other</option>
                       </Field>
