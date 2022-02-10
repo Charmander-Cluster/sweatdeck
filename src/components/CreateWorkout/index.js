@@ -22,35 +22,55 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
-      <div className="flex items-center justify-center">
-        <h1 className="text-3xl text-teal-500 mt-28 align-center">
-          Create a New Workout
-        </h1>
+    <div className="flex flex-col py-2">
+      <div className="relative z-10 pt-2 pb-10">
+        <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+          <div className="flex flex-col items-start lg:flex-row lg:items-center">
+            <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+              <h4 className="text-2xl font-bold leading-tight text-white">
+                Create
+              </h4>
+              <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center justify-center">
         {/* <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/> */}
-        <img src="purple-clipboard.png" className="h-32 mt-10" alt="add-list" />
+        {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
+        <img
+          src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
+          className="object-cover mt-24 rounded-full shadow-lg h-28 w-28 shadow-black"
+          alt="Markus Magnusson"
+        />
       </div>
 
-      <div className="grid justify-center mt-16 mb-10">
-        <Link to="/createworkout/cardio">
-          <button
-            type="button"
-            className="p-6 text-3xl border border-purple-800 rounded-md shadow-md bg-gradient-to-r from-teal-500 to-purple-800 w-72 shadow-black"
-          >
-            Create Cardio
-          </button>
-        </Link>
+      <div className="flex items-center justify-center">
+        <h1 className="mt-12 text-2xl text-white align-center drop-shadow-md shadow-black">
+          Create a New Workout
+        </h1>
       </div>
 
-      <div className="grid justify-center">
-        <Link to="/createworkout/strength">
-          <button className="p-6 text-3xl border border-teal-500 rounded-md shadow-md bg-gradient-to-r from-purple-800 to-teal-500 bg-zinc-800 w-68 shadow-black">
-            Create Strength
-          </button>
-        </Link>
+      <div className="flex flex-row items-center justify-center mt-12 mb-10 space-x-2">
+        <div className="flex justify-center ">
+          <Link to="/createworkout/cardio">
+            <button
+              type="button"
+              className="p-3 text-lg bg-purple-800 border border-purple-800 rounded-md shadow-md w-44 shadow-black"
+            >
+              Create Cardio
+            </button>
+          </Link>
+        </div>
+
+        <div className="flex justify-center">
+          <Link to="/createworkout/strength">
+            <button className="p-3 text-lg bg-teal-600 border border-teal-600 rounded-md shadow-md w-44 shadow-black">
+              Create Strength
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

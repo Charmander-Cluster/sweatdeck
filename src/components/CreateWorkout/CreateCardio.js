@@ -128,15 +128,28 @@ const CreateCardio = (props) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
-      <div className="flex items-center justify-center">
+    <div className="flex flex-col py-2">
+      {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
           Create Cardio Workout
         </h1>
+      </div> */}
+
+      <div className="relative z-10 pt-2 pb-5">
+        <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+          <div className="flex flex-col items-start lg:flex-row lg:items-center">
+            <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+              <h4 className="text-2xl font-bold leading-tight text-white">
+                Create Cardio Workout
+              </h4>
+              <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
-        <div className="m-3 my-5 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
+        <div className="m-3 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
           <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
@@ -295,7 +308,7 @@ const CreateCardio = (props) => {
                             exercises.units === "" ||
                             exercises.hours === "" ||
                             exercises.minutes === "" ? (
-                              <div className="my-5 text-red-400">
+                              <div className="my-5 text-amber-400">
                                 Complete all fields to create workout{" "}
                               </div>
                             ) : (
