@@ -1,33 +1,27 @@
-import brain from "brain.js"
+//import brain from "brain.js"
 import { DATA } from './dataset';
 
-let getAccuracy = function(net, testData) {
-    let hits = 0;
-    testData.forEach((datapoint) => {
-      const output = net.run(datapoint.input);
-      const outputArray = [Math.round(output[0]), Math.round(output[1]), Math.round(output[2])];
-      if (outputArray[0] === datapoint.output[0] && outputArray[1] === datapoint.output[1] && outputArray[2] === datapoint.output[2]) {
-        hits += 1;
-      }
-    });
-    return hits / testData.length;  
-  }
-  // const SPLIT = 12;
-  // const trainData = DATA.slice(0, SPLIT);
-  // const testData = DATA.slice(SPLIT + 1);
+//import brain from "brain.js"
+const brain = require("brain.js");
+
+// input: [age in years, state lat, state long]
+
+let testData = [
+  {input: [30, 46.392410, -94.636230], output: [1,0,0,0,0,0,0,0]}, //MN
+  {input: [40, 41.599998, -72.699997], output: [0,0,0,1,0,0,0,0]}, //CT
+  {input: [20, 34.048927, -111.093735], output: [0,0,0,0,1,0,0,0]}, //AZ
+  {input: [73, 27.994402, -81.760254], output: [0,0,0,0,0,0,0,1]}, //FL
+]
+
+  // const net = new brain.NeuralNetwork();
   
-  // https://github.com/BrainJS/brain.js
-  //create a simple feed forward neural network with backpropagation
-  const net = new brain.NeuralNetwork(
-//       {
-//     activation: 'sigmoid', // activation function
-//     hiddenLayers: [2],
-//     iterations: 20000,
-//     learningRate: 0.5 // global learning rate, useful when training using streams
-//   }
-  );
-  
-  net.train(DATA);
-  
-  const accuracy = getAccuracy(net, {"1/5/1995", "NJ"});
-  console.log('accuracy: ', accuracy);
+  // net.train(DATA);
+
+  // const output = net.run([73, 27.994402, -81.760254])  
+  // console.log('output: ', output) //[0,0,0,0,0,0,0,1]
+
+  // export const reco = (arr) => {
+  //   return net.run(arr);
+  // }
+
+  // export default brain;

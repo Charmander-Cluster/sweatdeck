@@ -25,7 +25,7 @@ import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButto
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
-import Popup from "./components/Popup"
+import Popup from "./components/Popup";
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -53,7 +53,7 @@ const Routes = (props) => {
             path="/users/:id/workouts/:docId/editcardio"
             component={EditCardioWorkout}
           />
-                    <Route
+          <Route
             exact
             path="/users/:id/workouts/:docId/editstrength"
             component={EditStrengthWorkout}
@@ -76,7 +76,7 @@ const Routes = (props) => {
           <Route path="/users/:id/edit" component={EditUser} />
           <Route exact path="/users/:id" component={UserProfile} />
           <Route exact path="/" component={Dashboard} />
-          <Route exact path = "/popup" component={Popup}/>
+          <Route exact path="/Popup" component={Popup} />
         </Switch>
       ) : (
         <Switch>
