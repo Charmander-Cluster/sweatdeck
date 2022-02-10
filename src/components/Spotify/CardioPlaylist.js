@@ -102,6 +102,7 @@ const CardioPlaylist = (props) => {
     <div>
       <div className="grid place-items-center">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
+
           <div className="flex justify-end">
             <Link to="/createworkout/cardio">
             <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
@@ -109,6 +110,7 @@ const CardioPlaylist = (props) => {
             </button>
             </Link>
           </div>
+
           <div className="flex-col justify-center">
             <div className="grid justify-center">
               <h1 className="grid mt-5 mb-5 text-2xl">
