@@ -68,19 +68,20 @@ export const authSignUp = (user) => async (dispatch) => {
       dispatch(authenticate(user.email, user.password));
     }
   } catch (error) {
-    console.log("CODE: ", error.code);
-    console.log("MESSAGE: ", error.message);
-    let message = "";
-    if (error.code === "auth/invalid-email") {
-      message = "Invalid email";
-    } else if (error.code === "auth/weak-password") {
-      message = "Password should be at least 6 characters";
-    } else if (error.code === "auth/email-already-in-use") {
-      message = "Email already in use";
-    } else {
-      message = "Error: Please try again";
-    }
-    alert(message);
+    // console.log("CODE: ", error.code);
+    // console.log("MESSAGE: ", error.message);
+    // let message = "";
+    // if (error.code === "auth/invalid-email") {
+    //   message = "Invalid email";
+    // } else if (error.code === "auth/weak-password") {
+    //   message = "Password should be at least 6 characters";
+    // } else if (error.code === "auth/email-already-in-use") {
+    //   message = "Email already in use";
+    // } else {
+    //   message = "Error: Please try again";
+    // }
+    // alert(message);
+    dispatch(setAuth({error}))
   }
 };
 

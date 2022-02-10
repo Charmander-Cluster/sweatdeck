@@ -259,7 +259,7 @@ const SingleWorkout = () => {
                               ></div>
 
                               <span
-                                class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
                                 aria-hidden="true"
                               >
                                 &#8203;
