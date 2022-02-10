@@ -90,7 +90,14 @@ const CreateCardio = (props) => {
     //Creates application state
     dispatch(cardioLocalCreateWorkout(workout));
     //sends to auth URL -- SUCCESSFUL
-    window.location.href = AUTH_URL;
+
+    let token
+    // window.location.href = AUTH_URL;
+    window.open(
+      AUTH_URL,
+      'Login with Spotify',
+      'width=800,height=600'
+    )
   };
 
   const handleSubmitWithoutPlaylist = (event) => {
