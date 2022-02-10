@@ -22,11 +22,11 @@ const EditUser = () => {
     setBtnState((prev) => !prev);
   };
 
-  const passwordReset = (event) => 
-  {event.preventDefault();
+  const passwordReset = (event) => {
+    event.preventDefault();
     sendPasswordReset(user.email);
     setBtnState((prev) => !prev);
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -83,17 +83,26 @@ const EditUser = () => {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col mt-4">
-                <h1 className="mb-1 text-3xl font-bold text-center">
-                  {user.username}
-                </h1>
+              <div className="relative z-10 pt-4">
+                <div className="container flex flex-col items-center justify-center px-6 mx-auto">
+                  <div className="flex flex-col items-center">
+                    <div className="ml-0">
+                      <h4 className="mb-2 text-4xl font-bold leading-tight text-white">
+                        {user.username}
+                      </h4>
+                      <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col p-10 mb-4 bg-teal-600 rounded shadow-md mt-7 shadow-black">
                 <div className="pt-4">
                   <h1 className="font-extrabold">Username</h1>
                   <label htmlFor="username"></label>
                   <Field
                     type="text"
                     name="username"
-                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
+                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
                     placeholder="Username"
                   />
                   {errors.username && touched.username && errors.username}
@@ -102,7 +111,7 @@ const EditUser = () => {
                   <h1 className="pt-2 font-extrabold">State (Location)</h1>
 
                   <Field
-                    className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                    className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     name="state"
                     as="select"
                   >
@@ -168,7 +177,7 @@ const EditUser = () => {
                   <h1 className="pt-2 font-extrabold">Favorite Workout Type</h1>
 
                   <Field
-                    className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                    className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     placeholder="Favorite Workout Type"
                     name="favoriteWorkoutType"
                     as="select"
@@ -184,7 +193,7 @@ const EditUser = () => {
                   <h1 className="pt-2 font-extrabold">Goal</h1>
 
                   <Field
-                    className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+                    className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     placeholder="Goal"
                     name="goal"
                     as="select"
@@ -204,7 +213,7 @@ const EditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  className="flex flex-row justify-center px-8 py-3 my-4 text-white transition duration-150 ease-in-out bg-teal-600 rounded shadow-md text-1xl shadow-black hover:bg-teal-600"
+                  className="flex flex-row justify-center px-8 py-3 mt-4 text-white transition duration-150 ease-in-out bg-purple-600 rounded shadow-md text-1xl shadow-black hover:bg-purple-700"
                 >
                   <svg
                     className="w-6 h-6 mr-2 pb-0.5"
@@ -228,63 +237,62 @@ const EditUser = () => {
         )}
       </Formik>
       <button
-        className="ml-1 underline"
+        className="ml-1 text-purple-600 hover:text-purple-700"
         onClick={passwordReset}
       >
         Password Reset
       </button>
 
       {btnState ? (
-                    // <div>{alert("Workout logged!")}</div>
-                    <div
-                      className="fixed z-10 inset-0 overflow-y-auto"
-                      aria-labelledby="modal-title"
-                      role="dialog"
-                      aria-modal="true"
+        // <div>{alert("Workout logged!")}</div>
+        <div
+          className="fixed inset-0 z-10 overflow-y-auto"
+          aria-labelledby="modal-title"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div
+              className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
+              aria-hidden="true"
+            ></div>
+
+            <span
+              className="hidden sm:inline-block sm:align-middle sm:h-screen"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+
+            <div className="inline-block overflow-hidden text-left align-middle transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="flex items-center justify-center flex-shrink-0 w-5 h-5 mx-auto bg-green-500 rounded-full sm:mx-0 sm:h-10 sm:w-10"></div>
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3
+                      className="text-lg font-medium leading-6 text-gray-900"
+                      id="modal-title"
                     >
-                      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div
-                          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                          aria-hidden="true"
-                        ></div>
-
-                        <span
-                          className="hidden sm:inline-block sm:align-middle sm:h-screen"
-                          aria-hidden="true"
-                        >
-                          &#8203;
-                        </span>
-
-                        <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            <div className="sm:flex sm:items-start">
-                              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-5 w-5 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"></div>
-                              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3
-                                  className="text-lg leading-6 font-medium text-gray-900"
-                                  id="modal-title"
-                                >
-                                  Password reset email sent!
-                                </h3>
-  
-                              </div>
-                            </div>
-                          </div>
-                          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button
-                              type="button"
-                              className="modal-close mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                              onClick={handleModal}
-                            >
-                              Done
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div></div>
-                  )}
+                      Password reset email sent!
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                  type="button"
+                  className="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm modal-close hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={handleModal}
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

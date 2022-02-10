@@ -12,7 +12,20 @@ const CreateCardio = (props) => {
     ? "http://localhost:3000/cardioplaylist"
     : "https://sweatdeck.herokuapp.com/cardioplaylist";
 
-  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
+  const scopes = [
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-library-read",
+    "user-library-modify",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+    "playlist-read-private",
+  ];
+
+  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join(
+    "%20"
+  )}`;
 
   const dispatch = useDispatch();
   const history = useHistory();

@@ -38,7 +38,7 @@ const CreateWorkout = () => {
         <Link to="/createworkout/cardio">
           <button
             type="button"
-            className="p-6 text-3xl border border-purple-800 rounded-md bg-gradient-to-r from-teal-500 to-purple-800 w-72"
+            className="p-6 text-3xl border border-purple-800 rounded-md shadow-md bg-gradient-to-r from-teal-500 to-purple-800 w-72 shadow-black"
           >
             Create Cardio
           </button>
@@ -47,7 +47,7 @@ const CreateWorkout = () => {
 
       <div className="grid justify-center">
         <Link to="/createworkout/strength">
-          <button className="p-6 text-3xl border border-teal-500 rounded-md bg-gradient-to-r from-purple-800 to-teal-500 bg-zinc-800 w-68">
+          <button className="p-6 text-3xl border border-teal-500 rounded-md shadow-md bg-gradient-to-r from-purple-800 to-teal-500 bg-zinc-800 w-68 shadow-black">
             Create Strength
           </button>
         </Link>

@@ -14,7 +14,20 @@ const CreateStrength = (props) => {
     ? "http://localhost:3000/strengthplaylist"
     : "https://sweatdeck.herokuapp.com/strengthplaylist";
 
-  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
+  const scopes = [
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-library-read",
+    "user-library-modify",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+    "playlist-read-private",
+  ];
+
+  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join(
+    "%20"
+  )}`;
 
   const dispatch = useDispatch();
 
@@ -29,14 +42,18 @@ const CreateStrength = (props) => {
   });
   const userId = authUser.uid;
 
-  const strengthLocalWorkout = useSelector(state => state.strengthLocalWorkout);
+  const strengthLocalWorkout = useSelector(
+    (state) => state.strengthLocalWorkout
+  );
 
-  const [counter, setCounter] = useState((strengthLocalWorkout.count) ? strengthLocalWorkout.count : 0);
+  const [counter, setCounter] = useState(
+    strengthLocalWorkout.count ? strengthLocalWorkout.count : 0
+  );
 
   const handleAdd = () => {
-    setCounter(counter + 1)
-    setWorkout({ ...workout, count: counter+1 })
-  }
+    setCounter(counter + 1);
+    setWorkout({ ...workout, count: counter + 1 });
+  };
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -45,20 +62,27 @@ const CreateStrength = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
-      dispatch(strengthLocalCreateWorkout({}))
+      dispatch(strengthLocalCreateWorkout({}));
       history.push("/confirmstrengthcreate");
     }
-  }, [dispatch, workoutAdded, strengthLocalWorkout, userId])
+  }, [dispatch, workoutAdded, strengthLocalWorkout, userId]);
 
   const [workout, setWorkout] = useState({
     category: "strength",
-    name: (!strengthLocalWorkout.name || strengthLocalWorkout.exercises.length === 0) ? "" : (strengthLocalWorkout.name),
-    exercises: (!strengthLocalWorkout.exercises || strengthLocalWorkout.exercises.length===0) ? [] : (strengthLocalWorkout.exercises),
+    name:
+      !strengthLocalWorkout.name || strengthLocalWorkout.exercises.length === 0
+        ? ""
+        : strengthLocalWorkout.name,
+    exercises:
+      !strengthLocalWorkout.exercises ||
+      strengthLocalWorkout.exercises.length === 0
+        ? []
+        : strengthLocalWorkout.exercises,
     userId: "",
     timesCompleted: 0,
     datesCompleted: [],
     logs: 0,
-    count: counter
+    count: counter,
   });
 
   const handleChange = (event) => {
@@ -70,10 +94,10 @@ const CreateStrength = (props) => {
   };
 
   const handleDelete = (element) => {
-    setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+    setWorkout({ ...workout }, workout.exercises.splice(element, 1));
     if (counter > 0) {
-      setCounter(counter - 1)
-      setWorkout({ ...workout, count: counter-1 })
+      setCounter(counter - 1);
+      setWorkout({ ...workout, count: counter - 1 });
     }
   };
 
@@ -86,9 +110,9 @@ const CreateStrength = (props) => {
       timesCompleted: 0,
       datesCompleted: [],
       logs: 0,
-      count: 0
+      count: 0,
     });
-    dispatch(strengthLocalCreateWorkout({workout}));
+    dispatch(strengthLocalCreateWorkout({ workout }));
     history.push("/createworkout");
   };
 
@@ -149,20 +173,21 @@ const CreateStrength = (props) => {
                     <StrengthDetails
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
-                      handleDelete = {handleDelete}
+                      handleDelete={handleDelete}
                       thisArray={0}
                       workout={workout}
                     />
-                    {(counter >= 0)  && [...Array(counter)].map((_, i) => (
-                      <StrengthDetails
-                        handleChange={handleChange}
-                        handleUpdate={handleUpdate}
-                        handleDelete = {handleDelete}
-                        workout={workout}
-                        thisArray={i+1}
-                        key={i}
-                      />
-                    ))}
+                    {counter >= 0 &&
+                      [...Array(counter)].map((_, i) => (
+                        <StrengthDetails
+                          handleChange={handleChange}
+                          handleUpdate={handleUpdate}
+                          handleDelete={handleDelete}
+                          workout={workout}
+                          thisArray={i + 1}
+                          key={i}
+                        />
+                      ))}
                   </div>
 
                   <div className="flex justify-end">
@@ -175,36 +200,39 @@ const CreateStrength = (props) => {
                     />
                   </div>
 
-                  {(workout.category === "" ||
-                    workout.name === "" ||
-                    workout.exercises.length === 0) ?
-                 (<div className="text-red-400 my-3 text-center">Complete all fields and save an exercise to create workout</div>) :
-
-                    (<div className="grid mt-8 place-items-center">
-                    <button
-                      className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
-                      onClick={handleSubmitWithSpotify}
-                      href={AUTH_URL}
-                      disabled={
-                        workout.category === "" ||
-                        workout.name === "" ||
-                        workout.exercises.length === 0
-                      }
-                    >
-                      Save & Connect Spotify Playlist
-                    </button>
-                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
-                    onClick={handleSubmitWithoutPlaylist}
-                    disabled={
-                      workout.category === "" ||
-                      workout.name === "" ||
-                      workout.exercises.length === 0
-                    }
-                    >
-                      Save Without Playlist
-                    </button>
-                    </div>)
-                  }
+                  {workout.category === "" ||
+                  workout.name === "" ||
+                  workout.exercises.length === 0 ? (
+                    <div className="my-3 text-center text-red-400">
+                      Complete all fields and save an exercise to create workout
+                    </div>
+                  ) : (
+                    <div className="grid mt-8 place-items-center">
+                      <button
+                        className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
+                        onClick={handleSubmitWithSpotify}
+                        href={AUTH_URL}
+                        disabled={
+                          workout.category === "" ||
+                          workout.name === "" ||
+                          workout.exercises.length === 0
+                        }
+                      >
+                        Save & Connect Spotify Playlist
+                      </button>
+                      <button
+                        className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
+                        onClick={handleSubmitWithoutPlaylist}
+                        disabled={
+                          workout.category === "" ||
+                          workout.name === "" ||
+                          workout.exercises.length === 0
+                        }
+                      >
+                        Save Without Playlist
+                      </button>
+                    </div>
+                  )}
 
                   {/* <div className="grid mt-8 place-items-center">
                     <button
@@ -238,8 +266,7 @@ const CreateStrength = (props) => {
                     >
                       Cancel
                     </button>
-                    </div>
-
+                  </div>
                 </div>
               </div>
             </div>
@@ -251,4 +278,3 @@ const CreateStrength = (props) => {
 };
 
 export default CreateStrength;
-

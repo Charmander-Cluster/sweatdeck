@@ -112,11 +112,20 @@ const UserProfile = () => {
               )}
             </div>
 
-            <div className="flex flex-col items-center justify-center px-6 mt-4">
-              <h1 className="mb-1 text-3xl font-bold text-center">
-                {user.username}
-              </h1>
-              <div className="flex flex-row">
+            <div className="flex flex-col items-center justify-center px-6">
+              <div className="relative z-10 pt-4">
+                <div className="container flex flex-col items-center justify-center px-6 mx-auto">
+                  <div className="flex flex-col items-center">
+                    <div className="ml-0">
+                      <h4 className="mb-2 text-4xl font-bold leading-tight text-white">
+                        {user.username}
+                      </h4>
+                      <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row justify-start mt-2">
                 <svg
                   className="w-6 h-6 mt-1.5 mr-1"
                   fill="none"
@@ -198,7 +207,7 @@ const UserProfile = () => {
               <div className="flex flex-row">
                 <Link to={`${id}/edit`}>
                   <div className="ml-1">
-                    <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black">
+                    <button className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-purple-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black">
                       <svg
                         className="w-5 h-5 mr-2"
                         fill="none"
@@ -225,7 +234,7 @@ const UserProfile = () => {
                 </Link>
                 <div className="ml-3">
                   <button
-                    className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-teal-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black"
+                    className="flex flex-row items-center px-8 py-3 my-3 text-sm leading-none text-white bg-purple-600 rounded shadow-md cursor-pointer text-md focus:outline-none shadow-black"
                     onClick={() => handleClick()}
                   >
                     <svg

@@ -39,6 +39,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.2",
+    "react-spotify-web-playback": "^0.9.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",

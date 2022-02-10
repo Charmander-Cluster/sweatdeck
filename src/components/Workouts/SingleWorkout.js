@@ -11,10 +11,16 @@ import { logDBWorkout } from "../../store/logWorkout";
 import { Link } from "react-router-dom";
 //import Popup from "../../components/Popup";
 
+import SpotifyPlayer from "react-spotify-web-playback";
+
 import { useHistory } from "react-router-dom";
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
+
+  const authUser = useSelector((state) => state.auth);
+
+  console.log(authUser.accessToken);
 
   let { id, docId } = useParams();
 
@@ -99,6 +105,19 @@ const SingleWorkout = () => {
                           >
                             {workout.playlist.name}
                           </a>
+                          <SpotifyPlayer
+                            token={authUser.accessToken}
+                            uris={["spotify:playlist:76ofLf3VyvSN7DjUzbJwsR"]}
+                            styles={{
+                              activeColor: "#fff",
+                              bgColor: "#333",
+                              color: "#fff",
+                              loaderColor: "#fff",
+                              sliderColor: "#1cb954",
+                              trackArtistColor: "#ccc",
+                              trackNameColor: "#fff",
+                            }}
+                          />
                         </h2>
                       )}
                       {workout.category === "Strength" ||

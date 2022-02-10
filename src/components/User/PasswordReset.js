@@ -8,7 +8,6 @@ const PasswordReset = () => {
 
   return (
     <div className="flex flex-col items-center justify-center pt-10 md:min-h-screen">
-      <h1 className="mt-10 mb-2 text-lg font-bold ">Password Recovery</h1>
       <Formik
         initialValues={{ email: "" }}
         validate={(values) => {
@@ -26,11 +25,12 @@ const PasswordReset = () => {
           history.push("/");
         }}
       >
-        {({ errors, touched, handleSubmit, isSubmitting }) => (
+        {({ errors, touched, handleSubmit }) => (
           <Form
-            className="flex flex-col items-center justify-center mb-4"
+            className="flex flex-col items-center justify-center p-10 mt-16 mb-4 bg-teal-600 rounded shadow-md shadow-black"
             onSubmit={handleSubmit}
           >
+            <h1 className="mb-2 text-lg font-bold ">Password Recovery</h1>
             <div>
               <h1 className="text-sm font-extrabold">Email</h1>
               <Field
@@ -44,9 +44,8 @@ const PasswordReset = () => {
 
             <div className="mt-2">
               <button
-                className="flex flex-row justify-center px-8 py-3 mx-2 my-3 text-white transition duration-150 ease-in-out bg-teal-700 rounded shadow-md cursor-pointer text-1xl shadow-black hover:bg-teal-800"
+                className="flex flex-row justify-center px-8 py-3 mx-2 my-3 text-white transition duration-150 ease-in-out rounded shadow-md cursor-pointer bg-fuchsia-600 text-1xl shadow-black hover:bg-teal-700"
                 type="submit"
-                disabled={isSubmitting}
               >
                 Submit
               </button>

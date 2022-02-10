@@ -59,6 +59,7 @@ const SPOTIFY_REDIRECT_URI_STRENGTH =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_STRENGTH;
 
 app.post("/api/strengthlogin", (req, res) => {
+  console.log("THIS IS THE STRENGTH LOGIN BACKEND", req.body);
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
@@ -69,7 +70,9 @@ app.post("/api/strengthlogin", (req, res) => {
   spotifyApi
     .authorizationCodeGrant(code)
     .then((data) => {
-      console.log(data.body.access_token);
+      console.log(
+        console.log("THIS IS THE STRENGTH AUTHORIZATION CODE GRANT", data.body)
+      );
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
@@ -83,6 +86,7 @@ app.post("/api/strengthlogin", (req, res) => {
 });
 
 app.post("/api/strengthrefresh", (req, res) => {
+  console.log("THIS IS THE STRENGTH REFRESH BACKEND", req.body);
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_STRENGTH,
@@ -94,7 +98,7 @@ app.post("/api/strengthrefresh", (req, res) => {
   spotifyApi
     .refreshAccessToken()
     .then((data) => {
-      console.log("The access token has been refreshed");
+      console.log("THIS IS THE REFRESH ACCESS TOKEN", data.body);
       res.json({
         accessToken: data.body.accessToken,
         expiresIn: data.body.expiresIn,
@@ -106,7 +110,7 @@ app.post("/api/strengthrefresh", (req, res) => {
 });
 
 app.post("/api/cardiologin", (req, res) => {
-  console.log("THIS IS THE CARDIO LOGIN BACKEND");
+  console.log("THIS IS THE CARDIO LOGIN BACKEND", req.body);
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
@@ -117,7 +121,7 @@ app.post("/api/cardiologin", (req, res) => {
   spotifyApi
     .authorizationCodeGrant(code)
     .then((data) => {
-      console.log(data.body.access_token);
+      console.log("THIS IS THE CARDIO AUTHORIZATION CODE GRANT", data.body);
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
@@ -131,6 +135,7 @@ app.post("/api/cardiologin", (req, res) => {
 });
 
 app.post("/api/cardiorefresh", (req, res) => {
+  console.log("THIS IS THE CARDIO REFRESH BACKEND", req.body);
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
@@ -142,6 +147,7 @@ app.post("/api/cardiorefresh", (req, res) => {
   spotifyApi
     .refreshAccessToken()
     .then((data) => {
+      console.log("THIS IS THE REFRESH ACCESS TOKEN BACKEND", data.body);
       console.log("The access token has been refreshed");
       res.json({
         accessToken: data.body.accessToken,
