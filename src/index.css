@@ -24,7 +24,7 @@
 }
 
 .react-calendar {
-  @apply flex flex-col items-center justify-center py-8 px-4 mx-6 bg-teal-600 shadow-md shadow-black rounded-lg mt-5;
+  @apply flex flex-col items-center md:w-6/12 justify-center py-8 px-4 mx-6 bg-teal-600 shadow-md shadow-black rounded-lg mt-5;
 }
 
 /* .react-calendar__doubleView {

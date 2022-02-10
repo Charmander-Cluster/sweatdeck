@@ -87,24 +87,6 @@ const EditUser = () => {
                 </div>
                 <div className="relative w-full lg:hidden md:mt-4">
                   <h1 className="pt-2 font-extrabold">State (Location)</h1>
-                  <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mt-4 icon icon-tabler icon-tabler-selector"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#a0aec0"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="8 9 12 5 16 9" />
-                      <polyline points="16 15 12 19 8 15" />
-                    </svg>
-                  </div>
 
                   <Field
                     className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
@@ -171,24 +153,7 @@ const EditUser = () => {
 
                 <div className="relative w-full lg:hidden md:mt-4">
                   <h1 className="pt-2 font-extrabold">Favorite Workout Type</h1>
-                  <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mt-4 icon icon-tabler icon-tabler-selector"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#a0aec0"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="8 9 12 5 16 9" />
-                      <polyline points="16 15 12 19 8 15" />
-                    </svg>
-                  </div>
+
                   <Field
                     className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     placeholder="Favorite Workout Type"
@@ -204,24 +169,7 @@ const EditUser = () => {
                 </div>
                 <div className="relative w-full lg:hidden md:mt-4">
                   <h1 className="pt-2 font-extrabold">Goal</h1>
-                  <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mt-4 icon icon-tabler icon-tabler-selector"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#a0aec0"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" />
-                      <polyline points="8 9 12 5 16 9" />
-                      <polyline points="16 15 12 19 8 15" />
-                    </svg>
-                  </div>
+
                   <Field
                     className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                     placeholder="Goal"

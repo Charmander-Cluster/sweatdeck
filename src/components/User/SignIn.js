@@ -10,7 +10,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10">
+    <div className="flex flex-col items-center justify-center pt-10 md:min-h-screen">
       <h1 className="mb-2 text-lg font-bold uppercase">Sign In</h1>
       <Formik
         initialValues={{ email: "", password: "" }}

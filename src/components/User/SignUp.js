@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { authSignUp } from "../../store/auth";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import DatePickerField from "./DatePickerField";
 
 const SignUp = () => {
   let history = useHistory();
@@ -84,9 +83,9 @@ const SignUp = () => {
           <div>
             {step === 1 ? (
               <Form>
-                <div className="w-full p-10 ">
+                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
                   <div className="items-center pb-6 border-b border-teal-600 md:flex">
-                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase md:pt-3 md:pr-2">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
@@ -117,7 +116,7 @@ const SignUp = () => {
                     Security
                   </h1>
 
-                  <div className="items-center mt-8 md:flex">
+                  <div className="items-center mt-8 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Username</h1>
                       <Field
@@ -128,7 +127,7 @@ const SignUp = () => {
                       />
                       {errors.username && touched.username && errors.username}
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">Password</h1>
                       <Field
                         type="password"
@@ -139,7 +138,7 @@ const SignUp = () => {
                       {errors.password && touched.password && errors.password}
                     </div>
                   </div>
-                  <div className="items-center mt-2 md:flex">
+                  <div className="items-center mt-2 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Email Address</h1>
                       <Field
@@ -151,35 +150,19 @@ const SignUp = () => {
                       {errors.email && touched.email && errors.email}
                     </div>
                   </div>
-                  <div className="items-center mt-2 md:flex">
+                  <div className="items-center mt-2 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Date of birth</h1>
-                      <DatePickerField
+                      <Field
                         name="birthday"
+                        type="date"
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
                       />
                       {errors.birthday && touched.birthday && errors.birthday}
                     </div>
-                    <div className="relative flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="relative flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">State (Location)</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
                         className="w-full p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
                         name="state"
@@ -274,9 +257,9 @@ const SignUp = () => {
               </Form>
             ) : (
               <Form onSubmit={handleSubmit}>
-                <div className="w-full p-10 ">
+                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
                   <div className="items-center pb-6 border-b border-teal-600 md:flex">
-                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase md:pt-3 md:pr-2">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
@@ -304,8 +287,8 @@ const SignUp = () => {
                     Optional info
                   </h1>
 
-                  <div className="items-center mt-8 md:flex">
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                  <div className="items-center mt-8 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">First Name</h1>
                       <Field
                         type="text"
@@ -314,7 +297,7 @@ const SignUp = () => {
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
                       />
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">Last Name</h1>
                       <Field
                         type="text"
@@ -323,26 +306,9 @@ const SignUp = () => {
                         className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
                       />
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Gender</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
                         className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Gender"
@@ -361,28 +327,11 @@ const SignUp = () => {
                         <option value="Non-Conforming">Non-Conforming</option>
                       </Field>
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">
                         Favorite Workout Type
                       </h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
                         className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Favorite Workout Type"
@@ -393,26 +342,9 @@ const SignUp = () => {
                         <option value="Strength">Strength</option>
                       </Field>
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Goal</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
                         className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Goal"
@@ -432,28 +364,9 @@ const SignUp = () => {
                         <option value="Other">Other</option>
                       </Field>
                     </div>
-                  </div>
-                  <div className="items-center mt-2 md:flex">
-                    <div className="relative lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Workout Frequency</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
+
                       <Field
                         className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Frequency"

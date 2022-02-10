@@ -37,6 +37,12 @@ const UserProfile = () => {
     };
   }, [fetchData]);
 
+  // const completedDates = allWorkouts.map((workout) => {
+  //   return workout.completedDates;
+  // });
+
+  // console.log(completedDates);
+
   const dateConverter = () => {
     const workoutDatesArr = [];
     // Loop through all user dates and convert to UTC
@@ -76,7 +82,7 @@ const UserProfile = () => {
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-2 pb-20">
+        <div className="flex flex-col items-center justify-center py-2 pb-20 md:min-h-screen">
           <div className="pt-20 overflow-hidden rounded">
             <div className="flex justify-center w-full pt-4 -mt-20">
               {user.gender === "Male" ? (
@@ -241,7 +247,7 @@ const UserProfile = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="md:flex md:justify-center">
               <Calendar
                 prevLabel={null}
                 prev2Label={null}
