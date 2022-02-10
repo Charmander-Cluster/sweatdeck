@@ -74,7 +74,7 @@ const Dashboard = () => {
                   <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
                     Dashboard
                   </h4>
-                  <div className="h-1 mt-4 bg-teal-600 rounded-full"></div>
+                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
                 </div>
               </div>
             </div>
