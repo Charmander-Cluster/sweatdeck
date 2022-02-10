@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
+import AuthCardio from "../Spotify/useAuthCardio";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -9,7 +10,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CreateCardio = (props) => {
   const redirectUri = /localhost/.test(window.location.href)
-    ? "http://localhost:3000/cardioplaylist"
+    ? "http://localhost:3000/createcardio"
     : "https://sweatdeck.herokuapp.com/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
@@ -84,21 +85,28 @@ const CreateCardio = (props) => {
     setExercises({ ...exercises, [event.target.name]: event.target.value });
   };
 
-  const handleSubmitWithSpotify = (event) => {
-    event.preventDefault();
-    workout.exercises.push(exercises);
-    //Creates application state
-    dispatch(cardioLocalCreateWorkout(workout));
-    //sends to auth URL -- SUCCESSFUL
-
-    let token
-    // window.location.href = AUTH_URL;
-    window.open(
+  const login = () => {
+    const popup = window.open(
       AUTH_URL,
       'Login with Spotify',
       'width=800,height=600'
     )
+
+    window.callback = (token) => {
+      popup.close()
+      AuthCardio(token);
+    }
+  }
+
+  const handleSubmitWithSpotify = (event) => {
+    event.preventDefault();
+    workout.exercises.push(exercises);
+    //dispatch(cardioLocalCreateWorkout(workout));
+    //sends to auth URL -- SUCCESSFUL
+    // window.location.href = AUTH_URL;
+
   };
+
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();

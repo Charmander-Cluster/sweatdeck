@@ -5,7 +5,8 @@ import axios from "axios"
 //const port = process.env.NODE_ENV === 'production' ? 'https://sweatdeck.herokuapp.com' : 'http://localhost:3000';
 const port =  /localhost/.test(window.location.href) ? 'http://localhost:3000/api' : 'https://sweatdeck.herokuapp.com/api'
 
-const useAuthCardio = (code) =>  {
+const AuthCardio = (code, popup) =>  {
+
   let axiosConfig = {
     headers: {
         'Content-Type': 'application/json',
@@ -56,5 +57,5 @@ const useAuthCardio = (code) =>  {
   return accessToken
 }
 
-export default useAuthCardio
+export default AuthCardio
 
