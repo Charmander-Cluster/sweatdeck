@@ -40,7 +40,7 @@ const EditUser = () => {
       >
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <div className="pt-20 overflow-hidden rounded">
+            <div className="pt-20 overflow-hidden rounded md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
               <div className="flex justify-center w-full pt-4 -mt-20">
                 <div className="w-32 h-32">
                   {user && user.gender === "Male" ? (
@@ -80,12 +80,12 @@ const EditUser = () => {
                   <Field
                     type="text"
                     name="username"
-                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
                     placeholder="Username"
                   />
                   {errors.username && touched.username && errors.username}
                 </div>
-                <div className="relative w-full lg:hidden md:mt-4">
+                <div className="relative w-full md:mt-4">
                   <h1 className="pt-2 font-extrabold">State (Location)</h1>
 
                   <Field
@@ -151,7 +151,7 @@ const EditUser = () => {
                   </Field>
                 </div>
 
-                <div className="relative w-full lg:hidden md:mt-4">
+                <div className="relative w-full md:mt-4">
                   <h1 className="pt-2 font-extrabold">Favorite Workout Type</h1>
 
                   <Field
@@ -167,7 +167,7 @@ const EditUser = () => {
                     <option value="Strength">Strength</option>
                   </Field>
                 </div>
-                <div className="relative w-full lg:hidden md:mt-4">
+                <div className="relative w-full md:mt-4">
                   <h1 className="pt-2 font-extrabold">Goal</h1>
 
                   <Field
