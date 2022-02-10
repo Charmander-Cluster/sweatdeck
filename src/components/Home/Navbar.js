@@ -10,7 +10,7 @@ const Navbar = () => {
       {authUser.uid && (
         <section
           id="bottom-navigation"
-          className="fixed inset-x-0 bottom-0 z-10 block bg-teal-700 shadow-md md:hidden navbar shadow-black"
+          className="fixed inset-x-0 bottom-0 z-10 block bg-teal-700 shadow-md navbar shadow-black"
         >
           <div id="tabs" className="flex justify-between">
             <Link
