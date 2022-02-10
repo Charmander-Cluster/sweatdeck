@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import AuthCardio from "../Spotify/useAuthCardio";
 import CardioPlaylist from "../Spotify/CardioPlaylist";
+import SpotifyModal  from "../Spotify/SpotifyModal";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -11,7 +12,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CreateCardio = (props) => {
   const redirectUri = /localhost/.test(window.location.href)
-    ? "http://localhost:3000/createcardio"
+    ? "http://localhost:3000/cardioplaylist"
     : "https://sweatdeck.herokuapp.com/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private&show_dialogue=true`;
@@ -21,7 +22,11 @@ const CreateCardio = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  const token = new URLSearchParams(window.location.search).get("code");
+  // const [accessToken, setAccessToken] = useState("")
+  const [btnState, setBtnState] = useState(false)
+  const [token, setToken] = useState("")
+
+  console.log("**TOKEN**", token)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -32,6 +37,13 @@ const CreateCardio = (props) => {
   let cardioLocalWorkout = useSelector((state) => {
     return state.cardioLocalWorkout;
   });
+
+  // useEffect(()=> {
+  //   if (token !== "") {
+  //     popup.close()
+  //     setAccessToken(AuthCardio(token));
+  //   }
+  // })
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -87,29 +99,22 @@ const CreateCardio = (props) => {
     setExercises({ ...exercises, [event.target.name]: event.target.value });
   };
 
-  const login = () => {
-    const popup = window.open(
-      AUTH_URL,
-      'Login with Spotify',
-      'width=800,height=600'
-    )
+  // const login = () => {
+  //   let popup = window.open(AUTH_URL,
+  //     'Login with Spotify',
+  //     'width=800,height=600')
+  //   setToken(window.location.hash.substr(1).split('&')[0].split("=")[1])
+  // }
 
-    window.callback = (token) => {
-      popup.close()
-      AuthCardio(token);
-    }
-  }
+  const handleBtnClick = (event) => {
+    setBtnState((prev) => !prev);
+  };
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
     workout.exercises.push(exercises);
-    //dispatch(cardioLocalCreateWorkout(workout));
-    //sends to auth URL -- SUCCESSFUL
-    // window.location.href = AUTH_URL;
-    login()
-
+    handleBtnClick(event)
   };
-
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
@@ -352,6 +357,16 @@ const CreateCardio = (props) => {
                                 </button>
                               </div>
                             )}
+
+                          {btnState  && (
+                            <div
+                            className="fixed inset-0 z-10 overflow-y-auto"
+                            aria-labelledby="modal-title"
+                            role="dialog"
+                            aria-modal="true">
+                              <SpotifyModal/>
+                            </div>
+                          )}
 
                             <div className="grid place-items-center">
                               <button
