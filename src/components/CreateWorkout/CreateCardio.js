@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import AuthCardio from "../Spotify/useAuthCardio";
+import CardioPlaylist from "../Spotify/CardioPlaylist";
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -13,13 +14,14 @@ const CreateCardio = (props) => {
     ? "http://localhost:3000/createcardio"
     : "https://sweatdeck.herokuapp.com/cardioplaylist";
 
-  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
+  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private&show_dialogue=true`;
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
+  const token = new URLSearchParams(window.location.search).get("code");
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -104,6 +106,7 @@ const CreateCardio = (props) => {
     //dispatch(cardioLocalCreateWorkout(workout));
     //sends to auth URL -- SUCCESSFUL
     // window.location.href = AUTH_URL;
+    login()
 
   };
 
@@ -129,8 +132,8 @@ const CreateCardio = (props) => {
     history.push("/createworkout");
   };
 
-  return (
-    <div className="flex flex-col py-2">
+  return token ? (<CardioPlaylist />) :
+  (<div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
           Create Cardio Workout
