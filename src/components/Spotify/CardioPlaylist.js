@@ -8,11 +8,11 @@ const CardioPlaylist = () => {
 
   if (token) {
     //window.opener.callback(token)
-    const accessToken = AuthCardio(token)
-    localStorage.setItem("spotifyToken", accessToken)
+    //const accessToken = AuthCardio(token)
+    localStorage.setItem("spotifyToken", token)
 
     //below closes window immediately w/o close event occuring
-    //window.close()
+    window.close()
   }
 
   return (

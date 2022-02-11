@@ -5,7 +5,7 @@ import { Redirect } from "react-router";
 import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
 import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuthCardio from "./useAuthCardio";
+import AuthCardio from "./useAuthCardio";
 
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
@@ -17,9 +17,10 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 const SelectCardioPlaylist = (props) => {
-  const accessToken = props.accessToken
+  const token = props.token
   const handleCancel = props.handleCancel
   //let workout = props.workout
+  const accessToken = AuthCardio(token);
 
   const [workout, setWorkout] = useState(props.workout)
   const [user, setUser] = useState(getAuth().currentUser);
@@ -59,10 +60,10 @@ const SelectCardioPlaylist = (props) => {
     setPlaylistConfirmed(true);
   };
 
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   spotifyApi.setAccessToken(accessToken);
-  // }, [accessToken]);
+  useEffect(() => {
+    if (!accessToken) return;
+    spotifyApi.setAccessToken(accessToken);
+  }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;

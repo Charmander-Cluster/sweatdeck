@@ -14,7 +14,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CreateCardio = (props) => {
   const redirectUri = /localhost/.test(window.location.href)
     ? "http://localhost:3000/cardioplaylist"
-    : "https://sweatdeck.herokuapp.com/cardioplaylist";
+    : "https://sweatdeck-test.herokuapp.com/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private&show_dialogue=true`;
 
@@ -27,7 +27,7 @@ const CreateCardio = (props) => {
   const [accessToken, setAccessToken] = useState("")
   const [spotifyLoggedIn, setSpotifyLoggedIn] = useState(false)
   // const [btnState, setBtnState] = useState(false)
-  //const [token, setToken] = useState("")
+  const [token, setToken] = useState("")
 
   //console.log("**TOKEN**", token)
   console.log("**WINDOW**", window.location)
@@ -40,24 +40,9 @@ const CreateCardio = (props) => {
   });
   const userId = authUser.uid;
 
-  let cardioLocalWorkout = useSelector((state) => {
-    return state.cardioLocalWorkout;
-  });
-
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
-
-  // useEffect(() => {
-  //   if (workoutAdded) {
-  //     dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
-  //     dispatch(cardioLocalCreateWorkout({}));
-  //     history.push("/confirmcardiocreate");
-  //     // setRedirect(true);
-  //   }
-  // }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
-
-  // const localWorkout = useSelector(state => state.localWorkout)
 
   const [workout, setWorkout] = useState({
     category: "cardio",
@@ -112,16 +97,11 @@ const CreateCardio = (props) => {
 
   // Close event -- assign the access token
     spotifyLoginWindow.onbeforeunload = function() {
-      setAccessToken(localStorage.getItem('spotifyToken'))
-
-      //doesnt do anything
-      .then(()=> {
-        spotifyLoginWindow.close()
-      });
+      setToken(localStorage.getItem('spotifyToken'))
     }
   }
 
-  console.log(accessToken)
+  console.log(token)
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
@@ -153,10 +133,10 @@ const CreateCardio = (props) => {
 
   const handleCancel = (event) => {
     event.preventDefault()
-    setAccessToken("")
+    setToken("")
   }
 
-  return (accessToken) ? (<SelectCardioPlaylist accessToken={accessToken} workout={workout} handleCancel={handleCancel}/>) :
+  return (token) ? (<SelectCardioPlaylist token={token} workout={workout} handleCancel={handleCancel}/>) :
   (<div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
