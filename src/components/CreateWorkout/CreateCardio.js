@@ -106,32 +106,24 @@ const CreateCardio = (props) => {
     let popup = window.open(AUTH_URL,
       'Login with Spotify',
       'width=800,height=600')
-
-      // window.callback = function (token){
-      //   window.close()
-      //   setAccessToken(AuthCardio(token))
-      // }
    }
 
 
+  //CREATE THE POPUP
   const handleBtnClick = () => {
     var spotifyLoginWindow = window.open(AUTH_URL, 'Login with Spotify',
     'width=600,height=800');
 
-  // Close event
+  // Close event -- assign the access token
     spotifyLoginWindow.onbeforeunload = function() {
-      setAccessToken(localStorage.getItem('spotifyToken'));
+      setAccessToken(localStorage.getItem('spotifyToken'))
+
+      //doesnt do anything
+      .then(()=> {
+        spotifyLoginWindow.close()
+      });
     }
-
-    // setAccessToken(localStorage.getItem('spotifyToken'));
   }
-
-  // const handleBtnClose = (token) => {
-  //   setBtnState((prev) => !prev);
-  //   setToken(token)
-  //   window.opener.location.replace(redirect2);
-  //   window.close()
-  // }
 
   console.log(accessToken)
 
@@ -139,15 +131,7 @@ const CreateCardio = (props) => {
     event.preventDefault();
     workout.exercises.push(exercises);
     handleBtnClick(event)
-    // setSpotifyLoggedIn(true)
   };
-
-  // useEffect(()=> {
-  //   if (spotifyLoggedIn) {
-  //     const newAccess = localStorage.getItem("spotifyToken")
-  //     setAccessToken(newAccess)
-  //   }
-  // }, [spotifyLoggedIn])
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();

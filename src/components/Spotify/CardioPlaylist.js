@@ -9,12 +9,17 @@ const CardioPlaylist = () => {
   if (token) {
     //window.opener.callback(token)
     const accessToken = AuthCardio(token)
+    localStorage.setItem("spotifyToken", accessToken)
 
-    localStorage.setItem("spotifyToken", accessToken);
+    //below closes window immediately w/o close event occuring
+    //window.close()
   }
 
   return (
-   <div>This is the Cardio Playlist component</div>
+    <div className="flex-col align-center ">
+   <div className="flex">This is the Cardio Playlist component</div>
+   <button className="flex border border-white w-40 h-screen" onClick={()=> window.close()}>Close this Window to return to your workout creation</button>
+   </div>
   )
 };
 
