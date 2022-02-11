@@ -7,11 +7,13 @@ import { useParams, useHistory } from "react-router-dom";
 const RecommendedWorkouts = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  //const data = useSelector((state) => state.getData);
+  const authUser = useSelector((state) => state.users.user);
+    const group = authUser.group
+
 
   useEffect(() => {
-    dispatch( fetchRecommendedWorkoutsThunk(id));
-  }, [dispatch, id]);
+    dispatch( fetchRecommendedWorkoutsThunk(id, group));
+  }, [dispatch, id, group]);
 
   //console.log("from popup:" , reco([80, 33.62505])); 
   
