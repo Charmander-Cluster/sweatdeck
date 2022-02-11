@@ -104,9 +104,18 @@ const CreateCardio = (props) => {
       'width=800,height=600')
   }
 
-  const handleBtnClick =  () => {
-    login()
-    setBtnState((prev) => !prev);
+  // const handleBtnClick =  () => {
+  //   login()
+  //   setBtnState((prev) => !prev);
+  // }
+
+  const handleBtnClick = () => {
+    var spotifyLoginWindow = window.open(AUTH_URL);
+
+  // Close event
+    spotifyLoginWindow.onbeforeunload = function() {
+      var accessToken = localStorage.getItem('sp-accessToken');
+      }
   }
 
   const handleBtnClose = (token) => {
@@ -370,7 +379,7 @@ const CreateCardio = (props) => {
                             aria-labelledby="modal-title"
                             role="dialog"
                             aria-modal="true">
-                              <SpotifyModal window={window.location.href} handleBtnClose ={handleBtnClose}/>
+                              <SpotifyModal window={window.location.href} />
                             </div>
                           )}
 

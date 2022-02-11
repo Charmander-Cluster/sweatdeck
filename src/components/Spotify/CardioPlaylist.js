@@ -1,18 +1,11 @@
 import React from "react";
+import AuthCardio from "./useAuthCardio";
 
-const token = new URLSearchParams(window.location.search).get("code");
-
-const CardioPlaylist = (props) => {
+const CardioPlaylist = () => {
   const token = new URLSearchParams(window.location.search).get("code");
-  const handleBtnClose = props.handleBtnClose
-  console.log(handleBtnClose)
-
-  return (
-    <div>
-      This is the login window!
-      <button onClick={handleBtnClose}> THE BUTTON </button>
-    </div>
-  );
+  console.log(token)
+  const accessToken = AuthCardio(token)
+  localStorage.setItem("sp-accessToken", accessToken);
 };
 
 export default CardioPlaylist;
