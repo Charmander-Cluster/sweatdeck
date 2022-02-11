@@ -27,12 +27,12 @@ const CreateCardio = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
   const [accessToken, setAccessToken] = useState("")
-  const [btnState, setBtnState] = useState(false)
+  // const [btnState, setBtnState] = useState(false)
   const [token, setToken] = useState("")
 
   console.log("**TOKEN**", token)
   console.log("**WINDOW**", window.location)
-  console.log("btnState", btnState)
+  // console.log("btnState", btnState)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -102,28 +102,34 @@ const CreateCardio = (props) => {
     let popup = window.open(AUTH_URL,
       'Login with Spotify',
       'width=800,height=600')
-  }
 
-  // const handleBtnClick =  () => {
-  //   login()
-  //   setBtnState((prev) => !prev);
-  // }
+      window.callback = function (token){
+        window.close()
+        setAccessToken(AuthCardio(token))
+      }
+   }
+
+
+
 
   const handleBtnClick = () => {
-    var spotifyLoginWindow = window.open(AUTH_URL);
+    var spotifyLoginWindow = window.open(AUTH_URL, 'Login with Spotify',
+    'width=600,height=800');
 
   // Close event
     spotifyLoginWindow.onbeforeunload = function() {
-      setAccessToken(localStorage.getItem('sp-accessToken'));
+      setAccessToken(localStorage.getItem('spotifyToken'));
       }
-  }
+    }
 
-  const handleBtnClose = (token) => {
-    setBtnState((prev) => !prev);
-    setToken(token)
-    window.opener.location.replace(redirect2);
-    window.close()
-  }
+  // const handleBtnClose = (token) => {
+  //   setBtnState((prev) => !prev);
+  //   setToken(token)
+  //   window.opener.location.replace(redirect2);
+  //   window.close()
+  // }
+
+  console.log(accessToken)
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
@@ -373,7 +379,7 @@ const CreateCardio = (props) => {
                               </div>
                             )}
 
-                          {btnState  && (
+                          {/* {btnState  && (
                             <div
                             className="fixed inset-0 z-10 overflow-y-auto"
                             aria-labelledby="modal-title"
@@ -381,7 +387,7 @@ const CreateCardio = (props) => {
                             aria-modal="true">
                               <SpotifyModal window={window.location.href} />
                             </div>
-                          )}
+                          )} */}
 
                             <div className="grid place-items-center">
                               <button
