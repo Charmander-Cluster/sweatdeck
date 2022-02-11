@@ -32,11 +32,11 @@ const DynamicStrength = (props) => {
   // console.log(setsSum);
 
   return (
-    <div className="container px-6 pt-4 mx-auto snap-center">
-      <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded shadow-md shadow-black">
-        <div className="flex items-start py-5 pl-6 rounded shadow ">
+    <div className="container px-6 py-8 mx-auto snap-center">
+      <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded-md shadow-md shadow-black">
+        <div className="flex items-start py-5 pl-6 ">
           <div className="pl-3 pr-3 mt-1">
-            <div className="flex items-end mt-4">
+            <div className="flex items-end">
               <h2 className="text-2xl font-bold leading-normal text-purple-700">
                 Workout
               </h2>
