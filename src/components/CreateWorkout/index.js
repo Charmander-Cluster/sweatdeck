@@ -116,7 +116,7 @@ const CreateWorkout = () => {
 
           <div className="flex flex-row mt-12 mb-10 items-center justify-center space-x-2">
             <div className="flex justify-center ">
-              <Link to="/createworkout/cardio">
+              <Link to="/createworkout/cardio/noplaylist">
                 <button
                   type="button"
                   className="p-3 text-lg border border-purple-800 rounded-md bg-purple-800 w-44 shadow-md shadow-black"

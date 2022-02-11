@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import SelectCardioPlaylist from "./SelectCardioPlaylist";
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const CardioPlaylist = (props) => {
+const CardioNoPlaylist = () => {
 
   const[select, setSelect] = useState(false)
-  const token = new URLSearchParams(window.location.search).get("code");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,13 +26,13 @@ const CardioPlaylist = (props) => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  // useEffect(() => {
-  //   if (workoutAdded) {
-  //     dispatch(createDBWorkoutNoPlaylist(workout, userId));
-  //     history.push("/confirmcardiocreate");
-  //     // setRedirect(true);
-  //   }
-  // }, [dispatch, workoutAdded, workout, userId]);
+  useEffect(() => {
+    if (workoutAdded) {
+      dispatch(createDBWorkoutNoPlaylist(workout, userId));
+      history.push("/confirmcardiocreate");
+      // setRedirect(true);
+    }
+  }, [dispatch, workoutAdded, workout, userId]);
 
   // const localWorkout = useSelector(state => state.localWorkout)
 
@@ -70,13 +68,6 @@ const CardioPlaylist = (props) => {
     setSelect(true)
   };
 
-  const handleSubmitWithoutPlaylist = (event) => {
-    event.preventDefault();
-    dispatch(createDBWorkoutNoPlaylist(workout, userId));
-    history.push("/confirmcardiocreate")
-    // setWorkoutAdded(true);
-  }
-
   const handleCancel = () => {
     setSelect(false)
   }
@@ -94,7 +85,7 @@ const CardioPlaylist = (props) => {
     history.push("/createworkout");
   };
 
-  return select ? (<SelectCardioPlaylist token={token} handleCancel={handleCancel}/>) : (
+  return  (
     <div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
@@ -296,17 +287,6 @@ const CardioPlaylist = (props) => {
                                 >
                                   Select Playlist
                                 </button>
-
-                                <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
-                                  onClick={handleSubmitWithoutPlaylist}
-                                  disabled={
-                                    workout.category === "" ||
-                                    workout.name === "" ||
-                                    workout.exercises.length === 0
-                                  }
-                                  >
-                                    Save Without Playlist
-                                  </button>
                               </div>
                             )}
 
@@ -333,5 +313,5 @@ const CardioPlaylist = (props) => {
   );
 };
 
-export default CardioPlaylist;
+export default CardioNoPlaylist;
 
