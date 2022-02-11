@@ -1,222 +1,325 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
-import { Redirect } from "react-router";
-import { cardioLocalEditWorkout } from "../../store/cardioLocalCreateWorkout";
-import axios from "axios";
-import SpotifyWebApi from "spotify-web-api-node";
-import useAuthCardio from "./useAuthCardio";
-
+import { useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
-import { createDBWorkout } from "../../store/createDBWorkout";
+
+import SelectCardioPlaylist from "./SelectCardioPlaylist 2";
+import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const spotifyApi = new SpotifyWebApi({
-  clientId: "1a13f745b9ab49caa6559702a79211e6",
-});
-
-const token = new URLSearchParams(window.location.search).get("code");
-
 const CardioPlaylist = (props) => {
-  const [user, setUser] = useState(getAuth().currentUser);
-  const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
+
+  const[select, setSelect] = useState(false)
+  const token = new URLSearchParams(window.location.search).get("code");
+
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const authUser = useSelector((state) => state.auth);
+  const [user, setUser] = useState(getAuth().currentUser);
+  const [workoutAdded, setWorkoutAdded] = useState(false);
 
+  const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
-  const dispatch = useDispatch();
   const userId = authUser.uid;
+
+  let cardioLocalWorkout = useSelector((state) => {
+    return state.cardioLocalWorkout;
+  });
 
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
-
-  const accessToken = useAuthCardio(token);
-
-  const [playlists, setPlaylists] = useState([]);
-  const [selectedPlaylist, setSelectedPlaylist] = useState({});
-
   useEffect(() => {
-    if (playlistConfirmed) {
-      dispatch(createDBWorkout(cardioLocalWorkout, userId));
+    if (workoutAdded) {
+      dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
       dispatch(cardioLocalCreateWorkout({}));
       history.push("/confirmcardiocreate");
+      // setRedirect(true);
     }
-  }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
+  }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
 
-  const handleConfirm = (event) => {
-    event.preventDefault();
-    dispatch(
-      cardioLocalEditWorkout({
-        ...cardioLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
-      })
-    );
-    setPlaylistConfirmed(true);
+  // const localWorkout = useSelector(state => state.localWorkout)
+
+  const [workout, setWorkout] = useState({
+    category: "cardio",
+    name: "",
+    exercises: [],
+    userId: "",
+    timesCompleted: 0,
+    datesCompleted: [],
+    logs: 0,
+  });
+
+  const [exercises, setExercises] = useState({
+    type:"",
+    distance: "",
+    units: "select",
+    hours: "",
+    minutes:"",
+  });
+
+  const handleChange = (event) => {
+    setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
 
-  useEffect(() => {
-    if (!accessToken) return;
-    spotifyApi.setAccessToken(accessToken);
-  }, [accessToken]);
+  const handleNestedChange = (event) => {
+    setExercises({ ...exercises, [event.target.name]: event.target.value });
+  };
 
+  const handleSelectPlaylist = (event) => {
+    event.preventDefault();
+    workout.exercises.push(exercises);
+    setSelect(true)
+  };
 
-  useEffect(() => {
-    if (!accessToken) return;
-    // if(!spotifyUser) return
-    axios
-      .get("https://api.spotify.com/v1/me/playlists", {
-        params: { limit: 50, offset: 0 },
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        const playlists = response.data.items;
-        const publicPlaylists = playlists.filter(
-          (playlist) => playlist.public === true
-          // && playlist.owner.id === spotifyUser.id
-        );
+  const handleCancel = () => {
+    setSelect(false)
+  }
 
-        const myPlaylists = publicPlaylists.map((playlist) => ({
-          name: playlist.name,
-          owner: playlist.display_name,
-          tracks: playlist.tracks,
-          url: playlist.external_urls.spotify,
-          id: playlist.id,
-          imageUrl: playlist.images[0].url,
-        }));
-        setPlaylists(myPlaylists);
-      });
-  }, [accessToken]);
+  const handleDelete = () => {
+    setWorkout({
+      category: "cardio",
+      name: "",
+      exercises: [],
+      userId: "",
+      timesCompleted: 0,
+      datesCompleted: [],
+      logs: 0,
+    });
+    history.push("/createworkout");
+  };
 
-  return (
-    <div>
-      <div className="flex">
-        <div className="fixed top-0 flex-col w-full bg-zinc-800">
+  return select ? (<SelectCardioPlaylist token={token} handleCancel={handleCancel}/>) : (
+    <div className="flex flex-col py-2">
+      {/* <div className="flex items-center justify-center">
+        <h1 className="my-5 text-3xl text-purple-500 align-center">
+          Create Cardio Workout
+        </h1>
+      </div> */}
 
-          <div className="flex justify-end">
-            <Link to="/createworkout/cardio">
-            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
-              Cancel
-            </button>
-            </Link>
-          </div>
-
-          <div className="relative z-10 pt-4 pb-10">
-            <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
-              <div className="flex flex-col items-start lg:flex-row lg:items-center">
-                <div className="ml-0 lg:ml-20 lg:my-0">
-                  <h4 className="text-2xl font-bold leading-tight text-white">
-                    Select Spotify Playlist
-                  </h4>
-                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
-                </div>
-              </div>
+      <div className="relative z-10 pt-2 pb-5">
+        <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+          <div className="flex flex-col items-start lg:flex-row lg:items-center">
+            <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+              <h4 className="text-2xl font-bold leading-tight text-white">
+                Create Cardio Workout
+              </h4>
+              <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {selectedPlaylist.name && (
-            <div className="flex">
-              <div className="flex-row">
-                <div className="mx-5 mb-2">
-                  <span className="text-md">SELECTED: </span>{" "}
-                  <span className="text-teal-500 text-md">
-                    {selectedPlaylist.name}
-                  </span>
-                  <div className="flex ">
-                    <button
-                      onClick={handleConfirm}
-                      className="p-2 m-2 text-sm bg-teal-500 rounded-md"
-                    >
-                      Confirm & Connect
-                    </button>
+      <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
+        <div className="m-3 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
+          <form className="justify-center max-w-4xl p-3 ">
+            <div className="flex flex-wrap -mx-3 ">
+              <div className="container flex justify-center">
+                <div>
+                  <div className="container w-screen p-3">
+                    <div className="flex justify-center">
+                      <img
+                        className="h-16 mb-2 max-h-16"
+                        alt="weight-icon"
+                        src="https://cdn-wellnessnow.b-cdn.net/wp-content/uploads/2021/01/regenerate-icon.svg"
+                      ></img>
+                    </div>
+                    <div className="flex justify-center">
+                      <div className="flex-col justify-center align-center">
+                        <div className="container flex justify-center">
+                          <div className="flex justify-center">
+                            {/* <div className="w-20 px-3 md:w-1/2"> */}
+                            <div className="">
+                              <label
+                                htmlFor="name"
+                                className="block mt-3 text-sm font-medium"
+                              >
+                                Workout Type
+                              </label>
+                              <select
+                                className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                name="type"
+                                defaultValue=""
+                                value={exercises.type}
+                                onChange={handleNestedChange}
+                              >
+                                <option value="" disabled></option>
+                                <option value="run">Run</option>
+                                <option value="walk">Walk</option>
+                                <option value="swim">Swim</option>
+                                <option value="row">Row</option>
+                                <option value="bike">Bike</option>
+                                <option value="elliptical">Elliptical</option>
+                                <option value="stairs/stair-stepper">
+                                  Stairs/Stair-stepper
+                                </option>
+                                <option value="rollerskate/rollerblade">
+                                  Rollerskate/Rollerblade
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex justify-center">
+                          <div className="flex justify-center">
+                            <div className=""></div>
+                          </div>
+                        </div>
+                        <div className="flex align-center">
+                          <div className="flex-col">
+                            <label
+                              htmlFor="name"
+                              className="block mt-5 text-sm font-medium"
+                            >
+                              Name Your Workout
+                            </label>
+                            <input
+                              className="w-72  bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              required
+                              name="name"
+                              onChange={handleChange}
+                              value={workout.name}
+                            />
+                            <div className="flex m-5 align-center">
+                              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <label
+                                  htmlFor="distance"
+                                  className="block text-sm font-medium"
+                                >
+                                  Distance
+                                </label>
+                                <input
+                                  name="distance"
+                                  className="w-28 @error bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  required
+                                  type="number"
+                                  min="0"
+                                  onChange={handleNestedChange}
+                                  value={exercises.distance}
+                                />
+                              </div>
+
+                              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <label
+                                  htmlFor="units"
+                                  className="block text-sm font-medium"
+                                >
+                                  Units
+                                </label>
+                                <select
+                                  className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  name="units"
+                                  required
+                                  defaultValue="select"
+                                  value={exercises.units}
+                                  onChange={handleNestedChange}
+                                >
+                                  <option value="select" disabled>
+                                    Select
+                                  </option>
+                                  <option value="miles">miles</option>
+                                  <option value="kilometers">kilometers</option>
+                                  <option value="meters">meters</option>
+                                  <option value="yards">yards</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="container flex justify-center">
+                              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <label
+                                  htmlFor="hours"
+                                  className="block text-sm font-medium"
+                                >
+                                  Hours
+                                </label>
+                                <input
+                                  name="hours"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  required
+                                  type="number"
+                                  min="0"
+                                  value={exercises.hours}
+                                  onChange={handleNestedChange}
+                                />
+                              </div>
+                              <div className="mt-10">:</div>
+                              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <label
+                                  htmlFor="minutes"
+                                  className="block text-sm font-medium "
+                                >
+                                  Minutes
+                                </label>
+                                <input
+                                  name="minutes"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  required
+                                  type="number"
+                                  min="0"
+                                  value={exercises.minutes}
+                                  onChange={handleNestedChange}
+                                />
+                              </div>
+                            </div>
+
+                            {workout.category === "" ||
+                            workout.name === "" ||
+                            exercises.type === "" ||
+                            exercises.distance === "" ||
+                            exercises.units === "" ||
+                            exercises.hours === "" ||
+                            exercises.minutes === "" ? (
+                              <div className="my-5 text-amber-400">
+                                Complete all fields to create workout{" "}
+                              </div>
+                            ) : (
+                              <div className="grid mt-5 place-items-center">
+
+                                <button
+                                  className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
+                                  onClick={handleSelectPlaylist}
+                                  disabled={
+                                    workout.category === "" ||
+                                    workout.name === "" ||
+                                    exercises.type === "" ||
+                                    exercises.distance === "" ||
+                                    exercises.units === "" ||
+                                    exercises.hours === "" ||
+                                    exercises.minutes === ""
+                                  }
+                                >
+                                  Select Playlist
+                                </button>
+                              </div>
+                            )}
+
+                            <div className="grid place-items-center">
+                              <button
+                                className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
+                                onClick={handleDelete}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          )}
-
-          {/* <div className="flex mb-5">
-            <button className="p-3 m-2 bg-teal-500 rounded-md">
-              Confirm & Connect
-            </button>
-            <button className="p-3 m-2 text-teal-500 border rounded-md border-teak-500">
-              Cancel
-            </button>
-          </div> */}
+          </form>
         </div>
-        {/* <p className="text-sm">
-          Only "public" playlists may be linked to your workout.
-        </p>
-        <p className="text-sm">
-          For more information on playlists visibility, see "
-          <a href="https://support.spotify.com/us/article/playlist-privacy/">
-            Playlist Privacy
-          </a>
-          " from Spotify.
-        </p> */}
       </div>
-
-      {!playlists.length ? (
-        <div>Getting Playlists</div>
-      ) : (
-        <div className="flex flex-col justify-center mt-56 mb-14">
-          <div className="overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="inline-block min-w-full align-middle">
-              <div className="overflow-hidden ">
-                <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                      >
-                        Playlist
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                      ></th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700 overflow:scroll">
-                    {playlists.map((playlist) => (
-                      <tr
-                        key={playlist.id}
-                        playlist={playlist}
-                        onClick={() => setSelectedPlaylist(playlist)}
-                        className="hover:bg-gray-100 dark:hover:bg-teal-500"
-                      >
-                        <td className="p-8 px-8 py-2 border-t border-gray-600">
-                          <img
-                            className="h-10"
-                            alt="playlist-art"
-                            src={playlist.imageUrl}
-                          />
-                        </td>
-                        <td className="p-8 px-8 py-2 border-t border-gray-600">
-                          {playlist.name}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
 export default CardioPlaylist;
+

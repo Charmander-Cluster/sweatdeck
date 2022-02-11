@@ -5,12 +5,22 @@ import CreateCardio from "./CreateCardio";
 import CreateStrength from "./CreateStrength";
 
 const CreateWorkout = () => {
-  // const redirectUri =
-  //   process.env.SPOTIFY_REDIRECT_URI || "http://localhost:3000/spotifyhome";
+  const redirectUri = /localhost/.test(window.location.href)
+  ? "http://localhost:3000/cardioplaylist"
+  : "https://sweatdeck.herokuapp.com/cardioplaylist";
+
+  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
+
 
   const [selectedCategory, setSelectedCategory] = useState({
     category: "",
   });
+
+  const [withPlaylist, setWithPlaylist] = useState(false);
+
+  const handleContinue = () => {
+    window.location.href = AUTH_URL
+  }
 
   // let localWorkout = useSelector((state) => state.localWorkout);
 
@@ -22,7 +32,7 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div className="flex flex-col py-2">
+    <div>
       <div className="relative z-10 pt-2 pb-10">
         <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
           <div className="flex flex-col items-start lg:flex-row lg:items-center">
@@ -36,42 +46,96 @@ const CreateWorkout = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center">
-        {/* <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/> */}
-        {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
-        <img
-          src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
-          className="mt-24 object-cover h-28 w-28 rounded-full shadow-lg shadow-black"
-          alt="Markus Magnusson"
-        />
-      </div>
 
-      <div className="flex items-center justify-center">
-        <h1 className="text-2xl text-white mt-12 align-center drop-shadow-md shadow-black">
-          Create a New Workout
-        </h1>
-      </div>
+      <div className="flex flex-row items-center justify-center space-x-2">
+            <div className="flex justify-center ">
+                <button
+                  onClick={()=>setWithPlaylist(false)}
+                  type="button"
+                  className="p-3 text-lg border border-purple-800 rounded-md bg-purple-800 w-44 shadow-md shadow-black"
+                >
+                  Without Playlist
+                </button>
+            </div>
 
-      <div className="flex flex-row mt-12 mb-10 items-center justify-center space-x-2">
-        <div className="flex justify-center ">
-          <Link to="/createworkout/cardio">
-            <button
-              type="button"
-              className="p-3 text-lg border border-purple-800 rounded-md bg-purple-800 w-44 shadow-md shadow-black"
-            >
-              Create Cardio
-            </button>
-          </Link>
+            <div className="flex justify-center">
+                <button onClick={()=>setWithPlaylist(true)} className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black">
+                  With Playlist
+                </button>
+            </div>
+          </div>
+
+
+      {withPlaylist ? (
+        <div className="flex flex-col py-2">
+          <div className="flex items-center justify-center">
+            {/* <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/> */}
+            {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
+            <img
+              src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
+              className="mt-24 object-cover h-28 w-28 rounded-full shadow-lg shadow-black"
+              alt="Markus Magnusson"
+            />
+          </div>
+
+          <div className="flex items-center justify-center">
+            <h1 className="text-2xl text-white mt-12 align-center text-center drop-shadow-md shadow-black">
+              Create<br></br> With Spotify Playlist
+            </h1>
+          </div>
+
+          <div className="flex flex-row mt-12 mb-10 items-center justify-center space-x-2">
+            <div className="flex justify-center ">
+                <button
+                  type="button"
+                  className="p-3 text-lg border border-green-500 rounded-md bg-green-500 w-44 shadow-md shadow-black"
+                  onClick={handleContinue}
+                >
+                  Continue to Connect Spotify
+                </button>
+            </div>
+          </div>
         </div>
+      ) : (
+        <div className="flex flex-col py-2">
+          <div className="flex items-center justify-center">
+            {/* <img src="https://www.pinclipart.com/picdir/big/169-1691899_online-survey-icon-png-download-test-png-clipart.png" className="h-32 mt-10" alt="add-list"/> */}
+            {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
+            <img
+              src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
+              className="mt-24 object-cover h-28 w-28 rounded-full shadow-lg shadow-black"
+              alt="Markus Magnusson"
+            />
+          </div>
 
-        <div className="flex justify-center">
-          <Link to="/createworkout/strength">
-            <button className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black">
-              Create Strength
-            </button>
-          </Link>
+          <div className="flex items-center justify-center">
+            <h1 className="text-2xl text-white mt-12 align-center text-center drop-shadow-md shadow-black">
+              Create<br></br>Without Spotify Playlist
+            </h1>
+          </div>
+
+          <div className="flex flex-row mt-12 mb-10 items-center justify-center space-x-2">
+            <div className="flex justify-center ">
+              <Link to="/createworkout/cardio">
+                <button
+                  type="button"
+                  className="p-3 text-lg border border-purple-800 rounded-md bg-purple-800 w-44 shadow-md shadow-black"
+                >
+                  Create Cardio
+                </button>
+              </Link>
+            </div>
+
+            <div className="flex justify-center">
+              <Link to="/createworkout/strength">
+                <button className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black">
+                  Create Strength
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
