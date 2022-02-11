@@ -53,27 +53,29 @@ const EditUser = () => {
       >
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <div className="overflow-hidden rounded md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
-              <div className="relative z-10 pt-2 pb-2">
-                <div className="container flex flex-col items-start justify-between px-1 mx-auto">
-                  <div className="flex flex-col items-start">
-                    <div className="my-6 ml-0 md:mt-4">
-                      <h4 className="text-2xl font-bold leading-tight text-white">
-                        Edit
-                      </h4>
-                      <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+            <div className=" md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
+              <div className="flex items-start justify-start overflow-hidden rounded">
+                <div className="relative z-10 flex items-start justify-start pt-2 pb-2 md:pt-0">
+                  <div className="container flex flex-col items-start justify-between px-6 mx-auto">
+                    <div className="flex flex-col items-start">
+                      <div className="my-6 ml-0 md:mt-4">
+                        <h4 className="text-2xl font-bold leading-tight text-white">
+                          Edit
+                        </h4>
+                        <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col p-8 mb-4 bg-teal-600 rounded shadow-md shadow-black">
-                <div className="flex items-center justify-center w-full pt-4">
+              <div className="flex flex-col items-start justify-start p-8 mx-6 mb-6 bg-teal-600 rounded shadow-md shadow-black">
+                <div className="flex flex-row pb-4">
                   {user.gender === "Male" ? (
                     <div className="w-24 h-24">
                       <img
                         src={maleImage}
                         alt="User Profile"
-                        className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                        className="rounded-full shadow-md shadow-black"
                       />
                     </div>
                   ) : user.gender === "Female" ? (
@@ -81,31 +83,27 @@ const EditUser = () => {
                       <img
                         src={femaleImage}
                         alt="User Profile"
-                        className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                        className="rounded-full shadow-md shadow-black"
                       />
                     </div>
                   ) : (
-                    <div className="w-24 h-24">
+                    <div className="w-20 h-20">
                       <img
                         src={defaultImage}
                         alt="User Profile"
-                        className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                        className="object-cover mx-auto rounded-full shadow-md shadow-black"
                       />
                     </div>
                   )}
-                  <div className="relative z-10 pt-4">
-                    <div className="container flex flex-col items-center justify-center px-6 mx-auto">
-                      <div className="flex flex-col items-center">
-                        <div className="mr-3">
-                          <h4 className="mb-2 text-4xl font-bold leading-tight text-white">
-                            {user.username}
-                          </h4>
-                        </div>
-                      </div>
+                  <div className="z-10 pt-7">
+                    <div className="ml-3">
+                      <h4 className="text-2xl font-bold leading-tight text-white">
+                        {user.username}
+                      </h4>
                     </div>
                   </div>
                 </div>
-                <div className="pt-4">
+                <div className="w-full">
                   <h1 className="font-extrabold">Username</h1>
                   <label htmlFor="username"></label>
                   <Field
@@ -240,7 +238,7 @@ const EditUser = () => {
                   </svg>
                   Save Changes
                 </button>
-                <div className="flex justify-center">
+                <div className="flex items-center justify-center">
                   <button
                     className="text-purple-600 hover:text-purple-700"
                     onClick={passwordReset}

@@ -10,16 +10,16 @@ const ConfirmStrengthCreate = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // const [user, setUser] = useState(getAuth().currentUser);
+  const [user, setUser] = useState(getAuth().currentUser);
 
-  // useEffect(() => {
-  //   dispatch(fetchLoginUser());
-  // }, [dispatch, user]);
+  useEffect(() => {
+    dispatch(fetchLoginUser());
+  }, [dispatch, user]);
 
   const authUser = useSelector((state) => state.auth);
-  // onAuthStateChanged(getAuth(), (u) => {
-  //   setUser(u);
-  // });
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
   const userId = authUser.uid;
 
   const newStrengthWorkoutId = useSelector((state) => state.DBWorkout);

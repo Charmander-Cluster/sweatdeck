@@ -82,9 +82,9 @@ const UserProfile = () => {
           <div className="w-12 h-12 mb-4 ease-linear border-4 border-t-4 border-gray-200 rounded-full loader"></div>
         </div>
       ) : (
-        <div className="flex flex-col items-center py-2 pb-20 md:min-h-screen md:justify-center">
+        <div className="flex flex-col items-center pb-20 md:min-h-screen md:justify-center">
           <div className="overflow-hidden rounded">
-            <div className="relative z-10 pt-2 pb-2">
+            <div className="relative z-10 pt-4 pb-2">
               <div className="container flex flex-col items-start justify-between px-6 mx-auto ">
                 <div className="flex flex-col items-start ">
                   <div className="my-6 ml-0 md:ml-52">
@@ -96,8 +96,8 @@ const UserProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-start justify-start p-8 mx-6 mb-6 bg-teal-600 rounded shadow-md md:mx-auto md:max-w-md shadow-black">
-              <div className="flex w-full pt-4 md:ml-2">
+            <div className="flex flex-col items-start justify-start p-5 mx-6 mb-6 bg-teal-600 rounded shadow-md md:mx-auto md:max-w-md shadow-black">
+              <div className="flex flex-row pt-4 md:ml-2">
                 {user.gender === "Male" ? (
                   <div className="w-24 h-24">
                     <img
@@ -115,26 +115,26 @@ const UserProfile = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-24 h-24">
+                  <div className="w-20 h-20">
                     <img
                       src={defaultImage}
                       alt="User Profile"
-                      className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                      className="rounded-full shadow-md shadow-black"
                     />
                   </div>
                 )}
                 <div className="z-10 pt-7">
                   <div className="ml-3">
-                    <h4 className="text-4xl font-bold leading-tight text-white">
+                    <h4 className="text-2xl font-bold leading-tight text-white">
                       {user.username}
                     </h4>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start justify-start md:ml-6">
+              <div className="flex flex-col items-start justify-start md:ml-8">
                 <div className="flex flex-row items-start justify-start mt-2">
                   <svg
-                    className="w-6 h-6 mt-2.5 mr-2 ml-1"
+                    className="w-6 h-6 mt-2.5 mr-2 ml-1.5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -153,7 +153,7 @@ const UserProfile = () => {
                 </div>
                 <div className="flex flex-row">
                   <svg
-                    className="w-6 h-6 mt-2 ml-1 mr-2"
+                    className="w-6 h-6 mt-2 ml-1.5 mr-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -173,7 +173,7 @@ const UserProfile = () => {
                 {allWorkouts.length > 0 ? (
                   <div className="flex flex-row mb-2">
                     <svg
-                      className="w-6 h-6 mt-2 ml-1 mr-2"
+                      className="w-6 h-6 mt-2 ml-1.5 mr-2"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -193,7 +193,7 @@ const UserProfile = () => {
                 ) : (
                   <div className="flex flex-row">
                     <svg
-                      className="w-6 h-6 mt-1 mr-1"
+                      className="w-6 h-6 mt-1 ml-1.5 mr-2"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -206,7 +206,7 @@ const UserProfile = () => {
                         d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                       ></path>
                     </svg>
-                    <p className="pt-2 text-base text-center">
+                    <p className="pt-2 text-xl text-center">
                       Total Workouts - 0
                     </p>
                   </div>
@@ -264,7 +264,7 @@ const UserProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="md:flex md:justify-center">
+            <div className="pb-4 md:flex md:justify-center">
               <Calendar
                 prevLabel={null}
                 prev2Label={null}
