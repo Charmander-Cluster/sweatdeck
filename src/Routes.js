@@ -23,7 +23,7 @@ import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
 import PasswordReset from "./components/User/PasswordReset";
-import FancyRoute from "./components/LoadingBar/FancyRoute";
+import BarRoute from "./components/LoadingBar/BarRoute";
 
 const Routes = () => {
   const authUser = useSelector((state) => state.auth);
@@ -149,13 +149,13 @@ const Routes = () => {
       {authUser.uid ? (
         <Switch>
           {routes.map((route, i) => (
-            <FancyRoute key={i} {...route} />
+            <BarRoute key={i} {...route} />
           ))}
         </Switch>
       ) : (
         <Switch>
           {restrictedRoutes.map((route, i) => (
-            <FancyRoute key={i} {...route} />
+            <BarRoute key={i} {...route} />
           ))}
         </Switch>
       )}
