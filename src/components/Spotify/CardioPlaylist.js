@@ -7,6 +7,7 @@ import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuthCardio from "./useAuthCardio";
 
+import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -20,9 +21,7 @@ const token = new URLSearchParams(window.location.search).get("code");
 const CardioPlaylist = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const history = useHistory();
-
 
   const authUser = useSelector((state) => state.auth);
 
@@ -37,8 +36,6 @@ const CardioPlaylist = (props) => {
   }, [dispatch, user]);
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
-  console.log(cardioLocalWorkout)
-
 
   const accessToken = useAuthCardio(token);
 
@@ -48,6 +45,7 @@ const CardioPlaylist = (props) => {
   useEffect(() => {
     if (playlistConfirmed) {
       dispatch(createDBWorkout(cardioLocalWorkout, userId));
+      dispatch(cardioLocalCreateWorkout({}));
       history.push("/confirmcardiocreate");
     }
   }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
@@ -68,26 +66,6 @@ const CardioPlaylist = (props) => {
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
-  // const [spotifyUser, setSpotifyUser] = useState({});
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   axios
-  //     .get("https://api.spotify.com/v1/me", {
-  //       headers: {
-  //         Accept: "application/json",
-  //         Authorization: "Bearer " + accessToken,
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setSpotifyUser({
-  //         id: response.data.id,
-  //         name: response.data.display_name,
-  //         url: response.data.external_urls.spotify,
-  //       });
-  //     });
-  // }, [accessToken]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -122,8 +100,9 @@ const CardioPlaylist = (props) => {
 
   return (
     <div>
-      <div className="grid place-items-center">
-        <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
+      <div className="flex">
+        <div className="fixed top-0 flex-col w-full bg-zinc-800">
+
           <div className="flex justify-end">
             <Link to="/createworkout/cardio">
             <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
@@ -131,17 +110,23 @@ const CardioPlaylist = (props) => {
             </button>
             </Link>
           </div>
-          <div className="flex-col justify-center">
-            <div className="grid justify-center">
-              <h1 className="grid mt-5 mb-5 text-2xl">
-                Select Your Spotify Playlist
-              </h1>
+
+          <div className="relative z-10 pt-4 pb-10">
+            <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+              <div className="flex flex-col items-start lg:flex-row lg:items-center">
+                <div className="ml-0 lg:ml-20 lg:my-0">
+                  <h4 className="text-2xl font-bold leading-tight text-white">
+                    Select Spotify Playlist
+                  </h4>
+                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+                </div>
+              </div>
             </div>
           </div>
 
           {selectedPlaylist.name && (
-            <div className="flex justify-center">
-              <div className="flex-row justify-center">
+            <div className="flex">
+              <div className="flex-row">
                 <div className="mx-5 mb-2">
                   <span className="text-md">SELECTED: </span>{" "}
                   <span className="text-teal-500 text-md">
@@ -184,7 +169,7 @@ const CardioPlaylist = (props) => {
       {!playlists.length ? (
         <div>Getting Playlists</div>
       ) : (
-        <div className="flex flex-col justify-center mt-52 mb-14">
+        <div className="flex flex-col justify-center mt-56 mb-14">
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden ">

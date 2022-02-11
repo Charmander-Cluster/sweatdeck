@@ -68,9 +68,6 @@ const StrengthDetails = (props) => {
     setCompletedExercise(exercise);
   };
 
-  console.log("this array element", thisArray)
-  console.log("workout", workout)
-
   const handleRemove = (event) => {
     event.preventDefault();
     if (thisArray ===0 ) {
@@ -84,7 +81,6 @@ const StrengthDetails = (props) => {
       })
       setIsCompleted(false)
     }
-    console.log("++++props.number: ", thisArray);
     handleDelete(thisArray);
   };
 
@@ -100,7 +96,7 @@ const StrengthDetails = (props) => {
   return (
     <div>
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
-        <div>
+        {/* <div>
         <div className="flex -mb-6 justify-end">
           <button onClick={handleRemove}>
             {" "}
@@ -111,7 +107,7 @@ const StrengthDetails = (props) => {
             />{" "}
           </button>
         </div>
-        </div>
+        </div> */}
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
@@ -239,6 +235,7 @@ const StrengthDetails = (props) => {
             <input
               className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="reps"
+              min="0"
               required
               type="number"
               onChange={handleChange}
@@ -254,6 +251,8 @@ const StrengthDetails = (props) => {
             <input
               className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="sets"
+              type="number"
+              min="0"
               onChange={handleChange}
               value={exercise.sets}
             />
@@ -268,7 +267,7 @@ const StrengthDetails = (props) => {
           exercise.units === "" ||
           exercise.reps === "" ||
           exercise.sets === "") && (
-          <div className="mt-2 text-right mr-1 text-red-400 rounded-md p-1">
+          <div className="mt-2 text-right mr-1 text-amber-400 rounded-md p-1">
             Complete all fields to add
           </div>
         )}
@@ -295,7 +294,7 @@ const StrengthDetails = (props) => {
 
         {isCompleted && (
           <div className="flex justify-end">
-            <div type="add" className="mt-2 mr-1 text-amber-400 rounded-md p-1">
+            <div type="add" className="mt-2 mr-1 text-lime-500 rounded-md p-1">
               Added to Workout
             </div>
           </div>

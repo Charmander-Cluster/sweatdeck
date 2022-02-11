@@ -2,13 +2,20 @@ import React from "react";
 import DoughnutActivityChart from "../Charts/DoughnutActivityChart";
 
 const DynamicActivity = (props) => {
-  const workoutLength = props.workouts.length;
+  const workoutLength = props.workouts
+    .map((workout) => {
+      return workout.workoutData.timesCompleted;
+    })
+    .reduce((timesCompleted, workout) => {
+      return timesCompleted + workout;
+    }, 0);
 
   const setsSum = props.workouts
     .filter((workout) => workout.workoutData.category === "strength")
     .map((workout) => {
       return workout.workoutData.exercises;
     })
+
     .reduce((totalSets, workout) => {
       return (
         totalSets +
@@ -68,11 +75,11 @@ const DynamicActivity = (props) => {
   };
 
   return (
-    <div className="relative z-10 w-full mb-6 -mt-8 bg-teal-600 rounded shadow">
-      <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-fuchsia-700 ">
+    <div className="relative z-10 w-full mb-6 -mt-8 bg-teal-600 rounded shadow-md shadow-black">
+      <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-fuchsia-600 ">
         Weekly Activity
       </h3>
-      <div className="flex items-center justify-center py-2 pl-6 rounded shadow ">
+      <div className="flex items-center justify-center py-2 pl-6 rounded shadow">
         <div className="pl-3 pr-10">
           <div className="flex items-center justify-center">
             <DoughnutActivityChart
@@ -82,14 +89,14 @@ const DynamicActivity = (props) => {
           </div>
           <div className="flex flex-row justify-between">
             <div className="flex flex-col pr-10 mt-4">
-              <h2 className="text-2xl font-bold leading-normal text-fuchsia-700 ">
+              <h2 className="text-2xl font-bold leading-normal text-fuchsia-600 ">
                 Strength
               </h2>
               <p className="mb-1 ml-2 text-sm text-white">{setsSum} Sets</p>
               <p className="mb-1 ml-2 text-sm text-white">{repsSum} Reps</p>
             </div>
             <div className="flex flex-col mt-4">
-              <h2 className="text-2xl font-bold leading-normal text-fuchsia-700 ">
+              <h2 className="text-2xl font-bold leading-normal text-fuchsia-600 ">
                 Cardio
               </h2>
               <p className="mb-1 ml-2 text-sm text-white">
@@ -101,7 +108,13 @@ const DynamicActivity = (props) => {
             </div>
           </div>
           <div className="flex items-center justify-center pt-4">
-            <p>Well done this week!</p>
+            {workoutLength < 5 ? (
+              <p>Do more workouts!</p>
+            ) : workoutLength < 10 ? (
+              <p>Well done this week!</p>
+            ) : (
+              <p>You are seriously amazing!</p>
+            )}
           </div>
         </div>
       </div>

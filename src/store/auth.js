@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
@@ -19,7 +20,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (email, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    logout();
+    dispatch(logout());
     await signInWithEmailAndPassword(auth, email, password);
     const user = auth.currentUser;
     if (user !== null) {
@@ -28,7 +29,7 @@ export const authenticate = (email, password) => async (dispatch) => {
       dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+    console.log("Error at authenticate thunk", authError);
   }
 };
 
@@ -38,7 +39,7 @@ export const fetchLoginUser = () => async (dispatch) => {
   if (user) {
     const response = await getDoc(doc(db, "users", user.uid));
     const fullDetail = { ...user, ...response.data() };
-    await dispatch(setAuth(fullDetail));
+    dispatch(setAuth(fullDetail));
   }
 };
 
@@ -77,36 +78,34 @@ export const authSignUp = (user) => async (dispatch) => {
       group: groupNum
 
     });
-
-    dispatch(setAuth(user));
-  } catch (error) {
-    console.log("CODE: ", error.code);
-    console.log("MESSAGE: ", error.message);
-    let message = "";
-    if (error.code === "auth/invalid-email") {
-      message = "Invalid email";
-    } else if (error.code === "auth/weak-password") {
-      message = "Password should be at least 6 characters";
-    } else if (error.code === "auth/email-already-in-use") {
-      message = "Email already in use";
-    } else {
-      message = "Error: Please try again";
+    if (response.user.uid) {
+      dispatch(authenticate(user.email, user.password));
     }
-    alert(message);
-
-    return dispatch(setAuth({ error }));
+  } catch (error) {
+    // console.log("CODE: ", error.code);
+    // console.log("MESSAGE: ", error.message);
+    // let message = "";
+    // if (error.code === "auth/invalid-email") {
+    //   message = "Invalid email";
+    // } else if (error.code === "auth/weak-password") {
+    //   message = "Password should be at least 6 characters";
+    // } else if (error.code === "auth/email-already-in-use") {
+    //   message = "Email already in use";
+    // } else {
+    //   message = "Error: Please try again";
+    // }
+    // alert(message);
+    dispatch(setAuth({error}))
   }
 };
 
 export const sendPasswordReset = async (email) => {
   try {
     const auth = getAuth();
-    auth.languageCode = "it";
+    auth.languageCode = null;
     await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
   } catch (err) {
     console.error(err);
-    alert(err.message);
   }
 };
 

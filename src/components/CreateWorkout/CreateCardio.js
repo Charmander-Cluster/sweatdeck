@@ -8,7 +8,6 @@ import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CreateCardio = (props) => {
-
   const redirectUri = /localhost/.test(window.location.href)
     ? "http://localhost:3000/cardioplaylist"
     : "https://sweatdeck.herokuapp.com/cardioplaylist";
@@ -38,7 +37,8 @@ const CreateCardio = (props) => {
   useEffect(() => {
     if (workoutAdded) {
       dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
-      history.push("/confirmcardiocreate")
+      dispatch(cardioLocalCreateWorkout({}));
+      history.push("/confirmcardiocreate");
       // setRedirect(true);
     }
   }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
@@ -47,8 +47,11 @@ const CreateCardio = (props) => {
 
   const [workout, setWorkout] = useState({
     category: "cardio",
-    name: (!cardioLocalWorkout.name) ? "" : (cardioLocalWorkout.name),
-    exercises: (!cardioLocalWorkout.exercises || cardioLocalWorkout.exercises.length===0) ? [] : (cardioLocalWorkout.exercises),
+    name: !cardioLocalWorkout.name ? "" : cardioLocalWorkout.name,
+    exercises:
+      !cardioLocalWorkout.exercises || cardioLocalWorkout.exercises.length === 0
+        ? []
+        : cardioLocalWorkout.exercises,
     userId: "",
     timesCompleted: 0,
     datesCompleted: [],
@@ -56,11 +59,21 @@ const CreateCardio = (props) => {
   });
 
   const [exercises, setExercises] = useState({
-    type: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].type),
-    distance: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].distance),
-    units: (!cardioLocalWorkout.exercises) ? "select" : (cardioLocalWorkout.exercises[0].units),
-    hours: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].hours),
-    minutes: (!cardioLocalWorkout.exercises) ? "" : (cardioLocalWorkout.exercises[0].minutes),
+    type: !cardioLocalWorkout.exercises
+      ? ""
+      : cardioLocalWorkout.exercises[0].type,
+    distance: !cardioLocalWorkout.exercises
+      ? ""
+      : cardioLocalWorkout.exercises[0].distance,
+    units: !cardioLocalWorkout.exercises
+      ? "select"
+      : cardioLocalWorkout.exercises[0].units,
+    hours: !cardioLocalWorkout.exercises
+      ? ""
+      : cardioLocalWorkout.exercises[0].hours,
+    minutes: !cardioLocalWorkout.exercises
+      ? ""
+      : cardioLocalWorkout.exercises[0].minutes,
   });
 
   const handleChange = (event) => {
@@ -102,15 +115,28 @@ const CreateCardio = (props) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
-      <div className="flex items-center justify-center">
+    <div className="flex flex-col py-2">
+      {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
           Create Cardio Workout
         </h1>
+      </div> */}
+
+      <div className="relative z-10 pt-2 pb-5">
+        <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+          <div className="flex flex-col items-start lg:flex-row lg:items-center">
+            <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+              <h4 className="text-2xl font-bold leading-tight text-white">
+                Create Cardio Workout
+              </h4>
+              <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
-        <div className="m-3 my-5 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
+        <div className="m-3 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
           <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
@@ -162,8 +188,7 @@ const CreateCardio = (props) => {
 
                         <div className="flex justify-center">
                           <div className="flex justify-center">
-                            <div className="">
-                            </div>
+                            <div className=""></div>
                           </div>
                         </div>
                         <div className="flex align-center">
@@ -225,7 +250,6 @@ const CreateCardio = (props) => {
                                 </select>
                               </div>
                             </div>
-
                             <div className="container flex justify-center">
                               <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                                 <label
@@ -264,52 +288,54 @@ const CreateCardio = (props) => {
                               </div>
                             </div>
 
-                            { (workout.category === "" ||
-                                  workout.name === "" ||
-                                  exercises.type === "" ||
-                                  exercises.distance === "" ||
-                                  exercises.units === "" ||
-                                  exercises.hours === "" ||
-                                  exercises.minutes === "") ?
-                              (<div className="text-red-400 my-5">Complete all fields to create workout </div>) :
-                            (<div className="grid mt-5 place-items-center">
-                              <button
-                                className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
-                                onClick={handleSubmitWithSpotify}
-                                disabled={
-                                  workout.category === "" ||
-                                  workout.name === "" ||
-                                  exercises.type === "" ||
-                                  exercises.distance === "" ||
-                                  exercises.units === "" ||
-                                  exercises.hours === "" ||
-                                  exercises.minutes === ""
-                                }
-                                // href={AUTH_URL}
-                              >
-                                Save & Connect Spotify Playlist
-                              </button>
+                            {workout.category === "" ||
+                            workout.name === "" ||
+                            exercises.type === "" ||
+                            exercises.distance === "" ||
+                            exercises.units === "" ||
+                            exercises.hours === "" ||
+                            exercises.minutes === "" ? (
+                              <div className="my-5 text-amber-400">
+                                Complete all fields to create workout{" "}
+                              </div>
+                            ) : (
+                              <div className="grid mt-5 place-items-center">
+                                <button
+                                  className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
+                                  onClick={handleSubmitWithSpotify}
+                                  disabled={
+                                    workout.category === "" ||
+                                    workout.name === "" ||
+                                    exercises.type === "" ||
+                                    exercises.distance === "" ||
+                                    exercises.units === "" ||
+                                    exercises.hours === "" ||
+                                    exercises.minutes === ""
+                                  }
+                                  // href={AUTH_URL}
+                                >
+                                  Save & Connect Spotify Playlist
+                                </button>
 
-                              <button
-                                className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
-                                onClick={handleSubmitWithoutPlaylist}
-                                disabled={
-                                  workout.category === "" ||
-                                  workout.name === "" ||
-                                  exercises.type === "" ||
-                                  exercises.distance === "" ||
-                                  exercises.units === "" ||
-                                  exercises.hours === "" ||
-                                  exercises.minutes === ""
-                                }
-                              >
-                                Save Without Playlist
-                              </button>
-                              </div>)}
+                                <button
+                                  className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
+                                  onClick={handleSubmitWithoutPlaylist}
+                                  disabled={
+                                    workout.category === "" ||
+                                    workout.name === "" ||
+                                    exercises.type === "" ||
+                                    exercises.distance === "" ||
+                                    exercises.units === "" ||
+                                    exercises.hours === "" ||
+                                    exercises.minutes === ""
+                                  }
+                                >
+                                  Save Without Playlist
+                                </button>
+                              </div>
+                            )}
 
-
-
-                              <div className="grid place-items-center">
+                            <div className="grid place-items-center">
                               <button
                                 className="flex p-2 mb-3 text-lg text-gray-400 border border-gray-400 rounded-md rounded-"
                                 onClick={handleDelete}
@@ -317,7 +343,6 @@ const CreateCardio = (props) => {
                                 Cancel
                               </button>
                             </div>
-
                           </div>
                         </div>
                       </div>

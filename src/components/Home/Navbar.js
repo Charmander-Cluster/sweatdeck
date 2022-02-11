@@ -1,19 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import auth from "../../store/auth";
 
 const Navbar = () => {
   const authUser = useSelector((state) => state.auth);
-
-  // console.log(authUser);
 
   return (
     <div className="fixed z-40 w-full h-screen">
       {authUser.uid && (
         <section
           id="bottom-navigation"
-          className="fixed inset-x-0 bottom-0 z-10 block bg-teal-700 shadow-md md:hidden navbar shadow-black"
+          className="fixed inset-x-0 bottom-0 z-10 block bg-teal-600 shadow-md navbar shadow-black"
         >
           <div id="tabs" className="flex justify-between">
             <Link

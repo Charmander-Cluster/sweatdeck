@@ -22,7 +22,6 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
   try {
     const userRef = collection(db, `users/${userId}/workouts`);
     const workoutRef = collection(db, `workouts`);
-    console.log("**THUNK USERID**", userId);
     const response = await addDoc(userRef, {
       createdAt: serverTimestamp(),
       name: workout.name,
@@ -55,7 +54,6 @@ export const createDBWorkoutNoPlaylist =
     try {
       const userRef = collection(db, `users/${userId}/workouts`);
       const workoutRef = collection(db, `workouts`);
-      console.log("**THUNK USERID**", userId);
       const response = await addDoc(userRef, {
         createdAt: serverTimestamp(),
         name: workout.name,

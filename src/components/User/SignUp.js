@@ -1,38 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authSignUp, authenticate } from "../../store/auth";
+import { authSignUp } from "../../store/auth";
 import { useHistory } from "react-router-dom";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import DatePickerField from "./DatePickerField";
 
 const SignUp = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  //const history = useHistory();
-  const [userEmails] = useState({});
   const [step, setStep] = useState(1);
-  const [isDone, setDone] = useState(false);
-
-  // await dispatch(authSignUp(user));
-  // await dispatch(authenticate(user.email, user.password));
-  // history.push("/");
-  // };
   const authUser = useSelector((state) => state.auth);
+
+  const [btnState, setBtnState] = useState(false);
 
   const stepClick = () => {
     setStep(2);
   };
 
+  const errorClick = () => {
+    setBtnState((prev) => !prev);
+  };
+
+  const handleModal = (event) => {
+    event.preventDefault();
+    setBtnState((prev) => !prev);
+  };
+
   useEffect(() => {
-    if (authUser.email) {
+    if (authUser.uid) {
       history.push("/");
     }
-  }, [history, authUser.email]);
-
-  // const datepickerEl = document.getElementById("datepickerId");
-  // new Datepicker(datepickerEl, {
-  //   // options
-  // });
+  }, [authUser, history]);
 
   return (
     <div>
@@ -45,26 +43,45 @@ const SignUp = () => {
           state: "",
           firstName: "",
           lastName: "",
-          gender: "",
-          favoriteWorkoutType: "",
-          frequency: "",
-          goal: "",
-          age: "",
-          lat: "",
-          long: ""
+          gender: "Prefer not to say",
+          favoriteWorkoutType: "Cardio",
+          frequency: "0",
+          goal: "Just getting started",
         }}
         validate={(values) => {
           const errors = {};
           if (!values.email) {
-            errors.email = "Required";
+            errors.email = "Email required";
           } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
           ) {
             errors.email = "Invalid email address";
           }
+
+          const passwordRegex = /(?=.*[0-9])/;
+          if (!values.password) {
+            errors.password = "Password required";
+          } else if (values.password.length < 6) {
+            errors.password = "Password must be 6 characters long.";
+          } else if (!passwordRegex.test(values.password)) {
+            errors.password = "Invalid password. Must contain one number.";
+          }
+
+          if (!values.username) {
+            errors.username = "Username required";
+          }
+
+          if (!values.birthday) {
+            errors.birthday = "Birthday required";
+          }
+
+          if (!values.state) {
+            errors.state = "State required";
+          }
+
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values) => {
           const selectedDate = new Date(values.birthday); // pass in date param here
           const formattedDate = `${
             selectedDate.getMonth() + 1
@@ -72,33 +89,19 @@ const SignUp = () => {
           values.birthday = formattedDate;
 
           dispatch(authSignUp(values));
-          setTimeout(() => {
-            dispatch(authenticate(values.email, values.password));
-            console.log("this is values from onSubmit", values);
-            setSubmitting(false);
-            setDone(true);
-          }, 1000);
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        {({ values, errors, touched, handleSubmit }) => (
           <div>
             {step === 1 ? (
-              <form>
-                <div className="w-full p-10 ">
-                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
-                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+              <Form>
+                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
+                  <div className="items-center pb-6 border-b border-teal-600 md:flex">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase md:pt-3 md:pr-2">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 border-2 border-white rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 border-2 border-white rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-white">
                           01
                         </p>
@@ -108,8 +111,8 @@ const SignUp = () => {
                       </p>
                     </div>
                     <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-                      <div className="flex items-center justify-center w-8 h-8 bg-white rounded">
-                        <p className="text-base font-medium leading-none text-teal-700">
+                      <div className="flex items-center justify-center w-8 h-8 bg-white rounded shadow-md shadow-black">
+                        <p className="text-base font-medium leading-none text-teal-600">
                           02
                         </p>
                       </div>
@@ -124,68 +127,59 @@ const SignUp = () => {
                   >
                     Security
                   </h1>
-
-                  <div className="items-center mt-8 md:flex">
+                  <div className="items-center mt-5 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Username</h1>
-                      <input
+                      <Field
                         type="text"
                         placeholder="Username"
-                        value={values.username}
                         name="username"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        onChange={handleChange}
-                        required
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
+                      {errors.username && touched.username && errors.username}
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">Password</h1>
-                      <input
+                      <Field
                         type="password"
                         placeholder="Password"
-                        value={values.password}
                         name="password"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        onChange={handleChange}
-                        required
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
+                      {errors.password && touched.password && errors.password}
                     </div>
                   </div>
-                  <div className="items-center mt-2 md:flex">
+                  <div className="items-center mt-2 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Email Address</h1>
-                      <input
+                      <Field
                         type="email"
                         placeholder="E-mail"
-                        value={values.email}
                         name="email"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        onChange={handleChange}
-                        required
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
+                      {errors.email && touched.email && errors.email}
                     </div>
                   </div>
-                  <div className="items-center mt-2 md:flex">
+                  <div className="items-center mt-2 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
                     <div className="flex flex-col">
                       <h1 className="pt-2 font-extrabold">Date of birth</h1>
-
-                      <DatePickerField
+                      <Field
                         name="birthday"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                        type="date"
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
+                      {errors.birthday && touched.birthday && errors.birthday}
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="relative flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">State (Location)</h1>
 
-                      <select
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
+                      <Field
+                        className="w-full shadow-md shadow-black p-3.5 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded appearance-none form-select"
                         name="state"
-                        defaultValue="select"
-                        onChange={handleChange}
+                        as="select"
                       >
-                        <option value="select" disabled>
-                          --
-                        </option>
+                        <option value="--">--</option>
                         <option value="AL">AL</option>
                         <option value="AK">AK</option>
                         <option value="AZ">AZ</option>
@@ -237,44 +231,147 @@ const SignUp = () => {
                         <option value="WV">WV</option>
                         <option value="WI">WI</option>
                         <option value="WY">WY</option>
-                      </select>
+                      </Field>
                     </div>
-                  </div>
-
-                  <button
-                    onClick={stepClick}
-                    aria-label="Next step"
-                    className="flex items-center justify-center py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
-                  >
-                    <span className="text-sm font-medium text-center text-white capitalize">
-                      Next Step
-                    </span>
-                    <svg
-                      className="mt-1 ml-3"
-                      width={12}
-                      height={8}
-                      viewBox="0 0 12 8"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                  </div>{" "}
+                  {errors.length > 0 ||
+                  values.username === "" ||
+                  values.email === "" ||
+                  values.password === "" ||
+                  values.birthday === "" ||
+                  values.state === "" ? (
+                    <button
+                      type="button"
+                      onClick={errorClick}
+                      className="flex items-center justify-center py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
-                      <path
-                        d="M8.01 3H0V5H8.01V8L12 4L8.01 0V3Z"
-                        fill="#242731"
-                      />
-                    </svg>
-                  </button>
+                      <span className="text-sm font-medium text-center text-white capitalize">
+                        Next Step
+                      </span>
+                      <svg
+                        className="mt-1 ml-3"
+                        width={12}
+                        height={8}
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.01 3H0V5H8.01V8L12 4L8.01 0V3Z"
+                          fill="#242731"
+                        />
+                      </svg>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={stepClick}
+                      className="flex items-center justify-center py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                    >
+                      <span className="text-sm font-medium text-center text-white capitalize">
+                        Next Step
+                      </span>
+                      <svg
+                        className="mt-1 ml-3"
+                        width={12}
+                        height={8}
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.01 3H0V5H8.01V8L12 4L8.01 0V3Z"
+                          fill="#242731"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  {btnState ? (
+                    // <div>{alert("Workout logged!")}</div>
+                    <div
+                      className="fixed inset-0 z-10 overflow-y-auto"
+                      aria-labelledby="modal-title"
+                      role="dialog"
+                      aria-modal="true"
+                    >
+                      <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                        <div
+                          className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
+                          aria-hidden="true"
+                        ></div>
+
+                        <span
+                          className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                          aria-hidden="true"
+                        >
+                          &#8203;
+                        </span>
+
+                        <div className="inline-block overflow-hidden text-left align-middle transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                          <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+                            <div className="sm:flex sm:items-start">
+                              <div className="flex items-center justify-center flex-shrink-0 w-5 h-5 mx-auto bg-red-500 rounded-full sm:mx-0 sm:h-10 sm:w-10"></div>
+                              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3
+                                  className="text-lg font-medium leading-6 text-gray-900"
+                                  id="modal-title"
+                                >
+                                  {errors.email}
+                                </h3>
+                                <h3
+                                  className="text-lg font-medium leading-6 text-gray-900"
+                                  id="modal-title"
+                                >
+                                  {errors.password}
+                                </h3>
+                                <h3
+                                  className="text-lg font-medium leading-6 text-gray-900"
+                                  id="modal-title"
+                                >
+                                  {errors.username}
+                                </h3>
+                                <h3
+                                  className="text-lg font-medium leading-6 text-gray-900"
+                                  id="modal-title"
+                                >
+                                  {errors.birthday}
+                                </h3>
+                                <h3
+                                  className="text-lg font-medium leading-6 text-gray-900"
+                                  id="modal-title"
+                                >
+                                  {errors.state}
+                                </h3>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button
+                              type="button"
+                              className="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm modal-close hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                              onClick={handleModal}
+                            >
+                              Done
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
-              </form>
+              </Form>
             ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="w-full p-10 ">
-                  <div className="items-center pb-6 border-b border-teal-700 md:flex">
-                    <h1 className="mb-2 text-lg font-bold text-center uppercase">
+              <Form onSubmit={handleSubmit}>
+                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
+                  <div className="items-center pb-6 border-b border-teal-600 md:flex">
+                    <h1 className="mb-2 text-lg font-bold text-center uppercase md:pt-3 md:pr-2">
                       Sign Up
                     </h1>
                     <div className="flex items-center mt-4 md:mt-0">
-                      <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded">
-                        <p className="text-base font-medium leading-none text-teal-500">
+                      <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded shadow-md shadow-black">
+                        <p className="text-base font-medium leading-none text-teal-600">
                           01
                         </p>
                       </div>
@@ -283,7 +380,7 @@ const SignUp = () => {
                       </p>
                     </div>
                     <div className="flex items-center mt-4 md:mt-0 md:ml-12">
-                      <div className="flex items-center justify-center w-8 h-8 bg-teal-700 rounded">
+                      <div className="flex items-center justify-center w-8 h-8 bg-teal-600 rounded shadow-md shadow-black">
                         <p className="text-base font-medium leading-none text-white">
                           02
                         </p>
@@ -293,67 +390,37 @@ const SignUp = () => {
                       </p>
                     </div>
                   </div>
-                  <h1
-                    tabIndex={0}
-                    aria-label="profile information"
-                    className="mt-8 text-3xl font-bold text-white focus:outline-none"
-                  >
+                  <h1 className="mt-8 text-3xl font-bold text-white focus:outline-none">
                     Optional info
                   </h1>
 
-                  <div className="items-center mt-8 md:flex">
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                  <div className="items-center mt-5 md:flex md:flex-col md:align-middle md:items-stretch md:w-3/12">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">First Name</h1>
-                      <input
+                      <Field
                         type="text"
                         placeholder="First Name"
                         name="firstName"
-                        value={values.firstName}
-                        tabIndex={0}
-                        aria-label="Enter first name"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        onChange={handleChange}
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                     </div>
-                    <div className="flex flex-col mt-2 md:ml-12 md:mt-0">
+                    <div className="flex flex-col mt-2">
                       <h1 className="pt-2 font-extrabold">Last Name</h1>
-                      <input
+                      <Field
                         type="text"
                         placeholder="Last Name"
-                        value={values.lastName}
                         name="lastName"
-                        tabIndex={0}
-                        aria-label="Enter last name"
-                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                        onChange={handleChange}
+                        className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded shadow-md shadow-black"
                       />
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Gender</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
-                      <select
-                        aria-label="Selected tab"
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+
+                      <Field
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Gender"
                         name="gender"
-                        onChange={handleChange}
+                        as="select"
                       >
                         <option value="Prefer not to say">
                           Prefer not to say
@@ -365,68 +432,31 @@ const SignUp = () => {
                           Male Identifying
                         </option>
                         <option value="Non-Conforming">Non-Conforming</option>
-                      </select>
+                      </Field>
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">
                         Favorite Workout Type
                       </h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
-                      <select
-                        aria-label="Selected tab"
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+
+                      <Field
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Favorite Workout Type"
                         name="favoriteWorkoutType"
-                        onChange={handleChange}
+                        as="select"
                       >
                         <option value="Cardio">Cardio</option>
                         <option value="Strength">Strength</option>
-                      </select>
+                      </Field>
                     </div>
-                    <div className="relative mt-2 lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Goal</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
-                      <select
-                        aria-label="Selected tab"
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+
+                      <Field
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Goal"
                         name="goal"
-                        defaultValue="select"
-                        onChange={handleChange}
+                        as="select"
                       >
                         <option value="select" disabled>
                           --
@@ -439,36 +469,16 @@ const SignUp = () => {
                         <option value="Weight Loss">Weight Loss</option>
                         <option value="Hobby">Hobby</option>
                         <option value="Other">Other</option>
-                      </select>
+                      </Field>
                     </div>
-                  </div>
-                  <div className="items-center mt-2 md:flex">
-                    <div className="relative lg:hidden md:mt-4">
+                    <div className="relative mt-2">
                       <h1 className="pt-2 font-extrabold">Workout Frequency</h1>
-                      <div className="absolute inset-0 z-0 w-6 h-6 m-auto mr-4">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mt-4 icon icon-tabler icon-tabler-selector"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="#a0aec0"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />
-                          <polyline points="8 9 12 5 16 9" />
-                          <polyline points="16 15 12 19 8 15" />
-                        </svg>
-                      </div>
-                      <select
-                        aria-label="Selected tab"
-                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
+
+                      <Field
+                        className="block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none form-select focus:ring-teal-500 focus:border-teal-500"
                         placeholder="Frequency"
                         name="frequency"
-                        onChange={handleChange}
+                        as="select"
                       >
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -478,21 +488,20 @@ const SignUp = () => {
                         <option value="5">5</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
-                      </select>
+                      </Field>
                     </div>
                   </div>
 
                   <button
-                    aria-label="Submit"
                     type="submit"
-                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-700 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                    className="flex items-center justify-center px-12 py-4 mt-10 bg-teal-600 rounded shadow-md cursor-pointer shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                   >
                     <span className="text-sm font-medium text-center text-white capitalize">
                       Submit
                     </span>
                   </button>
                 </div>
-              </form>
+              </Form>
             )}
           </div>
         )}
@@ -502,76 +511,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-{
-  // <select
-  // className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-  // name="state"
-  // defaultValue="select"
-  // onChange={handleChange}
-  // >
-  // <option value="select" disabled>
-  //   --
-  // </option>
-  // 	<option value="AL">Alabama</option>
-  // 	<option value="AK">Alaska</option>
-  // 	<option value="AZ">Arizona</option>
-  // 	<option value="AR">Arkansas</option>
-  // 	<option value="CA">California</option>
-  // 	<option value="CO">Colorado</option>
-  // 	<option value="CT">Connecticut</option>
-  // 	<option value="DE">Delaware</option>
-  // 	<option value="DC">District Of Columbia</option>
-  // 	<option value="FL">Florida</option>
-  // 	<option value="GA">Georgia</option>
-  // 	<option value="HI">Hawaii</option>
-  // 	<option value="ID">Idaho</option>
-  // 	<option value="IL">Illinois</option>
-  // 	<option value="IN">Indiana</option>
-  // 	<option value="IA">Iowa</option>
-  // 	<option value="KS">Kansas</option>
-  // 	<option value="KY">Kentucky</option>
-  // 	<option value="LA">Louisiana</option>
-  // 	<option value="ME">Maine</option>
-  // 	<option value="MD">Maryland</option>
-  // 	<option value="MA">Massachusetts</option>
-  // 	<option value="MI">Michigan</option>
-  // 	<option value="MN">Minnesota</option>
-  // 	<option value="MS">Mississippi</option>
-  // 	<option value="MO">Missouri</option>
-  // 	<option value="MT">Montana</option>
-  // 	<option value="NE">Nebraska</option>
-  // 	<option value="NV">Nevada</option>
-  // 	<option value="NH">New Hampshire</option>
-  // 	<option value="NJ">New Jersey</option>
-  // 	<option value="NM">New Mexico</option>
-  // 	<option value="NY">New York</option>
-  // 	<option value="NC">North Carolina</option>
-  // 	<option value="ND">North Dakota</option>
-  // 	<option value="OH">Ohio</option>
-  // 	<option value="OK">Oklahoma</option>
-  // 	<option value="OR">Oregon</option>
-  // 	<option value="PA">Pennsylvania</option>
-  // 	<option value="RI">Rhode Island</option>
-  // 	<option value="SC">South Carolina</option>
-  // 	<option value="SD">South Dakota</option>
-  // 	<option value="TN">Tennessee</option>
-  // 	<option value="TX">Texas</option>
-  // 	<option value="UT">Utah</option>
-  // 	<option value="VT">Vermont</option>
-  // 	<option value="VA">Virginia</option>
-  // 	<option value="WA">Washington</option>
-  // 	<option value="WV">West Virginia</option>
-  // 	<option value="WI">Wisconsin</option>
-  // 	<option value="WY">Wyoming</option>
-  // </select>
-}
-{
-  /* <input
-                type="text"
-                placeholder="State (location)"
-                name="state"
-                className="w-full p-3 text-sm font-medium leading-none text-gray-900 bg-gray-100 border border-gray-200 rounded"
-                onChange={handleChange}
-                required
-              /> */
-}

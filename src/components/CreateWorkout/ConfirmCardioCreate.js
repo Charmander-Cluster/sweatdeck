@@ -54,7 +54,7 @@ const ConfirmCardioCreate = () => {
           <div className="grid justify-center mt-20">
             <button
               type="button"
-              className="text-xl bg-teal-500  rounded-md p-3 border border-white text-white"
+              className="text-xl bg-teal-500  rounded-md p-3 border border-white text-white text-center"
               onClick={handleLog}
             >
               Mark Completed Today
@@ -80,7 +80,7 @@ const ConfirmCardioCreate = () => {
             type="button"
             className="flex text-2xl text-teal-500 rounded-md p-3"
           >
-            <img alt="teal-checkmark" className="h-6 mr-2" src="https://palmbayprep.org/wp-content/uploads/2015/09/Calendar-Icon.png"/>
+            <img alt="teal-checkmark" className="h-6 mr-2 text-center" src="https://palmbayprep.org/wp-content/uploads/2015/09/Calendar-Icon.png"/>
 
 
             Completed Today

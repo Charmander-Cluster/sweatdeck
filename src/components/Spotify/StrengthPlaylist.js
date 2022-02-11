@@ -6,6 +6,7 @@ import axios from "axios";
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuthStrength from "./useAuthStrength";
 
+import { strengthLocalCreateWorkout } from "../../store/strengthLocalCreateWorkout";
 import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 
@@ -27,7 +28,6 @@ const StrengthPlaylist = (props) => {
     setUser(u);
   });
 
-  // let history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,26 +45,17 @@ const StrengthPlaylist = (props) => {
   useEffect(() => {
     if (playlistConfirmed) {
       dispatch(createDBWorkout(strengthLocalWorkout, userId));
+      dispatch(strengthLocalCreateWorkout({}))
       history.push("/confirmstrengthcreate");
     }
   }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
-
-  const createWorkout = () => {
-    dispatch(
-      strengthLocalEditWorkout({
-        ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
-      })
-    );
-    dispatch(createDBWorkout(strengthLocalWorkout, userId));
-  };
 
   const handleConfirm = (event) => {
     event.preventDefault();
     dispatch(
       strengthLocalEditWorkout({
         ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url },
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl },
       })
     );
     setPlaylistConfirmed(true);
@@ -77,8 +68,6 @@ const StrengthPlaylist = (props) => {
 
   useEffect(() => {
     if (!accessToken) return;
-    // if(!spotifyUser) return
-    console.log(accessToken);
     axios
       .get("https://api.spotify.com/v1/me/playlists", {
         params: { limit: 50, offset: 0 },
@@ -112,7 +101,7 @@ const StrengthPlaylist = (props) => {
     <div>Loading...</div>
   ) : (
     <div>
-      <div className="grid place-items-center">
+      <div className="flex">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
             <Link to="/createworkout/strength">
@@ -121,17 +110,23 @@ const StrengthPlaylist = (props) => {
             </button>
             </Link>
           </div>
-          <div className="flex-col justify-center">
-            <div className="grid justify-center">
-              <h1 className="grid mt-5 mb-5 text-2xl">
-                Select Your Spotify Playlist
-              </h1>
+
+          <div className="relative z-10 pt-4 pb-10">
+            <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
+              <div className="flex flex-col items-start lg:flex-row lg:items-center">
+                <div className="ml-0 lg:ml-20 lg:my-0">
+                  <h4 className="text-2xl font-bold leading-tight text-white">
+                    Select Spotify Playlist
+                  </h4>
+                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+                </div>
+              </div>
             </div>
           </div>
 
           {selectedPlaylist.name && (
-            <div className="flex justify-center">
-              <div className="flex-row justify-center">
+            <div className="flex">
+              <div className="flex-row">
                 <div className="mx-5 mb-2">
                   <span className="text-md">SELECTED: </span>{" "}
                   <span className="text-teal-500 text-md">
@@ -165,7 +160,7 @@ const StrengthPlaylist = (props) => {
       {!playlists.length ? (
         <div>Getting Playlists</div>
       ) : (
-        <div className="flex flex-col justify-center mt-52 mb-14">
+        <div className="flex flex-col justify-center mt-56 mb-14">
           <div className="overflow-x-auto shadow-md sm:rounded-lg">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden ">
