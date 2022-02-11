@@ -117,7 +117,7 @@ app.post("/api/cardiologin", (req, res) => {
   spotifyApi
     .authorizationCodeGrant(code)
     .then((data) => {
-      console.log(data.body.access_token);
+      console.log("**ACCESS_TOKEN**", data.body.access_token);
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,

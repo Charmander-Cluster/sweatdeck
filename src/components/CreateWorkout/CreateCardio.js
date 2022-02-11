@@ -17,6 +17,10 @@ const CreateCardio = (props) => {
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private&show_dialogue=true`;
 
+  const redirect2 = /localhost/.test(window.location.href)
+  ? "http://localhost:3000/createcardio"
+  : "https://sweatdeck.herokuapp.com/createcardio";
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -27,6 +31,8 @@ const CreateCardio = (props) => {
   const [token, setToken] = useState("")
 
   console.log("**TOKEN**", token)
+  console.log("**WINDOW**", window.location)
+  console.log("btnState", btnState)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -37,13 +43,6 @@ const CreateCardio = (props) => {
   let cardioLocalWorkout = useSelector((state) => {
     return state.cardioLocalWorkout;
   });
-
-  // useEffect(()=> {
-  //   if (token !== "") {
-  //     popup.close()
-  //     setAccessToken(AuthCardio(token));
-  //   }
-  // })
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -99,16 +98,23 @@ const CreateCardio = (props) => {
     setExercises({ ...exercises, [event.target.name]: event.target.value });
   };
 
-  // const login = () => {
-  //   let popup = window.open(AUTH_URL,
-  //     'Login with Spotify',
-  //     'width=800,height=600')
-  //   setToken(window.location.hash.substr(1).split('&')[0].split("=")[1])
-  // }
+  const login = () => {
+    let popup = window.open(AUTH_URL,
+      'Login with Spotify',
+      'width=800,height=600')
+  }
 
-  const handleBtnClick = (event) => {
+  const handleBtnClick =  () => {
+    login()
     setBtnState((prev) => !prev);
-  };
+  }
+
+  const handleBtnClose = (token) => {
+    setBtnState((prev) => !prev);
+    setToken(token)
+    window.opener.location.replace(redirect2);
+    window.close()
+  }
 
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
@@ -364,7 +370,7 @@ const CreateCardio = (props) => {
                             aria-labelledby="modal-title"
                             role="dialog"
                             aria-modal="true">
-                              <SpotifyModal/>
+                              <SpotifyModal window={window.location.href} handleBtnClose ={handleBtnClose}/>
                             </div>
                           )}
 
