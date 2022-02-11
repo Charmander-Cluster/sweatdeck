@@ -68,13 +68,13 @@ const Dashboard = () => {
       ) : latestWorkouts.length > 0 ? (
         <div className="pb-10 scroll">
           <div className="relative z-10 pt-4 pb-10">
-            <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex lg:flex-row lg:items-center">
-              <div className="flex flex-col items-start lg:flex-row lg:items-center">
+            <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex">
+              <div className="flex flex-col items-start">
                 <div className="my-6 ml-0 lg:ml-20 lg:my-0">
                   <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
                     Dashboard
                   </h4>
-                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+                  <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
                 </div>
               </div>
             </div>

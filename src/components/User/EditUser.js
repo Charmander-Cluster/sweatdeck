@@ -53,11 +53,23 @@ const EditUser = () => {
       >
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <div className="pt-20 overflow-hidden rounded md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
-              <div className="flex justify-center w-full pt-4 -mt-20">
-                <div className="w-32 h-32">
-                  {user && user.gender === "Male" ? (
-                    <div className="w-32 h-32">
+            <div className="overflow-hidden rounded md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
+              <div className="relative z-10 pt-2 pb-2">
+                <div className="container flex flex-col items-start justify-between px-1 mx-auto">
+                  <div className="flex flex-col items-start">
+                    <div className="my-6 ml-0 md:mt-4">
+                      <h4 className="text-2xl font-bold leading-tight text-white">
+                        Edit
+                      </h4>
+                      <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col p-8 mb-4 bg-teal-600 rounded shadow-md shadow-black">
+                <div className="flex items-center justify-center w-full pt-4">
+                  {user.gender === "Male" ? (
+                    <div className="w-24 h-24">
                       <img
                         src={maleImage}
                         alt="User Profile"
@@ -65,7 +77,7 @@ const EditUser = () => {
                       />
                     </div>
                   ) : user.gender === "Female" ? (
-                    <div className="w-32 h-32">
+                    <div className="w-24 h-24">
                       <img
                         src={femaleImage}
                         alt="User Profile"
@@ -73,7 +85,7 @@ const EditUser = () => {
                       />
                     </div>
                   ) : (
-                    <div className="w-32 h-32">
+                    <div className="w-24 h-24">
                       <img
                         src={defaultImage}
                         alt="User Profile"
@@ -81,28 +93,25 @@ const EditUser = () => {
                       />
                     </div>
                   )}
-                </div>
-              </div>
-              <div className="relative z-10 pt-4">
-                <div className="container flex flex-col items-center justify-center px-6 mx-auto">
-                  <div className="flex flex-col items-center">
-                    <div className="ml-0">
-                      <h4 className="mb-2 text-4xl font-bold leading-tight text-white">
-                        {user.username}
-                      </h4>
-                      <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+                  <div className="relative z-10 pt-4">
+                    <div className="container flex flex-col items-center justify-center px-6 mx-auto">
+                      <div className="flex flex-col items-center">
+                        <div className="mr-3">
+                          <h4 className="mb-2 text-4xl font-bold leading-tight text-white">
+                            {user.username}
+                          </h4>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-col p-10 mb-4 bg-teal-600 rounded shadow-md mt-7 shadow-black">
                 <div className="pt-4">
                   <h1 className="font-extrabold">Username</h1>
                   <label htmlFor="username"></label>
                   <Field
                     type="text"
                     name="username"
-                    className="relative block py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
+                    className="relative block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
                     placeholder="Username"
                   />
                   {errors.username && touched.username && errors.username}
