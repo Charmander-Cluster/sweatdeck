@@ -39,13 +39,15 @@ const CardioPlaylist = (props) => {
 
   const accessToken = useAuthCardio(token);
 
+  console.log(accessToken);
+
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 
   useEffect(() => {
     if (playlistConfirmed) {
       dispatch(createDBWorkout(cardioLocalWorkout, userId));
-      dispatch(cardioLocalCreateWorkout({}));
+      // dispatch(cardioLocalCreateWorkout({}));
       history.push("/confirmcardiocreate");
     }
   }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
@@ -59,7 +61,9 @@ const CardioPlaylist = (props) => {
           name: selectedPlaylist.name,
           url: selectedPlaylist.url,
           imageUrl: selectedPlaylist.imageUrl,
+          uri: selectedPlaylist.uri,
         },
+        accessToken: accessToken,
       })
     );
     setPlaylistConfirmed(true);
@@ -83,6 +87,7 @@ const CardioPlaylist = (props) => {
         },
       })
       .then((response) => {
+        console.log(response);
         const playlists = response.data.items;
         const publicPlaylists = playlists.filter(
           (playlist) => playlist.public === true
@@ -96,6 +101,7 @@ const CardioPlaylist = (props) => {
           url: playlist.external_urls.spotify,
           id: playlist.id,
           imageUrl: playlist.images[0].url,
+          uri: playlist.uri,
         }));
         setPlaylists(myPlaylists);
       });
@@ -105,7 +111,6 @@ const CardioPlaylist = (props) => {
     <div>
       <div className="flex">
         <div className="fixed top-0 flex-col w-full bg-zinc-800">
-
           <div className="flex justify-end">
             <Link to="/createworkout/cardio">
               <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
@@ -121,7 +126,7 @@ const CardioPlaylist = (props) => {
                   <h4 className="text-2xl font-bold leading-tight text-white">
                     Select Spotify Playlist
                   </h4>
-                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+                  <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
                 </div>
               </div>
             </div>

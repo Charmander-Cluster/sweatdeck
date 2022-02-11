@@ -21,6 +21,7 @@ const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab4
 )}`;
 
 const SpotifyLogin = () => {
+  console.log(AUTH_URL);
   return (
     <div className="flex justify-center">
       <a

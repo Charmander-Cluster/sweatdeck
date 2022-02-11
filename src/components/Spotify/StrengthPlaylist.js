@@ -45,7 +45,7 @@ const StrengthPlaylist = (props) => {
   useEffect(() => {
     if (playlistConfirmed) {
       dispatch(createDBWorkout(strengthLocalWorkout, userId));
-      dispatch(strengthLocalCreateWorkout({}))
+      dispatch(strengthLocalCreateWorkout({}));
       history.push("/confirmstrengthcreate");
     }
   }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
@@ -55,7 +55,11 @@ const StrengthPlaylist = (props) => {
     dispatch(
       strengthLocalEditWorkout({
         ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl },
+        playlist: {
+          name: selectedPlaylist.name,
+          url: selectedPlaylist.url,
+          imageUrl: selectedPlaylist.imageUrl,
+        },
       })
     );
     setPlaylistConfirmed(true);
@@ -96,7 +100,6 @@ const StrengthPlaylist = (props) => {
       });
   }, [accessToken]);
 
-
   return !accessToken ? (
     <div>Loading...</div>
   ) : (
@@ -105,9 +108,9 @@ const StrengthPlaylist = (props) => {
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
             <Link to="/createworkout/strength">
-            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
-              Cancel
-            </button>
+              <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
+                Cancel
+              </button>
             </Link>
           </div>
 
@@ -118,7 +121,7 @@ const StrengthPlaylist = (props) => {
                   <h4 className="text-2xl font-bold leading-tight text-white">
                     Select Spotify Playlist
                   </h4>
-                  <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+                  <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
                 </div>
               </div>
             </div>

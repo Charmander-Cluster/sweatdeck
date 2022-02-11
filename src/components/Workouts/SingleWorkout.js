@@ -6,21 +6,44 @@ import {
   fetchSingleWorkoutThunk,
   deleteWorkoutThunk,
 } from "../../store/singleWorkout";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logDBWorkout } from "../../store/logWorkout";
 import { Link } from "react-router-dom";
+
 //import Popup from "../../components/Popup";
 
 import SpotifyPlayer from "react-spotify-web-playback";
 
 import { useHistory } from "react-router-dom";
+import SpotifyWebApi from "spotify-web-api-node";
+import useAuthCardio from "../Spotify/useAuthCardio";
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: "1a13f745b9ab49caa6559702a79211e6",
+});
+
+const token = new URLSearchParams(window.location.search).get("code");
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
 
   const authUser = useSelector((state) => state.auth);
 
-  console.log(authUser.accessToken);
+  let cardioLocalWorkout = useSelector((state) => {
+    return state.cardioLocalWorkout;
+  });
+
+  // const [accessToken, setAccessToken] = useState();
+  // const [refreshToken, setRefreshToken] = useState();
+  // const [expiresIn, setExpiresIn] = useState();
+
+  const accessToken = useAuthCardio(token);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    spotifyApi.setAccessToken(accessToken);
+  }, [accessToken]);
 
   let { id, docId } = useParams();
 
@@ -33,6 +56,12 @@ const SingleWorkout = () => {
 
   const [btnState, setBtnState] = useState(false);
   const [deleteBtnState, setDeleteBtnState] = useState(false);
+
+  console.log("authCARDIO LOG", accessToken);
+
+  console.log("LOCAL AUTH LOG", cardioLocalWorkout);
+
+  // console.log(refreshToken);
 
   const handleBtnClick = (e) => {
     setBtnState((prev) => !prev);
@@ -62,6 +91,28 @@ const SingleWorkout = () => {
     event.preventDefault();
     setBtnState((prev) => !prev);
   };
+
+  // useEffect(() => {
+  //   if (!accessToken) return;
+  //   spotifyApi.setAccessToken(accessToken);
+  // }, [accessToken]);
+
+  // useEffect(() => {
+  //   if (!accessToken) return;
+  //   // if(!spotifyUser) return
+  //   axios
+  //     .get("https://accounts.spotify.com/api/token", {
+  //       params: { limit: 50, offset: 0 },
+  //       headers: {
+  //         Accept: "application/json",
+  //         Authorization: "Bearer " + accessToken,
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //     });
+  // }, [accessToken]);
 
   //make ternary statement in return
   return !workout.exercises ? (
@@ -94,31 +145,44 @@ const SingleWorkout = () => {
                       {!workout.hasOwnProperty("playlist") ? (
                         <h2>No Linked Playlist</h2>
                       ) : (
-                        <h2 className="mb-3 text-lg text-left">
-                          {" "}
-                          <a className="mr-3 text-lg text-teal-500">
-                            Playlist:{" "}
-                          </a>{" "}
-                          <a
-                            className="p-1 mr-3 text-base text-center text-white bg-teal-500 rounded-md"
-                            href={workout.playlist.url}
-                          >
-                            {workout.playlist.name}
-                          </a>
-                          <SpotifyPlayer
-                            token={authUser.accessToken}
-                            uris={["spotify:playlist:76ofLf3VyvSN7DjUzbJwsR"]}
-                            styles={{
-                              activeColor: "#fff",
-                              bgColor: "#333",
-                              color: "#fff",
-                              loaderColor: "#fff",
-                              sliderColor: "#1cb954",
-                              trackArtistColor: "#ccc",
-                              trackNameColor: "#fff",
-                            }}
-                          />
-                        </h2>
+                        <div className="flex flex-col md:mt-4">
+                          <h2 className="mb-3 text-lg text-left">
+                            {" "}
+                            <a className="mr-3 text-lg text-teal-500">
+                              Playlist:{" "}
+                            </a>{" "}
+                            <a
+                              className="p-1 mr-3 text-base text-center text-white bg-teal-500 rounded-md"
+                              href={workout.playlist.url}
+                            >
+                              {workout.playlist.name}
+                            </a>
+                          </h2>
+                          <div>
+                            {authUser.accessToken && (
+                              <SpotifyPlayer
+                                autoPlay={false}
+                                persistDeviceSelection
+                                showSaveIcon
+                                play={true}
+                                syncExternalDevice
+                                token={cardioLocalWorkout.accessToken}
+                                styles={{
+                                  loaderColor: "#fff",
+                                  sliderColor: "#1cb954",
+                                  trackArtistColor: "#ccc",
+                                  trackNameColor: "#fff",
+                                  height: "70px",
+                                  sliderTrackColor: "#9333ea",
+                                  sliderTrackBorderRadius: "4px",
+                                  sliderHandleColor: "#fff",
+                                  errorColor: "#fff",
+                                }}
+                                uris={workout.playlist.uri}
+                              />
+                            )}
+                          </div>
+                        </div>
                       )}
                       {workout.category === "Strength" ||
                       workout.category === "strength"

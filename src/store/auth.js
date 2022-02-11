@@ -81,7 +81,7 @@ export const authSignUp = (user) => async (dispatch) => {
     //   message = "Error: Please try again";
     // }
     // alert(message);
-    dispatch(setAuth({error}))
+    console.log("Error at Auth Sign Up Thunk", error);
   }
 };
 

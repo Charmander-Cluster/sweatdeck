@@ -26,6 +26,10 @@ const CreateCardio = (props) => {
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"
   )}`;
+  console.log(
+    "🚀 ~ file: CreateCardio.js ~ line 29 ~ CreateCardio ~ AUTH_URL",
+    AUTH_URL
+  );
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -142,7 +146,7 @@ const CreateCardio = (props) => {
               <h4 className="text-2xl font-bold leading-tight text-white">
                 Create Cardio Workout
               </h4>
-              <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+              <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
             </div>
           </div>
         </div>

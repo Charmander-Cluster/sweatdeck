@@ -53,7 +53,7 @@ const SignIn = () => {
       >
         {({ errors, touched, handleSubmit }) => (
           <Form
-            className="flex flex-col items-center justify-center p-10 mb-4 bg-teal-600 rounded shadow-md mt-7 shadow-black md:w-3/12"
+            className="flex flex-col items-center justify-center p-8 mb-4 bg-teal-600 rounded shadow-md mt-7 shadow-black md:w-4/12"
             onSubmit={handleSubmit}
           >
             <div>

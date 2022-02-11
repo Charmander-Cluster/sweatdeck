@@ -258,8 +258,7 @@ const SignUp = () => {
                         </Field>
                       </div>
                     </div>{" "}
-                    {errors.length > 0 ||
-                    values.username === "" ||
+                    {values.username === "" ||
                     values.email === "" ||
                     values.password === "" ||
                     values.birthday === "" ||
@@ -267,7 +266,7 @@ const SignUp = () => {
                       <button
                         type="button"
                         onClick={errorClick}
-                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black px-7 focus:outline-none md:mt-10 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                       >
                         <span className="text-sm font-medium text-center text-white capitalize">
                           Next Step
@@ -290,7 +289,7 @@ const SignUp = () => {
                       <button
                         type="button"
                         onClick={stepClick}
-                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black px-7 focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer md:mt-10 hover:bg-purple-700 shadow-black px-7 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                       >
                         <span className="text-sm font-medium text-center text-white capitalize">
                           Next Step
@@ -335,38 +334,60 @@ const SignUp = () => {
                             <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                               <div className="sm:flex sm:items-start">
                                 <div className="flex items-center justify-center flex-shrink-0 w-5 h-5 mx-auto bg-red-500 rounded-full sm:mx-0 sm:h-10 sm:w-10"></div>
-                                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                  <h3
-                                    className="text-lg font-medium leading-6 text-gray-900"
-                                    id="modal-title"
-                                  >
-                                    {errors.email}
-                                  </h3>
-                                  <h3
-                                    className="text-lg font-medium leading-6 text-gray-900"
-                                    id="modal-title"
-                                  >
-                                    {errors.password}
-                                  </h3>
-                                  <h3
-                                    className="text-lg font-medium leading-6 text-gray-900"
-                                    id="modal-title"
-                                  >
-                                    {errors.username}
-                                  </h3>
-                                  <h3
-                                    className="text-lg font-medium leading-6 text-gray-900"
-                                    id="modal-title"
-                                  >
-                                    {errors.birthday}
-                                  </h3>
-                                  <h3
-                                    className="text-lg font-medium leading-6 text-gray-900"
-                                    id="modal-title"
-                                  >
-                                    {errors.state}
-                                  </h3>
-                                </div>
+                                {values.username === "" &&
+                                values.email === "" &&
+                                values.password === "" &&
+                                values.birthday === "" &&
+                                values.state === "" ? (
+                                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      Please fill out the fields!
+                                    </h3>
+                                  </div>
+                                ) : (
+                                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      {errors.username}
+                                    </h3>
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      {errors.password}
+                                    </h3>
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      {errors.email}
+                                    </h3>
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      {errors.birthday}
+                                    </h3>
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      {errors.state}
+                                    </h3>
+
+                                    <h3
+                                      className="text-lg font-medium leading-6 text-gray-900"
+                                      id="modal-title"
+                                    >
+                                      {errors.state}
+                                    </h3>
+                                  </div>
+                                )}
                               </div>
                             </div>
                             <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -519,7 +540,7 @@ const SignUp = () => {
 
                     <button
                       type="submit"
-                      className="flex items-center justify-center px-12 py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black focus:outline-none md:mt-14 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                      className="flex items-center justify-center px-12 py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black focus:outline-none md:mt-10 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
                       <span className="text-sm font-medium text-center text-white capitalize">
                         Submit

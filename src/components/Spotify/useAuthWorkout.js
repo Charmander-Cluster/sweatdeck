@@ -7,7 +7,7 @@ const port = /localhost/.test(window.location.href)
   ? "http://localhost:3000/api"
   : "https://sweatdeck.herokuapp.com/api";
 
-const useAuthCardio = (code) => {
+const useAuthWorkout = (code) => {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
@@ -21,7 +21,7 @@ const useAuthCardio = (code) => {
     };
 
     axios
-      .post(`${port}/cardiologin`, { code }, axiosConfig)
+      .post(`${port}/workoutlogin`, { code }, axiosConfig)
       .then((res) => {
         // console.log(res.data)
         //console.log(res.status)
@@ -40,7 +40,7 @@ const useAuthCardio = (code) => {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post(`${port}/cardiorefresh`, {
+        .post(`${port}/workoutrefresh`, {
           refreshToken,
         })
         .then((res) => {
@@ -58,4 +58,4 @@ const useAuthCardio = (code) => {
   return accessToken;
 };
 
-export default useAuthCardio;
+export default useAuthWorkout;

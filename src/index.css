@@ -173,3 +173,15 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.PlayerRSWP {
+  @apply shadow-md shadow-black my-4 bg-teal-600;
+}
+
+.PlayerRSWP_SliderRSWP__181lube {
+  @apply bg-purple-600;
+}
+
+._ContentRSWP {
+  @apply bg-teal-600;
+}
