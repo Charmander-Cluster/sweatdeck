@@ -53,7 +53,7 @@ const SignIn = () => {
       >
         {({ errors, touched, handleSubmit }) => (
           <Form
-            className="flex flex-col items-center justify-center p-8 mb-4 bg-teal-600 rounded shadow-md mt-7 shadow-black md:w-4/12"
+            className="flex flex-col items-center justify-center p-8 mb-4 bg-teal-600 rounded-md shadow-md mt-7 shadow-black md:w-4/12"
             onSubmit={handleSubmit}
           >
             <div>
@@ -107,7 +107,7 @@ const SignIn = () => {
                 <Link to="/passwordreset">
                   <button
                     type="button"
-                    className="mb-2 ml-1 text-purple-600 hover:text-purple-700"
+                    className="mb-2 ml-1 text-purple-700 hover:text-purple-800"
                   >
                     Forgot your password?
                   </button>
@@ -118,7 +118,7 @@ const SignIn = () => {
                   Don't have an account?{" "}
                   <Link
                     to="/signup"
-                    className="text-purple-600 hover:text-purple-700"
+                    className="text-purple-700 hover:text-purple-800"
                   >
                     Sign up!
                   </Link>

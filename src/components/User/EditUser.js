@@ -68,7 +68,7 @@ const EditUser = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start justify-start p-8 mx-6 mb-6 bg-teal-600 rounded shadow-md shadow-black">
+              <div className="flex flex-col items-start justify-start p-8 mx-6 mb-6 bg-teal-600 rounded-md shadow-md shadow-black">
                 <div className="flex flex-row pb-4">
                   {user.gender === "Male" ? (
                     <div className="w-24 h-24">

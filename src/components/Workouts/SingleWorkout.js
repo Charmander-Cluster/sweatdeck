@@ -16,34 +16,15 @@ import { Link } from "react-router-dom";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 import { useHistory } from "react-router-dom";
-import SpotifyWebApi from "spotify-web-api-node";
-import useAuthCardio from "../Spotify/useAuthCardio";
-
-const spotifyApi = new SpotifyWebApi({
-  clientId: "1a13f745b9ab49caa6559702a79211e6",
-});
-
-const token = new URLSearchParams(window.location.search).get("code");
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
-
-  const authUser = useSelector((state) => state.auth);
 
   let cardioLocalWorkout = useSelector((state) => {
     return state.cardioLocalWorkout;
   });
 
-  // const [accessToken, setAccessToken] = useState();
-  // const [refreshToken, setRefreshToken] = useState();
-  // const [expiresIn, setExpiresIn] = useState();
-
-  const accessToken = useAuthCardio(token);
-
-  useEffect(() => {
-    if (!accessToken) return;
-    spotifyApi.setAccessToken(accessToken);
-  }, [accessToken]);
+  console.log(cardioLocalWorkout.accessToken);
 
   let { id, docId } = useParams();
 
@@ -56,12 +37,6 @@ const SingleWorkout = () => {
 
   const [btnState, setBtnState] = useState(false);
   const [deleteBtnState, setDeleteBtnState] = useState(false);
-
-  console.log("authCARDIO LOG", accessToken);
-
-  console.log("LOCAL AUTH LOG", cardioLocalWorkout);
-
-  // console.log(refreshToken);
 
   const handleBtnClick = (e) => {
     setBtnState((prev) => !prev);
@@ -91,28 +66,6 @@ const SingleWorkout = () => {
     event.preventDefault();
     setBtnState((prev) => !prev);
   };
-
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   spotifyApi.setAccessToken(accessToken);
-  // }, [accessToken]);
-
-  // useEffect(() => {
-  //   if (!accessToken) return;
-  //   // if(!spotifyUser) return
-  //   axios
-  //     .get("https://accounts.spotify.com/api/token", {
-  //       params: { limit: 50, offset: 0 },
-  //       headers: {
-  //         Accept: "application/json",
-  //         Authorization: "Bearer " + accessToken,
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     });
-  // }, [accessToken]);
 
   //make ternary statement in return
   return !workout.exercises ? (
@@ -159,7 +112,7 @@ const SingleWorkout = () => {
                             </a>
                           </h2>
                           <div>
-                            {authUser.accessToken && (
+                            {cardioLocalWorkout.accessToken !== undefined && (
                               <SpotifyPlayer
                                 autoPlay={false}
                                 persistDeviceSelection

@@ -39,8 +39,6 @@ const CardioPlaylist = (props) => {
 
   const accessToken = useAuthCardio(token);
 
-  console.log(accessToken);
-
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
 

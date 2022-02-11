@@ -76,7 +76,7 @@ const DynamicActivity = (props) => {
 
   return (
     <div className="relative z-10 w-full mb-6 -mt-8 bg-teal-600 rounded shadow-md shadow-black">
-      <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-purple-600 ">
+      <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-purple-700 ">
         Weekly Activity
       </h3>
       <div className="flex items-center justify-center py-2 pl-6 rounded shadow">
@@ -89,14 +89,14 @@ const DynamicActivity = (props) => {
           </div>
           <div className="flex flex-row justify-between">
             <div className="flex flex-col pr-10 mt-4">
-              <h2 className="text-2xl font-bold leading-normal text-purple-600 ">
+              <h2 className="text-2xl font-bold leading-normal text-purple-700 ">
                 Strength
               </h2>
               <p className="mb-1 ml-2 text-sm text-white">{setsSum} Sets</p>
               <p className="mb-1 ml-2 text-sm text-white">{repsSum} Reps</p>
             </div>
             <div className="flex flex-col mt-4">
-              <h2 className="text-2xl font-bold leading-normal text-purple-600 ">
+              <h2 className="text-2xl font-bold leading-normal text-purple-700 ">
                 Cardio
               </h2>
               <p className="mb-1 ml-2 text-sm text-white">
