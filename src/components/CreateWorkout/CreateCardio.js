@@ -107,10 +107,10 @@ const CreateCardio = (props) => {
       'Login with Spotify',
       'width=800,height=600')
 
-      window.callback = function (token){
-        window.close()
-        setAccessToken(AuthCardio(token))
-      }
+      // window.callback = function (token){
+      //   window.close()
+      //   setAccessToken(AuthCardio(token))
+      // }
    }
 
 
@@ -119,9 +119,9 @@ const CreateCardio = (props) => {
     'width=600,height=800');
 
   // Close event
-    // spotifyLoginWindow.onbeforeunload = function() {
-    //   setAccessToken(localStorage.getItem('spotifyToken'));
-    // }
+    spotifyLoginWindow.onbeforeunload = function() {
+      setAccessToken(localStorage.getItem('spotifyToken'));
+    }
 
     // setAccessToken(localStorage.getItem('spotifyToken'));
   }
@@ -139,15 +139,15 @@ const CreateCardio = (props) => {
     event.preventDefault();
     workout.exercises.push(exercises);
     handleBtnClick(event)
-    setSpotifyLoggedIn(true)
+    // setSpotifyLoggedIn(true)
   };
 
-  useEffect(()=> {
-    if (spotifyLoggedIn) {
-      const newAccess = localStorage.getItem("spotifyToken")
-      setAccessToken(newAccess)
-    }
-  }, [spotifyLoggedIn])
+  // useEffect(()=> {
+  //   if (spotifyLoggedIn) {
+  //     const newAccess = localStorage.getItem("spotifyToken")
+  //     setAccessToken(newAccess)
+  //   }
+  // }, [spotifyLoggedIn])
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
@@ -176,7 +176,7 @@ const CreateCardio = (props) => {
     setAccessToken("")
   }
 
-  return (spotifyLoggedIn) ? (<SelectCardioPlaylist accessToken={accessToken} workout={workout} handleCancel={handleCancel}/>) :
+  return (accessToken) ? (<SelectCardioPlaylist accessToken={accessToken} workout={workout} handleCancel={handleCancel}/>) :
   (<div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
