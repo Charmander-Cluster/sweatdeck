@@ -96,7 +96,10 @@ const CreateCardio = (props) => {
     'width=600,height=800');
 
   // Close event -- assign the access token
-    spotifyLoginWindow.onbeforeunload = function() {
+    // spotifyLoginWindow.onbeforeunload = function() {
+    //   setToken(localStorage.getItem('spotifyToken'))
+    // }
+    spotifyLoginWindow.onunload = function() {
       setToken(localStorage.getItem('spotifyToken'))
     }
   }
