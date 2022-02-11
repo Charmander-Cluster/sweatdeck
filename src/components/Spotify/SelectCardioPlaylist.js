@@ -16,12 +16,11 @@ const spotifyApi = new SpotifyWebApi({
   clientId: "1a13f745b9ab49caa6559702a79211e6",
 });
 
-const token = new URLSearchParams(window.location.search).get("code");
-
 const SelectCardioPlaylist = (props) => {
   const accessToken = props.accessToken
-  const workout = props.workout
+  //let workout = props.workout
 
+  const [workout, setWorkout] = useState(props.workout)
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
   const history = useHistory();
@@ -45,27 +44,24 @@ const SelectCardioPlaylist = (props) => {
 
   useEffect(() => {
     if (playlistConfirmed) {
-      dispatch(createDBWorkout(cardioLocalWorkout, userId));
-      dispatch(cardioLocalCreateWorkout({}));
+      dispatch(createDBWorkout(workout, userId));
+      //dispatch(cardioLocalCreateWorkout({}));
       history.push("/confirmcardiocreate");
     }
-  }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
+  }, [dispatch, userId, workout, playlistConfirmed]);
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    dispatch(
-      cardioLocalEditWorkout({
-        ...cardioLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
-      })
-    );
+    workout = ({...workout,
+      playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
+      });
     setPlaylistConfirmed(true);
   };
 
-  useEffect(() => {
-    if (!accessToken) return;
-    spotifyApi.setAccessToken(accessToken);
-  }, [accessToken]);
+  // useEffect(() => {
+  //   if (!accessToken) return;
+  //   spotifyApi.setAccessToken(accessToken);
+  // }, [accessToken]);
 
 
   useEffect(() => {

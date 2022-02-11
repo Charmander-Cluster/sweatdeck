@@ -5,6 +5,7 @@ import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
 import AuthCardio from "../Spotify/useAuthCardio";
 import CardioPlaylist from "../Spotify/CardioPlaylist";
 import SpotifyModal  from "../Spotify/SpotifyModal";
+import SelectCardioPlaylist from "../Spotify/SelectCardioPlaylist"
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -28,9 +29,9 @@ const CreateCardio = (props) => {
   const [workoutAdded, setWorkoutAdded] = useState(false);
   const [accessToken, setAccessToken] = useState("")
   // const [btnState, setBtnState] = useState(false)
-  const [token, setToken] = useState("")
+  //const [token, setToken] = useState("")
 
-  console.log("**TOKEN**", token)
+  //console.log("**TOKEN**", token)
   console.log("**WINDOW**", window.location)
   // console.log("btnState", btnState)
 
@@ -158,7 +159,7 @@ const CreateCardio = (props) => {
     history.push("/createworkout");
   };
 
-  return token ? (<CardioPlaylist />) :
+  return accessToken ? (<SelectCardioPlaylist accessToken={accessToken} workout={workout}/>) :
   (<div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
@@ -378,16 +379,6 @@ const CreateCardio = (props) => {
                                 </button>
                               </div>
                             )}
-
-                          {/* {btnState  && (
-                            <div
-                            className="fixed inset-0 z-10 overflow-y-auto"
-                            aria-labelledby="modal-title"
-                            role="dialog"
-                            aria-modal="true">
-                              <SpotifyModal window={window.location.href} />
-                            </div>
-                          )} */}
 
                             <div className="grid place-items-center">
                               <button
