@@ -215,3 +215,110 @@ export const longCalc = (state) => {
     return -107.5545669;
   }
 };
+
+
+export const stateNumCalc = (state) => {
+  if (state === "AL") {
+    return 46;
+  } else if (state === "AK") {
+    return 1;
+  } else if (state === "AZ") {
+    return 36;
+  } else if (state === "AR") {
+    return 41;
+  } else if (state === "CA") {
+    return 33;
+  } else if (state === "CO") {
+    return 37;
+  } else if (state === "CT") {
+    return 26;
+  } else if (state === "DE") {
+    return 22;
+  } else if (state === "DC") {
+    return 21;
+  } else if (state === "FL") {
+    return 47;
+  } else if (state === "GA") {
+    return 48;
+  } else if (state === "HI") {
+    return 32;
+  } else if (state === "ID") {
+    return 4;
+  } else if (state === "IL") {
+    return 15;
+  } else if (state === "IN") {
+    return 17;
+  } else if (state === "IA") {
+    return 11;
+  } else if (state === "KS") {
+    return 12;
+  } else if (state === "KY") {
+    return 45;
+  } else if (state === "LA") {
+    return 42;
+  } else if (state === "ME") {
+    return 3;
+  } else if (state === "MD") {
+    return 21;
+  } else if (state === "MA") {
+    return 28;
+  } else if (state === "MI") {
+    return 16;
+  } else if (state === "MN") {
+    return 10;
+  } else if (state === "MS") {
+    return 43;
+  } else if (state === "MO") {
+    return 13;
+  } else if (state === "MT") {
+    return 5;
+  } else if (state === "NE") {
+    return 9;
+  } else if (state === "NV") {
+    return 34;
+  } else if (state === "NH") {
+    return 30;
+  } else if (state === "NJ") {
+    return 24;
+  } else if (state === "NM") {
+    return 38;
+  } else if (state === "NY") {
+    return 25;
+  } else if (state === "NC") {
+    return 50;
+  } else if (state === "ND") {
+    return 7;
+  } else if (state === "OH") {
+    return 18;
+  } else if (state === "OK") {
+    return 39;
+  } else if (state === "OR") {
+    return 3;
+  } else if (state === "PA") {
+    return 23;
+  } else if (state === "RI") {
+    return 27;
+  } else if (state === "SC") {
+    return 49;
+  } else if (state === "SD") {
+    return 8;
+  } else if (state === "TN") {
+    return 44;
+  } else if (state === "TX") {
+    return 40;
+  } else if (state === "UT") {
+    return 35;
+  } else if (state === "VT") {
+    return 29;
+  } else if (state === "VA") {
+    return 20;
+  } else if (state === "WA") {
+    return 2;
+  } else if (state === "WV") {
+    return 19;
+  } else if (state === "WI") {
+    return 14;
+  } else {
+    return 6;
+  }
+};
