@@ -105,7 +105,7 @@ const SignUp = () => {
           <div>
             {step === 1 ? (
               <Form>
-                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
+                <div className="w-full p-6 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
                   <div className="items-center pb-6 border-b border-purple-600 md:flex">
                     <div className="flex items-center mt-1 md:mt-0">
                       <div className="flex items-center justify-center w-8 h-8 bg-teal-600 border-2 border-white rounded shadow-md shadow-black">
@@ -129,7 +129,7 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  <div className="w-full p-10 mt-10 bg-teal-600 rounded shadow-md shadow-black md:w-5/12">
+                  <div className="w-full p-8 mt-10 bg-teal-600 rounded shadow-md shadow-black md:w-5/12">
                     <div className="items-center">
                       <h1 className="mb-4 text-3xl font-bold text-white focus:outline-none">
                         Security
@@ -410,7 +410,7 @@ const SignUp = () => {
               </Form>
             ) : (
               <Form onSubmit={handleSubmit}>
-                <div className="w-full p-10 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
+                <div className="w-full p-6 md:flex md:flex-col md:justify-center md:items-center md:min-h-screen">
                   <div className="items-center pb-6 border-b border-purple-600 md:flex">
                     <div className="flex items-center mt-1 md:mt-0">
                       <div className="flex items-center justify-center w-8 h-8 bg-white border-2 border-white rounded shadow-md shadow-black">
@@ -434,7 +434,7 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  <div className="w-full p-10 mt-10 bg-teal-600 rounded shadow-md shadow-black md:w-5/12">
+                  <div className="w-full p-8 mt-10 bg-teal-600 rounded shadow-md shadow-black md:w-5/12">
                     <div className="items-center">
                       <h1 className="mb-4 text-3xl font-bold text-white focus:outline-none">
                         Optional
