@@ -18,6 +18,7 @@ const spotifyApi = new SpotifyWebApi({
 
 const SelectCardioPlaylist = (props) => {
   const accessToken = props.accessToken
+  const handleCancel = props.handleCancel
   //let workout = props.workout
 
   const [workout, setWorkout] = useState(props.workout)
@@ -63,7 +64,6 @@ const SelectCardioPlaylist = (props) => {
   //   spotifyApi.setAccessToken(accessToken);
   // }, [accessToken]);
 
-
   useEffect(() => {
     if (!accessToken) return;
     // if(!spotifyUser) return
@@ -101,11 +101,9 @@ const SelectCardioPlaylist = (props) => {
         <div className="fixed top-0 flex-col w-full bg-zinc-800">
 
           <div className="flex justify-end">
-            <Link to="/createworkout/cardio">
-            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
+            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500" onClick={handleCancel}>
               Cancel
             </button>
-            </Link>
           </div>
 
           <div className="relative z-10 pt-4 pb-10">

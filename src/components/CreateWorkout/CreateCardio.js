@@ -24,6 +24,7 @@ const CreateCardio = (props) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const returnedWorkout = props.returnedWorkout
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
@@ -34,6 +35,7 @@ const CreateCardio = (props) => {
   //console.log("**TOKEN**", token)
   console.log("**WINDOW**", window.location)
   // console.log("btnState", btnState)
+  //console.log(workout)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -49,24 +51,24 @@ const CreateCardio = (props) => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  useEffect(() => {
-    if (workoutAdded) {
-      dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
-      dispatch(cardioLocalCreateWorkout({}));
-      history.push("/confirmcardiocreate");
-      // setRedirect(true);
-    }
-  }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
+  // useEffect(() => {
+  //   if (workoutAdded) {
+  //     dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
+  //     dispatch(cardioLocalCreateWorkout({}));
+  //     history.push("/confirmcardiocreate");
+  //     // setRedirect(true);
+  //   }
+  // }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
 
   // const localWorkout = useSelector(state => state.localWorkout)
 
   const [workout, setWorkout] = useState({
     category: "cardio",
-    name: !cardioLocalWorkout.name ? "" : cardioLocalWorkout.name,
+    name: !returnedWorkout ? "" : returnedWorkout.name,
     exercises:
-      !cardioLocalWorkout.exercises || cardioLocalWorkout.exercises.length === 0
+      !returnedWorkout || returnedWorkout.exercises.length === 0
         ? []
-        : cardioLocalWorkout.exercises,
+        : returnedWorkout.exercises,
     userId: "",
     timesCompleted: 0,
     datesCompleted: [],
@@ -74,21 +76,21 @@ const CreateCardio = (props) => {
   });
 
   const [exercises, setExercises] = useState({
-    type: !cardioLocalWorkout.exercises
+    type: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].type,
-    distance: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].type,
+    distance: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].distance,
-    units: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].distance,
+    units: !returnedWorkout
       ? "select"
-      : cardioLocalWorkout.exercises[0].units,
-    hours: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].units,
+    hours: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].hours,
-    minutes: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].hours,
+    minutes: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].minutes,
+      : returnedWorkout.exercises[0].minutes,
   });
 
   const handleChange = (event) => {
@@ -109,8 +111,6 @@ const CreateCardio = (props) => {
         setAccessToken(AuthCardio(token))
       }
    }
-
-
 
 
   const handleBtnClick = () => {
@@ -141,8 +141,9 @@ const CreateCardio = (props) => {
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     workout.exercises.push(exercises);
-    dispatch(cardioLocalCreateWorkout(workout));
-    setWorkoutAdded(true);
+    dispatch(createDBWorkoutNoPlaylist(workout, userId));
+    history.push("/confirmcardiocreate")
+    //setWorkoutAdded(true);
   };
 
   const handleDelete = () => {
@@ -159,7 +160,12 @@ const CreateCardio = (props) => {
     history.push("/createworkout");
   };
 
-  return accessToken ? (<SelectCardioPlaylist accessToken={accessToken} workout={workout}/>) :
+  const handleCancel = (event) => {
+    event.preventDefault()
+    setAccessToken("")
+  }
+
+  return accessToken ? (<SelectCardioPlaylist accessToken={accessToken} workout={workout} handleCancel={handleCancel}/>) :
   (<div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
