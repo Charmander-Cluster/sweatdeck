@@ -52,7 +52,7 @@ const SelectCardioPlaylist = (props) => {
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    workout = ({...workout,
+    setWorkout({...workout,
       playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
       });
     setPlaylistConfirmed(true);
