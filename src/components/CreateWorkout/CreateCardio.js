@@ -14,13 +14,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CreateCardio = (props) => {
   const redirectUri = /localhost/.test(window.location.href)
     ? "http://localhost:3000/cardioplaylist"
-    : "https://sweatdeck.herokuapp.com/cardioplaylist";
+    : "https://sweatdeck-test.herokuapp.com/cardioplaylist";
 
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private&show_dialogue=true`;
-
-  const redirect2 = /localhost/.test(window.location.href)
-  ? "http://localhost:3000/createcardio"
-  : "https://sweatdeck.herokuapp.com/createcardio";
 
   const dispatch = useDispatch();
   const history = useHistory();
