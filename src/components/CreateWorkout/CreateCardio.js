@@ -26,7 +26,7 @@ const CreateCardio = (props) => {
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
-  // const [accessToken, setAccessToken] = useState("")
+  const [accessToken, setAccessToken] = useState("")
   const [btnState, setBtnState] = useState(false)
   const [token, setToken] = useState("")
 
@@ -114,7 +114,7 @@ const CreateCardio = (props) => {
 
   // Close event
     spotifyLoginWindow.onbeforeunload = function() {
-      var accessToken = localStorage.getItem('sp-accessToken');
+      setAccessToken(localStorage.getItem('sp-accessToken'));
       }
   }
 
