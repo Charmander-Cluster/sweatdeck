@@ -8,7 +8,7 @@ import {
   get,
 } from "firebase/firestore";
 import db from "../firebase";
-import {shuffle} from "../brain/shuffle"
+import { shuffle } from "../brain/shuffle";
 
 //action creator
 const GET_RECOMMENDED_WORKOUTS = "GET_RECOMMENDED_WORKOUTS";
@@ -20,7 +20,11 @@ const getRecommendedWorkouts = (workouts) => {
   };
 };
 
-export const fetchRecommendedWorkoutsThunk = (userId, groupNum) => {
+export const fetchRecommendedWorkoutsThunk = (
+  userId,
+  groupNum,
+  cardioOrStrength
+) => {
   return async (dispatch) => {
     try {
       // const user = await getDoc(doc(db, "users", userId));
@@ -30,30 +34,35 @@ export const fetchRecommendedWorkoutsThunk = (userId, groupNum) => {
         where("group", "==", groupNum)
       );
       let similarUsers = await getDocs(similarUsersRef);
-console.log('similarUsers: ', similarUsers);
 
-      let workoutsRef = similarUsers.docs.map((elem) => {
-        //console.log(elem.ref.path)
-        query(collection(db, "workouts"),
-        where("userId", "==", elem.ref) )
+      let users = similarUsers.docs.map((elem) => {
+        if (elem.id !== userId) {
+          return elem.id;
+        }
       });
+      const shuffled = shuffle(users).slice(0,10);
 
-      console.log(workoutsRef);
-      // let users = similarUsers.docs.map((elem) => {
-      //   if (elem.id !== userId) {
-      //     return elem.id;
-      //   }
-      // });
-      // const shuffled = shuffle(users)
-      // let similarWorkouts = [];
+      const workoutsRef = query(
+        collection(db, "workouts"),
+        where("userId", "in", shuffled)
+      );
+      let similarWorkouts = await getDocs(workoutsRef)
+      let finalWorkouts = similarWorkouts.docs.map((elem) => {
+        return {elemId: elem.id, elemData: elem.data()};
+      }).slice(0,3)
 
       // for (let i = 0; i < users.length; i++) {
       //   if (similarWorkouts.length > 2) {
       //     break;
       //   } else {
-      //     let workouts = await getDocs(
-      //       collection(db, `users/${shuffled[i]}/workouts`)
+      //     let workoutRef = collection(db, `users/${shuffled[i]}/workouts`);
+      //     let allWorkouts = query(
+      //       workoutRef,
+      //       where("category", "==", cardioOrStrength || "cardio")
       //     );
+
+      //     let workouts = await getDocs(allWorkouts);
+
       //     let workoutsArr = workouts.docs.map((elem) => {
       //       return { elemId: elem.id, elemData: elem.data() };
       //     });
@@ -66,8 +75,8 @@ console.log('similarUsers: ', similarUsers);
       //     }
       //   }
       // }
-      //console.log(similarWorkouts);
-      //dispatch(getRecommendedWorkouts(similarWorkouts))
+      //console.log(finalWorkouts);
+      dispatch(getRecommendedWorkouts(finalWorkouts));
     } catch (err) {
       console.log(err);
     }
