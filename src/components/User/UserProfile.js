@@ -93,7 +93,7 @@ const UserProfile = () => {
           </div>
           <div className="flex flex-col items-start justify-start p-4 mx-5 rounded md:mx-auto md:max-w-md ">
             <div className="flex flex-row md:ml-2">
-              {user.gender === "Male" ? (
+              {user.gender === "Male Identifying" ? (
                 <div className="w-24 h-24">
                   <img
                     src={maleImage}
@@ -101,7 +101,7 @@ const UserProfile = () => {
                     className="object-cover w-full h-full rounded-full shadow-md shadow-black"
                   />
                 </div>
-              ) : user.gender === "Female" ? (
+              ) : user.gender === "Female Identifying" ? (
                 <div className="w-24 h-24">
                   <img
                     src={femaleImage}
@@ -118,9 +118,9 @@ const UserProfile = () => {
                   />
                 </div>
               )}
-              <div className="z-10 pt-7">
-                <div className="ml-3">
-                  <h4 className="text-2xl font-bold leading-tight text-white">
+              <div className="z-10 pt-5">
+                <div className="ml-5">
+                  <h4 className="text-4xl font-bold leading-tight text-white">
                     {user.username}
                   </h4>
                 </div>

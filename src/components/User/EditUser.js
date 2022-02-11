@@ -70,7 +70,7 @@ const EditUser = () => {
               </div>
               <div className="flex flex-col items-start justify-start p-8 mx-6 mb-6 bg-teal-600 rounded-md shadow-md shadow-black">
                 <div className="flex flex-row pb-4">
-                  {user.gender === "Male" ? (
+                  {user.gender === "Male Identifying" ? (
                     <div className="w-24 h-24">
                       <img
                         src={maleImage}
@@ -78,7 +78,7 @@ const EditUser = () => {
                         className="rounded-full shadow-md shadow-black"
                       />
                     </div>
-                  ) : user.gender === "Female" ? (
+                  ) : user.gender === "Female Identifying" ? (
                     <div className="w-24 h-24">
                       <img
                         src={femaleImage}
@@ -97,7 +97,7 @@ const EditUser = () => {
                   )}
                   <div className="z-10 pt-7">
                     <div className="ml-3">
-                      <h4 className="text-2xl font-bold leading-tight text-white">
+                      <h4 className="text-4xl font-bold leading-tight text-white">
                         {user.username}
                       </h4>
                     </div>
