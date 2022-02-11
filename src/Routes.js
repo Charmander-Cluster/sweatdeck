@@ -26,6 +26,7 @@ import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
 import Popup from "./components/Popup";
+import RecommendedWorkouts from "./components/RecommendedWorkouts"
 
 const Routes = (props) => {
   const authUser = useSelector((state) => state.auth);
@@ -68,6 +69,7 @@ const Routes = (props) => {
             component={SingleWorkout}
           />
           <Route exact path="/users/:id/workouts" component={UserWorkouts} />
+          <Route exact path="/users/:id/recommendedWorkouts" component={RecommendedWorkouts} />
           <Route
             exact
             path="/users/:id/chooseworkout"
