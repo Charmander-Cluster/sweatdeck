@@ -50,17 +50,17 @@ const CreateWorkout = () => {
       <div className="flex flex-row items-center justify-center space-x-2">
             <div className="flex justify-center ">
                 <button
-                  onClick={()=>setWithPlaylist(false)}
+                  onClick={()=>setWithPlaylist(true)}
                   type="button"
                   className="p-3 text-lg border border-purple-800 rounded-md bg-purple-800 w-44 shadow-md shadow-black"
                 >
-                  Without Playlist
+                  With Playlist
                 </button>
             </div>
 
             <div className="flex justify-center">
-                <button onClick={()=>setWithPlaylist(true)} className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black">
-                  With Playlist
+                <button onClick={()=>setWithPlaylist(false)} className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black">
+                  Without Playlist
                 </button>
             </div>
           </div>

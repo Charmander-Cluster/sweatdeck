@@ -141,18 +141,18 @@ const CardioPlaylist = (props) => {
                     </div>
                     <div className="flex justify-center">
                       <div className="flex-col justify-center align-center">
-                        <div className="container flex justify-center">
+                        <div className="container flex items-center justify-center">
                           <div className="flex justify-center">
                             {/* <div className="w-20 px-3 md:w-1/2"> */}
-                            <div className="">
+                            <div className="justify-center">
                               <label
                                 htmlFor="name"
-                                className="block mt-3 text-sm font-medium"
+                                className="block text-sm font-medium"
                               >
                                 Workout Type
                               </label>
                               <select
-                                className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 name="type"
                                 defaultValue=""
                                 value={exercises.type}
@@ -176,27 +176,22 @@ const CardioPlaylist = (props) => {
                           </div>
                         </div>
 
-                        <div className="flex justify-center">
-                          <div className="flex justify-center">
-                            <div className=""></div>
-                          </div>
-                        </div>
-                        <div className="flex align-center">
-                          <div className="flex-col">
+                        <div className="container flex justify-center items-center">
+                          <div className="flex-col  justify-center">
                             <label
                               htmlFor="name"
-                              className="block mt-5 text-sm font-medium"
+                              className="block mt-2 text-sm font-medium"
                             >
                               Name Your Workout
                             </label>
                             <input
-                              className="w-72  bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="w-72  bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               required
                               name="name"
                               onChange={handleChange}
                               value={workout.name}
                             />
-                            <div className="flex m-5 align-center">
+                            <div className="flex mx-5 mt-2 align-center">
                               <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                                 <label
                                   htmlFor="distance"
@@ -206,7 +201,7 @@ const CardioPlaylist = (props) => {
                                 </label>
                                 <input
                                   name="distance"
-                                  className="w-28 @error bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-28 @error bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -250,7 +245,7 @@ const CardioPlaylist = (props) => {
                                 </label>
                                 <input
                                   name="hours"
-                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -268,7 +263,7 @@ const CardioPlaylist = (props) => {
                                 </label>
                                 <input
                                   name="minutes"
-                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-purple-800 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -292,7 +287,7 @@ const CardioPlaylist = (props) => {
                               <div className="grid mt-5 place-items-center">
 
                                 <button
-                                  className="flex p-3 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
+                                  className="flex p-3 mb-3 text-lg text-neutral-700 bg-purple-600 rounded-md"
                                   onClick={handleSelectPlaylist}
                                   disabled={
                                     workout.category === "" ||
@@ -307,7 +302,7 @@ const CardioPlaylist = (props) => {
                                   Select Playlist
                                 </button>
 
-                                <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
+                                <button className="flex p-2 mb-3 text-lg text-purple-600 border border-purple-600 rounded-md rounded-"
                                   onClick={handleSubmitWithoutPlaylist}
                                   disabled={
                                     workout.category === "" ||
