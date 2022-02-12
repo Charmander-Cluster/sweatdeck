@@ -54,7 +54,7 @@ const EditUser = () => {
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
             <div className=" md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
-              <div className="flex items-start justify-start overflow-hidden rounded">
+              <div className="flex items-start justify-start overflow-hidden">
                 <div className="relative z-10 flex items-start justify-start pt-2 pb-2 md:pt-0">
                   <div className="container flex flex-col items-start justify-between px-6 mx-auto">
                     <div className="flex flex-col items-start">
@@ -220,7 +220,7 @@ const EditUser = () => {
                 </div>
                 <button
                   type="submit"
-                  className="flex flex-row justify-center px-8 py-3 mt-5 mb-2 text-white transition duration-150 ease-in-out bg-purple-600 rounded shadow-md text-1xl shadow-black hover:bg-purple-700"
+                  className="flex flex-row justify-center px-8 py-3 mt-5 mb-2 text-white transition duration-150 ease-in-out bg-purple-600 rounded-md shadow-md text-1xl shadow-black hover:bg-purple-700"
                 >
                   <svg
                     className="w-6 h-6 mr-2 pb-0.5"
@@ -240,7 +240,7 @@ const EditUser = () => {
                 </button>
                 <div className="flex items-center justify-center">
                   <button
-                    className="text-purple-600 hover:text-purple-700"
+                    className="text-purple-700 hover:text-purple-800"
                     onClick={passwordReset}
                   >
                     Password Reset

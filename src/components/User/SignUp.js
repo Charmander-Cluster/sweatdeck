@@ -266,7 +266,7 @@ const SignUp = () => {
                       <button
                         type="button"
                         onClick={errorClick}
-                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black px-7 focus:outline-none md:mt-10 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded-md shadow-md cursor-pointer hover:bg-purple-700 shadow-black px-7 focus:outline-none md:mt-10 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                       >
                         <span className="text-sm font-medium text-center text-white capitalize">
                           Next Step
@@ -289,7 +289,7 @@ const SignUp = () => {
                       <button
                         type="button"
                         onClick={stepClick}
-                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer md:mt-10 hover:bg-purple-700 shadow-black px-7 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                        className="flex items-center justify-center py-4 mt-10 bg-purple-600 rounded-md shadow-md cursor-pointer md:mt-10 hover:bg-purple-700 shadow-black px-7 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                       >
                         <span className="text-sm font-medium text-center text-white capitalize">
                           Next Step
@@ -540,7 +540,7 @@ const SignUp = () => {
 
                     <button
                       type="submit"
-                      className="flex items-center justify-center px-12 py-4 mt-10 bg-purple-600 rounded shadow-md cursor-pointer hover:bg-purple-700 shadow-black focus:outline-none md:mt-10 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                      className="flex items-center justify-center px-12 py-4 mt-10 bg-purple-600 rounded-md shadow-md cursor-pointer hover:bg-purple-700 shadow-black focus:outline-none md:mt-10 focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
                     >
                       <span className="text-sm font-medium text-center text-white capitalize">
                         Submit
