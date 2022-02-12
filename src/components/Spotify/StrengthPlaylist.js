@@ -154,6 +154,7 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
                       handleDelete = {handleDelete}
+                      counter ={counter}
                       thisArray={0}
                       workout={workout}
                     />
@@ -162,6 +163,7 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                         handleChange={handleChange}
                         handleUpdate={handleUpdate}
                         handleDelete = {handleDelete}
+                        counter={counter}
                         workout={workout}
                         thisArray={i+1}
                         key={i}

@@ -46,6 +46,14 @@ const StrengthDetails = (props) => {
     setCompletedExercise(exercise);
   };
 
+  // const handleDelete = (element) => {
+  //   setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+  //   if (counter > 0) {
+  //     setCounter(counter - 1)
+  //     setWorkout({ ...workout, count: counter-1 })
+  //   }
+  // };
+
   const handleRemove = (event) => {
     event.preventDefault();
     if (workout.exercises.length === 1) {
@@ -74,7 +82,7 @@ const StrengthDetails = (props) => {
   return (
     <div>
       <div className="border border-teal-500 bg-neutral-500 rounded-md m-0.5 p-2">
-        {/* <div>
+        <div>
         <div className="flex -mb-6 justify-end">
           <button onClick={handleRemove}>
             {" "}
@@ -85,7 +93,7 @@ const StrengthDetails = (props) => {
             />{" "}
           </button>
         </div>
-        </div> */}
+        </div>
         <div className="flex justify-center text-teal-400">
           <p>EXERCISE</p>
         </div>
