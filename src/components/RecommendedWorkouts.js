@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const RecommendedWorkouts = (props) => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const authUser = useSelector((state) => state.users.user);
+  const authUser = useSelector((state) => state.auth);
   const group = authUser.group;
   let cardioOrStrength = props.location.state;
 

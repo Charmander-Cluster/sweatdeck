@@ -9,8 +9,6 @@ const UserWorkouts = (props) => {
   let cardioOrStrength = props.location.state;
   const upperCaseType = cardioOrStrength[0].toUpperCase() + cardioOrStrength.slice(1)
 
-  console.log(workouts.length);
-
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -52,12 +50,6 @@ const UserWorkouts = (props) => {
           </div>
         </div>
       </div>
-
-      <div className="pt-20 overflow-hidden rounded">
-        <div className="grid grid-cols-1">
-          <h1 className="my-10 text-3xl text-teal-500 align-center text-center uppercase">
-            My Workouts
-          </h1>{" "}
           <div className="pt-20 overflow-hidden rounded">
             <div className="grid grid-cols-1">
               {workouts.map((workout) => {
@@ -94,8 +86,6 @@ const UserWorkouts = (props) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 

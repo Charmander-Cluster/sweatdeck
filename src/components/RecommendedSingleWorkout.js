@@ -43,7 +43,7 @@ const RecommendedSingleWorkout = () => {
    const handleBack = (event) => {
     event.preventDefault();
     history.push({
-      pathname: `/users/${id}/workouts`,
+      pathname: `/users/${id}/recommendedworkouts`,
       state: workout.category,
     });
   };

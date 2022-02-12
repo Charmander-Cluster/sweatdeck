@@ -44,38 +44,14 @@ export const fetchRecommendedWorkoutsThunk = (
 
       const workoutsRef = query(
         collection(db, "workouts"),
-        where("userId", "in", shuffled)
+        where("userId", "in", shuffled),
+        where("category", "==", "strength")
       );
       let similarWorkouts = await getDocs(workoutsRef)
       let finalWorkouts = similarWorkouts.docs.map((elem) => {
         return {elemId: elem.id, elemData: elem.data()};
       }).slice(0,3)
 
-      // for (let i = 0; i < users.length; i++) {
-      //   if (similarWorkouts.length > 2) {
-      //     break;
-      //   } else {
-      //     let workoutRef = collection(db, `users/${shuffled[i]}/workouts`);
-      //     let allWorkouts = query(
-      //       workoutRef,
-      //       where("category", "==", cardioOrStrength || "cardio")
-      //     );
-
-      //     let workouts = await getDocs(allWorkouts);
-
-      //     let workoutsArr = workouts.docs.map((elem) => {
-      //       return { elemId: elem.id, elemData: elem.data() };
-      //     });
-      //     for (let j = 0; j < workoutsArr.length; j++) {
-      //       if (similarWorkouts.length > 2) {
-      //         break;
-      //       } else {
-      //         similarWorkouts.push(workoutsArr[j]);
-      //       }
-      //     }
-      //   }
-      // }
-      //console.log(finalWorkouts);
       dispatch(getRecommendedWorkouts(finalWorkouts));
     } catch (err) {
       console.log(err);
