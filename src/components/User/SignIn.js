@@ -107,7 +107,7 @@ const SignIn = () => {
                 <Link to="/passwordreset">
                   <button
                     type="button"
-                    className="mb-2 ml-1 text-purple-700 hover:text-purple-800"
+                    className="pt-2 ml-1 text-purple-700 hover:text-purple-800"
                   >
                     Forgot your password?
                   </button>
