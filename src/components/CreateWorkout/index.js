@@ -1,35 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import CreateCardio from "./CreateCardio";
-import CreateStrength from "./CreateStrength";
 
 const CreateWorkout = () => {
-  const redirectUri = /localhost/.test(window.location.href)
+  const cardioRedirectUri = /localhost/.test(window.location.href)
   ? "http://localhost:3000/cardioplaylist"
   : "https://sweatdeck.herokuapp.com/cardioplaylist";
 
-  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
+  const strengthRedirectUri = /localhost/.test(window.location.href)
+  ? "http://localhost:3000/strengthplaylist"
+  : "https://sweatdeck.herokuapp.com/strengthplaylist";
 
+  const CARDIO_AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${cardioRedirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
-  const [selectedCategory, setSelectedCategory] = useState({
-    category: "",
-  });
+  const STRENGTH_AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${strengthRedirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20playlist-read-private`;
 
   const [withPlaylist, setWithPlaylist] = useState(false);
 
-  const handleContinue = () => {
-    window.location.href = AUTH_URL
+  const handleCardioContinue = () => {
+    window.location.href = CARDIO_AUTH_URL
   }
 
-  // let localWorkout = useSelector((state) => state.localWorkout);
-
-  const handleChange = (event) => {
-    setSelectedCategory({
-      ...selectedCategory,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const handleStrengthContinue = () => {
+    window.location.href = STRENGTH_AUTH_URL
+  }
 
   return (
     <div>
@@ -89,9 +82,19 @@ const CreateWorkout = () => {
                 <button
                   type="button"
                   className="p-3 text-lg border border-green-500 rounded-md bg-green-500 w-44 shadow-md shadow-black"
-                  onClick={handleContinue}
+                  onClick={handleCardioContinue}
                 >
-                  Continue to Connect Spotify
+                  Create Cardio & Connect Spotify
+                </button>
+            </div>
+
+            <div className="flex justify-center ">
+                <button
+                  type="button"
+                  className="p-3 text-lg border border-green-500 rounded-md bg-green-500 w-44 shadow-md shadow-black"
+                  onClick={handleStrengthContinue}
+                >
+                  Create Strength & Connect Spotify
                 </button>
             </div>
           </div>

@@ -7,7 +7,6 @@ import {
   CreateWorkout,
   CreateCardio,
   CreateStrength,
-  SpotifyLogin,
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,

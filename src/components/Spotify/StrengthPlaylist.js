@@ -5,17 +5,17 @@ import { useHistory, Link } from "react-router-dom";
 import useAuthStrength from "./useAuthStrength";
 import StrengthDetails from "../CreateWorkout/StrengthDetails";
 import SelectStrengthPlaylist from "./SelectStrengthPlaylist";
-import { createDBWorkout } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+const token = new URLSearchParams(window.location.search).get("code")
+
 const StrengthPlaylist = (props) => {
   const[select, setSelect] = useState(false)
-  const token = new URLSearchParams(window.location.search).get("code")
 
-  const accessToken = useAuthStrength(token);
+  const accessToken = useAuthStrength(token)  || localStorage.getItem("accessToken");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -93,7 +93,7 @@ const StrengthPlaylist = (props) => {
   };
 
 
-  return (
+return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCancel}/>) : (
     <div className="flex flex-col py-2">
 
       {/* <div className="flex items-center justify-center">
@@ -194,7 +194,7 @@ const StrengthPlaylist = (props) => {
                         workout.exercises.length === 0
                       }
                     >
-                      Save & Connect Spotify Playlist
+                      Select Spotify Playlist
                     </button>
                     <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
                     onClick={handleSubmitWithoutPlaylist}

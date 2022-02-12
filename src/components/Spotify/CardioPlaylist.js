@@ -8,13 +8,13 @@ import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+const token = new URLSearchParams(window.location.search).get("code")
+
 const CardioPlaylist = (props) => {
 
   const[select, setSelect] = useState(false)
-  const token = new URLSearchParams(window.location.search).get("code")
 
-  const accessToken = useAuthCardio(token);
-
+  const accessToken = useAuthCardio(token) || localStorage.getItem("accessToken");
 
   const dispatch = useDispatch();
   const history = useHistory();
