@@ -20,7 +20,7 @@ const CardioPlaylist = (props) => {
   const history = useHistory();
 
   const [user, setUser] = useState(getAuth().currentUser);
-  const [workoutAdded, setWorkoutAdded] = useState(false);
+  //const [workoutAdded, setWorkoutAdded] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -37,16 +37,6 @@ const CardioPlaylist = (props) => {
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
-
-  // useEffect(() => {
-  //   if (workoutAdded) {
-  //     dispatch(createDBWorkoutNoPlaylist(workout, userId));
-  //     history.push("/confirmcardiocreate");
-  //     // setRedirect(true);
-  //   }
-  // }, [dispatch, workoutAdded, workout, userId]);
-
-  // const localWorkout = useSelector(state => state.localWorkout)
 
   const [workout, setWorkout] = useState({
     category: "cardio",
