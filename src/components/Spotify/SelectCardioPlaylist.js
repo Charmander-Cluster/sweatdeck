@@ -21,6 +21,7 @@ const spotifyApi = new SpotifyWebApi({
 const SelectCardioPlaylist = (props) => {
   //const token = props.token
   const accessToken = localStorage.getItem("accessToken")
+  const [workout, setWorkout] = useState(props.workout)
   const handleCancel = props.handleCancel
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
@@ -38,8 +39,6 @@ const SelectCardioPlaylist = (props) => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
-
   // const accessToken = useAuthCardio(token);
 
   const [playlists, setPlaylists] = useState([]);
@@ -47,20 +46,17 @@ const SelectCardioPlaylist = (props) => {
 
   useEffect(() => {
     if (playlistConfirmed) {
-      dispatch(createDBWorkout(cardioLocalWorkout, userId));
-      dispatch(cardioLocalCreateWorkout({}));
+      dispatch(createDBWorkout(workout, userId));
       history.push("/confirmcardiocreate");
     }
-  }, [dispatch, userId, cardioLocalWorkout, playlistConfirmed]);
+  }, [dispatch, userId, workout, playlistConfirmed]);
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    dispatch(
-      cardioLocalEditWorkout({
-        ...cardioLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl},
+    setWorkout({
+        ...workout,
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl, uri: selectedPlaylist.uri},
       })
-    );
     setPlaylistConfirmed(true);
   };
 
@@ -72,7 +68,6 @@ const SelectCardioPlaylist = (props) => {
 
   useEffect(() => {
     if (!accessToken) return;
-    // if(!spotifyUser) return
     axios
       .get("https://api.spotify.com/v1/me/playlists", {
         params: { limit: 50, offset: 0 },
@@ -86,7 +81,6 @@ const SelectCardioPlaylist = (props) => {
         const playlists = response.data.items;
         const publicPlaylists = playlists.filter(
           (playlist) => playlist.public === true
-          // && playlist.owner.id === spotifyUser.id
         );
 
         const myPlaylists = publicPlaylists.map((playlist) => ({
@@ -96,6 +90,7 @@ const SelectCardioPlaylist = (props) => {
           url: playlist.external_urls.spotify,
           id: playlist.id,
           imageUrl: playlist.images[0].url,
+          uri:playlist.uri
         }));
         setPlaylists(myPlaylists);
       });

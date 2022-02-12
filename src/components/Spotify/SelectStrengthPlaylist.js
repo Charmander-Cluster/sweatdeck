@@ -19,6 +19,9 @@ const spotifyApi = new SpotifyWebApi({
 const token = new URLSearchParams(window.location.search).get("code");
 
 const StrengthPlaylist = (props) => {
+  const accessToken = localStorage.getItem("accessToken")
+  const [workout, setWorkout] = useState(props.workout)
+  const handleCancel = props.handleCancel
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
   const history = useHistory();
@@ -35,8 +38,6 @@ const StrengthPlaylist = (props) => {
   }, [dispatch, user]);
 
   const userId = authUser.uid;
-  const accessToken = useAuthStrength(token);
-  let strengthLocalWorkout = useSelector((state) => state.strengthLocalWorkout);
 
   //const [token, setToken] = useState("");
   const [playlists, setPlaylists] = useState([]);
@@ -44,20 +45,16 @@ const StrengthPlaylist = (props) => {
 
   useEffect(() => {
     if (playlistConfirmed) {
-      dispatch(createDBWorkout(strengthLocalWorkout, userId));
-      dispatch(strengthLocalCreateWorkout({}))
+      dispatch(createDBWorkout(workout, userId));
       history.push("/confirmstrengthcreate");
     }
-  }, [dispatch, userId, strengthLocalWorkout, playlistConfirmed]);
+  }, [dispatch, userId, workout, playlistConfirmed]);
 
   const handleConfirm = (event) => {
     event.preventDefault();
-    dispatch(
-      strengthLocalEditWorkout({
-        ...strengthLocalWorkout,
-        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl },
+    setWorkout({...workout,
+        playlist: { name: selectedPlaylist.name, url: selectedPlaylist.url, imageUrl: selectedPlaylist.imageUrl, uri: selectedPlaylist.uri},
       })
-    );
     setPlaylistConfirmed(true);
   };
 
@@ -81,7 +78,6 @@ const StrengthPlaylist = (props) => {
         const playlists = response.data.items;
         const publicPlaylists = playlists.filter(
           (playlist) => playlist.public === true
-          // && playlist.owner.id === spotifyUser.id
         );
 
         const myPlaylists = publicPlaylists.map((playlist) => ({
@@ -91,6 +87,7 @@ const StrengthPlaylist = (props) => {
           url: playlist.external_urls.spotify,
           id: playlist.id,
           imageUrl: playlist.images[0].url,
+          uri: playlist.uri,
         }));
         setPlaylists(myPlaylists);
       });
@@ -104,11 +101,9 @@ const StrengthPlaylist = (props) => {
       <div className="flex">
         <div className="fixed top-0 flex-col justify-center w-full bg-zinc-800">
           <div className="flex justify-end">
-            <Link to="/createworkout/strength">
-            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500">
+            <button className="p-1 mt-2 mr-2 text-sm text-teal-500 border rounded-md border-teak-500" onClick={handleCancel}>
               Cancel
             </button>
-            </Link>
           </div>
 
           <div className="relative z-10 pt-4 pb-10">

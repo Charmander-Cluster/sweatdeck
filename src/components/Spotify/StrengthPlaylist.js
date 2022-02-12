@@ -15,7 +15,7 @@ const token = new URLSearchParams(window.location.search).get("code")
 const StrengthPlaylist = (props) => {
   const[select, setSelect] = useState(false)
 
-  const accessToken = useAuthStrength(token)  || localStorage.getItem("accessToken");
+  const accessToken = useAuthStrength(token)
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -93,7 +93,7 @@ const StrengthPlaylist = (props) => {
   };
 
 
-return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCancel}/>) : (
+return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCancel} workout={workout}/>) : (
     <div className="flex flex-col py-2">
 
       {/* <div className="flex items-center justify-center">

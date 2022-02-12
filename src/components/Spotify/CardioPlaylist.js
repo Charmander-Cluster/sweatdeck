@@ -94,7 +94,7 @@ const CardioPlaylist = (props) => {
     history.push("/createworkout");
   };
 
-  return select ? (<SelectCardioPlaylist token={token} handleCancel={handleCancel}/>) : (
+  return select ? (<SelectCardioPlaylist token={token} handleCancel={handleCancel} workout={workout}/>) : (
     <div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
