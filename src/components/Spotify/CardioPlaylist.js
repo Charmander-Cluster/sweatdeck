@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import useAuthCardio from "./useAuthCardio";
 import SelectCardioPlaylist from "./SelectCardioPlaylist";
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -10,7 +11,10 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CardioPlaylist = (props) => {
 
   const[select, setSelect] = useState(false)
-  const token = new URLSearchParams(window.location.search).get("code");
+  const token = new URLSearchParams(window.location.search).get("code")
+
+  const accessToken = useAuthCardio(token);
+
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,6 +27,12 @@ const CardioPlaylist = (props) => {
     setUser(u);
   });
   const userId = authUser.uid;
+
+  useEffect(()=> {
+    if (accessToken) {
+      localStorage.setItem("accessToken", accessToken)
+    }
+  })
 
   useEffect(() => {
     dispatch(fetchLoginUser());

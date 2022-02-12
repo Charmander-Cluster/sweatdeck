@@ -26,16 +26,6 @@ const CardioNoPlaylist = () => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  useEffect(() => {
-    if (workoutAdded) {
-      dispatch(createDBWorkoutNoPlaylist(workout, userId));
-      history.push("/confirmcardiocreate");
-      // setRedirect(true);
-    }
-  }, [dispatch, workoutAdded, workout, userId]);
-
-  // const localWorkout = useSelector(state => state.localWorkout)
-
   const [workout, setWorkout] = useState({
     category: "cardio",
     name: "",
@@ -45,6 +35,16 @@ const CardioNoPlaylist = () => {
     datesCompleted: [],
     logs: 0,
   });
+
+  useEffect(() => {
+    if (workoutAdded) {
+      dispatch(createDBWorkoutNoPlaylist(workout, userId));
+      history.push("/confirmcardiocreate");
+      // setRedirect(true);
+    }
+  }, [dispatch, workoutAdded, workout, userId]);
+
+  // const localWorkout = useSelector(state => state.localWorkout)
 
   const [exercises, setExercises] = useState({
     type:"",

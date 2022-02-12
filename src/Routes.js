@@ -43,7 +43,7 @@ const Routes = () => {
           {/* <Route path='/spotifylogin' component={SpotifyLogin}/> */}
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
-          <Route path="/createworkout/cardio/noplaylist" component={StrengthPlaylist} />
+          <Route path="/createworkout/cardio/noplaylist" component={CardioNoPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
           <Route
             exact

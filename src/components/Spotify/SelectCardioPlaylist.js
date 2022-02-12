@@ -19,7 +19,8 @@ const spotifyApi = new SpotifyWebApi({
 // const token = new URLSearchParams(window.location.search).get("code");
 
 const SelectCardioPlaylist = (props) => {
-  const token = props.token
+  //const token = props.token
+  const accessToken = localStorage.getItem("accessToken")
   const handleCancel = props.handleCancel
   const [user, setUser] = useState(getAuth().currentUser);
   const [playlistConfirmed, setPlaylistConfirmed] = useState(false);
@@ -39,7 +40,7 @@ const SelectCardioPlaylist = (props) => {
 
   let cardioLocalWorkout = useSelector((state) => state.cardioLocalWorkout);
 
-  const accessToken = useAuthCardio(token);
+  // const accessToken = useAuthCardio(token);
 
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({});
