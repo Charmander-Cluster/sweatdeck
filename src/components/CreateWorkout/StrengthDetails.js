@@ -11,14 +11,12 @@ import {
 } from "./StrengthExercises";
 
 const StrengthDetails = (props) => {
-  const workout = props.workout;
-  const handleUpdate = props.handleUpdate;
+  const [workout, setWorkout] = useState(props.workout);
+  console.log("DETAILS WORKOUT", workout)
+  //const handleUpdate = props.handleUpdate;
   const thisArray = props.thisArray;
   const handleDelete = props.handleDelete;
   // const finalExercise = props.finalExercise
-  const strengthLocalWorkout = useSelector(
-    (state) => state.strengthLocalWorkout
-  );
 
   const [completedExercise, setCompletedExercise] = useState({});
 
@@ -26,40 +24,20 @@ const StrengthDetails = (props) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const [exercise, setExercise] = useState({
-    bodyPart:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? "select"
-        : strengthLocalWorkout.exercises[thisArray].bodyPart,
-    type:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? "select"
-        : strengthLocalWorkout.exercises[thisArray].type,
-    weight:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? ""
-        : strengthLocalWorkout.exercises[thisArray].weight,
-    units:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? "select"
-        : strengthLocalWorkout.exercises[thisArray].units,
-    reps:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? ""
-        : strengthLocalWorkout.exercises[thisArray].reps,
-    sets:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? ""
-        : strengthLocalWorkout.exercises[thisArray].sets,
+    bodyPart:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "select" : workout.exercises[thisArray].bodyPart,
+    type: (workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "select" : workout.exercises[thisArray].type,
+    weight:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "" : workout.exercises[thisArray].weight,
+    units:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "select" : workout.exercises[thisArray].units,
+    reps:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "" : workout.exercises[thisArray].reps,
+    sets: (workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "" : workout.exercises[thisArray].sets,
   });
 
   const handleChange = (event) => {
     setExercise({ ...exercise, [event.target.name]: event.target.value });
+  };
+
+  const handleUpdate = (exercise) => {
+    setWorkout({ ...workout }, workout.exercises.push(exercise));
   };
 
   const handleConfirm = (event) => {
@@ -70,9 +48,9 @@ const StrengthDetails = (props) => {
 
   const handleRemove = (event) => {
     event.preventDefault();
-    if (thisArray ===0 ) {
+    if (workout.exercises.length === 1) {
       setExercise({
-        bodyPart:"select",
+        bodyPart: "select",
         type:"select",
         weight:"",
         units: "select",
