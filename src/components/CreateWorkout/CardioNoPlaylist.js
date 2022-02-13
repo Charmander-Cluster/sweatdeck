@@ -206,7 +206,7 @@ const CardioNoPlaylist = () => {
                                   type="number"
                                   min="0"
                                   onChange={handleNestedChange}
-                                  value={workout.distance}
+                                  value={exercises.distance}
                                 />
                               </div>
 
@@ -222,7 +222,7 @@ const CardioNoPlaylist = () => {
                                   name="units"
                                   defaultValue="select"
                                   onChange={handleNestedChange}
-                                  value={workout.units}
+                                  value={exercises.units}
                                 >
                                   <option value="select" disabled>
                                     --
@@ -248,7 +248,7 @@ const CardioNoPlaylist = () => {
                                   required
                                   type="number"
                                   onChange={handleNestedChange}
-                                  value={workout.hours}
+                                  value={exercises.hours}
                                 />
                               </div>
 
@@ -266,7 +266,7 @@ const CardioNoPlaylist = () => {
                                   type="number"
                                   min="0"
                                   onChange={handleNestedChange}
-                                  value={workout.minutes}
+                                  value={exercises.minutes}
                                 />
                               </div>
                             </div>

@@ -212,7 +212,7 @@ const CardioPlaylist = (props) => {
                                   type="number"
                                   min="0"
                                   onChange={handleNestedChange}
-                                  value={workout.distance}
+                                  value={exercises.distance}
                                 />
                               </div>
 
@@ -228,7 +228,7 @@ const CardioPlaylist = (props) => {
                                   name="units"
                                   defaultValue="select"
                                   onChange={handleNestedChange}
-                                  value={workout.units}
+                                  value={exercises.units}
                                 >
                                   <option value="select" disabled>
                                     --
@@ -254,7 +254,7 @@ const CardioPlaylist = (props) => {
                                   required
                                   type="number"
                                   onChange={handleNestedChange}
-                                  value={workout.hours}
+                                  value={exercises.hours}
                                 />
                               </div>
 
@@ -272,7 +272,7 @@ const CardioPlaylist = (props) => {
                                   type="number"
                                   min="0"
                                   onChange={handleNestedChange}
-                                  value={workout.minutes}
+                                  value={exercises.minutes}
                                 />
                               </div>
                             </div>
@@ -290,7 +290,7 @@ const CardioPlaylist = (props) => {
                             ) : (
                               <div className="grid mt-5 place-items-center">
                                 <button
-                                  className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
+                                  className="flex p-2 mb-3 text-lg text-white bg-purple-500 rounded-md"
                                   onClick={handleSelectPlaylist}
                                   disabled={
                                     workout.category === "" ||
