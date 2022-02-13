@@ -286,15 +286,6 @@ const CardioNoPlaylist = () => {
                                 <button
                                   className="flex p-2 mb-3 text-lg text-purple-500 border border-purple-500 rounded-md"
                                   onClick={handleSubmitWithoutPlaylist}
-                                  disabled={
-                                    workout.category === "" ||
-                                    workout.name === "" ||
-                                    exercises.type === "" ||
-                                    exercises.distance === "" ||
-                                    exercises.units === "" ||
-                                    exercises.hours === "" ||
-                                    exercises.minutes === ""
-                                  }
                                 >
                                   Save Workout
                                 </button>

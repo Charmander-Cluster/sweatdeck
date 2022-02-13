@@ -72,6 +72,7 @@ const CardioPlaylist = (props) => {
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
+    workout.exercises.push(exercises);
     dispatch(createDBWorkoutNoPlaylist(workout, userId));
     history.push("/confirmcardiocreate");
     // setWorkoutAdded(true);
@@ -308,11 +309,6 @@ const CardioPlaylist = (props) => {
                                 <button
                                   className="flex p-2 mb-3 text-lg text-purple-600 border border-purple-600 rounded-md rounded-"
                                   onClick={handleSubmitWithoutPlaylist}
-                                  disabled={
-                                    workout.category === "" ||
-                                    workout.name === "" ||
-                                    workout.exercises.length === 0
-                                  }
                                 >
                                   Save Without Playlist
                                 </button>
