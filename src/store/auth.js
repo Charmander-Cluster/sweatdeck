@@ -29,7 +29,7 @@ export const authenticate = (email, password) => async (dispatch) => {
       dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
-    dispatch(setAuth(authError))
+    dispatch(setAuth({error: authError}))
     //console.log("Error at authenticate thunk", authError);
   }
 };
