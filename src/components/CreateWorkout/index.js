@@ -73,7 +73,7 @@ const CreateWorkout = () => {
 
           <div className="flex items-center justify-center">
             <h1 className="text-2xl text-white mt-12 align-center text-center drop-shadow-md shadow-black">
-              Create<br></br> With Spotify Playlist
+              With Spotify Playlist
             </h1>
           </div>
 
@@ -113,7 +113,7 @@ const CreateWorkout = () => {
 
           <div className="flex items-center justify-center">
             <h1 className="text-2xl text-white mt-12 align-center text-center drop-shadow-md shadow-black">
-              Create<br></br>Without Spotify Playlist
+              Without Spotify Playlist
             </h1>
           </div>
 
