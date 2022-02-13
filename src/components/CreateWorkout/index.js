@@ -25,15 +25,15 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div>
-      <div className="relative z-10 pt-2 pb-10">
-        <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex lg:flex-row mt-2 lg:items-center">
+    <div className="flex flex-col">
+      <div className="relative z-10 pb-10 md:mt-4">
+        <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
           <div className="flex flex-col items-start lg:flex-row lg:items-center">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <h4 className="text-2xl font-bold leading-tight text-white">
                 Create Workout
               </h4>
-              <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
+              <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
             </div>
           </div>
         </div>
@@ -41,8 +41,6 @@ const CreateWorkout = () => {
 
       {withPlaylist ? (
         <div className="flex flex-row items-center justify-center space-x-4">
-
-
           <div className="flex justify-center hover:text-gray-300">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <button
@@ -56,13 +54,10 @@ const CreateWorkout = () => {
             </div>
           </div>
 
-
           <div className="flex justify-center ">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <button
-                className="text-xl font-bold leading-tight text-zinc-500
-                hover:text-gray-300 hover:border-gray-300
-                border-transparent border-b-4 pb-5"
+                className="pb-5 text-xl font-bold leading-tight border-b-4 border-transparent text-zinc-500 hover:text-gray-300 hover:border-gray-300"
                 button
                 onClick={() => setWithPlaylist(false)}
               >
@@ -76,9 +71,7 @@ const CreateWorkout = () => {
           <div className="flex justify-center hover:text-gray-300">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <button
-                className="text-xl font-bold leading-tight text-zinc-500
-              hover:text-gray-300 hover:border-gray-300
-              border-transparent border-b-4 pb-5"
+                className="pb-5 text-xl font-bold leading-tight border-b-4 border-transparent text-zinc-500 hover:text-gray-300 hover:border-gray-300"
                 button
                 onClick={() => setWithPlaylist(true)}
               >
@@ -108,20 +101,20 @@ const CreateWorkout = () => {
             {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
             <img
               src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
-              className="mt-8 object-cover h-28 w-28 rounded-full shadow-lg shadow-black"
+              className="object-cover mt-8 rounded-full shadow-lg h-28 w-28 shadow-black"
               alt="Markus Magnusson"
             />
           </div>
 
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl text-white mt-12 align-center text-center drop-shadow-md shadow-black"></h1>
+            <h1 className="mt-12 text-2xl text-center text-white align-center drop-shadow-md shadow-black"></h1>
           </div>
 
-          <div className="flex flex-row mt-10 mb-10 items-center justify-center space-x-2">
+          <div className="flex flex-row items-center justify-center mt-10 mb-10 space-x-2">
             <div className="flex justify-center ">
               <button
                 type="button"
-                className="p-3 text-lg border border-purple-600 rounded-md bg-purple-600 w-44 shadow-md shadow-black"
+                className="p-3 text-lg bg-purple-600 border border-purple-600 rounded-md shadow-md w-44 shadow-black"
                 onClick={handleCardioContinue}
               >
                 Create Cardio With Playlist
@@ -131,7 +124,7 @@ const CreateWorkout = () => {
             <div className="flex justify-center ">
               <button
                 type="button"
-                className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black"
+                className="p-3 text-lg bg-teal-600 border border-teal-600 rounded-md shadow-md w-44 shadow-black"
                 onClick={handleStrengthContinue}
               >
                 Create Strength With Playlist
@@ -146,21 +139,21 @@ const CreateWorkout = () => {
             {/* <img src="purple-clipboard.png" className=" mt-60" alt="add-list" /> */}
             <img
               src="https://cdn.dribbble.com/users/285475/screenshots/2640600/apple_dribbble.gif"
-              className="mt-20 object-cover h-28 w-28 rounded-full shadow-lg shadow-black mt-8"
+              className="object-cover mt-8 mt-20 rounded-full shadow-lg h-28 w-28 shadow-black"
               alt="Markus Magnusson"
             />
           </div>
 
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl text-white mt-12 align-center text-center drop-shadow-md shadow-black"></h1>
+            <h1 className="mt-12 text-2xl text-center text-white align-center drop-shadow-md shadow-black"></h1>
           </div>
 
-          <div className="flex flex-row mt-10 mb-10 items-center justify-center space-x-2">
+          <div className="flex flex-row items-center justify-center mt-10 mb-10 space-x-2">
             <div className="flex justify-center ">
               <Link to="/createworkout/cardio/noplaylist">
                 <button
                   type="button"
-                  className="p-3 text-lg border border-purple-600 rounded-md text-purple-500 w-44 shadow-md shadow-black"
+                  className="p-3 text-lg text-purple-500 border border-purple-600 rounded-md shadow-md w-44 shadow-black"
                 >
                   Create Cardio Without Playlist
                 </button>
@@ -169,7 +162,7 @@ const CreateWorkout = () => {
 
             <div className="flex justify-center">
               <Link to="/createworkout/strength/noplaylist">
-                <button className="p-3 text-lg border border-teal-600 text-teal-600 rounded-md  w-44 shadow-md shadow-black">
+                <button className="p-3 text-lg text-teal-600 border border-teal-600 rounded-md shadow-md w-44 shadow-black">
                   Create Strength Without Playlist
                 </button>
               </Link>
