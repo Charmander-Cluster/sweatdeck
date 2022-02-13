@@ -121,7 +121,7 @@ const CreateWorkout = () => {
             <div className="flex justify-center ">
               <button
                 type="button"
-                className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black"
+                className="p-3 text-lg border border-purple-600 rounded-md bg-purple-600 w-44 shadow-md shadow-black"
                 onClick={handleCardioContinue}
               >
                 Create Cardio With Playlist
@@ -131,7 +131,7 @@ const CreateWorkout = () => {
             <div className="flex justify-center ">
               <button
                 type="button"
-                className="p-3 text-lg border border-purple-600 rounded-md bg-purple-600 w-44 shadow-md shadow-black"
+                className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black"
                 onClick={handleStrengthContinue}
               >
                 Create Strength With Playlist

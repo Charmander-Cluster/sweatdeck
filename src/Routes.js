@@ -40,7 +40,6 @@ const Routes = () => {
             path="/createworkout/strength"
             component={CreateStrength}
           />
-          {/* <Route path='/spotifylogin' component={SpotifyLogin}/> */}
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
           <Route path="/createworkout/cardio/noplaylist" component={CardioNoPlaylist} />

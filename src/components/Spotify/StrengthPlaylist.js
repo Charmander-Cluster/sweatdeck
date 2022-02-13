@@ -132,7 +132,7 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                         Name Your Workout
                       </label>
                       <input
-                        className="w-72  bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="w-72  bg-gray-50 border border-gray-300 text-teal-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                         name="name"
                         onChange={handleChange}
