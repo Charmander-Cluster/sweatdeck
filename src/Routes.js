@@ -23,6 +23,10 @@ import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButto
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
+import Popup from "./components/Popup";
+import RecommendedWorkouts from "./components/RecommendedWorkouts"
+import RecommendedSingleWorkout from "./components/RecommendedSingleWorkout"
+
 import PasswordReset from "./components/User/PasswordReset";
 import BarRoute from "./components/LoadingBar/BarRoute";
 
@@ -59,6 +63,18 @@ const Routes = () => {
       path: "/users/:id/workouts/:docId",
       exact: true,
       component: SingleWorkout,
+    },
+    // {
+    //   title: "RecommendedWorkouts",
+    //   path: "/users/:id/recommendedWorkouts",
+    //   exact: true,
+    //   component: RecommendedWorkouts,
+    // },
+    {
+      title: "RecommendedSingleWorkout",
+      path: "/users/:id/recommendedWorkouts/:docId",
+      exact: true,
+      component: RecommendedSingleWorkout,
     },
     {
       title: "ConfirmStrengthCreate",

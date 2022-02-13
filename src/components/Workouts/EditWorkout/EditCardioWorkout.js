@@ -39,7 +39,6 @@ const EditCardioWorkout = () => {
       ...currentWorkout,
       [event.target.name]: event.target.value,
     });
-    console.log("+++++CHECKING WORKOUT:", workout);
   };
 
   // const handleNestedChange = (event) => {
@@ -51,7 +50,6 @@ const EditCardioWorkout = () => {
       ...currentWorkout.exercises[0],
       [event.target.name]: event.target.value,
     });
-    console.log("/+/--//==/CHECKING EXERCISES:", exercises);
   };
 
   const handleSubmit = (event) => {
@@ -59,6 +57,13 @@ const EditCardioWorkout = () => {
     workout.exercises[0] = exercises;
     dispatch(editWorkoutThunk(id, docId, workout));
     history.push(`/users/${id}/workouts/${docId}`);
+  };
+
+  const handleBack = (event) => {
+    event.preventDefault();
+    history.push({
+      pathname: `/users/${id}/workouts/${docId}`,
+    });
   };
 
   return (
@@ -71,6 +76,16 @@ const EditCardioWorkout = () => {
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
         <div className="m-3 my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700 mb-14">
+          <div className="flex justify-start">
+            <button
+              type="button"
+              className="flex p-1 ml-2 mt-2 text-base text-teal-500 border border-1 border-teal-500 rounded-md"
+              onClick={handleBack}
+            >
+              Go back
+            </button>
+          </div>
+
           <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
