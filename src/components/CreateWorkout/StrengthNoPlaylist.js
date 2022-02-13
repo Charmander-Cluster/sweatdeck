@@ -52,8 +52,6 @@ const StrengthNoPlaylist = (props) => {
     count: 0,
   });
 
-  console.log("NO PLAYLIST WORKOUT", workout)
-
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
   };
@@ -82,11 +80,6 @@ const StrengthNoPlaylist = (props) => {
 
   return (
     <div className="flex flex-col py-2">
-      {/* <div className="flex items-center justify-center">
-        <h1 className="my-5 text-3xl text-center text-teal-500 align-center">
-          Create Strength Workout
-        </h1>
-      </div> */}
 
       <div className="relative z-10 pt-2 pb-2">
         <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
@@ -114,8 +107,6 @@ const StrengthNoPlaylist = (props) => {
                       src="https://icons-for-free.com/iconfiles/png/512/fitness+gym+gymnasium+icon-1320168052118785594.png"
                     ></img>
                   </div>
-                  {/* <h1>Details</h1> */}
-                  {/* <div className="my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700"> */}
                   <div className="flex justify-center">
                     <div className="flex-col my-3">
                       <label

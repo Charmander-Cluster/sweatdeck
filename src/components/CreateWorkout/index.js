@@ -68,7 +68,6 @@ const CreateWorkout = () => {
               >
                 Without Playlist
               </button>
-              {/* <div className="h-1 mt-4 bg-white rounded-full shadow-lg shadow-black "></div> */}
             </div>
           </div>
         </div>

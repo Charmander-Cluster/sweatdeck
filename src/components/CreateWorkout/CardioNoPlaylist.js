@@ -87,11 +87,6 @@ const CardioNoPlaylist = () => {
 
   return (
     <div className="flex flex-col py-2">
-      {/* <div className="flex items-center justify-center">
-        <h1 className="my-5 text-3xl text-purple-500 align-center">
-          Create Cardio Workout
-        </h1>
-      </div> */}
 
       <div className="relative z-10 pt-2 pb-5">
         <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
@@ -154,7 +149,6 @@ const CardioNoPlaylist = () => {
 
                               <div className="container flex justify-center">
                                 <div className="flex justify-center">
-                                  {/* <div className="w-20 px-3 md:w-1/2"> */}
                                   <div className="">
                                     <label
                                       htmlFor="name"
@@ -191,7 +185,6 @@ const CardioNoPlaylist = () => {
                             </div>
 
                             <div className="flex justify-center">
-                              {/* <div className="w-20 md:w-1/2 px-3"> */}
                               <div className="">
                                 <label
                                   htmlFor="weight"
