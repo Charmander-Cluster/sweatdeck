@@ -93,7 +93,7 @@ const StrengthNoPlaylist = (props) => {
           <div className="flex flex-col items-start lg:flex-row lg:items-center">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <h4 className="text-2xl font-bold leading-tight text-white">
-                Create Strength Workout
+              Create Strength
               </h4>
               <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
             </div>
