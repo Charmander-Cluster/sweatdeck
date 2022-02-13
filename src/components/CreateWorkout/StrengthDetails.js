@@ -180,7 +180,6 @@ const StrengthDetails = (props) => {
             <input
               className="w-16 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="weight"
-              required
               type="number"
               min="0"
               onChange={handleChange}
@@ -216,7 +215,6 @@ const StrengthDetails = (props) => {
               className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="reps"
               min="0"
-              required
               type="number"
               onChange={handleChange}
               value={exercise.reps}
