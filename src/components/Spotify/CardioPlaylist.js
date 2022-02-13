@@ -150,7 +150,7 @@ const CardioPlaylist = (props) => {
                                     Name Your Workout
                                   </label>
                                   <input
-                                    className="w-64  bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="w-64  bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required
                                     name="name"
                                     onChange={handleChange}
