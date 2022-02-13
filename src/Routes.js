@@ -7,11 +7,12 @@ import {
   CreateWorkout,
   CreateCardio,
   CreateStrength,
-  SpotifyLogin,
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,
   ConfirmStrengthCreate,
+  CardioNoPlaylist,
+  StrengthNoPlaylist,
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/User/SignIn";

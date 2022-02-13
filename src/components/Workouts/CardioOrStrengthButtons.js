@@ -23,7 +23,7 @@ const CardioOrStrengthButtons = () => {
       <div className="flex items-center justify-center">
         <img
           src="https://gifimage.net/wp-content/uploads/2018/11/cute-funny-gif-3.gif"
-          className="mt-24 rounded-full shadow-lg h-28 shadow-black"
+          className="mt-32 rounded-full shadow-lg h-28 shadow-black"
           alt="add-list"
         />
       </div>

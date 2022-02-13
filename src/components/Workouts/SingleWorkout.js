@@ -24,7 +24,7 @@ const SingleWorkout = () => {
     return state.cardioLocalWorkout;
   });
 
-  console.log(cardioLocalWorkout.accessToken);
+  const accessToken = localStorage.getItem("accessToken");
 
   let { id, docId } = useParams();
 
@@ -112,14 +112,14 @@ const SingleWorkout = () => {
                             </a>
                           </h2>
                           <div className="px-4">
-                            {cardioLocalWorkout.accessToken !== undefined && (
+                            {accessToken !== undefined && (
                               <SpotifyPlayer
                                 autoPlay={false}
                                 persistDeviceSelection
                                 showSaveIcon
                                 play={true}
                                 syncExternalDevice
-                                token={cardioLocalWorkout.accessToken}
+                                token={accessToken}
                                 styles={{
                                   sliderColor: "#1cb954",
                                   trackArtistColor: "#ccc",
