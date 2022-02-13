@@ -1,50 +1,45 @@
 import React, { useState, useEffect } from "react";
+import StrengthDetails from "./StrengthDetails";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
 
-import useAuthStrength from "./useAuthStrength";
-import StrengthDetails from "../CreateWorkout/StrengthDetails";
-import SelectStrengthPlaylist from "./SelectStrengthPlaylist";
-import { fetchLoginUser } from "../../store/auth";
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 
+import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useHistory } from "react-router-dom";
 
-const token = new URLSearchParams(window.location.search).get("code")
-
-const StrengthPlaylist = (props) => {
-  const[select, setSelect] = useState(false)
-
-  const accessToken = useAuthStrength(token)
-
+const StrengthNoPlaylist = (props) => {
   const dispatch = useDispatch();
+
   const history = useHistory();
 
   const [user, setUser] = useState(getAuth().currentUser);
+  // const [workoutAdded, setWorkoutAdded] = useState(false);
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
     setUser(u);
   });
-
   const userId = authUser.uid;
 
-  useEffect(()=> {
-    if (accessToken) {
-      localStorage.setItem("accessToken", accessToken)
-    }
-  })
+  const [counter, setCounter] = useState(0);
+
+  const handleAdd = () => {
+    setCounter(counter + 1);
+    setWorkout({ ...workout, count: counter + 1 });
+  };
 
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  const [counter, setCounter] = useState(0);
-
-  const handleAdd = () => {
-    setCounter(counter + 1)
-    setWorkout({ ...workout, count: counter+1 })
-  }
+  // useEffect(() => {
+  //   if (workoutAdded) {
+  //     dispatch(createDBWorkoutNoPlaylist(strengthLocalWorkout, userId));
+  //     dispatch(strengthLocalCreateWorkout({}))
+  //     history.push("/confirmstrengthcreate");
+  //   }
+  // }, [dispatch, workoutAdded, strengthLocalWorkout, userId])
 
   const [workout, setWorkout] = useState({
     category: "strength",
@@ -54,11 +49,8 @@ const StrengthPlaylist = (props) => {
     timesCompleted: 0,
     datesCompleted: [],
     logs: 0,
-    count: 0
+    count: 0,
   });
-
-  // const [counter, setCounter] = useState((workout.count) ? workout.count : 0);
-
 
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
@@ -69,31 +61,24 @@ const StrengthPlaylist = (props) => {
   };
 
   const handleDelete = (element) => {
-    setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+    setWorkout({ ...workout }, workout.exercises.splice(element, 1));
     if (counter > 0) {
-      setCounter(counter - 1)
-      setWorkout({ ...workout, count: counter-1 })
+      setCounter(counter - 1);
+      setWorkout({ ...workout, count: counter - 1 });
     }
   };
 
   const handleCancel = () => {
-    setSelect(false)
+    history.push("/createworkout");
   };
-
-  const handleSelectPlaylist = (event) => {
-    event.preventDefault();
-    setSelect(true)
-  };
-
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     dispatch(createDBWorkoutNoPlaylist(workout, userId));
-    history.push("/confirmcardiocreate")
+    history.push("/confirmcardiocreate");
   };
 
-
-return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCancel} workout={workout}/>) : (
+  return (
     <div className="flex flex-col py-2">
 
       <div className="relative z-10 pt-2 pb-2">
@@ -101,14 +86,13 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
           <div className="flex flex-col items-start lg:flex-row lg:items-center">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <h4 className="text-2xl font-bold leading-tight text-white">
-              Create Strength <span className="text-sm text-zinc-400">| With Playlist</span>
+              Create Strength
               </h4>
               <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
             </div>
           </div>
         </div>
       </div>
-
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
         <div className="m-3 my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700 mb-14">
@@ -132,7 +116,7 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                         Name Your Workout
                       </label>
                       <input
-                        className="w-72  bg-gray-50 border border-gray-300 text-teal-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="w-72  bg-gray-50 border border-gray-300 text-teal-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         name="name"
                         onChange={handleChange}
                         value={workout.name}
@@ -144,22 +128,21 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                     <StrengthDetails
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
-                      handleDelete = {handleDelete}
-                      counter ={counter}
+                      handleDelete={handleDelete}
                       thisArray={0}
                       workout={workout}
                     />
-                    {(counter >= 0)  && [...Array(counter)].map((_, i) => (
-                      <StrengthDetails
-                        handleChange={handleChange}
-                        handleUpdate={handleUpdate}
-                        handleDelete = {handleDelete}
-                        counter={counter}
-                        workout={workout}
-                        thisArray={i+1}
-                        key={i}
-                      />
-                    ))}
+                    {counter >= 0 &&
+                      [...Array(counter)].map((_, i) => (
+                        <StrengthDetails
+                          handleChange={handleChange}
+                          handleUpdate={handleUpdate}
+                          handleDelete={handleDelete}
+                          workout={workout}
+                          thisArray={i + 1}
+                          key={i}
+                        />
+                      ))}
                   </div>
 
                   <div className="flex justify-end">
@@ -178,16 +161,43 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                  (<div className="text-amber-400 my-3 text-center">Complete all fields and save an exercise to create workout</div>) :
 
                     (<div className="grid mt-8 place-items-center">
-                    <button
+                    {/* <button
                       className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
-                      onClick={handleSelectPlaylist}
+                      //onClick={handleSubmitWithSpotify}
+                      //href={AUTH_URL}
                       disabled={
                         workout.category === "" ||
                         workout.name === "" ||
                         workout.exercises.length === 0
                       }
                     >
-                      Select Spotify Playlist
+                      Save & Connect Spotify Playlist
+                    </button> */}
+                    <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
+                    onClick={handleSubmitWithoutPlaylist}
+                    disabled={
+                      workout.category === "" ||
+                      workout.name === "" ||
+                      workout.exercises.length === 0
+                    }
+                    >
+                      Save Workout
+                    </button>
+                    </div>)
+                  }
+
+                  {/* <div className="grid mt-8 place-items-center">
+                    <button
+                      className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
+                      onClick={handleSubmitWithSpotify}
+                      href={AUTH_URL}
+                      disabled={
+                        workout.category === "" ||
+                        workout.name === "" ||
+                        workout.exercises.length === 0
+                      }
+                    >
+                      Save & Connect Playlist
                     </button>
                     <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
                     onClick={handleSubmitWithoutPlaylist}
@@ -199,8 +209,7 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                     >
                       Save Without Playlist
                     </button>
-                    </div>)
-                  }
+                    </div> */}
 
                   <div className="grid place-items-center">
                     <button
@@ -209,8 +218,7 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
                     >
                       Cancel
                     </button>
-                    </div>
-
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,4 +229,4 @@ return select ? (<SelectStrengthPlaylist token={token} handleCancel={handleCance
   );
 };
 
-export default StrengthPlaylist;
+export default StrengthNoPlaylist;

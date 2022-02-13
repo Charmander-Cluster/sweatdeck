@@ -7,11 +7,12 @@ import {
   CreateWorkout,
   CreateCardio,
   CreateStrength,
-  SpotifyLogin,
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,
   ConfirmStrengthCreate,
+  CardioNoPlaylist,
+  StrengthNoPlaylist
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/User/SignIn";
@@ -39,9 +40,10 @@ const Routes = () => {
             path="/createworkout/strength"
             component={CreateStrength}
           />
-          {/* <Route path='/spotifylogin' component={SpotifyLogin}/> */}
           <Route path="/cardioplaylist" component={CardioPlaylist} />
           <Route path="/strengthplaylist" component={StrengthPlaylist} />
+          <Route path="/createworkout/cardio/noplaylist" component={CardioNoPlaylist} />
+          <Route path="/createworkout/strength/noplaylist" component={StrengthNoPlaylist} />
           <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
           <Route
             exact
