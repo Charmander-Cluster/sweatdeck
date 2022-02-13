@@ -42,28 +42,27 @@ const CreateWorkout = () => {
 
 
       <div className="flex flex-row items-center justify-center space-x-6">
-            <div className="flex justify-center hover:text-gray-300">
+            <div className="flex justify-center ">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
-              <button className="text-xl font-bold leading-tight text-zinc-500
-              hover:text-gray-300 hover:border-gray-300
-              border-transparent border-b-4 pb-5"
+              <button className="text-xl font-bold leading-tight text-zinc-500"
               button onClick={()=>setWithPlaylist(true)} >
                 With Playlist
               </button>
-              {/* <div className="h-1 mt-4 rounded-full border-transparent hover:bg-gray-300"></div> */}
+              <div className="h-1 mt-4 bg-zinc-500 rounded-full"></div>
             </div>
             </div>
 
             <div className="flex justify-center ">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
-              <button className="text-xl font-bold leading-tight text-zinc-500
-              hover:text-gray-300 hover:border-gray-300
-              border-transparent border-b-4 pb-5"
+              <button className="text-xl font-bold leading-tight text-white"
               button onClick={()=>setWithPlaylist(false)} >
                 Without Playlist
               </button>
+              <div className="h-1 mt-4 bg-white rounded-full shadow-lg shadow-black "></div>
             </div>
             </div>
+
+
           </div>
 
 
