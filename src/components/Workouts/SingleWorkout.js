@@ -111,7 +111,7 @@ const SingleWorkout = () => {
                               {workout.playlist.name}
                             </a>
                           </h2>
-                          <div>
+                          <div className="px-4">
                             {cardioLocalWorkout.accessToken !== undefined && (
                               <SpotifyPlayer
                                 autoPlay={false}
@@ -121,7 +121,6 @@ const SingleWorkout = () => {
                                 syncExternalDevice
                                 token={cardioLocalWorkout.accessToken}
                                 styles={{
-                                  loaderColor: "#fff",
                                   sliderColor: "#1cb954",
                                   trackArtistColor: "#ccc",
                                   trackNameColor: "#fff",

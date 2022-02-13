@@ -26,10 +26,6 @@ const CreateCardio = (props) => {
   const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"
   )}`;
-  console.log(
-    "🚀 ~ file: CreateCardio.js ~ line 29 ~ CreateCardio ~ AUTH_URL",
-    AUTH_URL
-  );
 
   const dispatch = useDispatch();
   const history = useHistory();

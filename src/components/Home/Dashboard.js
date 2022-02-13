@@ -63,7 +63,7 @@ const Dashboard = () => {
     <>
       {latestWorkouts.length > 0 ? (
         <div className="pb-16 scroll">
-          <div className="relative z-10 pt-4 pb-10">
+          <div className="relative z-10 pb-10 md:mt-4">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex">
               <div className="flex flex-col items-start">
                 <div className="my-6 ml-0 lg:ml-20 lg:my-0">
@@ -89,7 +89,7 @@ const Dashboard = () => {
                     }}
                     className="flex flex-row"
                   >
-                    <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                    <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-purple-700">
                       Cardio
                     </h4>
 
@@ -141,7 +141,7 @@ const Dashboard = () => {
                     }}
                     className="flex flex-row"
                   >
-                    <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-teal-700">
+                    <h4 className="mb-2 text-2xl font-bold leading-tight text-white hover:text-purple-700">
                       Strength
                     </h4>
 

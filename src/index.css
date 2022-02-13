@@ -24,7 +24,7 @@
 }
 
 .react-calendar {
-  @apply flex flex-col items-center md:w-6/12 justify-center py-8 px-4 mx-6 bg-teal-600 shadow-md shadow-black rounded-md mt-3;
+  @apply flex flex-col items-center  justify-center py-8 px-4 mx-6 bg-teal-600 shadow-md shadow-black rounded-md mt-3;
 }
 
 /* .react-calendar__doubleView {
@@ -194,7 +194,6 @@
   @apply bg-gradient-to-l from-teal-600 to-purple-600 fixed z-50 top-0 left-0 w-full h-1;
 }
 
-/* Fancy blur effect */
 #nprogress .peg {
   display: block;
   position: absolute;
@@ -208,8 +207,6 @@
   -ms-transform: rotate(3deg) translate(0px, -4px);
   transform: rotate(3deg) translate(0px, -4px);
 }
-
-/* Remove these to get rid of the spinner */
 
 .nprogress-custom-parent {
   overflow: hidden;
