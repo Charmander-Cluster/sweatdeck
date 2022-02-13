@@ -77,7 +77,7 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center pb-20 md:min-h-screen md:justify-center">
+      <div className="flex flex-col items-center pb-16 md:min-h-screen md:justify-center">
         <div className="overflow-hidden rounded">
           <div className="relative z-10 pt-4">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto ">
@@ -91,7 +91,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-start justify-start p-4 mx-5 rounded md:mx-auto md:max-w-md ">
+          <div className="flex flex-col items-start justify-start p-4 mx-2 rounded md:mx-auto md:max-w-md ">
             <div className="flex flex-row md:ml-2">
               {user.gender === "Male Identifying" ? (
                 <div className="w-24 h-24">

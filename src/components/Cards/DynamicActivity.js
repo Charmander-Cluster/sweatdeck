@@ -75,7 +75,7 @@ const DynamicActivity = (props) => {
   };
 
   return (
-    <div className="relative z-10 w-full mb-6 -mt-8 bg-teal-600 rounded-md shadow-md shadow-black">
+    <div className="relative z-10 w-full mb-8 -mt-8 bg-teal-600 rounded-md shadow-md shadow-black">
       <h3 className="py-4 pl-6 text-2xl font-bold leading-normal text-purple-700 ">
         Weekly Activity
       </h3>

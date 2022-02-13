@@ -62,7 +62,7 @@ const Dashboard = () => {
   return (
     <>
       {latestWorkouts.length > 0 ? (
-        <div className="pb-10 scroll">
+        <div className="pb-16 scroll">
           <div className="relative z-10 pt-4 pb-10">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex">
               <div className="flex flex-col items-start">
