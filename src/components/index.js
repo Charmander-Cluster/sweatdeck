@@ -5,6 +5,7 @@ export { default as ConfirmCardioCreate } from "./CreateWorkout/ConfirmCardioCre
 export { default as ConfirmStrengthCreate } from "./CreateWorkout/ConfirmStrengthCreate"
 export { default as SpotifyLogin } from "./Spotify/SpotifyLogin"
 export { default as CardioNoPlaylist } from "./CreateWorkout/CardioNoPlaylist"
+export { default as StrengthNoPlaylist } from "./CreateWorkout/StrengthNoPlaylist"
 export { default as CardioPlaylist } from "./Spotify/CardioPlaylist"
 export { default as StrengthPlaylist } from "./Spotify/StrengthPlaylist"
 

@@ -9,7 +9,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 
 const StrengthNoPlaylist = (props) => {
-
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -23,12 +22,12 @@ const StrengthNoPlaylist = (props) => {
   });
   const userId = authUser.uid;
 
-  const [counter, setCounter] = useState((workout.count) ? workout.count : 0);
+  const [counter, setCounter] = useState(0);
 
   const handleAdd = () => {
-    setCounter(counter + 1)
-    setWorkout({ ...workout, count: counter+1 })
-  }
+    setCounter(counter + 1);
+    setWorkout({ ...workout, count: counter + 1 });
+  };
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -50,8 +49,10 @@ const StrengthNoPlaylist = (props) => {
     timesCompleted: 0,
     datesCompleted: [],
     logs: 0,
-    count: 0
+    count: 0,
   });
+
+  console.log("NO PLAYLIST WORKOUT", workout)
 
   const handleChange = (event) => {
     setWorkout({ ...workout, [event.target.name]: event.target.value });
@@ -62,10 +63,10 @@ const StrengthNoPlaylist = (props) => {
   };
 
   const handleDelete = (element) => {
-    setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+    setWorkout({ ...workout }, workout.exercises.splice(element, 1));
     if (counter > 0) {
-      setCounter(counter - 1)
-      setWorkout({ ...workout, count: counter-1 })
+      setCounter(counter - 1);
+      setWorkout({ ...workout, count: counter - 1 });
     }
   };
 
@@ -76,12 +77,11 @@ const StrengthNoPlaylist = (props) => {
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     dispatch(createDBWorkoutNoPlaylist(workout, userId));
-    history.push("/confirmcardiocreate")
+    history.push("/confirmcardiocreate");
   };
 
   return (
     <div className="flex flex-col py-2">
-
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-center text-teal-500 align-center">
           Create Strength Workout
@@ -100,7 +100,6 @@ const StrengthNoPlaylist = (props) => {
           </div>
         </div>
       </div>
-
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
         <div className="m-3 my-5 overflow-x-auto border border-teal-500 rounded-md bg-neutral-700 mb-14">
@@ -139,20 +138,21 @@ const StrengthNoPlaylist = (props) => {
                     <StrengthDetails
                       handleChange={handleChange}
                       handleUpdate={handleUpdate}
-                      handleDelete = {handleDelete}
+                      handleDelete={handleDelete}
                       thisArray={0}
                       workout={workout}
                     />
-                    {(counter >= 0)  && [...Array(counter)].map((_, i) => (
-                      <StrengthDetails
-                        handleChange={handleChange}
-                        handleUpdate={handleUpdate}
-                        handleDelete = {handleDelete}
-                        workout={workout}
-                        thisArray={i+1}
-                        key={i}
-                      />
-                    ))}
+                    {counter >= 0 &&
+                      [...Array(counter)].map((_, i) => (
+                        <StrengthDetails
+                          handleChange={handleChange}
+                          handleUpdate={handleUpdate}
+                          handleDelete={handleDelete}
+                          workout={workout}
+                          thisArray={i + 1}
+                          key={i}
+                        />
+                      ))}
                   </div>
 
                   <div className="flex justify-end">
@@ -173,8 +173,8 @@ const StrengthNoPlaylist = (props) => {
                     (<div className="grid mt-8 place-items-center">
                     <button
                       className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
-                      onClick={handleSubmitWithSpotify}
-                      href={AUTH_URL}
+                      //onClick={handleSubmitWithSpotify}
+                      //href={AUTH_URL}
                       disabled={
                         workout.category === "" ||
                         workout.name === "" ||
@@ -228,8 +228,7 @@ const StrengthNoPlaylist = (props) => {
                     >
                       Cancel
                     </button>
-                    </div>
-
+                  </div>
                 </div>
               </div>
             </div>
@@ -241,4 +240,3 @@ const StrengthNoPlaylist = (props) => {
 };
 
 export default StrengthNoPlaylist;
-

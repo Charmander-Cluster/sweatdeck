@@ -285,7 +285,7 @@ const CardioNoPlaylist = () => {
                                     exercises.minutes === ""
                                   }
                                 >
-                                  Select Playlist
+                                  Save Workout
                                 </button>
                               </div>
                             )}
