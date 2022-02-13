@@ -107,7 +107,7 @@ const CardioNoPlaylist = () => {
       </div>
 
       <div className="flex flex-row justify-center w-full mb-3 -mt-4 text-1xl">
-        <div className="m-3 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
+        <div className="m-3 mt-5 overflow-x-auto border border-purple-500 rounded-md bg-neutral-700 mb-14">
           <form className="justify-center max-w-4xl p-3 ">
             <div className="flex flex-wrap -mx-3 ">
               <div className="container flex justify-center">
@@ -115,7 +115,7 @@ const CardioNoPlaylist = () => {
                   <div className="container w-screen p-3">
                     <div className="flex justify-center">
                       <img
-                        className="h-16 mb-2 max-h-16"
+                        className="h-16 mb-5 max-h-16"
                         alt="weight-icon"
                         src="https://cdn-wellnessnow.b-cdn.net/wp-content/uploads/2021/01/regenerate-icon.svg"
                       ></img>

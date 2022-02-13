@@ -8,13 +8,13 @@ import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const token = new URLSearchParams(window.location.search).get("code")
+const token = new URLSearchParams(window.location.search).get("code");
 
 const CardioPlaylist = (props) => {
+  const [select, setSelect] = useState(false);
 
-  const[select, setSelect] = useState(false)
-
-  const accessToken = useAuthCardio(token) || localStorage.getItem("accessToken");
+  const accessToken =
+    useAuthCardio(token) || localStorage.getItem("accessToken");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,11 +28,11 @@ const CardioPlaylist = (props) => {
   });
   const userId = authUser.uid;
 
-  useEffect(()=> {
+  useEffect(() => {
     if (accessToken) {
-      localStorage.setItem("accessToken", accessToken)
+      localStorage.setItem("accessToken", accessToken);
     }
-  })
+  });
 
   useEffect(() => {
     dispatch(fetchLoginUser());
@@ -49,11 +49,11 @@ const CardioPlaylist = (props) => {
   });
 
   const [exercises, setExercises] = useState({
-    type:"",
+    type: "",
     distance: "",
     units: "select",
     hours: "",
-    minutes:"",
+    minutes: "",
   });
 
   const handleChange = (event) => {
@@ -67,19 +67,19 @@ const CardioPlaylist = (props) => {
   const handleSelectPlaylist = (event) => {
     event.preventDefault();
     workout.exercises.push(exercises);
-    setSelect(true)
+    setSelect(true);
   };
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     dispatch(createDBWorkoutNoPlaylist(workout, userId));
-    history.push("/confirmcardiocreate")
+    history.push("/confirmcardiocreate");
     // setWorkoutAdded(true);
-  }
+  };
 
   const handleCancel = () => {
-    setSelect(false)
-  }
+    setSelect(false);
+  };
 
   const handleDelete = () => {
     setWorkout({
@@ -94,15 +94,16 @@ const CardioPlaylist = (props) => {
     history.push("/createworkout");
   };
 
-  return select ? (<SelectCardioPlaylist token={token} handleCancel={handleCancel} workout={workout}/>) : (
+  return select ? (
+    <SelectCardioPlaylist
+      token={token}
+      handleCancel={handleCancel}
+      workout={workout}
+    />
+  ) : (
     <div className="flex flex-col py-2">
-      {/* <div className="flex items-center justify-center">
-        <h1 className="my-5 text-3xl text-purple-500 align-center">
-          Create Cardio Workout
-        </h1>
-      </div> */}
 
-<div className="relative z-10 pt-2 pb-5">
+      <div className="relative z-10 pt-2 pb-5">
         <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
           <div className="flex flex-col items-start lg:flex-row lg:items-center">
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
@@ -138,27 +139,23 @@ const CardioPlaylist = (props) => {
                         </div>
                         <div className="flex align-center">
                           <div className="flex-col">
-
-
-
                             <div className="flex-col justify-center items-center">
-
                               <div className="container flex justify-center">
-                              <div className="flex-col justify-center">
-                              <label
-                                htmlFor="name"
-                                className="block mt-2 text-sm font-medium"
-                              >
-                                Name Your Workout
-                              </label>
-                              <input
-                                className="w-64  bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required
-                                name="name"
-                                onChange={handleChange}
-                                value={workout.name}
-                              />
-                              </div>
+                                <div className="flex-col justify-center">
+                                  <label
+                                    htmlFor="name"
+                                    className="block mt-2 text-sm font-medium"
+                                  >
+                                    Name Your Workout
+                                  </label>
+                                  <input
+                                    className="w-64  bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required
+                                    name="name"
+                                    onChange={handleChange}
+                                    value={workout.name}
+                                  />
+                                </div>
                               </div>
 
                               <div className="container flex justify-center">
@@ -292,7 +289,6 @@ const CardioPlaylist = (props) => {
                               </div>
                             ) : (
                               <div className="grid mt-5 place-items-center">
-
                                 <button
                                   className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
                                   onClick={handleSelectPlaylist}
@@ -309,16 +305,17 @@ const CardioPlaylist = (props) => {
                                   Select Playlist
                                 </button>
 
-                                <button className="flex p-2 mb-3 text-lg text-purple-600 border border-purple-600 rounded-md rounded-"
+                                <button
+                                  className="flex p-2 mb-3 text-lg text-purple-600 border border-purple-600 rounded-md rounded-"
                                   onClick={handleSubmitWithoutPlaylist}
                                   disabled={
                                     workout.category === "" ||
                                     workout.name === "" ||
                                     workout.exercises.length === 0
                                   }
-                                  >
-                                    Save Without Playlist
-                                  </button>
+                                >
+                                  Save Without Playlist
+                                </button>
                               </div>
                             )}
 
@@ -346,4 +343,3 @@ const CardioPlaylist = (props) => {
 };
 
 export default CardioPlaylist;
-
