@@ -11,9 +11,9 @@ import {
 } from "./StrengthExercises";
 
 const StrengthDetails = (props) => {
-  const [workout, setWorkout] = useState(props.workout);
+  const workout = props.workout;
   console.log("DETAILS WORKOUT", workout)
-  //const handleUpdate = props.handleUpdate;
+  const handleUpdate = props.handleUpdate;
   const thisArray = props.thisArray;
   const handleDelete = props.handleDelete;
   // const finalExercise = props.finalExercise
@@ -36,9 +36,9 @@ const StrengthDetails = (props) => {
     setExercise({ ...exercise, [event.target.name]: event.target.value });
   };
 
-  const handleUpdate = (exercise) => {
-    setWorkout({ ...workout }, workout.exercises.push(exercise));
-  };
+  // const handleUpdate = (exercise) => {
+  //   setWorkout({ ...workout }, workout.exercises.push(exercise));
+  // };
 
   const handleConfirm = (event) => {
     event.preventDefault();

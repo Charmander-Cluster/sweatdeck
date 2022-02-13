@@ -171,7 +171,7 @@ const StrengthNoPlaylist = (props) => {
                  (<div className="text-amber-400 my-3 text-center">Complete all fields and save an exercise to create workout</div>) :
 
                     (<div className="grid mt-8 place-items-center">
-                    <button
+                    {/* <button
                       className="flex p-2 mb-3 text-lg text-white bg-teal-500 rounded-md"
                       //onClick={handleSubmitWithSpotify}
                       //href={AUTH_URL}
@@ -182,7 +182,7 @@ const StrengthNoPlaylist = (props) => {
                       }
                     >
                       Save & Connect Spotify Playlist
-                    </button>
+                    </button> */}
                     <button className="flex p-2 mb-3 text-lg text-teal-500 border border-teal-500 rounded-md rounded-"
                     onClick={handleSubmitWithoutPlaylist}
                     disabled={
@@ -191,7 +191,7 @@ const StrengthNoPlaylist = (props) => {
                       workout.exercises.length === 0
                     }
                     >
-                      Save Without Playlist
+                      Save Workout
                     </button>
                     </div>)
                   }

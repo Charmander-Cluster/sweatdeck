@@ -270,14 +270,14 @@ const CardioPlaylist = (props) => {
                             exercises.units === "" ||
                             exercises.hours === "" ||
                             exercises.minutes === "" ? (
-                              <div className="my-5 text-amber-400">
+                              <div className="my-3 text-amber-400">
                                 Complete all fields to create workout{" "}
                               </div>
                             ) : (
                               <div className="grid mt-5 place-items-center">
 
                                 <button
-                                  className="flex p-3 mb-3 text-lg text-neutral-700 bg-purple-600 rounded-md"
+                                  className="flex p-3 mb-3 text-lg text-white bg-purple-500 rounded-md"
                                   onClick={handleSelectPlaylist}
                                   disabled={
                                     workout.category === "" ||

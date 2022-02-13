@@ -133,7 +133,7 @@ const CardioNoPlaylist = () => {
                                 Workout Type
                               </label>
                               <select
-                                className="w-64 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="w-64 bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 name="type"
                                 defaultValue=""
                                 value={exercises.type}
@@ -166,18 +166,18 @@ const CardioNoPlaylist = () => {
                           <div className="flex-col">
                             <label
                               htmlFor="name"
-                              className="block mt-5 text-sm font-medium"
+                              className="block mt-2 text-sm font-medium"
                             >
                               Name Your Workout
                             </label>
                             <input
-                              className="w-72  bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="w-72  bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               required
                               name="name"
                               onChange={handleChange}
                               value={workout.name}
                             />
-                            <div className="flex m-5 align-center">
+                            <div className="flex mx-5 mt-2 mb-1 align-center">
                               <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                                 <label
                                   htmlFor="distance"
@@ -187,7 +187,7 @@ const CardioNoPlaylist = () => {
                                 </label>
                                 <input
                                   name="distance"
-                                  className="w-28 @error bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-28 @error bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 m-1 dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -204,7 +204,7 @@ const CardioNoPlaylist = () => {
                                   Units
                                 </label>
                                 <select
-                                  className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-28 h-12 text-sm bg-gray-50 border border-gray-300 text-purple-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 m-1  dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   name="units"
                                   required
                                   defaultValue="select"
@@ -231,7 +231,7 @@ const CardioNoPlaylist = () => {
                                 </label>
                                 <input
                                   name="hours"
-                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -249,7 +249,7 @@ const CardioNoPlaylist = () => {
                                 </label>
                                 <input
                                   name="minutes"
-                                  className="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  className="w-20 bg-gray-50 border border-gray-300 text-purple-600 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 m-1 dark:placeholder-gray-400 dark:text-purple-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required
                                   type="number"
                                   min="0"
@@ -266,7 +266,7 @@ const CardioNoPlaylist = () => {
                             exercises.units === "" ||
                             exercises.hours === "" ||
                             exercises.minutes === "" ? (
-                              <div className="my-5 text-amber-400">
+                              <div className="my-3 text-amber-400">
                                 Complete all fields to create workout{" "}
                               </div>
                             ) : (
