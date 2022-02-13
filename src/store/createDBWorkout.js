@@ -33,7 +33,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
     })
     .then(function (docRef) {
       const userWorkoutId = docRef.id;
-      dispatch(_createDBWorkout(userWorkoutId))
+      dispatch(_createDBWorkout(userWorkoutId));
       setDoc(doc(db, "workouts", userWorkoutId), {
         createdAt: serverTimestamp(),
         name: workout.name,
@@ -43,7 +43,7 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
         userId: userId,
         logs: 0
       });
-    })
+    });
   } catch (error) {
     return error;
   }
@@ -63,7 +63,7 @@ export const createDBWorkoutNoPlaylist =
         timesCompleted: 0
       }).then(function (docRef) {
         const userWorkoutId = docRef.id;
-        dispatch(_createDBWorkout(userWorkoutId))
+        dispatch(_createDBWorkout(userWorkoutId));
         setDoc(doc(db, "workouts", userWorkoutId), {
           createdAt: serverTimestamp(),
           name: workout.name,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import UserProfile from "./components/User/UserProfile";
 import EditUser from "./components/User/EditUser";
@@ -7,11 +7,12 @@ import {
   CreateWorkout,
   CreateCardio,
   CreateStrength,
-  SpotifyLogin,
   CardioPlaylist,
   StrengthPlaylist,
   ConfirmCardioCreate,
   ConfirmStrengthCreate,
+  CardioNoPlaylist,
+  StrengthNoPlaylist,
 } from "./components";
 import Dashboard from "./components/Home/Dashboard";
 import SignIn from "./components/User/SignIn";
@@ -27,64 +28,152 @@ import RecommendedWorkouts from "./components/RecommendedWorkouts"
 import RecommendedSingleWorkout from "./components/RecommendedSingleWorkout"
 
 import PasswordReset from "./components/User/PasswordReset";
+import BarRoute from "./components/LoadingBar/BarRoute";
 
 const Routes = () => {
   const authUser = useSelector((state) => state.auth);
+
+  const routes = [
+    {
+      title: "UserProfile",
+      path: "/users/:id",
+      exact: true,
+      component: UserProfile,
+    },
+    {
+      title: "EditUser",
+      path: "/users/:id/edit",
+      exact: false,
+      component: EditUser,
+    },
+    {
+      title: "CardioOrStrengthButtons",
+      path: "/users/:id/chooseworkout",
+      exact: true,
+      component: CardioOrStrengthButtons,
+    },
+    {
+      title: "UserWorkouts",
+      path: "/users/:id/workouts",
+      exact: true,
+      component: UserWorkouts,
+    },
+    {
+      title: "SingleWorkout",
+      path: "/users/:id/workouts/:docId",
+      exact: true,
+      component: SingleWorkout,
+    },
+    // {
+    //   title: "RecommendedWorkouts",
+    //   path: "/users/:id/recommendedWorkouts",
+    //   exact: true,
+    //   component: RecommendedWorkouts,
+    // },
+    {
+      title: "RecommendedSingleWorkout",
+      path: "/users/:id/recommendedWorkouts/:docId",
+      exact: true,
+      component: RecommendedSingleWorkout,
+    },
+    {
+      title: "ConfirmStrengthCreate",
+      path: "/confirmstrengthcreate",
+      exact: true,
+      component: ConfirmStrengthCreate,
+    },
+    {
+      title: "EditStrengthWorkout",
+      path: "/users/:id/workouts/:docId/editstrength",
+      exact: true,
+      component: EditStrengthWorkout,
+    },
+    {
+      title: "EditCardioWorkout",
+      path: "/users/:id/workouts/:docId/editcardio",
+      component: EditCardioWorkout,
+    },
+    {
+      title: "ConfirmCardioCreate",
+      path: "/confirmcardiocreate",
+      component: ConfirmCardioCreate,
+    },
+    {
+      title: "StrengthPlaylist",
+      path: "/strengthplaylist",
+      component: StrengthPlaylist,
+    },
+    {
+      title: "CardioPlaylist",
+      path: "/cardioplaylist",
+      component: CardioPlaylist,
+    },
+    {
+      title: "CreateStrength",
+      path: "/createworkout/strength",
+      exact: true,
+      component: CreateStrength,
+    },
+    {
+      title: "CreateCardio",
+      path: "/createworkout/cardio",
+      exact: true,
+      component: CreateCardio,
+    },
+    {
+      title: "CreateWorkout",
+      path: "/createworkout",
+      exact: true,
+      component: CreateWorkout,
+    },
+    {
+      title: "SignUp",
+      path: "/signup",
+      exact: true,
+      component: SignUp,
+    },
+    {
+      title: "Dashboard",
+      path: "/",
+      exact: false,
+      component: Dashboard,
+    },
+  ];
+
+  const restrictedRoutes = [
+    {
+      title: "SignUp",
+      path: "/signup",
+      exact: true,
+      component: SignUp,
+    },
+    {
+      title: "PasswordReset",
+      path: "/passwordreset",
+      exact: true,
+      component: PasswordReset,
+    },
+    {
+      title: "SignIn",
+      path: "/",
+      exact: false,
+      component: SignIn,
+    },
+  ];
 
   return (
     <>
       {authUser.uid ? (
         <Switch>
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/createworkout" component={CreateWorkout} />
-          <Route exact path="/createworkout/cardio" component={CreateCardio} />
-          <Route
-            exact
-            path="/createworkout/strength"
-            component={CreateStrength}
-          />
-          {/* <Route path='/spotifylogin' component={SpotifyLogin}/> */}
-          <Route path="/cardioplaylist" component={CardioPlaylist} />
-          <Route path="/strengthplaylist" component={StrengthPlaylist} />
-          <Route path="/confirmcardiocreate" component={ConfirmCardioCreate} />
-          <Route
-            exact
-            path="/users/:id/workouts/:docId/editcardio"
-            component={EditCardioWorkout}
-          />
-          <Route
-            exact
-            path="/users/:id/workouts/:docId/editstrength"
-            component={EditStrengthWorkout}
-          />
-          <Route
-            path="/confirmstrengthcreate"
-            component={ConfirmStrengthCreate}
-          />
-          <Route
-            exact
-            path="/users/:id/workouts/:docId"
-            component={SingleWorkout}
-          />
-          <Route exact path="/users/:id/workouts" component={UserWorkouts} />
-          <Route exact path="/users/:id/recommendedWorkouts" component={RecommendedWorkouts} />
-          <Route exact path="/users/:id/recommendedWorkouts/:docId" component={RecommendedSingleWorkout} />
-
-          <Route
-            exact
-            path="/users/:id/chooseworkout"
-            component={CardioOrStrengthButtons}
-          />
-          <Route path="/users/:id/edit" component={EditUser} />
-          <Route exact path="/users/:id" component={UserProfile} />
-          <Route exact path="/" component={Dashboard} />
-          <Route exact path="/Popup" component={Popup} />
+          {routes.map((route, i) => (
+            <BarRoute key={i} {...route} />
+          ))}
         </Switch>
       ) : (
         <Switch>
-          <Route exact path="/passwordreset" component={PasswordReset} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route path="/" component={SignIn} />
+          {restrictedRoutes.map((route, i) => (
+            <BarRoute key={i} {...route} />
+          ))}
         </Switch>
       )}
     </>

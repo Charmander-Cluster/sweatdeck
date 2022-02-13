@@ -27,6 +27,7 @@ export const fetchRecommendedWorkoutsThunk = (
 ) => {
   return async (dispatch) => {
     try {
+
       // const user = await getDoc(doc(db, "users", userId));
       // const userGroup = user.data().group;
       const similarUsersRef = query(
@@ -45,7 +46,7 @@ export const fetchRecommendedWorkoutsThunk = (
       const workoutsRef = query(
         collection(db, "workouts"),
         where("userId", "in", shuffled),
-        where("category", "==", "strength")
+        where("category", "==", cardioOrStrength)
       );
       let similarWorkouts = await getDocs(workoutsRef)
       let finalWorkouts = similarWorkouts.docs.map((elem) => {

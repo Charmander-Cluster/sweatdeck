@@ -9,7 +9,7 @@ const RecommendedWorkouts = (props) => {
   const { id } = useParams();
   const authUser = useSelector((state) => state.auth);
   const group = authUser.group;
-  let cardioOrStrength = props.location.state;
+  const cardioOrStrength = props.cardioOrStrength;
 
   const recommendedWorkouts = useSelector((state) => state.recommendedWorkouts);
 
@@ -22,9 +22,6 @@ const RecommendedWorkouts = (props) => {
     <div className="container flex flex-col items-center justify-center w-screen p-3 py-2">
       <div className="flex items-center justify-center">
         <div className="grid grid-cols-1">
-          <h1 className="my-10 text-3xl text-teal-500 align-center text-center uppercase">
-            Recommended Workouts
-          </h1>
 
           <div className="pt-20 overflow-hidden rounded">
             <div className="grid grid-cols-1">

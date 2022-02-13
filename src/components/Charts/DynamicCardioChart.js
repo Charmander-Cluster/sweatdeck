@@ -56,7 +56,7 @@ const DynamicWorkoutCardioChart = (props) => {
     datasets: [
       {
         data: [props.workoutData.distance, props.workoutData.minutes],
-        backgroundColor: "#c026d3",
+        backgroundColor: "#9333ea",
       },
     ],
   };

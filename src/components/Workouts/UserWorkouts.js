@@ -1,56 +1,100 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchUserWorkoutsThunk } from "../../store/workoutsPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import RecommendedWorkouts from "../RecommendedWorkouts"
 
 const UserWorkouts = (props) => {
   const workouts = useSelector((state) => state.allWorkouts);
   let cardioOrStrength = props.location.state;
-  const upperCaseType = cardioOrStrength[0].toUpperCase() + cardioOrStrength.slice(1)
+  const upperCaseType =
+    cardioOrStrength[0].toUpperCase() + cardioOrStrength.slice(1);
 
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const redirectUri = /localhost/.test(window.location.href)
+    ? `http://localhost:3000/users/${id}/workouts/`
+    : `https://sweatdeck.herokuapp.com/users/${id}/workouts/`;
+
+  const scopes = [
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-library-read",
+    "user-library-modify",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+    "playlist-read-private",
+  ];
+
+  const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a13f745b9ab49caa6559702a79211e6&response_type=code&redirect_uri=${redirectUri}&scope=${scopes.join(
+    "%20"
+  )}`;
 
   useEffect(() => {
     dispatch(fetchUserWorkoutsThunk(id, cardioOrStrength));
   }, [dispatch, id, cardioOrStrength]);
 
+  const handleSubmitWithSpotify = (event) => {
+    event.preventDefault();
+
+    window.location.href = AUTH_URL;
+  };
+
+  const [recommended, setRecommended] = useState(false);
+
   return !workouts.length ? (
     <div className="container flex items-center justify-center mt-56">
-
-    <div className="flex-col justify-center">
-      <div className="text-3xl mb-16 text-center"> You have no {cardioOrStrength} workouts! </div>
-      <div className="flex justify-center">
-      <Link to="/createworkout">
-      <button
-        type="button"
-        className="w-58 p-4 text-3xl border border-white rounded-md bg-gradient-to-r from-teal-500 to-purple-800 justify-center"
-      >
-        {" "}
-        Create a Workout{" "}
-      </button>
-      </Link>
-      </div>
-    </div>
-
-    </div>
-  ) : (
-    <div className="container flex flex-col  w-screen py-2">
-
-      <div className="relative z-10 pt-2 pb-10">
-        <div className="container flex flex-col items-start justify-between px-6 mx-auto lg:flex-row lg:items-center">
-          <div className="flex flex-col items-start lg:flex-row lg:items-center">
-            <div className="my-6 ml-0 lg:ml-20 lg:my-0">
-              <h4 className="text-2xl font-bold leading-tight text-white">
-                Your {upperCaseType} Workouts
-              </h4>
-              <div className="h-1 mt-4 bg-gradient-to-l from-teal-600 to-purple-600 rounded-full"></div>
-            </div>
-          </div>
+      <div className="flex-col justify-center">
+        <div className="mb-16 text-3xl text-center">
+          {" "}
+          You have no {cardioOrStrength} workouts!{" "}
+        </div>
+        <div className="flex justify-center">
+          <Link to="/createworkout">
+            <button
+              type="button"
+              className="justify-center p-4 text-3xl border border-white rounded-md w-58 bg-gradient-to-r from-teal-500 to-purple-800"
+            >
+              {" "}
+              Create a Workout{" "}
+            </button>
+          </Link>
         </div>
       </div>
-          <div className="pt-20 overflow-hidden rounded">
+    </div>
+  ) : (
+    <div>
+      {!recommended ? (
+        <div className="container flex flex-col w-screen">
+          <div className="flex flex-row items-center justify-center space-x-4">
+            <div className="flex justify-center hover:text-gray-300">
+              <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+                <button
+                  className="text-base font-bold leading-tight text-white"
+                  onClick={() => setRecommended(false)}
+                >
+                  Your {upperCaseType} Workouts
+                </button>
+                <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+              </div>
+            </div>
+
+            <div className="flex justify-center ">
+              <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+                <button
+                  className="pb-5 text-base font-bold leading-tight border-b-4 border-transparent text-zinc-500 hover:text-gray-300 hover:border-gray-300"
+                  onClick={() => setRecommended(true)}
+                >
+                  Recommended {upperCaseType} Workouts
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-5 overflow-hidden rounded">
             <div className="grid grid-cols-1">
               {workouts.map((workout) => {
                 return (
@@ -70,6 +114,7 @@ const UserWorkouts = (props) => {
 
                                 <Link
                                   to={`/users/${id}/workouts/${workout.elemId}`}
+                                  // onClick={handleSubmitWithSpotify}
                                   className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
                                 >
                                   See Workout
@@ -86,6 +131,41 @@ const UserWorkouts = (props) => {
             </div>
           </div>
         </div>
+      ) : (
+        <div className="container flex flex-col w-screen">
+          <div className="flex flex-row items-center justify-center space-x-4">
+            <div className="flex justify-center hover:text-gray-300">
+              <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+                {" "}
+                <button
+                  className="pb-5 text-base font-bold leading-tight border-b-4 border-transparent text-zinc-500 hover:text-gray-300 hover:border-gray-300"
+                  onClick={() => setRecommended(false)}
+                >
+                  Your {upperCaseType} Workouts
+                </button>
+              </div>
+            </div>
+
+            <div className="flex justify-center ">
+              <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+                <button
+                  className="text-base font-bold leading-tight text-white"
+                  onClick={() => setRecommended(true)}
+                >
+                  Recommended {upperCaseType} Workouts
+                </button>
+                <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
+
+              </div>
+            </div>
+          </div>
+
+        <RecommendedWorkouts 
+        cardioOrStrength = {cardioOrStrength}
+       />
+        </div>
+      )}
+    </div>
   );
 };
 

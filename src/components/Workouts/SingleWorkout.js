@@ -6,15 +6,25 @@ import {
   fetchSingleWorkoutThunk,
   deleteWorkoutThunk,
 } from "../../store/singleWorkout";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logDBWorkout } from "../../store/logWorkout";
 import { Link } from "react-router-dom";
+
 //import Popup from "../../components/Popup";
+
+import SpotifyPlayer from "react-spotify-web-playback";
 
 import { useHistory } from "react-router-dom";
 
 const SingleWorkout = () => {
   let workout = useSelector((state) => state.singleWorkout);
+
+  let cardioLocalWorkout = useSelector((state) => {
+    return state.cardioLocalWorkout;
+  });
+
+  const accessToken = localStorage.getItem("accessToken");
 
   let { id, docId } = useParams();
 
@@ -88,18 +98,43 @@ const SingleWorkout = () => {
                       {!workout.hasOwnProperty("playlist") ? (
                         <h2>No Linked Playlist</h2>
                       ) : (
-                        <h2 className="mb-3 text-lg text-left">
-                          {" "}
-                          <a className="mr-3 text-lg text-teal-500">
-                            Playlist:{" "}
-                          </a>{" "}
-                          <a
-                            className="p-1 mr-3 text-base text-center text-white bg-teal-500 rounded-md"
-                            href={workout.playlist.url}
-                          >
-                            {workout.playlist.name}
-                          </a>
-                        </h2>
+                        <div className="flex flex-col md:mt-4">
+                          <h2 className="mb-3 text-lg text-left">
+                            {" "}
+                            <a className="mr-3 text-lg text-teal-500">
+                              Playlist:{" "}
+                            </a>{" "}
+                            <a
+                              className="p-1 mr-3 text-base text-center text-white bg-teal-500 rounded-md"
+                              href={workout.playlist.url}
+                            >
+                              {workout.playlist.name}
+                            </a>
+                          </h2>
+                          <div className="px-4">
+                            {accessToken !== undefined && (
+                              <SpotifyPlayer
+                                autoPlay={false}
+                                persistDeviceSelection
+                                showSaveIcon
+                                play={true}
+                                syncExternalDevice
+                                token={accessToken}
+                                styles={{
+                                  sliderColor: "#1cb954",
+                                  trackArtistColor: "#ccc",
+                                  trackNameColor: "#fff",
+                                  height: "70px",
+                                  sliderTrackColor: "#9333ea",
+                                  sliderTrackBorderRadius: "4px",
+                                  sliderHandleColor: "#fff",
+                                  errorColor: "#fff",
+                                }}
+                                uris={workout.playlist.uri}
+                              />
+                            )}
+                          </div>
+                        </div>
                       )}
                       {workout.category === "Strength" ||
                       workout.category === "strength"

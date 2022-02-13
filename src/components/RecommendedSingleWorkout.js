@@ -11,8 +11,9 @@ import { Link } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
 
-const RecommendedSingleWorkout = () => {
+const RecommendedSingleWorkout = (props) => {
   let workout = useSelector((state) => state.singleWorkout);
+  // const setRecommended = props.setRecommended
 
   let { id, docId } = useParams();
 
@@ -42,8 +43,9 @@ const RecommendedSingleWorkout = () => {
 
    const handleBack = (event) => {
     event.preventDefault();
+    // setRecommended(true);
     history.push({
-      pathname: `/users/${id}/recommendedworkouts`,
+      pathname: `/users/${id}/workouts`,
       state: workout.category,
     });
   };

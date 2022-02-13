@@ -15,10 +15,6 @@ const StrengthDetails = (props) => {
   const handleUpdate = props.handleUpdate;
   const thisArray = props.thisArray;
   const handleDelete = props.handleDelete;
-  // const finalExercise = props.finalExercise
-  const strengthLocalWorkout = useSelector(
-    (state) => state.strengthLocalWorkout
-  );
 
   const [completedExercise, setCompletedExercise] = useState({});
 
@@ -26,36 +22,12 @@ const StrengthDetails = (props) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const [exercise, setExercise] = useState({
-    bodyPart:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? "select"
-        : strengthLocalWorkout.exercises[thisArray].bodyPart,
-    type:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? "select"
-        : strengthLocalWorkout.exercises[thisArray].type,
-    weight:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? ""
-        : strengthLocalWorkout.exercises[thisArray].weight,
-    units:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? "select"
-        : strengthLocalWorkout.exercises[thisArray].units,
-    reps:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? ""
-        : strengthLocalWorkout.exercises[thisArray].reps,
-    sets:
-      !strengthLocalWorkout.exercises ||
-      !strengthLocalWorkout.exercises[thisArray]
-        ? ""
-        : strengthLocalWorkout.exercises[thisArray].sets,
+    bodyPart:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "select" : workout.exercises[thisArray].bodyPart,
+    type: (workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "select" : workout.exercises[thisArray].type,
+    weight:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "" : workout.exercises[thisArray].weight,
+    units:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "select" : workout.exercises[thisArray].units,
+    reps:(workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "" : workout.exercises[thisArray].reps,
+    sets: (workout.exercises.length === 0 || !workout.exercises[thisArray]) ? "" : workout.exercises[thisArray].sets,
   });
 
   const handleChange = (event) => {
@@ -68,11 +40,19 @@ const StrengthDetails = (props) => {
     setCompletedExercise(exercise);
   };
 
+  // const handleDelete = (element) => {
+  //   setWorkout({ ...workout }, workout.exercises.splice(element, 1))
+  //   if (counter > 0) {
+  //     setCounter(counter - 1)
+  //     setWorkout({ ...workout, count: counter-1 })
+  //   }
+  // };
+
   const handleRemove = (event) => {
     event.preventDefault();
-    if (thisArray ===0 ) {
+    if (workout.exercises.length === 1) {
       setExercise({
-        bodyPart:"select",
+        bodyPart: "select",
         type:"select",
         weight:"",
         units: "select",
@@ -125,7 +105,7 @@ const StrengthDetails = (props) => {
                     Muscle Focus
                   </label>
                   <select
-                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="w-28 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     name="bodyPart"
                     defaultValue="select"
                     onChange={handleChange}
@@ -194,13 +174,12 @@ const StrengthDetails = (props) => {
         <div className="flex justify-center">
           {/* <div className="w-20 md:w-1/2 px-3"> */}
           <div className="">
-            <label htmlFor="weight" className="block text-sm font-medium mt-5">
+            <label htmlFor="weight" className="block text-sm font-medium mt-3">
               Weight
             </label>
             <input
-              className="w-16 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-16 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="weight"
-              required
               type="number"
               min="0"
               onChange={handleChange}
@@ -209,11 +188,11 @@ const StrengthDetails = (props) => {
           </div>
 
           <div className="">
-            <label htmlFor="units" className="block text-sm font-medium mt-5">
+            <label htmlFor="units" className="block text-sm font-medium mt-3">
               Units
             </label>
             <select
-              className="w-16 mr-4 m-0.5 h-12 bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-16 mr-4 h-12 bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="units"
               defaultValue="select"
               onChange={handleChange}
@@ -229,27 +208,26 @@ const StrengthDetails = (props) => {
           </div>
 
           <div className="">
-            <label htmlFor="reps" className="block text-sm font-medium mt-5">
+            <label htmlFor="reps" className="block text-sm font-medium mt-3">
               Reps
             </label>
             <input
-              className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 mx-1  dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="reps"
               min="0"
-              required
               type="number"
               onChange={handleChange}
               value={exercise.reps}
             />
           </div>
 
-          <div className="mt-12">x</div>
+          <div className="mt-10">x</div>
           <div className="">
-            <label htmlFor="sets" className="block text-sm font-medium mt-5">
+            <label htmlFor="sets" className="block text-sm font-medium mt-3">
               Sets
             </label>
             <input
-              className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-14 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 mx-1 dark:placeholder-gray-400 dark:text-teal-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name="sets"
               type="number"
               min="0"

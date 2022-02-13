@@ -43,10 +43,10 @@ const ActivityChart = (props) => {
       <div className="relative flex items-center justify-center w-48 h-48">
         <Doughnut data={data} options={options} className="z-10" />
         <div className="absolute z-0 flex flex-col items-center justify-center w-24 h-24 bg-white rounded-full">
-          <p className="text-2xl font-semibold leading-6 text-center text-fuchsia-600">
+          <p className="text-2xl font-semibold leading-6 text-center text-purple-600">
             {props.workoutLength}
           </p>
-          <p className="font-semibold leading-6 text-center text-md text-fuchsia-600">
+          <p className="font-semibold leading-6 text-center text-purple-600 text-md">
             Workouts
           </p>
         </div>

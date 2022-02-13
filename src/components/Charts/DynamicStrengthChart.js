@@ -52,7 +52,7 @@ const DynamicWorkoutStrengthChart = (props) => {
     datasets: [
       {
         data: [props.workoutData.sets, props.workoutData.reps],
-        backgroundColor: "#c026d3",
+        backgroundColor: "#9333ea",
       },
     ],
   };

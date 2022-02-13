@@ -57,6 +57,8 @@ const SPOTIFY_REDIRECT_URI_CARDIO =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_CARDIO;
 const SPOTIFY_REDIRECT_URI_STRENGTH =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_STRENGTH;
+const SPOTIFY_REDIRECT_URI_WORKOUT =
+  process.env.REACT_APP_SPOTIFY_REDIRECT_URI_WORKOUT;
 
 app.post("/api/strengthlogin", (req, res) => {
   const code = req.body.code;
@@ -69,7 +71,6 @@ app.post("/api/strengthlogin", (req, res) => {
   spotifyApi
     .authorizationCodeGrant(code)
     .then((data) => {
-      console.log(data.body.access_token);
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
@@ -94,7 +95,6 @@ app.post("/api/strengthrefresh", (req, res) => {
   spotifyApi
     .refreshAccessToken()
     .then((data) => {
-      console.log("The access token has been refreshed");
       res.json({
         accessToken: data.body.accessToken,
         expiresIn: data.body.expiresIn,
@@ -106,7 +106,6 @@ app.post("/api/strengthrefresh", (req, res) => {
 });
 
 app.post("/api/cardiologin", (req, res) => {
-  console.log("THIS IS THE CARDIO LOGIN BACKEND");
   const code = req.body.code;
   const spotifyApi = new SpotifyWebApi({
     redirectUri: SPOTIFY_REDIRECT_URI_CARDIO,
@@ -117,7 +116,6 @@ app.post("/api/cardiologin", (req, res) => {
   spotifyApi
     .authorizationCodeGrant(code)
     .then((data) => {
-      console.log(data.body.access_token);
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
@@ -142,7 +140,51 @@ app.post("/api/cardiorefresh", (req, res) => {
   spotifyApi
     .refreshAccessToken()
     .then((data) => {
-      console.log("The access token has been refreshed");
+      res.json({
+        accessToken: data.body.accessToken,
+        expiresIn: data.body.expiresIn,
+      });
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
+});
+
+app.post("/api/workoutlogin", (req, res) => {
+  const code = req.body.code;
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: SPOTIFY_REDIRECT_URI_WORKOUT,
+    clientId: SPOTIFY_CLIENT_ID,
+    clientSecret: SPOTIFY_CLIENT_SECRET,
+  });
+
+  spotifyApi
+    .authorizationCodeGrant(code)
+    .then((data) => {
+      res.json({
+        accessToken: data.body.access_token,
+        refreshToken: data.body.refresh_token,
+        expiresIn: data.body.expires_in,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+});
+
+app.post("/api/workoutrefresh", (req, res) => {
+  const refreshToken = req.body.refreshToken;
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: SPOTIFY_REDIRECT_URI_WORKOUT,
+    clientId: SPOTIFY_CLIENT_ID,
+    clientSecret: SPOTIFY_CLIENT_SECRET,
+    refreshToken,
+  });
+
+  spotifyApi
+    .refreshAccessToken()
+    .then((data) => {
       res.json({
         accessToken: data.body.accessToken,
         expiresIn: data.body.expiresIn,
