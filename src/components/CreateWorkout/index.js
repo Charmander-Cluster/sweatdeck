@@ -130,7 +130,7 @@ const CreateWorkout = () => {
             </div>
 
             <div className="flex justify-center">
-              <Link to="/createworkout/strength">
+              <Link to="/createworkout/strength/noplaylist">
                 <button className="p-3 text-lg border border-teal-600 rounded-md bg-teal-600 w-44 shadow-md shadow-black">
                   Create Strength
                 </button>
