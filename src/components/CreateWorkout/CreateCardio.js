@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { cardioLocalCreateWorkout } from "../../store/cardioLocalCreateWorkout";
+import AuthCardio from "../Spotify/useAuthCardio";
+import CardioPlaylist from "../Spotify/CardioPlaylist";
+import SpotifyModal  from "../Spotify/SpotifyModal";
+import SelectCardioPlaylist from "../Spotify/SelectCardioPlaylist"
 
 import { createDBWorkoutNoPlaylist } from "../../store/createDBWorkout";
 import { fetchLoginUser } from "../../store/auth";
@@ -10,7 +14,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const CreateCardio = (props) => {
   const redirectUri = /localhost/.test(window.location.href)
     ? "http://localhost:3000/cardioplaylist"
-    : "https://sweatdeck.herokuapp.com/cardioplaylist";
+    : "https://sweatdeck-test.herokuapp.com/cardioplaylist";
 
   const scopes = [
     "streaming",
@@ -29,9 +33,19 @@ const CreateCardio = (props) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const returnedWorkout = props.returnedWorkout
 
   const [user, setUser] = useState(getAuth().currentUser);
   const [workoutAdded, setWorkoutAdded] = useState(false);
+  const [accessToken, setAccessToken] = useState("")
+  const [spotifyLoggedIn, setSpotifyLoggedIn] = useState(false)
+  // const [btnState, setBtnState] = useState(false)
+  const [token, setToken] = useState("")
+
+  //console.log("**TOKEN**", token)
+  console.log("**WINDOW**", window.location)
+  // console.log("btnState", btnState)
+  //console.log(workout)
 
   const authUser = useSelector((state) => state.auth);
   onAuthStateChanged(getAuth(), (u) => {
@@ -39,32 +53,17 @@ const CreateCardio = (props) => {
   });
   const userId = authUser.uid;
 
-  let cardioLocalWorkout = useSelector((state) => {
-    return state.cardioLocalWorkout;
-  });
-
   useEffect(() => {
     dispatch(fetchLoginUser());
   }, [dispatch, user]);
 
-  useEffect(() => {
-    if (workoutAdded) {
-      dispatch(createDBWorkoutNoPlaylist(cardioLocalWorkout, userId));
-      dispatch(cardioLocalCreateWorkout({}));
-      history.push("/confirmcardiocreate");
-      // setRedirect(true);
-    }
-  }, [dispatch, workoutAdded, cardioLocalWorkout, userId]);
-
-  // const localWorkout = useSelector(state => state.localWorkout)
-
   const [workout, setWorkout] = useState({
     category: "cardio",
-    name: !cardioLocalWorkout.name ? "" : cardioLocalWorkout.name,
+    name: !returnedWorkout ? "" : returnedWorkout.name,
     exercises:
-      !cardioLocalWorkout.exercises || cardioLocalWorkout.exercises.length === 0
+      !returnedWorkout || returnedWorkout.exercises.length === 0
         ? []
-        : cardioLocalWorkout.exercises,
+        : returnedWorkout.exercises,
     userId: "",
     timesCompleted: 0,
     datesCompleted: [],
@@ -72,21 +71,21 @@ const CreateCardio = (props) => {
   });
 
   const [exercises, setExercises] = useState({
-    type: !cardioLocalWorkout.exercises
+    type: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].type,
-    distance: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].type,
+    distance: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].distance,
-    units: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].distance,
+    units: !returnedWorkout
       ? "select"
-      : cardioLocalWorkout.exercises[0].units,
-    hours: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].units,
+    hours: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].hours,
-    minutes: !cardioLocalWorkout.exercises
+      : returnedWorkout.exercises[0].hours,
+    minutes: !returnedWorkout
       ? ""
-      : cardioLocalWorkout.exercises[0].minutes,
+      : returnedWorkout.exercises[0].minutes,
   });
 
   const handleChange = (event) => {
@@ -97,20 +96,41 @@ const CreateCardio = (props) => {
     setExercises({ ...exercises, [event.target.name]: event.target.value });
   };
 
+  const login = () => {
+    let popup = window.open(AUTH_URL,
+      'Login with Spotify',
+      'width=800,height=600')
+   }
+
+
+  //CREATE THE POPUP
+  const handleBtnClick = () => {
+    var spotifyLoginWindow = window.open(AUTH_URL, 'Login with Spotify',
+    'width=600,height=800');
+
+  // Close event -- assign the access token
+    // spotifyLoginWindow.onbeforeunload = function() {
+    //   setToken(localStorage.getItem('spotifyToken'))
+    // }
+    spotifyLoginWindow.onunload = function() {
+      setToken(localStorage.getItem('spotifyToken'))
+    }
+  }
+
+  console.log(token)
+
   const handleSubmitWithSpotify = (event) => {
     event.preventDefault();
     workout.exercises.push(exercises);
-    //Creates application state
-    dispatch(cardioLocalCreateWorkout(workout));
-    //sends to auth URL -- SUCCESSFUL
-    window.location.href = AUTH_URL;
+    handleBtnClick(event)
   };
 
   const handleSubmitWithoutPlaylist = (event) => {
     event.preventDefault();
     workout.exercises.push(exercises);
-    dispatch(cardioLocalCreateWorkout(workout));
-    setWorkoutAdded(true);
+    dispatch(createDBWorkoutNoPlaylist(workout, userId));
+    history.push("/confirmcardiocreate")
+    //setWorkoutAdded(true);
   };
 
   const handleDelete = () => {
@@ -127,8 +147,13 @@ const CreateCardio = (props) => {
     history.push("/createworkout");
   };
 
-  return (
-    <div className="flex flex-col py-2">
+  const handleCancel = (event) => {
+    event.preventDefault()
+    setToken("")
+  }
+
+  return (token) ? (<SelectCardioPlaylist token={token} workout={workout} handleCancel={handleCancel}/>) :
+  (<div className="flex flex-col py-2">
       {/* <div className="flex items-center justify-center">
         <h1 className="my-5 text-3xl text-purple-500 align-center">
           Create Cardio Workout
