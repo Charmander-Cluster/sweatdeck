@@ -39,7 +39,7 @@ const CardioOrStrengthButtons = () => {
           <Link to={{ pathname: `/users/${id}/workouts`, state: "cardio" }}>
             <button
               type="button"
-              className="p-3 text-lg bg-purple-800 border border-purple-800 rounded-md shadow-md w-44 shadow-black"
+              className="p-3 text-lg bg-purple-600 border border-purple-600 rounded-md shadow-md w-44 shadow-black"
             >
               Cardio
             </button>
