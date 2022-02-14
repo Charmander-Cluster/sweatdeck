@@ -10,7 +10,7 @@ import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
 import { stateNumCalc, ageCalc} from "../brain/dataMods"
-import { reco } from "../brain/index";
+//import { reco } from "../brain/index";
 
 
 const SET_AUTH = "SET_AUTH";
@@ -59,8 +59,8 @@ export const authSignUp = (user) => async (dispatch) => {
     //const userLong = longCalc(user.state);
     const stateNumber = stateNumCalc(user.state);
     const age = ageCalc(user.birthday)
-    const recOutput = reco([age, stateNumber])
-    const groupNum = recOutput.indexOf(Math.max(...recOutput))
+    //const recOutput = reco([age, stateNumber])
+    //const groupNum = recOutput.indexOf(Math.max(...recOutput))
 
     await setDoc(doc(users, response.user.uid), {
       email: user.email,
@@ -76,7 +76,7 @@ export const authSignUp = (user) => async (dispatch) => {
       //lat: userLat,
       //long: userLong,
       stateNum: stateNumber,
-      group: groupNum
+      group: 2
 
     });
     if (response.user.uid) {

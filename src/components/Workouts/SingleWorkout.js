@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { logDBWorkout } from "../../store/logWorkout";
 import { Link } from "react-router-dom";
 
-//import Popup from "../../components/Popup";
 
 import SpotifyPlayer from "react-spotify-web-playback";
 

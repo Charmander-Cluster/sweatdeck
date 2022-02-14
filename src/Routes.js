@@ -23,7 +23,6 @@ import CardioOrStrengthButtons from "./components/Workouts/CardioOrStrengthButto
 import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
-import Popup from "./components/Popup";
 import RecommendedWorkouts from "./components/RecommendedWorkouts";
 import RecommendedSingleWorkout from "./components/RecommendedSingleWorkout";
 
