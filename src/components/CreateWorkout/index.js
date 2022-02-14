@@ -83,7 +83,7 @@ const CreateWorkout = () => {
             <div className="my-6 ml-0 lg:ml-20 lg:my-0">
               <button
                 className="text-xl font-bold leading-tight text-white"
-                button
+                type="button"
                 onClick={() => setWithPlaylist(false)}
               >
                 Without Playlist
