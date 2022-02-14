@@ -77,7 +77,7 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center pb-16 md:justify-center">
+      <div className="flex flex-col items-center pb-16 md:justify-center md:items-center md:align-middle">
         <div className="overflow-hidden rounded">
           <div className="relative z-10">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto ">
@@ -255,7 +255,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="pb-4 ">
+          <div className="flex items-center justify-center pb-4 md:w-6/12 md:ml-72">
             <Calendar
               prevLabel={null}
               prev2Label={null}
