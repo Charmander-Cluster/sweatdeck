@@ -517,7 +517,7 @@ const SignUp = () => {
                       </div>
                       <div className="relative mt-2">
                         <h1 className="pt-2 font-extrabold">
-                          Workout Frequency
+                          Workout Frequency (Per Week)
                         </h1>
 
                         <Field
@@ -526,14 +526,14 @@ const SignUp = () => {
                           name="frequency"
                           as="select"
                         >
-                          <option value="0">0</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
+                          <option value="0">0 days</option>
+                          <option value="1">1 day</option>
+                          <option value="2">2 days</option>
+                          <option value="3">3 days</option>
+                          <option value="4">4 days</option>
+                          <option value="5">5 days</option>
+                          <option value="6">6 days</option>
+                          <option value="7">7 days</option>
                         </Field>
                       </div>
                     </div>
