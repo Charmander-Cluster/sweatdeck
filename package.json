@@ -64,7 +64,8 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4"
+    "workbox-streams": "^5.1.4",
+    "xi": "^0.0.1"
   },
   "scripts": {
     "start": "node server",
@@ -74,9 +75,6 @@
     "eject": "react-scripts eject",
     "server": "nodemon server",
     "start:dev": "npm run start-react & npm run server"
-  },
-  "engines": {
-    "node": "16.13.0"
   },
   "eslintConfig": {
     "extends": [
