@@ -66,7 +66,7 @@ const Dashboard = () => {
           <div className="relative z-10 pb-10 md:mt-4">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex">
               <div className="flex flex-col items-start">
-                <div className="my-6 ml-0 lg:ml-20 lg:my-0">
+                <div className="my-6 ml-0 lg:ml-10 lg:my-0">
                   <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
                     Dashboard
                   </h4>
@@ -78,10 +78,10 @@ const Dashboard = () => {
           <div className="container px-6 mx-auto md:max-w-md">
             <DynamicActivity workouts={completedCheck} />
           </div>
-          <div className="md:flex md:flex-col md:justify-center md:items-center">
+          <div className="md:flex md:flex-col">
             {cardioCheck.length > 0 && (
-              <div className="container flex items-start justify-between px-6 mx-auto md:justify-center lg:flex-row lg:items-center">
-                <div className="flex justify-between lg:flex-row lg:items-center">
+              <div className="container flex items-start justify-between px-6 mx-auto md:mx-1 ">
+                <div className="flex justify-between md:justify-start">
                   <Link
                     to={{
                       pathname: `/users/${authUser.uid}/workouts`,
@@ -130,10 +130,10 @@ const Dashboard = () => {
                 })}
             </div>
           </div>
-          <div className="md:flex md:flex-col md:justify-center md:items-center">
+          <div className="md:flex md:flex-col">
             {strengthCheck.length > 0 && (
-              <div className="container flex items-start justify-between px-6 mx-auto md:justify-center lg:flex-row lg:items-center">
-                <div className="flex justify-between lg:flex-row lg:items-center">
+              <div className="container flex items-start justify-between px-6 mx-auto md:mx-1">
+                <div className="flex justify-between ">
                   <Link
                     to={{
                       pathname: `/users/${authUser.uid}/workouts`,

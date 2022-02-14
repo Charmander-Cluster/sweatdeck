@@ -24,8 +24,8 @@ import SignUp from "./components/User/SignUp";
 import EditCardioWorkout from "./components/Workouts/EditWorkout/EditCardioWorkout";
 import EditStrengthWorkout from "./components/Workouts/EditWorkout/EditStrengthWorkout";
 import Popup from "./components/Popup";
-import RecommendedWorkouts from "./components/RecommendedWorkouts"
-import RecommendedSingleWorkout from "./components/RecommendedSingleWorkout"
+import RecommendedWorkouts from "./components/RecommendedWorkouts";
+import RecommendedSingleWorkout from "./components/RecommendedSingleWorkout";
 
 import PasswordReset from "./components/User/PasswordReset";
 import BarRoute from "./components/LoadingBar/BarRoute";
@@ -33,7 +33,7 @@ import BarRoute from "./components/LoadingBar/BarRoute";
 const Routes = () => {
   const authUser = useSelector((state) => state.auth);
 
-  const routes = [
+  const restrictedRoutes = [
     {
       title: "UserProfile",
       path: "/users/:id",
@@ -63,6 +63,18 @@ const Routes = () => {
       path: "/users/:id/workouts/:docId",
       exact: true,
       component: SingleWorkout,
+    },
+    {
+      title: "CardioNoPlaylist",
+      path: "/createworkout/cardio/noplaylist",
+      exact: true,
+      component: CardioNoPlaylist,
+    },
+    {
+      title: "StrengthNoPlaylist",
+      path: "/createworkout/strength/noplaylist",
+      exact: true,
+      component: StrengthNoPlaylist,
     },
     // {
     //   title: "RecommendedWorkouts",
@@ -140,7 +152,7 @@ const Routes = () => {
     },
   ];
 
-  const restrictedRoutes = [
+  const routes = [
     {
       title: "SignUp",
       path: "/signup",
@@ -165,13 +177,13 @@ const Routes = () => {
     <>
       {authUser.uid ? (
         <Switch>
-          {routes.map((route, i) => (
+          {restrictedRoutes.map((route, i) => (
             <BarRoute key={i} {...route} />
           ))}
         </Switch>
       ) : (
         <Switch>
-          {restrictedRoutes.map((route, i) => (
+          {routes.map((route, i) => (
             <BarRoute key={i} {...route} />
           ))}
         </Switch>
