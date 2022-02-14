@@ -40,7 +40,7 @@ const RecommendedWorkouts = (props) => {
 
                               <Link
                                 to={`/users/${id}/recommendedWorkouts/${workout.elemId}`}
-                                className="p-3 text-sm text-center text-white bg-teal-500 rounded-md"
+                                className="p-3 text-sm text-center text-white bg-teal-600 rounded-md"
                               >
                                 See Workout
                               </Link>
