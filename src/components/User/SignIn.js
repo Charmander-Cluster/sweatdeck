@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { authenticate } from "../../store/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
+import ErrorModal from "./ErrorModal"
 
 const SignIn = () => {
   let history = useHistory();
@@ -27,31 +28,14 @@ const SignIn = () => {
       </div>
       <Formik
         initialValues={{ email: "", password: "" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-
-          const passwordRegex = /(?=.*[0-9])/;
-          if (!values.password) {
-            errors.password = "Required";
-          } else if (values.password.length < 6) {
-            errors.password = "Password must be 6 characters long.";
-          } else if (!passwordRegex.test(values.password)) {
-            errors.password = "Invalid password. Must contain one number.";
-          }
-        }}
-        onSubmit={(values) => {
-          dispatch(authenticate(values.email, values.password));
-          history.push("/");
+        onSubmit={async (values) => {
+          await dispatch(authenticate(values.email, values.password));
+          // if (auth.error) {
+          //   setBtnState((prev) => !prev);
+          // }
         }}
       >
-        {({ errors, touched, handleSubmit }) => (
+        {({ handleSubmit }) => (
           <Form
             className="flex flex-col items-center justify-center p-8 mb-4 bg-teal-600 rounded-md shadow-md mt-7 shadow-black md:w-4/12"
             onSubmit={handleSubmit}
@@ -63,9 +47,7 @@ const SignIn = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                validate
               />
-              {errors.email && touched.email && errors.email}
             </div>
             <div>
               <h1 className="mt-1 text-sm font-extrabold">Password</h1>
@@ -75,7 +57,7 @@ const SignIn = () => {
                   type={visible}
                   placeholder="Password"
                   name="password"
-                  validate
+                  
                 />
                 <div className="absolute right-0 mr-3 stroke-purple-600 hover:stroke-purple-700">
                   <svg
@@ -92,7 +74,6 @@ const SignIn = () => {
                   </svg>
                 </div>
               </div>
-              {errors.password && touched.password && errors.password}
             </div>
             <div className="pt-2">
               <button

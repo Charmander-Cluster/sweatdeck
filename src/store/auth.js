@@ -9,6 +9,9 @@ import {
 import { collection, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
+import { stateNumCalc, ageCalc} from "../brain/dataMods"
+import { reco } from "../brain/index";
+
 
 const SET_AUTH = "SET_AUTH";
 
@@ -17,7 +20,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (email, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    dispatch(logout());
+    //dispatch(logout());
     await signInWithEmailAndPassword(auth, email, password);
     const user = auth.currentUser;
     if (user !== null) {
@@ -26,7 +29,8 @@ export const authenticate = (email, password) => async (dispatch) => {
       dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
-    console.log("Error at authenticate thunk", authError);
+    dispatch(setAuth({error: authError}))
+    //console.log("Error at authenticate thunk", authError);
   }
 };
 
@@ -51,6 +55,12 @@ export const authSignUp = (user) => async (dispatch) => {
     );
 
     const users = collection(db, "users");
+    //const userLat = latCalc(user.state);
+    //const userLong = longCalc(user.state);
+    const stateNumber = stateNumCalc(user.state);
+    const age = ageCalc(user.birthday)
+    const recOutput = reco([age, stateNumber])
+    const groupNum = recOutput.indexOf(Math.max(...recOutput))
 
     await setDoc(doc(users, response.user.uid), {
       email: user.email,
@@ -63,6 +73,11 @@ export const authSignUp = (user) => async (dispatch) => {
       favoriteWorkoutType: user.favoriteWorkoutType,
       frequency: user.frequency,
       goal: user.goal,
+      //lat: userLat,
+      //long: userLong,
+      stateNum: stateNumber,
+      group: groupNum
+
     });
     if (response.user.uid) {
       dispatch(authenticate(user.email, user.password));

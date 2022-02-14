@@ -86,7 +86,7 @@ const SingleWorkout = () => {
                       <div className="flex justify-start">
                         <button
                           type="button"
-                          className="flex p-1 ml-2 text-base text-teal-500 border border-2 border-teal-500 rounded-md"
+                          className="flex p-1 ml-2 text-base text-teal-600 border border-2 border-teal-600 rounded-md"
                           onClick={handleDeleteModal}
                         >
                           Go back
@@ -265,7 +265,7 @@ const SingleWorkout = () => {
                           <div>
                             <Link
                               to={`/users/${id}/workouts/${docId}/edit${workout.category}`}
-                              className="flex p-1 mb-3 ml-3 text-base text-center text-white bg-teal-500 rounded-md"
+                              className="flex p-1 mb-3 ml-3 text-base text-center text-white bg-teal-600 rounded-md"
                             >
                               Edit Workout
                             </Link>

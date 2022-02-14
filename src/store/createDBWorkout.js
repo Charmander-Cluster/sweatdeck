@@ -28,9 +28,10 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
       category: workout.category,
       exercises: workout.exercises,
       playlist: workout.playlist,
-      datesCompleted: workout.datesCompleted,
-      timesCompleted: workout.timesCompleted,
-    }).then(function (docRef) {
+      datesCompleted: [],
+      timesCompleted: 0
+    })
+    .then(function (docRef) {
       const userWorkoutId = docRef.id;
       dispatch(_createDBWorkout(userWorkoutId));
       setDoc(doc(db, "workouts", userWorkoutId), {
@@ -39,8 +40,8 @@ export const createDBWorkout = (workout, userId) => async (dispatch) => {
         category: workout.category,
         exercises: workout.exercises,
         playlist: workout.playlist,
-        userId: doc(db, "users", userId),
-        logs: workout.logs,
+        userId: userId,
+        logs: 0
       });
     });
   } catch (error) {
@@ -58,8 +59,8 @@ export const createDBWorkoutNoPlaylist =
         name: workout.name,
         category: workout.category,
         exercises: workout.exercises,
-        datesCompleted: workout.datesCompleted,
-        timesCompleted: workout.timesCompleted,
+        datesCompleted: [],
+        timesCompleted: 0
       }).then(function (docRef) {
         const userWorkoutId = docRef.id;
         dispatch(_createDBWorkout(userWorkoutId));
@@ -68,8 +69,8 @@ export const createDBWorkoutNoPlaylist =
           name: workout.name,
           category: workout.category,
           exercises: workout.exercises,
-          userId: doc(db, "users", userId),
-          logs: workout.logs,
+          userId: userId,
+          logs: 0
         });
       });
     } catch (error) {
