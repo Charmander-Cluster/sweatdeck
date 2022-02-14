@@ -1,6 +1,6 @@
 //import brain from "brain.js"
 import { trainData } from './dataset';
-import { NeuralNetwork } from 'brain.js/dist/brain-browser.mjs'
+// import { NeuralNetwork } from 'brain.js/dist/brain-browser.mjs'
 import { shuffle } from './shuffle';
 
 //import brain from "brain.js"
@@ -15,16 +15,16 @@ const brain = require("brain.js");
 //   {input: [73, 27.994402, -81.760254], output: [0,0,0,0,0,0,0,1]}, //FL
 // ]
 
-  const net = new NeuralNetwork(
+  const net = new brain.NeuralNetwork(
     {
       hiddenLayers: [4],
     learningRate: 0.5 // global learning rate, useful when training using streams
   }
   );
-  
+
   net.train(shuffle(trainData));
 
-  // const output = net.run([73, 27.994402, -81.760254])  
+  // const output = net.run([73, 27.994402, -81.760254])
   // console.log('output: ', output) //[0,0,0,0,0,0,0,1]
 
   export const reco = (arr) => {
