@@ -24,7 +24,8 @@ const StrengthNoPlaylist = (props) => {
 
   const [counter, setCounter] = useState(0);
 
-  const handleAdd = () => {
+  const handleAdd = (event) => {
+    event.preventDefault()
     setCounter(counter + 1);
     setWorkout({ ...workout, count: counter + 1 });
   };
