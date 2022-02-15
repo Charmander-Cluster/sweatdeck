@@ -64,13 +64,12 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4",
-    "xi": "^0.0.1"
+    "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "node server",
+    "start": "react-scripts --max_old_space_size=4096 start",
     "start-react": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server",
