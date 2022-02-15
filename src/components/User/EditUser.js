@@ -53,12 +53,12 @@ const EditUser = () => {
       >
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <div className=" md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
+            <div className=" md:min-h-screen md:flex md:flex-col md:justify-center md:align-middle ">
               <div className="flex items-start justify-start overflow-hidden">
-                <div className="relative z-10 flex items-start justify-start pt-2 pb-2 md:pt-0">
-                  <div className="container flex flex-col items-start justify-between px-6 mx-auto">
+                <div className="relative z-10 pb-10 md:mt-4">
+                  <div className="container flex flex-col items-start justify-between px-9 mx-9">
                     <div className="flex flex-col items-start">
-                      <div className="my-6 ml-0 md:mt-4">
+                      <div className="my-4 ml-0 md:mt-4">
                         <h4 className="text-2xl font-bold leading-tight text-white">
                           Edit
                         </h4>
