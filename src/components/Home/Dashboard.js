@@ -20,11 +20,13 @@ const Dashboard = () => {
 
   const cardioContainerRef = useRef();
   const strengthContainerRef = useRef();
+  const mainContainerRef = useRef();
 
   useEffect(() => {
     if (!isLoading && latestWorkouts.length > 0) {
       cardioContainerRef.current.scrollLeft = 0;
       strengthContainerRef.current.scrollLeft = 0;
+      mainContainerRef.current.scrollTop = 0;
       setStrengthCheck(
         latestWorkouts.filter(
           (workout) => workout.workoutData.category === "strength"
@@ -62,7 +64,7 @@ const Dashboard = () => {
   return (
     <>
       {latestWorkouts.length > 0 ? (
-        <div className="pb-16">
+        <div ref={mainContainerRef} className="pb-16">
           <div className="relative z-10 pb-10 md:mt-4">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex">
               <div className="flex flex-col items-start">

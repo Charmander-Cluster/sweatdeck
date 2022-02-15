@@ -243,7 +243,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="pb-4">
+          <div className="pb-14">
             <Calendar
               prevLabel={null}
               prev2Label={null}
