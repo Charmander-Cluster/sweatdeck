@@ -75,9 +75,6 @@
     "server": "nodemon server",
     "start:dev": "npm run start-react & npm run server"
   },
-  "engines": {
-    "node": "16.13.1"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
