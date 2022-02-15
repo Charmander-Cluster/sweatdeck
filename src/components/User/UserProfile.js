@@ -77,10 +77,10 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center pb-16 md:justify-center md:items-center md:align-middle">
+      <div className="flex items-center pb-16 md:justify-center md:items-center md:align-middle">
         <div className="overflow-hidden rounded">
           <div className="relative z-10">
-            <div className="container flex flex-col items-start justify-between px-6 mx-auto ">
+            <div className="container flex flex-col items-start justify-between px-6 mx-auto">
               <div className="flex flex-col items-start ">
                 <div className="my-6 ml-0 md:ml-52">
                   <h4 className="text-2xl font-bold leading-tight text-white">
@@ -91,18 +91,18 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-start justify-start p-4 mx-2 rounded md:mx-auto md:max-w-md md:justify-center ">
-            <div className="flex flex-row md:ml-2">
+          <div className="flex flex-col justify-center p-4 mx-2 md:mx-auto md:max-w-md md:justify-center ">
+            <div className="flex flex-row pb-2 truncate md:ml-2">
               {user.gender === "Male Identifying" ? (
-                <div className="w-24 h-24">
+                <div className="w-24">
                   <img
                     src={maleImage}
                     alt="User Profile"
-                    className="object-cover w-full h-full rounded-full shadow-md shadow-black"
+                    className="object-cover rounded-full shadow-md shadow-black"
                   />
                 </div>
               ) : user.gender === "Female Identifying" ? (
-                <div className="w-24 h-24">
+                <div className="w-24">
                   <img
                     src={femaleImage}
                     alt="User Profile"
@@ -110,7 +110,7 @@ const UserProfile = () => {
                   />
                 </div>
               ) : (
-                <div className="w-20 h-20">
+                <div className="w-24">
                   <img
                     src={defaultImage}
                     alt="User Profile"
@@ -118,16 +118,14 @@ const UserProfile = () => {
                   />
                 </div>
               )}
-              <div className="z-10 pt-7">
-                <div className="ml-5">
-                  <h4 className="text-4xl font-bold leading-tight text-white">
-                    {user.username}
-                  </h4>
-                </div>
+              <div className="ml-5 max-w-0 pt-7">
+                <h4 className="text-4xl font-bold leading-tight text-white">
+                  {user.username}
+                </h4>
               </div>
             </div>
             <div className="flex flex-col items-start justify-start md:ml-8">
-              <div className="flex flex-row items-start justify-start mt-2">
+              <div className="flex flex-row items-start justify-start pt-2">
                 <svg
                   className="w-6 h-6 mt-2.5 mr-2 ml-1.5"
                   fill="none"
@@ -255,7 +253,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center pb-4 md:w-6/12 md:ml-72">
+          <div className="flex items-center justify-center pb-4">
             <Calendar
               prevLabel={null}
               prev2Label={null}

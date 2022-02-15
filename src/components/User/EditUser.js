@@ -29,7 +29,7 @@ const EditUser = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
+    <div className="flex items-center py-2 md:justify-center">
       <Formik
         initialValues={{
           username: user.username,
@@ -53,11 +53,11 @@ const EditUser = () => {
       >
         {({ values, handleSubmit, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <div className=" md:min-h-screen md:flex md:flex-col md:justify-center md:pt-0">
-              <div className="flex items-start justify-start overflow-hidden">
-                <div className="relative z-10 flex items-start justify-start pt-2 pb-2 md:pt-0">
-                  <div className="container flex flex-col items-start justify-between px-6 mx-auto">
-                    <div className="flex flex-col items-start">
+            <div className="md:min-h-screen md:justify-center md:pt-0">
+              <div className="flex">
+                <div className="relative z-10 flex justify-start pb-2 md:pt-0">
+                  <div className="container flex justify-between px-6 mx-auto">
+                    <div className="flex ">
                       <div className="my-6 ml-0 md:mt-4">
                         <h4 className="text-2xl font-bold leading-tight text-white">
                           Edit
@@ -68,8 +68,8 @@ const EditUser = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-start justify-start p-8 mx-6 mb-6 bg-teal-600 rounded-md shadow-md shadow-black">
-                <div className="flex flex-row pb-4">
+              <div className="flex flex-col justify-center px-8 py-6 mx-6 bg-teal-600 rounded-md shadow-md shadow-black">
+                <div className="flex flex-row pb-4 truncate">
                   {user.gender === "Male Identifying" ? (
                     <div className="w-24 h-24">
                       <img
@@ -87,7 +87,7 @@ const EditUser = () => {
                       />
                     </div>
                   ) : (
-                    <div className="w-20 h-20">
+                    <div className="w-24 h-24">
                       <img
                         src={defaultImage}
                         alt="User Profile"
@@ -95,12 +95,10 @@ const EditUser = () => {
                       />
                     </div>
                   )}
-                  <div className="z-10 pt-7">
-                    <div className="ml-3">
-                      <h4 className="text-4xl font-bold leading-tight text-white">
-                        {user.username}
-                      </h4>
-                    </div>
+                  <div className="ml-3 pt-7 max-w-0">
+                    <h4 className="text-4xl font-bold leading-tight text-white">
+                      {user.username}
+                    </h4>
                   </div>
                 </div>
                 <div className="w-full">
@@ -109,7 +107,7 @@ const EditUser = () => {
                   <Field
                     type="text"
                     name="username"
-                    className="relative block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
+                    className="relative block w-full py-2 pl-3 pr-20 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-md appearance-none text-ellipsis shadow-black focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 "
                     placeholder="Username"
                   />
                   {errors.username && touched.username && errors.username}
