@@ -62,7 +62,7 @@ const Dashboard = () => {
   return (
     <>
       {latestWorkouts.length > 0 ? (
-        <div className="pb-16 scroll">
+        <div className="pb-16">
           <div className="relative z-10 pb-10 md:mt-4">
             <div className="container flex flex-col items-start justify-between px-6 mx-auto md:ml-12 md:justify-center md:flex">
               <div className="flex flex-col items-start">
@@ -75,7 +75,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="container px-6 mx-auto md:max-w-md">
+          <div className="container flex items-start justify-start px-6 mx-auto md:max-w-md">
             <DynamicActivity workouts={completedCheck} />
           </div>
           <div className="md:flex md:flex-col">
@@ -94,7 +94,7 @@ const Dashboard = () => {
                     </h4>
 
                     <svg
-                      className="w-6 h-6 mt-1 ml-2 md:hidden"
+                      className="w-6 h-6 mt-1 ml-2"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -113,7 +113,7 @@ const Dashboard = () => {
             )}
             <div
               ref={cardioContainerRef}
-              className="flex flex-row overflow-auto snap-x hide-scrollbar md:max-w-min"
+              className="flex flex-row overflow-auto snap-x hide-scrollbar md:max-w-min md:overflow-scroll"
             >
               {latestWorkouts
                 .filter((workout) => workout.workoutData.category === "cardio")
@@ -146,7 +146,7 @@ const Dashboard = () => {
                     </h4>
 
                     <svg
-                      className="w-6 h-6 mt-1 ml-2 md:hidden"
+                      className="w-6 h-6 mt-1 ml-2"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
