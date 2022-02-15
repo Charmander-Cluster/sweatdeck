@@ -35,7 +35,7 @@
 }
 
 .react-calendar {
-  @apply flex flex-col items-center md:mx-auto md:w-4/12  md:max-w-2xl justify-center py-8 px-4 mx-6 bg-teal-600 shadow-md shadow-black rounded-md mt-3;
+  @apply flex flex-col items-center md:mx-auto  md:max-w-md justify-center py-8 px-4 mx-6 bg-teal-600 shadow-md shadow-black rounded-md mt-3;
 }
 
 /* .react-calendar__doubleView {

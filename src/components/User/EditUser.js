@@ -57,7 +57,7 @@ const EditUser = () => {
               <div className="flex items-start justify-start">
                 <div className="relative z-10 pb-2 md:pt-0">
                   <div className="container flex justify-between px-6 mx-auto">
-                    <div className="flex ">
+                    <div className="flex">
                       <div className="my-6 ml-0 md:mt-4">
                         <h4 className="text-2xl font-bold leading-tight text-white">
                           Edit
