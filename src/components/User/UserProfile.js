@@ -16,7 +16,6 @@ const UserProfile = () => {
   const { id } = useParams();
 
   const [date, setDate] = useState(new Date());
-  const [isLoading, setLoading] = useState(true);
 
   const { user } = useSelector((state) => state.users);
   const { allWorkouts } = useSelector((state) => state.workouts);
@@ -31,17 +30,10 @@ const UserProfile = () => {
     if (isMounted) {
       fetchData();
     }
-    setLoading(false);
     return () => {
       isMounted = false;
     };
   }, [fetchData]);
-
-  // const completedDates = allWorkouts.map((workout) => {
-  //   return workout.completedDates;
-  // });
-
-  // console.log(completedDates);
 
   const dateConverter = () => {
     const workoutDatesArr = [];
@@ -77,17 +69,15 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="flex items-center pb-16 md:justify-center md:items-center md:align-middle">
-        <div className="overflow-hidden rounded">
-          <div className="relative z-10">
-            <div className="container flex flex-col items-start justify-between px-6 mx-auto">
-              <div className="flex flex-col items-start ">
-                <div className="my-6 ml-0 md:ml-52">
-                  <h4 className="text-2xl font-bold leading-tight text-white">
-                    Profile
-                  </h4>
-                  <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
-                </div>
+      <div className="flex flex-col">
+        <div className="relative z-10 pb-10 md:mt-4">
+          <div className="container flex flex-col items-start justify-between px-6 mx-auto">
+            <div className="flex flex-col items-start ">
+              <div className="my-6 ml-0 md:ml-52">
+                <h4 className="text-2xl font-bold leading-tight text-white">
+                  Profile
+                </h4>
+                <div className="h-1 mt-4 rounded-full bg-gradient-to-l from-teal-600 to-purple-600"></div>
               </div>
             </div>
           </div>
@@ -253,7 +243,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center pb-4">
+          <div className="pb-4">
             <Calendar
               prevLabel={null}
               prev2Label={null}
